@@ -1,6 +1,26 @@
+# ignore not-sources like compiled log and setting files #
 *.class
-
-# Package Files #
+*.settings
+*.project
+*.classpath
+*.log
+*/target
+*.swp
+*.swo
+.DS_Store
 *.jar
 *.war
 *.ear
+nbactions.xml
+nb-configuration.xml
+profiles.xml
+.tomcatplugin
+C:*
+
+# make your own plattform depending scripts starting with:
+exec_*
+
+# make your own poms starting with:
+pom_*
+
+
