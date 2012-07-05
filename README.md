@@ -40,7 +40,9 @@ License
 Copyright 2009-2012 by KNURT Systeme ([http://www.knurt.de](http://www.knurt.de))
 
 Licensed under the Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported;
-you may not use this file except in compliance with the License.
+
+You may not use the Facility Access Manager except in compliance with the License.
+
 You may obtain a copy of the License at
 
 [http://creativecommons.org/licenses/by-nc-sa/3.0](http://creativecommons.org/licenses/by-nc-sa/3.0)
@@ -68,23 +70,26 @@ Server and client (computer of user) have to meet certain requirements in order 
 <a name="b-b"/>
 ### System requirements - client
 
-An up-to-date browser with activated cookies and JavaScript is required. Internet Explorer is not recommended but supported starting at Version 8.
+An up-to-date browser with activated cookies and JavaScript is required. 
+
+Internet Explorer is not recommended but supported starting at Version 8.
 
 <a name="b-c"/>
 ### System requirements - developer
 
-You need the [Server requirements as described above](#b-a). 
+You need the [server requirements as described above](#b-a). 
 
 Furthermore:
 * [Maven] (http://maven.apache.org)
 * [Java-Heinzelmann] (https://github.com/knurtsysteme/java-heinzelmann) See ```pom.xml``` to find out which version.
+* [less] (http://lesscss.org) running out of the box (without npm).
 
 ... and git.
 
 For testing:
 * [Firefox] (http://www.mozilla.org/firefox)
 
-[JMeter](http://jmeter.apache.org) and [Molybdenum](https://www.molyb.org) are shipped with the pom.xml
+[JMeter](http://jmeter.apache.org) and [Molybdenum](https://www.molyb.org) are shipped with the ```pom.xml```
 
 <a name="c"/>
 Install
@@ -98,21 +103,26 @@ Unfortunatly the installation is difficult and we do not have an installation sc
 1. [Download the latest version](http://facility-access-manager.com/download-the-facility-access-manager.html)
 2. Extract the ZIP-File
 3. Copy folder ```opt/knurt``` into system folder ```/opt```
-4. Make folder ```/opt/knurt/fam/files``` writeable for tomcat
-5. Edit file ```/opt/knurt/fam/config/fam_global.conf``` as described there. This is the place where to put in all the usernames and passwords.
+4. Ensure tomcat can read all files in ```/opt/knurt/fam``` and can write into folder ```/opt/knurt/fam/files```
+5. Edit file ```/opt/knurt/fam/config/fam_global.conf``` as described there. This is the place where to put in all the database connections.
 6. Make sure database- and email-driver jars are in your tomcat lib folder.
-7. Create CouchDB-Database (as configured in 5.) and push the design-document ```migration/as.json``` in it
-8. Create SQL-Database (as configured in 5.) and push the sql-file ```migration/init.sql``` in it
+7. Create CouchDB-Database (as configured in 5.) and push in the design-document ```migration/as.json```
+8. Create SQL-Database (as configured in 5.) and push in the sql-file ```migration/init.sql```
 9. Install ```webapp/fam-core.war``` to your webapps folder of your server (e.g. ```/usr/share/tomcat6/webapps```)
 10. Start up server and application
-11. Visit your server-uri. You should see the [http://facility-access-manager.com/fam-core](Demo System) now.
+11. Visit your server-uri. You should see this [http://facility-access-manager.com/fam-core](Demo System) now.
 12. Click the Register-Tab and register yourself. You get an email with your username then.
 13. Replace the username ```daoltman``` with your username in ```/opt/knurt/fam/config/rolesAndRights.xml``` to be an admin. Add more admins there by adding the usernames comma seperated.
 14. Log in as admin
 
-Hopefully that's it!
+Hopefully that's it! You can check all configuration parameters under Admin → System Configuration.
 
-What you have done is installing the demo system. What you may want to do is configuring the system with your facilities, booking rules, cronjobs, roles and rights. Go to [Base Configuration to know how](#d-a)
+What you have done is installing the demo system. What you may want to do is configuring the system with your facilities, booking rules, roles and rights. Go to [base Configuration to know how](#d-a)
+
+#### split application
+
+You can install the system on three different servers: One for the public page, one for protected pages and the third one for admin pages. You can also install it on two servers. The only thing to do is to configure the same public, protected and admin url in ```/opt/knurt/fam/config/fam_global.conf```. The protected and admin area do need contact the same databases.
+
 
 <a name="c-b"/>
 ### Plugins
@@ -127,32 +137,28 @@ Configuration
 
 After installing the software there are different places where to configure the system. 
 
-**How to configure the system is described just in place (in the files where to configure it).**
-
-**Make sure you edit files in UTF-8 encoding**
+**How to configure the system is described just in place (in the files where to configure it).** Find a short description of where to find what below.
 
 #### XML
 
-The Core configuration (setting up roles, facilities, booking rules etc.) is made by XML. XML stands for "Extensible Markup Language". XML files simply describe data structures.
+The core configuration (roles, facilities, booking rules) is made with XML files. XML stands for "Extensible Markup Language" and simply describe data structures.
 
 In practice, XML bean configurations which are part of the spring framework are particularly used.
 XML bean configurations can be very complex and very powerful. Basically all options of XML bean configurations can be used but basic knowledge of XML is sufficient to configure the application.
 
-For a complete description of options of an XML bean configuration visit [The IoC container](http://static.springsource.org/spring/docs/3.0.x/reference/beans.html)
+For a complete description of options of an XML bean configuration visit [the IoC container](http://static.springsource.org/spring/docs/3.0.x/reference/beans.html)
 
 [A good introduction to XML is offered by Wikipedia](http://en.wikipedia.org/wiki/XML)
 
 
 #### Velocity
 
-The system supports creating own templates. Java Code supports adding another template engine quiet easy.
-
-The one and only template by now uses [Velocity](http://velocity.apache.org/). See [Templates](#d-d)-Section for more information.
+The system supports creating own templates. The one and only template by now uses [Velocity](http://velocity.apache.org/). See [Templates](#d-d)-Section for more information.
 
 
 #### Properties
 
-Properties files are an important mean of internationalization when programming. Although the System so far only supports the English language, several texts are already configurable and stored in properties files.
+Properties files are an important mean of internationalization when programming. Although the System so far only supports the English language, several texts are stored in properties files.
 
 The use of properties files is basically the key-value coding (key=this is the value). Concerning emails placeholders are used ({0}, {1}, {2} etc.). Furthermore almost all properties files contain comments starting with a pound sign "#".
 
@@ -168,17 +174,18 @@ Some configurations like the terms, the job data or user's responsibilities are 
 ### In General
 
 #### The very core configuration ####
-Follow the instructions in the file ```/opt/knurt/fam/config/fam_global.conf```. This is where to set database accesses and so on.
+
+Follow the instructions in the file ```/opt/knurt/fam/config/fam_global.conf```. Main settings are for database connections, a hard coded direct access to a full screen booking calendar, the uri to own content (if you like to use own pictures etc), a possibility to use a proxy, the email-server-settings, file-upload settings and so on.
 
 
 #### Texts concerning the entire application ####
 
-Texts for emails, for the html header and so on are set in the file ```/opt/knurt/fam/config/lang.properties```.
+Texts for emails, html header, facilities and logbooks are set in the file ```/opt/knurt/fam/config/lang.properties```.
 
 
 #### Usually you do not have to care for ####
 
-* ```/opt/knurt/fam/config/loader.xml``` Load the other configuration files. Configure other files here.
+* ```/opt/knurt/fam/config/loader.xml``` Load the configuration files described here. Configure other files if you want to.
 * ```/opt/knurt/fam/config/calendarDefaultViews.xml``` Is deprecated and will be removed in future releases.
 * ```/opt/knurt/fam/config/mail.xml``` If you want to have a delay on sending emails.
 
@@ -188,11 +195,13 @@ Texts for emails, for the html header and so on are set in the file ```/opt/knur
 
 All facilities and booking rules are configured in the files ```/opt/knurt/fam/config/facilities*.xml```.
 
-Every facility can have its own booking rules. In most cases this is a standard booking rule. In some cases the definition can get very complex. 
+Every facility can have its own booking rules even seperated for different roles. 
 
-Two main different booking rules can be configured: Either a facility is booked over a calendar ("time based") or you have to join a queue to book a facility ("queue based").
+In most cases the booking rule is a simple standard booking rule. In some cases the definitions can get quiet complex. 
 
-Every facility can have there own booking rules. Furthermore a label for the smallest single time unit (like "school hour"), specific rights for specific users, the minimal and maximal time and units to book and much more.
+Two basically different booking rules can be configured: Either a facility is booked over a calendar ("time based") or you have to join a queue to book a facility ("queue based").
+
+A booking rule might describe things like a label for the smallest single time unit (like "school hour"), specific rights for specific users and most important: The minimal and maximal time to book as well as the minimal and maximal units to book and the total units available.
 
 The demo system provides you with easy and complex definitions described here:
 
@@ -200,7 +209,7 @@ The demo system provides you with easy and complex definitions described here:
 * ```/opt/knurt/fam/config/facilitiesPoolAbstract.xml``` Facility prototypes. Usually you do not have to care for. (change only with extreme wisdom).
 * ```/opt/knurt/fam/config/facilitiesPoolBookable.xml``` Concrete bookable facilities.
 * ```/opt/knurt/fam/config/facilitiesPoolBookingRulesAbstract.xml``` Booking rules for facilities.
-* ```/opt/knurt/fam/config/facilitiesPoolNoneBookable.xml``` Concrete non-bookable facilities.
+* ```/opt/knurt/fam/config/facilitiesPoolNoneBookable.xml``` Concrete none-bookable facilities.
 
 You have the rules and the attributes for the facilities configured? Now you have to give it a name.
 
@@ -208,7 +217,7 @@ Names are configured in the file ```/opt/knurt/fam/config/lang.properties```.
 Say you have three people to rent and you named this "facility" ```myfoo``` in ```/opt/knurt/fam/config/facilitiesConfigured.xml```.
 Three labels must be added in ```lang.properties``` then:
 
-```js
+```
 # the label shown when user choose the facility to book ("I'd like to book ...")
 myfoo.label=Nice People to rent
 # the label shown when user book one of it ("I'd like to book 1 ...")
@@ -220,11 +229,11 @@ label.capacity.myfoo.plural=People
 <a name="d-c"/>
 ### Job Data
 
-What do you want to know from the booker? How do you want to receive the request? What do you want to answer? How do you want to send your answer to the booker? 
+What do you want to know from the booker? How do you want to receive the request? What do you want to answer? How do you want to present your answer to the booker? 
 
-These four questions can be answered if you sign into the system, click Admin -> Job Data and fill out the forms as described there.
+These four questions can be answered if you sign into the system, click Admin → Job Data and fill out the forms as described there.
 
-*!!! You have to define at least one Job Data for your root facility !!!*
+**!!! You must have configured a Job Data for your root facility !!!**  Otherwise booking won't work.
 
 
 <a name="d-d"/>
@@ -261,12 +270,34 @@ All template-files can be found in the folder ```/opt/knurt/fam/template```. You
 
 #### overriding a template of the main page
 1. copy file from ```content_main/[visibility]/[resource].html``` to ```custom/[resource]_[visibility]_main.html```
-2. edit file in ```custom``` directory. example: ```cp content_main/public/home.html custom/home_public_main.html```
+2. edit file in ```custom``` directory. 
+
+example: ```cp content_main/public/home.html custom/home_public_main.html```
+
+#### overriding sub content
+1. copy file from ```content_sub/[resource].html``` to ```custom/[resource]_sub.html```
+2. edit file in ```custom``` directory. 
+
+example: ```cp content_sub/register.html custom/register_sub.html```
+
+#### configure web-analytics
+You can configure your web-analytics in the file ```custom/web-analytics.html```.
+
+If you do not want web-analytics, simply kill that file.
+
+
+#### configure maintenance and page texts
+
+In ```custom/lanuage.xml``` you can configure other things like your company name or a maintenance message. The main part of this file described page specific texts used by the template.
 
 #### define a new page
 1. add the page definitions in ```custom/config.xml``` and ```custom/language.xml``` file 
-2. (just copy an existing page ```<page>...</page>``` - think, that is self-explaining).
+2. copy an existing page ```<page>...</page>``` in both files - think, that is self-explaining.
 3. create the content file in ```custom``` directory like described above.
+4. create page specific styles in ```styles/[name].css```. 
+4. create page specific scripts in ```scripts/[name].js```.
+
+Attention: Styles and scripts are parsed by velocity. You might get difficulties if you are not including your concrete styles. See existing files for more information.
 
 #### change styles and scripts
 1. copy a file from directory ```styles``` or ```scripts``` into this directory (without renaming)
