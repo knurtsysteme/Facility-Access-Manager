@@ -1,0 +1,8 @@
+{
+	"env": {
+		"default": { 
+			"db": "${dev.couchdb.admin.url}"
+    	}
+	}
+}
+

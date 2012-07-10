@@ -1,0 +1,81 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+#js_scrollwork_password_strength {
+    border-collapse: collapse;
+    width: 100%;
+}
+#js_scrollwork_password_strength td {
+    border: 1px solid #555;
+    background-color: #EDEDED;
+    width: 33.3333333%;
+}
+#js_scrollwork_password_ok {
+    display:inline-block;
+    height:16px;
+    width:16px;
+    margin-top:-3px;
+}
+#js_scrollwork_password_ok.yes {
+    background: url("icons/glyphicons.png") no-repeat scroll 0 0 transparent;
+	background-position: -155px -518px;
+}
+#js_scrollwork_password_ok.no {
+    background: url("icons/glyphicons.png") no-repeat scroll 0 0 transparent;
+	background-position: -209px -181px;
+}
+#js_scrollwork_password_0.invalid,
+#js_scrollwork_password_1.invalid,
+#js_scrollwork_password_2.invalid {
+    border: 1px solid #AAA;
+    -moz-box-shadow: 0 0 0px white;
+    -webkit-box-shadow: 0 0 0px white;
+    -box-shadow: 0 0 0px white;
+}
+#js_scrollwork_password_0.valid{
+    border: 1px solid #9C0F0F;
+    background-color: #FFEEEE;
+    color: #AA0000;
+}
+#js_scrollwork_password_1.valid{
+    border-width: 1px;
+    border-style: solid;
+    border-color: yellow;
+    -moz-box-shadow: 0 0 3px yellow;
+    -webkit-box-shadow: 0 0 6px yellow;
+    background-color: #FFFFEE;
+    color: #555500;
+}
+#js_scrollwork_password_2.valid{
+    border: 1px solid #3C63B4;
+    -moz-box-shadow: 0 0 3px #3C63B4;
+    -webkit-box-shadow: 0 0 6px #3C63B4;
+    background-color: #EEFFEE;
+    color: #00AA00;
+}
+html.opera #js_scrollwork_password_0.valid{
+    border: 1px solid #DDDDDD !important;
+}
+html.opera #js_scrollwork_password_1.valid{
+    border: 1px solid #DDDDDD !important;
+}
+html.opera #js_scrollwork_password_2.valid{
+    border: 1px solid #DDDDDD !important;
+}
+fieldset.valid {
+    border: 1px solid #3C63B4 !important;
+}
+fieldset.invalid {
+    border: 1px solid #9C0F0F !important;
+}
+fieldset.valid legend, select.valid, input.valid, textarea.valid {
+    border: 1px solid #3C63B4 !important;
+    -moz-box-shadow: 0 0 3px #3C63B4;
+    -webkit-box-shadow: 0 0 3px #3C63B4;
+}
+fieldset.invalid legend, select.invalid, input.invalid, textarea.invalid {
+    border: 1px solid #9C0F0F !important;
+    -moz-box-shadow: 0 0 3px #9C0F0F;
+    -webkit-box-shadow: 0 0 3px #9C0F0F;
+}
+#intendedResearch_id {
+	width: 495px !important;
+}

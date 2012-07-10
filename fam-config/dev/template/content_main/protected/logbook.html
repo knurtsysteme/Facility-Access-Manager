@@ -1,0 +1,39 @@
+    #if($config.model.entryView)
+    <h1>Logbook “$config.model.logbook_name”</h1>
+    <div>$config.model.logbook_description</div>
+    #if($config.model.logbook_postingsuccess)
+    <div id="successMessage">
+		    Your message has been posted.
+    </div>
+    #end
+    <div id="tableNavi">
+        <a href="$util.html.getHref('logbookmakepost')?e=$config.model.logbookKey">Make post</a> | $util.html.a('logbook').setContent('Back to all')
+    </div>
+    <table class="standard">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Entry</th>
+                <th>Tags</th>
+                <th>User</th>
+            </tr>
+        </thead>
+        <tbody>
+            $config.model.logbook_trhtml
+        </tbody>
+    </table>
+    #else
+    <h1>Logbooks</h1>
+    <table class="standard">
+        <thead>
+            <tr>
+                <th>Logbook</th>
+                <th>Entries</th>
+                <th>Last entry</th>
+            </tr>
+        </thead>
+        <tbody>
+            $config.model.logbook_trhtml
+        </tbody>
+    </table>
+    #end

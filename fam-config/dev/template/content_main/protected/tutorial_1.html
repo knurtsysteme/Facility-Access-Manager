@@ -1,0 +1,236 @@
+<h1>How to configure the job data processing</h1>
+<div>
+	<p>
+	As a Operator you can define the job data processing on $util.html.a("configjobsurvey").setContent("this page"). The job data processing answers the questions:
+	</p>
+	<ul class="asList">
+		<li>What is the user asked on a booking request?</li>
+		<li>What is the behaviour of this request form?</li>
+		<li>How are the inputs presented to the user and to you?</li>
+		<li>What can you answer on the user inputs?</li>
+		<li>How are your inputs presented to the user and to you?</li>
+	</ul>
+	<p>
+	Learn here how to configure all this.
+	</p>
+</div>
+<h2>Navigation</h2>
+<ul>
+	<li><a href="#basics">Basics</a></li>
+	<li><a href="#velocity_possibilities">Velocity possibilities</a></li>
+</ul>
+<h2 id="basics">Basics</h2>
+<div>
+	<p>
+	To configure it, you must know HTML and/or CSS and/or JavaScript. Choose the Facility you would like to define things for. The Definitions are used recursive. That means, if you define something for a parent facility, the definitions for all children are used if nothing more specific is defined there. Click on the help icon ("Changes on this facility may effect ...") to get more information.<br />
+	</p>
+</div>
+<h3>You have 4 Tabs for your definitions</h3>
+<div>
+	<ul class="asList">
+		<li>Edit Request: The form the user gets on booking requests</li>
+		<li>View Request: The inputs presented to the user and to you</li>
+		<li>Edit Answer: The form you see whan giving user the feedback</li>
+		<li>View Answer: The inputs presented to the user and to you</li>
+	</ul>
+</div>
+<h3>Edit definitions</h3>
+<div>
+	<p>
+		Click the edit button to change the definitions for the facilities choosen. Now you get two input fields for each area:
+	</p>
+	<ul class="asList">
+		<li>HTML: Define your entire HTML Page (<span class="hint">including all JavaScript and CSS-Definitions for the Form</span>) represented in the browser here.<br />
+		<span class="warning">It is important that you define a complete HTML Page (including a &lt;body&gt;).</span>
+		</li>
+		<li>
+			Your root facility must have something defined. Otherwise the system gets into trouble.<br />
+			Please find a <a href="#recommandation">recommandation you can simply copy and paste here</a>.
+		</li>
+		<li>JavaScript: Here you can define a JavaScript executed on the page showing this form. In most cases, you can just ignore that.<br />
+			<span class="warning">Warning: Everything you define here is executed on the entire page. This can have side effects. Use at your own risk!</span>
+		</li>
+	</ul>
+	<p>
+		For all your definitions you can use the template engine <a href="http://velocity.apache.org">Velocity</a>.
+	</p>
+</div>
+<h2 id="velocity_possibilities">Velocity possibilities</h2>
+<div>
+	<a href="http://velocity.apache.org">Velocity</a> makes it possible to show specific contents like users inputs or facility properties. You have some utils in addition.
+</div>
+<h3>Specific contents</h3>
+<div>
+	<p>
+	Use <code>$facility</code> to show something depending on the actual facility the user is called. Examples:
+	</p>
+	<ul class="asList">
+		<li><code>$facility.label</code>: Shows the configured label of the facility</li>
+		<li><code>$facility.availabilityNotice</code>: Shows a notice about the actual availability</li>
+		<li><code>$facility.isReadyToUseIn</code>: Shows the minutes until this facility is ready-to-use again</li>
+	</ul>
+	<p><a href="http://facility-access-manager.com/docs/${config.version}/fam-core/apidocs/de/knurt/fam/core/model/config/Facility.html">Please find the complete documentation of the Facility-Class here</a>. Normaly you only need <code>$facility.label</code> to be prepared if another label will be confiugred for the facility.</p>
+</div>
+<div>
+	<p>
+	Use <code>$job</code> to get access to all user inputs (yours and of the booker). The available parameters depend on your form definitions and the name attribute of the input.
+	</p>
+	<p>
+		Example: Your HTML includes <code>&lt;input type="text" name="foo" /&gt;</code>, then you are able to access the users input with <code>$job.foo</code>.
+	</p>
+	<p>
+		This is why all your form-input-names must be unique.
+	</p>
+</div>
+<h3>Utilities</h3>
+<ul class="asList">
+	<li><code>\$FamText</code> is for generating specific texts (<a href="http://facility-access-manager.com/docs/${config.version}/fam-core/apidocs/de/knurt/fam/core/content/text/FamText.html">Full documentation</a>)</li>
+	<li><code>\$FamDateFormat</code> is for generating dates (<a href="http://facility-access-manager.com/docs/${config.version}/fam-core/apidocs/de/knurt/fam/core/content/text/FamDateFormat.html">Full documentation</a>)</li>
+	<li><code>\$Math</code> for performing basic numeric operations (<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Math.html">Full documentation</a>)</li>
+	<li><code>\$util</code> for different utilities (<a href="http://facility-access-manager.com/docs/${config.version}/fam-core/apidocs/de/knurt/fam/template/util/TemplateConfig.html#getUtilities()">Full documentation</a>)</li>
+</ul>
+<h3>Common techniques HTML</h3>
+<ul class="asList">
+	#set($uuagh="$\!job" + ".foo")
+	<li>Use <code>&lt;input type="text" name="foo" value="$uuagh" /&gt;</code> to prepopulate the input with an already existing input for this field. If nothing set, the input form stays empty.</li> 
+	<li>Use <code>\$FamText.valueOrAlt("$!job.foo", "no input")</code> to show the value of <code>foo</code> or the message "no input" if nothing filled in there.</li> 
+	<li>Use <code>\$util.html.formatUserInput("$!job.foo")</code> to show the value put into the html-input with the name <code>foo</code> formatted. E.g. URIs are changed to links then.</li> 
+	<li>Check <code>\#if("$uuagh"=="")</code> and you know, the input for foo is empty.</li> 
+	<li>Simply define a JavaScript Object in your HTML-Header to activate a file input. Only files uploaded in the File-Manager before can be choosen. One file upload per Job Survey is allowed. Use this Code:<br />
+<pre>
+/* show fileupload possibility
+ * up to 5 files with filetype pdf or xls in element with id a
+ */
+var FileUpload = {
+	selector:'#a', // id of the element the file upload code is shown in (required)
+	suffixes:['pdf','xls'], // allowed file suffixes (optional, default "no restriction")
+	min_files:1, // the files that must be selected at least (optional, default 1)
+	max_files:5 // the files that must be selected at most (optional, default 1)
+};
+</pre>
+	</li>
+	<li>To read uploaded files of a job use this code (in the HTML area):<br />
+	<pre>
+	#foreach($attachment in $attachments)
+		$attachment.step
+		$attachment.size
+		$attachment.name
+		$attachment.url
+	#end
+	</pre>
+	</li>
+</ul>
+<div>
+	We recommand this template page to use for new definitions:
+	<pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8" /&gt;
+		&lt;title&gt;Set a title&lt;/title&gt;
+		&lt;link rel="stylesheet" href="get-iframejobsurvey.css" /&gt;
+		&lt;script type="text/javascript" src="get-iframejobsurvey.js"&gt;&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Your content
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+</div>
+<div id="recommandation">
+	Our recommendation for the root facility<br />
+	Step 1:<br />
+	<pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8" /&gt;
+		&lt;title&gt;Job Survey of $facility.label: Edit Request&lt;/title&gt;
+		&lt;link rel="stylesheet" href="get-iframejobsurvey.css" /&gt;
+		&lt;script type="text/javascript" src="get-iframejobsurvey.js"&gt;&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;p&gt;
+			&lt;label for="id_notice"&gt;Optional notice&lt;/label&gt;
+		&lt;/p&gt;
+		&lt;p&gt;
+#set($tmp='$!job.notice')
+			&lt;textarea id="id_notice" name="notice" cols="20" rows="5"&gt;$tmp&lt;/textarea&gt;
+		&lt;/p&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+	Step 2:<br />
+	<pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8" /&gt;
+		&lt;title&gt;Job Survey of $facility.label: View Request&lt;/title&gt;
+		&lt;link rel="stylesheet" href="get-iframejobsurvey.css" /&gt;
+		&lt;script type="text/javascript" src="get-iframejobsurvey.js"&gt;&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;h3&gt;Notice&lt;/h3&gt;
+		&lt;div&gt;
+#set($tmp='$FamText.valueOrAlt("$!job.notice", "no input")')
+			$tmp
+		&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+	Step 3:<br />
+	<pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8" /&gt;
+		&lt;title&gt;Job Survey of $facility.label: Edit Feedback&lt;/title&gt;
+		&lt;link rel="stylesheet" href="get-iframejobsurvey.css" /&gt;
+		&lt;script type="text/javascript" src="get-iframejobsurvey.js"&gt;&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;p&gt;
+			&lt;label for="id_feedback"&gt;Give user a feedback&lt;/label&gt;&lt;br /&gt;
+		&lt;/p&gt;
+		&lt;p&gt;
+#set($tmp='$!job.feedback')
+			&lt;textarea id="id_feedback" name="feedback" cols="20" rows="5"&gt;$tmp&lt;/textarea&gt;
+		&lt;/p&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+	Step 4:<br />
+	<pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8" /&gt;
+		&lt;title&gt;Job Survey of $facility.label: View Feedback&lt;/title&gt;
+		&lt;link rel="stylesheet" href="get-iframejobsurvey.css" /&gt;
+		&lt;script type="text/javascript" src="get-iframejobsurvey.js"&gt;&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+#set($tmp='#if("$!job.feedback"=="")')
+		$tmp
+			No Feedback from the operator so far
+		\#else
+			&lt;h3&gt;Operators feedback&lt;/h3&gt;
+			&lt;div&gt;
+				\$util.html.formatUserInput("$!job.feedback")
+			&lt;/div&gt;
+		\#end
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+</div>
+<h3>Common techniques JavaScript</h3>
+<div>
+Because of the job survey is shown in an iframe, there are some helper methods.
+</div>
+<ul class="asList">
+	<li><code>JobSurveyIO.selector</code> is a jQuery selector to select an object in the iframe. Use this every time <code>JobSurveyIO.selector('#my_input')</code> instead of <code>$('#my_input')</code></li>
+	<li><code>JobSurveyIO.validate</code> function to override the validation behaviour of the page</li> 
+	<li><code>JobSurveyIO.getValue()</code> get the actual value of the page</li>
+	<li><code>JobSurveyIO.effectOnMissingInput('#foo');</code> shows an effect for a missing input with the id <code>#foo</code></li>
+</ul>

@@ -1,0 +1,91 @@
+#set($overview=true)
+#if(!$util.value.isNull($config.model.statistic))
+  #if($config.model.statistic.id==2)
+    #set($overview=false)
+    #parse("content_main/admin/statistics_booking.html")
+  #end
+#end
+#if($overview)
+<script type="text/javascript">
+    var showhide = function() {
+        if($F('kind_id') == 1) {
+            $('options_id').show();
+        } else {
+            $('options_id').hide();
+        }
+    }
+    Event.observe(window, 'load', function(){
+        showhide();
+        Event.observe($('kind_id'), 'change', showhide);
+        Event.observe('showURL', 'click', function(){
+            var showUrl_result = window.location + "&" + Form.serialize('js_theform');
+            var comment = 'Please copy and paste this link:<br />';
+            $('showUrl_container').innerHTML = comment+'<a href="'+showUrl_result+'">'+' '+showUrl_result+'</a>';
+            new Effect.Highlight($('showUrl_container'));
+        });
+    });
+</script>
+<h1>Please choose a statistic</h1>
+#set($onclick = "")
+#if($config.model.direct_access)
+#set($onclick = "onclick='return false;'")
+#end
+<form id="js_theform" action="$util.html.getHref('statistics')" method="get" $onclick>
+  <fieldset>
+        <legend>1. Select statistic</legend>
+        <label for="kind_id">Available statistics</label><br />
+        <select id="kind_id" name="$config.model.name_id">
+            $config.model.options_id
+        </select>
+	</fieldset>
+  <fieldset id="options_id">
+      <legend>2. Select options</legend>
+      <p>
+          <label for="list_of_facilities_id">Select facility</label><br />
+          <select id="list_of_facilities_id" name="$config.model.name_facility">
+              $config.model.options_facility
+          </select>
+      </p>
+      <p>
+          <label for="week_id">Select week</label><br />
+          <select id="week_id" name="$config.model.name_week">
+              $config.model.options_week
+          </select>
+      </p>
+      <p>
+          <label for="timestart_id">Select start time</label><br />
+          <select id="timestart_id" name="$config.model.name_timestart">
+              $config.model.options_timestart
+          </select>
+      </p>
+      <p>
+          <label for="timeend_id">Select end time</label><br />
+          <select id="timeend_id" name="$config.model.name_timeend">
+              $config.model.options_timeend
+          </select>
+      </p>
+      <p>
+          <label for="refresh_id">Select refreshing the view:</label><br />
+          <select id="refresh_id" name="$config.model.name_refresh">
+              <option value="-1">Never refresh</option>
+              <option value="2">every 2 minutes</option>
+              <option value="5">every 5 minutes</option>
+              <option value="10">every 10 minutes</option>
+              <option value="30" selected="selected">every 30 minutes</option>
+              <option value="60">every hour</option>
+              <option value="120">every 2 hours</option>
+              <option value="180">every 3 hours</option>
+          </select>
+      </p>
+  </fieldset>
+  <div>
+      #if($config.model.direct_access)
+      <p class="js_hide warning">Please activate JavaScript</p>
+    <button class="js_show" style="display: none" id="showURL">Show direct access URL</button>
+    <p id="showUrl_container"></p>
+    #else
+    <button type="submit" class="icon view"><span class="image"></span>View statistic</button>
+    #end
+	</div>
+</form>
+#end

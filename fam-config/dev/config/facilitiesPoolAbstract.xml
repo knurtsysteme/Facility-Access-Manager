@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!--
+    abstract facility defines all default values.
+    please just change default values only with extreme wisdom.
+  -->
+  
+  <!-- 
+    very basic abstract facility (can be used for none bookable and bookable facilities)
+  -->
+  <bean name="abstractFacility" class="de.knurt.fam.core.model.config.Facility" abstract="true">
+    <property name="parentFacility">
+      <null />
+    </property>
+  </bean>
+
+  <!-- 
+    a bookable facility with one unit that can be booked time based.
+    the booking rules are defined in the bean standardDefaultTimeBasedBookingRule
+  -->
+  <bean name="abstractFacilityBookable" class="de.knurt.fam.core.model.config.FacilityBookable" abstract="true" parent="abstractFacility">
+    <property name="capacityUnits" value="1" />
+    <property name="bookingRule">
+      <bean name="bean200909250836" scope="prototype" class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardDefaultTimeBasedBookingRule" />
+    </property>
+  </bean>
+</beans>

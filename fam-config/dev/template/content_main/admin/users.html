@@ -1,0 +1,477 @@
+#set($birthdate_label='Birthdate (dd.mm.YYYY)')
+#set($account_expires_label='Account expires (dd.mm.YYYY)') <h1>View and edit users</h1>
+<table class="standard">
+	<thead>
+		<tr>
+			<th>User</th>
+			<th>Username</th>
+			<th>Role</th>
+			<th>Status</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($user in $config.model.users)
+		<tr>
+			<td><span style="display:none;">$user.sname</span>$user.fullName</td>
+			<td>$user.username</td>
+			<td>$user.roleLabel</td>
+			<td>
+			#if($user.isAnonym())
+			Anonym and
+			#end
+			#set($Integer = 0)
+			#if(!$util.value.isNull($user.accountExpires) && $Integer.parseInt($FamDateFormat.getCustomDate($user.accountExpires, "yyyyMMdd")) < $Integer.parseInt($FamDateFormat.getCustomDate("yyyyMMdd")))
+			expired $FamDateFormat.getDateShort($user.accountExpires)
+      #elseif($util.value.isNull($user.excluded)) <span class="hint">NOT ACTIVATED<br />(please edit and save user)</span> 
+      #elseif($user.excluded) in trash 
+			#else active 
+			#end
+			</td>
+			<td>
+				<a href="#showuser" class="a_showuser" id="a_showuser_${user.id}" rel="nofollow">show</a> | 
+				<a href="#edituser" class="a_edituser" id="a_edituser_${user.id}" rel="nofollow">edit</a> | 
+				#if(!$user.admin)<a href="#deleteuser" class="a_deleteuser" id="a_deleteuser_${user.id}_${user.username}" rel="nofollow">delete</a> | #end
+				<a href="#initpass" class="a_initpass" id="a_initpass_${user.id}" rel="nofollow">password</a>
+			</td>
+		</tr>
+		#end
+	</tbody>
+</table>
+## ############################
+## dialog contents
+## ############################
+<div id="deleteuser_control" style="display: none;">
+	<input type="hidden" name="user_id" class="deleteuser_user_id" value="" />
+	<input type="hidden" name="user_username" class="deleteuser_user_username" value="" />
+	<h3 class="deleteuser_user_username"></h3>
+	<table>
+		<tbody>
+			<tr class="js_hide_if_user_excluded">
+				<td>
+					<input type="radio" name="type" id="delete_user_0" value="0" checked="checked" />
+				</td>
+				<td>
+					<label for="delete_user_0">Put user to trash</label>
+					<p>
+						Other user cannot see <span class="deleteuser_user_username"></span> anymore. You and all other administrators will still see <span class="deleteuser_user_username"></span> in this User-Manager and you are able to restore  <span class="deleteuser_user_username"></span>.
+					</p>
+				</td>
+			</tr>
+			<tr class="js_hide_if_user_anonym">
+				<td>
+					<input type="radio" name="type" id="delete_user_2" value="2" />
+				</td>
+				<td>
+					<label for="delete_user_2">Put user to trash and anonymize irreversible</label>
+					<p>
+					Like above but all personal data of the user gets anonymize. That means all personal data like username, real name, adress et cetera are set to a "anonym"-value. Sending a bill or writing user an e-mail gets impossible. Only values interesting for statistics and user's data (like Job Surveys, Logbook-Entries, Bookings) are unchanged.
+					</p>
+				</td>
+			</tr>
+			<tr class="js_hide_if_user_anonym">
+				<td>
+					<input type="radio" name="type" id="delete_user_3" value="3" />
+				</td>
+				<td>
+					<label for="delete_user_3">Put user to trash, anonymize irreversible and delete all user's data</label>
+					<p>
+					Like above but user's data are deleted as well. Which means the anonymized user has no Job Surveys anymore.
+					</p>
+				</td>
+			</tr>
+			<tr id="delete_option_1">
+				<td>
+					<input type="radio" name="type" id="delete_user_1" value="1" />
+				</td>
+				<td>
+					<label for="delete_user_1">Completly delete user</label>
+					<p>
+						Irreversible deletion of everything concerning the user. <span class="hint">Doing this may cause absurd contents (e.g. if someone answers to a logbook entry made by the user which is then deleted)</span> The user and user's data is not part of the system anymore. You even cannot find him here as anonymized user. Typicaly this is used after inserting a user twice.
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div id="newuser_control" style="display: none;">
+	<input type="hidden" name="departmentkey" id="departmentkey_id" value="" />
+	<table class="newuser">
+		<tr>
+			<td> #parse('global/input_male.html') </td>
+			<td> #parse('global/input_title.html') </td>
+			<td> #parse('global/input_fname.html') </td>
+		</tr>
+		<tr>
+			<td> #parse('global/input_sname.html') </td>
+			<td><label for="birthdate_id">$birthdate_label</label>
+			<br />
+			<input type="text" name="birthdate" id="birthdate_id" value="" class="w30" />
+			</td>
+			<td> #parse('global/input_mail.html') </td>
+		</tr>
+		<tr>
+			<td> #parse('global/input_street.html') </td>
+			<td> #parse('global/input_streetno.html') </td>
+			<td> #parse('global/input_zipcode.html') </td>
+		</tr>
+		<tr>
+			<td> #parse('global/input_city.html') </td>
+			<td> #parse('global/input_phone1.html') </td>
+			<td> #parse('global/input_phone2.html') </td>
+		</tr>
+		<tr>
+			<td> #parse('global/input_country.html') </td>
+			<td><label for="password_id">Password</label>
+			<br />
+			<input type="password" name="password" id="password_id" value="" />
+			</td>
+			<td><label for="company_id">Institution</label>
+			<br />
+			<input type="text" name="company" id="company_id" value="" />
+			</td>
+		</tr>
+		<tr>
+			<td><label for="departmentlabel_id">Department</label>
+			<br />
+			<input type="text" name="departmentlabel" id="departmentlabel_id" value="" />
+			</td>
+			<td><label for="account_expires_id">$account_expires_label
+				<br />
+				(leave empty for “never”)</label>
+			<br />
+			<input type="text" name="account_expires" id="account_expires_id" value="" />
+			</td>
+			<td>
+				<label for="roleid_id">Role</label>
+				<br />
+				<select name="roleid" id="roleid_id">
+					<option value="">Select entry</option>
+					#foreach($role in $config.model.roles)
+					<option value="$role.key">$role.label</option>
+					#end
+				</select>
+			</td>
+		</tr>
+		<tr style="display:none;" class="responsibility" id="insert_responsibility">
+			<td colspan="3" class="responsibility">
+				<span class="headline">User is responsible for this facilities</span>
+				<br />
+				#foreach($facility in $config.model.facilities)
+				<label for="id_responsibility_${facility.key}">
+					<input type="checkbox" name="responsibility" id="id_responsibility_${facility.key}" value="${facility.key}" />&nbsp;$facility.label
+				</label>
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="intendedResearch"><label for="intendedResearch_id">Intended Research Project (<span id="js_chars_left"></span> characters left):</label>
+			<br />
+			<textarea id="intendedResearch_id" cols="55" rows="5" name="intendedResearch"></textarea>			</td>
+		</tr>
+	</table>
+</div>
+<div id="newuserencoded_control" style="display: none;">
+	<p>
+		Copy encoded String here
+	</p>
+	<p>
+		<textarea id="newuser_control_encoded" cols="80" rows="9" style="width: 100%"></textarea>
+	</p>
+</div>
+<div id="initpass_control" style="display: none;">
+	<p>
+		After clicking “Send new password” the user gets a new random password. The user has to use that new password after that, the old one is invalid. It is send to the user via email.
+	</p>
+	<p>
+		An email is not a secure way! Thus the user is asked in email to change the password immediately after his first login. But he can ignore that.
+	</p>
+</div>
+<div id="edituser_control" style="display: none;">
+	<table id="edituser_control_table">
+		<tbody>
+			<tr class="headline">
+				<th colspan="2">Person</th>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_title">Title</label></td>
+				<td>
+				<select id="edituser_control_title" >
+					<option value="" >Select entry</option>
+					<option value="Mrs." >Mrs.</option>
+					<option value="Mr." >Mr.</option>
+					<option value="Dr." >Dr.</option>
+					<option value="Prof." >Prof.</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_fname">Given name</label></td>
+				<td>
+				<input type="text" id="edituser_control_fname" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_sname">Sirname</label></td>
+				<td>
+				<input type="text" id="edituser_control_sname" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_birthdate">$birthdate_label</label></td>
+				<td>
+				<input type="text" id="edituser_control_birthdate" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_male">Gender</label></td>
+				<td>
+				<select name="male" id="edituser_control_male">
+					<option value="" >Select entry</option>
+					<option value="1" >Male</option>
+					<option value="0" >Female</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_street">Street</label></td>
+				<td>
+				<input type="text" id="edituser_control_street" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_streetno">Street No</label></td>
+				<td>
+				<input type="text" id="edituser_control_streetno" value="" /></td>
+				</tr>
+				<tr>
+				<td><label for="edituser_control_zipcode">Zip/Postal Code</label></td>
+				<td><input type="text" id="edituser_control_zipcode" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_city">City</label></td>
+				<td>
+				<input type="text" id="edituser_control_city" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_country">Country</label></td>
+				<td>
+				<select id="edituser_control_country">
+					<option value="-1">Select entry</option>
+					#foreach($country in $globallang.getChild("countries").getChildren() ) <option value="$country.getAttributeValue('code')">$country.getAttributeValue('name')</option>
+					#end
+				</select></td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_company">Institution</label></td>
+				<td>
+				<input type="text" id="edituser_control_company" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_departmentlabel">Department</label></td>
+				<td>
+				<input type="text" id="edituser_control_departmentlabel" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_mail">E-Mail</label></td>
+				<td>
+				<input type="text" id="edituser_control_mail" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_phone1">Phone number (landline)</label></td>
+				<td>
+				<input type="text" id="edituser_control_phone1" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_phone2">Phone number (mobile)</label></td>
+				<td>
+				<input type="text" id="edituser_control_phone2" value="" />
+				</td>
+			</tr>
+			<tr class="headline">
+				<th colspan="2">Account details</th>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_account_expires">$account_expires_label (leave empty for “never“)</label></td>
+				<td>
+				<input type="text" id="edituser_control_account_expires" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_roleid">Role</label></td>
+				<td>
+				<select id="edituser_control_roleid">
+					<option value="">Select entry</option>
+					#foreach($role in $config.model.roles) <option value="$role.key">$role.label</option>
+					#end
+				</select></td>
+			</tr>
+			<tr id="edituser_control_responsibility">
+				<td>User is responsible for this facilities</td>
+				<td>
+					#foreach($facility in $config.model.facilities)
+					<label for="id_edituser_responsibility_${facility.key}">
+						<input type="checkbox" name="responsibility" id="id_edituser_responsibility_${facility.key}" value="${facility.key}" />&nbsp;$facility.label
+					</label>
+					#end				
+				</td>
+			</tr>
+			<tr>
+				<td><label for="edituser_control_excluded">User is in trash</label></td>
+				<td>
+				<select id="edituser_control_excluded">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</select></td>
+			</tr>
+			<tr class="headline">
+				<th colspan="2">Custom details</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<button id="edituser_control_contactDetails_add" style="" type="submit" class="icon add js_show js_add">
+					Add something
+				</button></td>
+			</tr>
+		</tbody>
+		<tbody id="edituser_control_tbody_contactDetails"></tbody>
+		<tbody>
+			<tr class="headline">
+				<th colspan="2">Intended Research Project</th>
+			</tr>
+			<tr>
+				<td colspan="2"><textarea cols="55" rows="10" id="edituser_control_intendedResearch"></textarea></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div id="showuser_control" style="display: none;">
+	<table id="showuser_control_table">
+		<tbody>
+			<tr class="headline">
+				<th colspan="2">Person</th>
+			</tr>
+			<tr>
+				<td>Title</td>
+				<td id="showuser_control_title"></td>
+			</tr>
+			<tr>
+				<td>Given name</td>
+				<td id="showuser_control_fname"></td>
+			</tr>
+			<tr>
+				<td>Sirname</td>
+				<td id="showuser_control_sname"></td>
+			</tr>
+			<tr>
+				<td>$birthdate_label</td>
+				<td id="showuser_control_birthdate"></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td id="showuser_control_male"></td>
+			</tr>
+			<tr>
+				<td>Street</td>
+				<td id="showuser_control_street"></td>
+			</tr>
+			<tr>
+				<td>Street No</td>
+				<td id="showuser_control_streetno"></td>
+			</tr>
+			<tr>
+				<td>Zip/Postal Code </td>
+				<td id="showuser_control_zipcode"></td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td id="showuser_control_city"></td>
+			</tr>
+			<tr>
+				<td>Country</td>
+				<td id="showuser_control_country"></td>
+			</tr>
+			<tr>
+				<td>Institution</td>
+				<td id="showuser_control_company"></td>
+			</tr>
+			<tr>
+				<td>Department</td>
+				<td id="showuser_control_departmentlabel"></td>
+			</tr>
+			<tr>
+				<td>E-Mail</td>
+				<td id="showuser_control_mail"></td>
+			</tr>
+			<tr>
+				<td>Phone number (landline)</td>
+				<td id="showuser_control_phone1"></td>
+			</tr>
+			<tr>
+				<td>Phone number (mobile)</td>
+				<td id="showuser_control_phone2"></td>
+			</tr>
+			<tr class="headline">
+				<th colspan="2">Account</th>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td id="showuser_control_username"></td>
+			</tr>
+			<tr>
+				<td>User's ID</td>
+				<td id="showuser_control_id"></td>
+			</tr>
+			<tr>
+				<td>User is in trash</td>
+				<td id="showuser_control_excluded"></td>
+			</tr>
+			<tr>
+				<td>Has accepted actual Terms of use agreements</td>
+				<td id="showuser_control_accepted_statement_of_agreement"></td>
+			</tr>
+			<tr>
+				<td>Password set?</td>
+				<td id="showuser_control_pass"></td>
+			</tr>
+			<tr>
+				<td>$account_expires_label</td>
+				<td id="showuser_control_account_expires"></td>
+			</tr>
+			<tr>
+				<td>User since</td>
+				<td id="showuser_control_registrationdate"></td>
+			</tr>
+			<tr>
+				<td>Last signed up</td>
+				<td id="showuser_control_lastlogindate"></td>
+			</tr>
+			<tr class="headline">
+				<th colspan="2">User's role</th>
+			</tr>
+			<tr>
+				<td>Role</td>
+				<td id="showuser_control_rolelabel"></td>
+			</tr>
+		</tbody>
+		<tbody id="showuser_control_tbody_responsible4facilities"></tbody>
+		<tbody id="headline_contactDetails">
+			<tr class="headline">
+				<th colspan="2">Custom details</th>
+			</tr>
+		</tbody>
+		<tbody id="showuser_control_tbody_contactDetails"></tbody>
+		<tbody>
+			<tr class="headline">
+				<th colspan="2">Intended Research Project</th>
+			</tr>
+			<tr>
+				<td id="showuser_control_intendedResearch" colspan="2"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

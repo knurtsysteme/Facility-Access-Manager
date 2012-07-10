@@ -1,0 +1,16 @@
+<h1>Apply for a new account for free</h1>
+#if(!$util.value.isNull($config.model.templateResource.request.getParameter("recheck")) && $config.model.templateResource.request.getParameter("recheck") == "true")
+<div class="warning">
+Please correct inputs
+</div>
+#end
+
+<form style="margin-top: 20px;display:none;" action="$util.html.getHref('registersent', $lang.page, $config.xml)" method="post" class="textblock">
+  #parse("content_main/public/register_content_pi.html")
+  #parse("content_main/public/register_content_pw.html")
+  #parse("content_main/public/register_content_cd.html")
+  #parse("content_main/public/register_content_irp.html")
+  <div>
+    <button id="register_submit" type="submit" class="icon send">Create Account</button>
+  </div>
+</form>

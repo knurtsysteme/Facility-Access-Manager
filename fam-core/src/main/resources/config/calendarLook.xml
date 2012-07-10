@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--
+	calendar general steps, starts and stops.
+	smallestMinuteStep and pixelPerHour must comply with: (pixelPerHour * smallestMinuteStep) % 60 == 0
+	see: dasCalendarStyle
+    -->
+    <bean id="dasCalendarConfiguration" class="de.knurt.fam.core.config.FamCalendarConfiguration" factory-method="getInstance">
+        <property name="hourStart" value="0" /><!-- use 0 here by now to ensure js functionality! -->
+        <property name="hourStop" value="24" /><!-- use 24 here by now to ensure js functionality! -->
+        <property name="smallestMinuteStep" value="15" /><!-- smallest possible step to put in for user in minutes -->
+    </bean>
+
+    <!--
+	calendar style.
+	smallestMinuteStep and pixelPerHour must comply with: (pixelPerHour * smallestMinuteStep) % 60 == 0
+	see: dasCalendarConfiguration
+    -->
+    <bean id="dasCalendarStyle" class="de.knurt.fam.core.config.style.FamCalendarStyle" factory-method="getInstance">
+        <property name="pixelPerHour" value="60" />
+    </bean>
+
+
+</beans>

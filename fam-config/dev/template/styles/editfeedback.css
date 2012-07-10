@@ -1,0 +1,4 @@
+#update_panel { margin: -10px 0 20px 0; }
+#include("styles/jquery-ui.custom.css")
+#include("lib/jquery.notifications.css")
+

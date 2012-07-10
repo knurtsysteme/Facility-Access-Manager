@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!--
+    data source.
+    help 1: http://confluence.atlassian.com/display/JIRA/Surviving+Connection+Closures
+    help 2: http://stackoverflow.com/questions/1152124/jdbc4-communicationsexception
+  -->
+  <bean id="dataSourceFactory" class="de.knurt.fam.connector.BasicDataSourceFactory">
+  </bean>
+  <bean id="dataSource" factory-bean="dataSourceFactory" factory-method="getBds" destroy-method="close">
+    <property name="maxActive" value="10" />
+    <property name="maxIdle" value="10" />
+    <property name="testOnBorrow" value="true" />
+    <property name="validationQuery" value="SELECT 1" />
+    <property name="poolPreparedStatements" value="true" />
+    <property name="maxWait" value="10000" />
+    <property name="removeAbandoned" value="true" />
+    <property name="removeAbandonedTimeout" value="60" />
+    <property name="logAbandoned" value="true" />
+  </bean>
+
+  <!-- dao pool -->
+  <bean id="famdaoproxy" class="de.knurt.fam.core.control.persistence.dao.FamDaoProxy" factory-method="getInstance">
+    <property name="userDao" ref="userDao_ibatis" />
+    <property name="logbookEntryDao" ref="logbookEntryDao_ibatis" />
+    <property name="facilityDao" ref="facilityDao_ibatis" />
+    <property name="bookingDao" ref="bookingDao_ibatis" />
+    <property name="keyValueDao" ref="keyValueDao_ibatis" />
+  </bean>
+
+
+  <!-- ibatis daos -->
+  <bean id="userDao_ibatis" class="de.knurt.fam.core.control.persistence.dao.ibatis.UserDao4ibatis">
+  </bean>
+  <bean id="facilityDao_ibatis" class="de.knurt.fam.core.control.persistence.dao.ibatis.FacilityDao4ibatis">
+  </bean>
+  <bean id="keyValueDao_ibatis" class="de.knurt.fam.core.control.persistence.dao.ibatis.KeyValueDao4ibatis">
+  </bean>
+  <bean id="logbookEntryDao_ibatis" class="de.knurt.fam.core.control.persistence.dao.ibatis.LogbookEntryDao4ibatis">
+  </bean>
+  <bean id="bookingDao_ibatis" class="de.knurt.fam.core.control.persistence.dao.ibatis.BookingDao4ibatis">
+  </bean>
+
+  <!-- ibatis specifics -->
+  <bean id="sqlMap" name="sqlMap" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+    <property name="configLocation" value="classpath:config/orm.xml" />
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+  <bean id="sqlMapClientSupport" class="de.knurt.fam.core.control.persistence.dao.ibatis.FamSqlMapClientDaoSupport" factory-method="getInstance">
+    <property name="sqlMapClient" ref="sqlMap" />
+  </bean>
+
+
+
+  <!-- couchdb dao -->
+  <bean id="couchdb_201008130847" class="de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao" factory-method="getInstance" />
+
+</beans>

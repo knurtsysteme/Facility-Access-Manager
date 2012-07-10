@@ -1,0 +1,145 @@
+<h1>Edit the terms of agreements here</h1>
+<div id="jui_tabs" class="fullwidth">
+	<div id="jnavigation">
+		<ul class="noListStyle">
+			<li>
+				<a href="#joverview"><span>View existing agreements</span></a>
+			</li>
+			<li>
+				<a href="#jnew"><span>Prepare new agreement</span></a>
+			</li>
+			<li>
+				<a href="#jactivation"><span>Set agreements</span></a>
+			</li>
+			<li>
+				<a href="#jactual"><span>Actual configuration</span></a>
+			</li>
+			<li>
+				<a href="#jhistory"><span>History configurations</span></a>
+			</li>
+		</ul>
+	</div>
+	<div id="joverview">
+		<h2>View existing agreements</h2>
+		$config.model.overview
+	</div>
+	<div id="jnew">
+		<h2 style="margin-bottom: 20px;">Create new agreement</h2>
+		<form method="post" action="$util.html.getHref('editsoa')" id="jnewform">
+			<input type="hidden" name="sentfromform" value="jnewform" />
+			<div class="textblock">
+				<p>
+					<label for="existing_agreement_id">View and use an existing agreement as draft</label>
+					<br />
+					$config.model.existing_agreements_select
+				</p>
+				<p>
+					<label for="title_id">Set a title for the agreement (just for intern use)</label>
+					<br />
+					<input type="text" name="title" value="" id="title_id" />
+				</p>
+				<p>
+					<label for="content_id">Type in the content</label>
+					<br />
+					<textarea id="content_id" name="content" rows="15" cols="80" style="width: 80%" class="tinymce">Type in agreement here</textarea>
+				</p>
+				<p>
+					$config.model.button_new
+				</p>
+			</div>
+		</form>
+	</div>
+	<div id="jactivation">
+		<h2 style="margin-bottom: 20px;">Change actual agreements in force</h2>
+		<div id="jactivation_step1">
+			<div style="font-weight: bolder;">
+				Step 1 of 5: Affected people <span class="js_help" style="display: none;"> Every role can have its own agreements in a specific order and with the possibility to print.
+					<br />
+					First choose the role, you want to change the agreements for. </span>
+			</div>
+			<div class="textblock">
+				<p>
+					Choose the role to change the agreements for
+				</p>
+				$config.model.role_selection
+			</div>
+			<div>
+				$config.model.button_next_step1
+			</div>
+		</div>
+		<div id="jactivation_step2">
+			<div style="font-weight: bolder;">
+				Step 2 of 5: Agreements to show <span class="js_help" style="display: none;"> To select the agreements hold <code>
+						ctrg</code> key and select multiple lines.
+					<br />
+					You have to select at least one agreement. </span>
+			</div>
+			<div class="textblock">
+				<p>
+					Select agreements getting in force for <span id="step2_role"></span>
+				</p>
+				$config.model.jactivation_agreements_selection
+			</div>
+			<div>
+				$config.model.button_prev_step2&nbsp;$config.model.button_next_step2
+			</div>
+		</div>
+		<div id="jactivation_step3">
+			<div style="font-weight: bolder;">
+				Step 3 of 5: Order of Agreements <span class="js_help" style="display: none;"> Drag and drop the sortable list to define the page order agreements are shown.
+					<br />
+					If there is only one page, please just click next Step 4. </span>
+			</div>
+			<div class="textblock">
+				<p>
+					Set the page order of chosen agreements.
+				</p>
+				<ul id="jactivation_step3_panel"></ul>
+			</div>
+			<div>
+				$config.model.button_prev_step3&nbsp;$config.model.button_next_step3
+			</div>
+		</div>
+		<div id="jactivation_step4">
+			<div style="font-weight: bolder;">
+				Step 4 of 5: Force printing <span class="js_help" style="display: none;"> Optional you can set a "force printing" for each page and role. After the user accepts the content of agreements checked here, a print dialog pops up. Since this does not work without JavaScript, the page gets a hint "You have to print out this agreement" at the top of the page.
+					<br />
+					If you do not want that, just go to next step. </span>
+			</div>
+			<div class="textblock">
+				<label for="agreement_printing_id">Click on agreements printing is forced for.</label>
+				<br />
+				<span id="jactivation_step4_panel"></span>
+			</div>
+			<div>
+				$config.model.button_prev_step4&nbsp;$config.model.button_next_step4
+			</div>
+		</div>
+		<div id="jactivation_step5">
+			<div style="font-weight: bolder;">
+				Step 5 of 5: Summary and confirmation <span class="js_help" style="display: none;"> Review and confirm your input here. Step to a previous page to change something.
+					<br />
+					If everything is fine, send this page. Every affected person must (re)accept the new Terms of agreements then (when next logging in). </span>
+			</div>
+			<div class="textblock">
+				<p>
+					Review changes and confirm.
+				</p>
+				<ul id="jactivation_step5_summary"></ul>
+			</div>
+			<form method="post" action="$util.html.getHref('editsoa')" id="jactivationform">
+				<input type="hidden" name="sentfromform" value="jactivationform" />
+				<span id="jactivation_step5_formpanel"> </span>
+				$config.model.button_prev_step5&nbsp;$config.model.button_activation
+			</form>
+		</div>
+	</div>
+	<div id="jactual">
+		<h2 style="margin-bottom: 20px;">Actual configuration</h2>
+		$config.model.jactual
+	</div>
+	<div id="jhistory">
+		<h2 style="margin-bottom: 20px;">History of configurations</h2>
+		$config.model.jhistory
+	</div>
+</div>

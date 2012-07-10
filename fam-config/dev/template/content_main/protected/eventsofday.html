@@ -1,0 +1,61 @@
+    <h1>$config.model.facility</h1>
+    <div>
+        <h2>Overview</h2>
+        <ul>
+            <li>$config.model.bookingstext</li>
+            <li>$config.model.availstext</li>
+        </ul>
+    </div>
+    <h2 style="margin-top:20px;">$config.model.eventssizetext on $config.model.day</h2>
+    #if($config.model.eventssize > 0)
+	#set($i=0)
+        <table class="standard">
+	    #if($config.model.bookingssize > 0)
+            <thead>
+                <tr>
+                    <th>Session time</th>
+                    <th>User</th>
+                    <th>Units</th>
+                    <th>Date of booking request</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+		#foreach($booking in $config.model.bookings)
+                #set($class = 'even')
+                #if($i % 2 != 0)
+                #set($class = 'odd')
+                #end
+                #set($i = $i + 1)
+                <tr class="$class chooseline">
+                    <td>$booking.timeframetime</td>
+                    <td>$booking.username</td>
+                    <td>$booking.capacityUnitsAsText</td>
+            		<td>$util.sort.span($booking.original.getSeton())$booking.getSeton()</td>
+                    <td>$booking.bookingStatus</td>
+                </tr>
+                #end
+	    #end
+	    #if($config.model.availssize > 0)
+                <tr>
+                    <th>Time</th>
+                    <th colspan="2">Status</th>
+                    <th colspan="2">Notice</th>
+                </tr>
+                #set($i=0)
+                #foreach($availability in $config.model.availabilities)
+                #set($class = 'even')
+                #if($i % 2 != 0)
+                #set($class = 'odd')
+                #end
+                #set($i = $i + 1)
+                <tr class="$class chooseline">
+                    <td>$availability.baseTimeFrameTime</td>
+                    <td colspan="2">$availability.status</td>
+                    <td colspan="2">$availability.notice</td>
+                </tr>
+		#end
+	    #end
+            </tbody>
+        </table>
+        #end

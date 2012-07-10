@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+
+    <insert id="User.insert" parameterClass="de.knurt.fam.core.model.persist.User">
+		INSERT INTO user (id, account_expires, department_key, department_label, username, registration, lastloging, birthdate, male, excluded, statementOfAgreementAccepted, locale_id, pazzword, phone1, phone2, company, fname, sname, title, mail, roleid, mainaddress_id, passwordEncoded, intendedResearch)
+		VALUES (null, #accountExpires#, #departmentKey#, #departmentLabel#, #username#, #registration#, #lastLogin#, #birthdate#, #male#, #excluded#, #statementOfAgreementAccepted#, #usedPlattformLangAsString#, #password#, #phone1#, #phone2#, #company#, #fname#, #sname#, #title#, #mail#, #roleId#, #mainAddressId#, #passwordEncoded#, #intendedResearch#)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+
+    <update id="User.update" parameterClass="de.knurt.fam.core.model.persist.User">
+		UPDATE user
+		SET account_expires = #accountExpires#, department_key = #departmentKey#, department_label = #departmentLabel#, username = #username#, registration = #registration#, lastloging = #lastLogin#, birthdate = #birthdate#, male = #male#, excluded = #excluded#, statementOfAgreementAccepted = #statementOfAgreementAccepted#, locale_id = #usedPlattformLangAsString#, pazzword = #password#, phone1 = #phone1#, phone2 = #phone2#, company = #company#, fname = #fname#, sname = #sname#, title = #title#, mail = #mail#, roleid = #roleId#, mainaddress_id = #mainAddressId#, passwordEncoded = #passwordEncoded#, intendedResearch = #intendedResearch#
+		WHERE id = #id#
+    </update>
+
+    <delete id="User.delete.user" parameterClass="de.knurt.fam.core.model.persist.User">
+        DELETE FROM user WHERE id = #id#
+    </delete>
+    <delete id="User.delete.address" parameterClass="de.knurt.fam.core.model.persist.User">
+        DELETE FROM address WHERE user_id = #id#
+    </delete>
+    <delete id="User.delete.booking" parameterClass="de.knurt.fam.core.model.persist.User">
+        DELETE FROM booking WHERE username = #username#
+    </delete>
+    <delete id="User.delete.contactdetail" parameterClass="de.knurt.fam.core.model.persist.User">
+        DELETE FROM contactdetail WHERE username = #username#
+    </delete>
+    <delete id="User.delete.logbookentry" parameterClass="de.knurt.fam.core.model.persist.User">
+        DELETE FROM logbookentry WHERE ofUserName = #username#
+    </delete>
+    <delete id="User.delete.usermail" parameterClass="de.knurt.fam.core.model.persist.User">
+        DELETE FROM usermail WHERE username = #username#
+    </delete>
+
+
+    <update id="User.anonymize.user" parameterClass="de.knurt.fam.core.model.persist.User">
+		UPDATE user
+		SET username = #username#, mail = #mail#, birthdate = "1900-01-01", fname = "Anonym", sname = "Anonym", phone1 = "-", phone2 = "-", company = #company#, mail = #mail#, intendedResearch = "-", anonym = true
+		WHERE id = #id#
+    </update>
+    <update id="User.anonymize.address" parameterClass="de.knurt.fam.core.model.persist.User">
+		UPDATE address
+		SET zipcode = "-", street = "-", streetno = "-"
+		WHERE user_id = #id#
+    </update>
+    <update id="User.anonymize.logbookentry" parameterClass="java.util.Map">
+		UPDATE logbookentry
+		SET ofUserName = #new_username#
+		WHERE ofUserName = #old_username#
+    </update>
+    <update id="User.anonymize.booking" parameterClass="java.util.Map">
+		UPDATE booking
+		SET username = #new_username#
+		WHERE username = #old_username#
+    </update>
+
+    <insert id="Address.insert" parameterClass="java.util.Map">
+		INSERT INTO address (id, user_id, zipcode, street, streetno, city, country)
+		VALUES (null, #userId#, #zipcode#, #street#, #streetno#, #city#, #country#)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+    <update id="Address.update" parameterClass="java.util.Map">
+		UPDATE address
+		SET user_id = #userId#, zipcode = #zipcode#, street = #street#, streetno = #streetno#, city = #city#, country = #country#
+		WHERE id = #id#
+    </update>
+
+    <resultMap id="User.select.all.result" class="de.knurt.fam.core.model.persist.User">
+        <result property="id" column="id"/>
+        <result property="accountExpires" column="account_expires"/>
+        <result property="departmentKey" column="department_key"/>
+        <result property="departmentLabel" column="department_label"/>
+        <result property="username" column="username"/>
+        <result property="registration" column="registration"/>
+        <result property="lastLogin" column="lastloging"/>
+        <result property="birthdate" column="birthdate"/>
+        <result property="male" column="male"/>
+        <result property="excluded" column="excluded"/>
+        <result property="statementOfAgreementAccepted" column="statementOfAgreementAccepted"/>
+        <result property="usedPlattformLangAsString" column="locale_id"/>
+        <result property="password" column="pazzword"/>
+        <result property="phone1" column="phone1"/>
+        <result property="phone2" column="phone2"/>
+        <result property="company" column="company"/>
+        <result property="fname" column="fname"/>
+        <result property="sname" column="sname"/>
+        <result property="title" column="title"/>
+        <result property="mail" column="mail"/>
+        <result property="roleId" column="roleid"/>
+        <result property="mainAddressWithId" column="mainaddress_id"/>
+        <result property="passwordEncoded" column="passwordEncoded"/>
+        <result property="intendedResearch" column="intendedResearch"/>
+        <result property="anonym" column="anonym"/>
+    </resultMap>
+    <statement
+        id="User.select.all"
+        resultMap="User.select.all.result"
+        resultClass="de.knurt.fam.core.model.persist.User">
+		SELECT *
+		FROM user
+		ORDER BY sname
+    </statement>
+    <statement
+        id="User.select.username"
+        resultMap="User.select.all.result"
+        resultClass="de.knurt.fam.core.model.persist.User">
+		SELECT *
+		FROM user
+		WHERE username = #username#
+    </statement>
+    <statement
+        id="User.select.max_id"
+        resultClass="de.knurt.fam.core.model.persist.User">
+		SELECT max(id) as id
+		FROM user
+    </statement>
+    <statement
+        id="User.select.where"
+        resultMap="User.select.all.result"
+        resultClass="de.knurt.fam.core.model.persist.User">
+		SELECT *
+		FROM user
+		WHERE $value$
+    </statement>
+    <statement
+        id="User.select.select_like"
+        resultMap="User.select.all.result"
+        resultClass="de.knurt.fam.core.model.persist.User">
+		SELECT *
+		FROM user
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="id">
+			      id = #id#
+            </isNotNull>
+            <isNotNull prepend="AND" property="accountExpires">
+			      account_expires = #accountExpires#
+            </isNotNull>
+            <isNotNull prepend="AND" property="departmentKey">
+			      department_key = #departmentKey#
+            </isNotNull>
+            <isNotNull prepend="AND" property="departmentLabel">
+			      department_label = #departmentLabel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="username">
+	 		     username = #username#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mail">
+			      mail = #mail#
+            </isNotNull>
+            <isNotNull prepend="AND" property="registration">
+			      registration = #registration#
+            </isNotNull>
+            <isNotNull prepend="AND" property="lastLogin">
+	 		     lastloging = #lastLogin#
+            </isNotNull>
+            <isNotNull prepend="AND" property="birthdate">
+			      birthdate = #birthdate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="male">
+			      male = #male#
+            </isNotNull>
+            <isNotNull prepend="AND" property="excluded">
+	 		     excluded = #excluded#
+            </isNotNull>
+            <isNotNull prepend="AND" property="usedPlattformLangAsString">
+			      locale_id = #usedPlattformLangAsString#
+            </isNotNull>
+            <isNotNull prepend="AND" property="password">
+			      pazzword = #password#
+            </isNotNull>
+            <isNotNull prepend="AND" property="phone1">
+			      phone1 = #phone1#
+            </isNotNull>
+            <isNotNull prepend="AND" property="phone2">
+			      phone2 = #phone2#
+            </isNotNull>
+            <isNotNull prepend="AND" property="company">
+	 		     company = #company#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fname">
+	 		     fname = #fname#
+            </isNotNull>
+            <isNotNull prepend="AND" property="sname">
+	 		     sname = #sname#
+            </isNotNull>
+            <isNotNull prepend="AND" property="title">
+	  		    title = #title#
+            </isNotNull>
+            <isNotNull prepend="AND" property="roleId">
+			      roleid = #roleId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mainAddressId">
+			      mainaddress_id = #mainAddressId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="intendedResearch">
+			      intendedResearch = #intendedResearch#
+            </isNotNull>
+        </dynamic>
+		ORDER BY sname
+    </statement>
+
+    <select id="Address.select.id" parameterClass="java.lang.Integer" resultClass="de.knurt.fam.core.model.persist.Address">
+		SELECT *
+		FROM address
+		where id = #value#
+    </select>
+
+</sqlMap>

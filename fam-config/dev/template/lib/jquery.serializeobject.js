@@ -1,0 +1,3 @@
+/*! serializeObject v 0.02 by http://www.knurtsysteme.de
+ * License: http://produkte.knurtsysteme.de/license */
+if(typeof(jQuery)=="undefined"){throw ("require jQuery")}(function(a){a.fn.serializeObject=function(){var b={};var c=a(":input",a(this)).serializeArray();a(c).each(function(f,e){if(b[e.name]){if(!a.isArray(b[e.name])){var d=[b[e.name]];b[e.name]=d}b[e.name].push(e.value)}else{b[e.name]=e.value}});return b}})(jQuery);

@@ -1,0 +1,83 @@
+{
+    "name":"Facility Access Manager",
+    "description":"Design documents for the Facility Access Manager",
+    "url":"http://www.facility-access-manager.com",
+    "usage":{
+        "_view/all": "all documents with created attribute",
+        "_view/all_soa": "@see all + and with type SOA",
+        "_view/all_soa_activation": "@see all + and with type SOA_ACTIVATION and attributes roleId and soaActivePages. Must have at least one active page.",
+        "_view/actual_soa_activation" : "@see all_soa_activation + that are active",
+        "_view/history_soa_activation" : "@see all_soa_activation + that are not active anymore",
+        "_view/all_job": "@see all + and with type JOB",
+        "_view/all_job_data_processing": "@see all + and with type JOB_DATA_PROCESSING",
+        "_list/soa_activations":{
+            "description":"render activations for terms of usage agreements. provide html.",
+            "provide" : ["html", "json"]
+        },
+        "_list/terms_of_use_pages":{
+            "description":"render a table with all agreements.",
+            "provide" : ["html"]
+        },
+        "_list/newest":{
+            "description":"return the element where field 'created' exists and has the highest value as json."
+        },
+        "_list/newest_with_facility_key":{
+            "description":"the newest document of type JOB_DATA_PROCESSING matching the given facility key as json.",
+            "?faclityKey=" : "facility key interested in"
+        },
+        "_list/soas":{
+            "description":"render terms of usage agreements.",
+            "provide" : ["html", "json"],
+            "&format":{
+                "=html":{
+                    "description":"render html output.",
+                    "&render":{
+                        "=overview":{
+                            "description":"render a table with created date and title as cols",
+                            "documentneeds":[
+                                "_id",
+                                "created",
+                                "title"
+                            ]
+                            
+                        },
+                        "=select":{
+                            "description":"create a select form element",
+                            "documentneeds":[
+                                "_id",
+                                "created",
+                                "title"
+                            ],
+                            "&selectname": "= <select name=[selectname]>...</select>",
+                            "&selectid": "= <select id=[selectid]>...</select>",
+                            "&extraoptionhtml": "= <select ... [extraoptionhtml]>...</select>",
+                            "&selectspecialoptions": "= <select ...>[selectspecialoptions]...</select>"
+                        }
+                        
+                    }
+                    
+                },
+                "=json":{
+                    "description":"object with title and created only"
+                }
+                
+            }
+        },
+        "_list/of_user":{
+        	"description":"return a list of docs where the attribute username is the given username.",
+            "provide" : ["json"],
+            "?username=": "username of the user"
+        },
+        "_list/jobs_of_user_and_feedback":{
+        	"description":"return a list of jobs where the attribute username is the given username and all documents that have the same jobId (which means including the feedback the user got).",
+            "provide" : ["json"],
+            "?username=": "username of the user"
+        },
+        "_list/with_job_id":{
+        	"description":"return a list of jobs where the jobId is the given jobId.",
+            "provide" : ["json"],
+            "?jobId=": "interested in"
+        }
+        
+    }
+}

@@ -1,0 +1,78 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+table.standard {
+	font-family: fam_regular, "trebuchet ms", helvetica, sans-serif;
+	color: black;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table.standard td,table.standard th {
+	text-align: left;
+	padding: 5px;
+	vertical-align: top;
+}
+
+table.standard td {
+	border: 1px solid #000;
+}
+
+table.standard th {
+	border:1px solid #000;
+	color:black;
+	font-weight:bold;
+}
+table.standard th.sorting_asc, table.standard th.sorting_desc {
+		color:#9C0F0F;
+}
+.dataTables_wrapper table.standard th {
+	cursor: pointer;
+}
+
+table.standard tr.odd {
+	background-color: #FAFAFA;
+}
+
+table.standard tr.even {
+	background-color: #EEEEEE;
+}
+
+table.standard tr:hover td { /* background: #FFFFFF url(bg_flat.gif) repeat-x scroll 0 0; */
+	background-color: white;
+}
+
+table.standard tr.chooseline:hover td.important,table.standard tr.chooseline:hover td .important {
+	font-weight: bolder;
+}
+
+table.standard td.small,table.standard td .small {
+	
+}
+
+table.standard td p {
+	margin-bottom: 3px;
+}
+
+table.standard td a {
+	
+}
+
+/* yesNoForms */
+table.yesNoForms {
+	
+}
+
+table.yesNoForms button {
+	
+}
+
+table.yesNoForms td {
+	border: 0px solid black;
+}
+
+table.yesNoForms td,table.yesNoForms:hover tr td
+table.yesNoForms tr:hover td
+table.yesNoForms tr td:hover {
+	padding: 0;
+	margin: 0;
+	background: none;
+}

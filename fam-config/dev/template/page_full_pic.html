@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Facility Access Manager: $lang.page.getChildText('title')</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="robots" content="index,follow">
+        <meta name="author" content="$lang.meta_author">
+        <meta name="revisit-after" content="14 days">
+        <meta name="title" content="$lang.head_title">
+        <meta name="description" content="$lang.meta_description">
+        <meta name="abstract" content="$lang.xml.getChild('global').getChild('meta').getChildText('abstract')">
+        <meta name="keywords" content="Facility Access Manager">
+        <meta name="language" content="English">
+        <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
+        #parse("page_scripts_and_styles.html")
+    </head>
+    #set($needjs = $config.page.getChild("options") && $config.page.getChild("options").getChild("needjs"))
+    <script type="text/javascript">
+        var redraw = function() {
+            var strWL = window.location+"";
+            var query = strWL.toQueryParams();
+            query.width = JSSWBrowser.getWidth();
+            query.height = JSSWBrowser.getHeight()-5;
+            window.location = strWL.substr(0, strWL.indexOf("?") + 1) + Object.toQueryString(query);
+        };
+        Event.observe(window, 'load', function() {
+            Event.observe($('thepic'), 'dblclick', redraw);
+            Event.observe(window, 'resize', redraw);
+            var strWL = window.location+"";
+            var query = strWL.toQueryParams();
+            if(!query.width) {
+                redraw();
+            }
+        });
+    </script>
+    #if($config.model.refreshMinutes > 0)
+    <script type="text/javascript">
+        window.setInterval(redraw, $config.model.refreshMinutes * 1000 * 60);
+    </script>
+    #end
+</head>
+<body style="margin: 0; padding: 0;">
+    <img id="thepic" src="$config.model.imgsrc" alt="$config.model.statistic.label" style="margin: 0; padding: 0;" />
+</body>
+</html>

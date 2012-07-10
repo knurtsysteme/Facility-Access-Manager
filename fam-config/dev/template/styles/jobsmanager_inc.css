@@ -1,0 +1,7 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+td.action form p {margin: 0 !important; }
+table.standard td p, td.action table td {padding: 0;border: 0;margin: 0;}
+td.action table td button, td.action table td form {width: 100%; height: 100%;}
+td.action{	width: 220px;}
+td.action .odd, td.action .even, td.action button {width: 100px;}
+td.action .even, td.action .odd{float:left;}

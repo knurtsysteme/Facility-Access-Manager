@@ -1,0 +1,137 @@
+// by now this is a stand alone less file only generate this file manualy:
+// lessc all-news.less > all-news.css
+// @version 1.8.0 (26/04/2012)
+// @author Daniel Oltmanns
+
+@import "all-mixins.less";
+
+// set background position of icon in column and row
+.get-glyphicon(@col, @row) {
+	background-position: round(@col * 26 * -1px) round(@row * 25.9 * -1px);
+}
+
+button.icon {
+	text-align: left;
+	padding: 3px 5px 3px 5px;
+	small {
+		font-size: 0.8em;
+		padding: 1px 0 0;
+	}
+	&:hover span.image {
+		background-image: url('icons/glyphicons_hover.png');
+	}
+}
+.icon {
+	 span.image {
+		background: url("icons/glyphicons.png") no-repeat scroll 0 0 transparent;
+		display: block;
+		float: left;
+		height: 15px;
+		margin: 0;
+		width: 18px;
+	}
+	&.small span.image {
+		margin: 0;
+	}
+	&.add span.image {
+		.get-glyphicon(0,19);
+	}
+	&.remove span.image {
+		.get-glyphicon(1,19);
+	}
+	&.delete span.image {
+		.get-glyphicon(2,19);
+	}
+	&.confirm span.image {
+		.get-glyphicon(6,20);
+	}
+	&.small.cancel span.image {
+		.get-glyphicon(7,20);
+	}
+	&.cancel span.image {
+		.get-glyphicon(7,20);
+	}
+	&.no span.image {
+		.get-glyphicon(7,20);
+	}
+	&.login span.image {
+		.get-glyphicon(4,20);
+	}
+	&.edit span.image {
+		.get-glyphicon(4,23);
+	}
+	&.newuser span.image {
+		.get-glyphicon(6,0);
+	}
+	&.back span.image, &.prev span.image {
+		.get-glyphicon(0,21);
+	}
+	&.print span.image, span.print span.image {
+		.get-glyphicon(5,1);
+	}
+	&.forw span.image, &.next span.image {
+		.get-glyphicon(1,21);
+	}
+	&.help span.image {
+		.get-glyphicon(4,20);
+	}
+	&.send span.image {
+		.get-glyphicon(2,15);
+	}
+	&.save span.image {
+		.get-glyphicon(4,13);
+	}
+	&.download span.image {
+		.get-glyphicon(1,18);
+	}
+	&.change span.image {
+		.get-glyphicon(0,8);
+	}
+	&.view span.image {
+		.get-glyphicon(1,5);
+	}
+	&.ok span.image {
+		.get-glyphicon(6,20);
+	}
+	&.reload span.image {
+		.get-glyphicon(1,8);
+	}
+	&.warn span.image {
+		.get-glyphicon(8,7);
+	}
+	&.comment span.image {
+		.get-glyphicon(5,24);
+	}
+	&.trash span.image, &.bin span.image {
+		.get-glyphicon(6,1);
+	}
+	&.damage span.image {
+		.get-glyphicon(5,20);
+	}
+	&.dead span.image {
+		.get-glyphicon(0,29);
+	}
+}
+.jqueryFileTree li.facility {
+	background: url('icons/forw.gif') left top no-repeat;
+}
+body.infopage #content_main ul li, 
+ul.subbanch, ul.asList {
+	list-style-image: url('icons/subbanch.gif');
+}
+span {
+	&.none_print, &.print {
+	width: 19px;
+	height: 19px;
+	display: inline-block;
+	margin: 0 0 -5px 1px;
+	background-color: white;
+	border: 1px solid black;
+	}
+	&.none_print {
+		background: #fff url('icons/none_printer.gif') no-repeat scroll 2px 2px;
+	}
+	&.print {
+		background: #fff url('icons/printer.gif') no-repeat scroll 2px 2px;
+	}
+}

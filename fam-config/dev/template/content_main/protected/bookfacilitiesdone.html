@@ -1,0 +1,37 @@
+<h1 id="thanks_headline">Thank you for booking the $config.model.booking.facility.label!</h1>
+<div>
+	Your Job ID is: $config.model.booking.id<br />
+	#if($config.model.booking.isTimeBased())
+		Time requested $FamDateFormat.getDateFormattedWithTime($config.model.booking.dateStart)&nbsp;to&nbsp;$FamDateFormat.getDateFormattedWithTime($config.model.booking.dateEnd).
+	#else
+		Your are the $FamText.getOrdinal($config.model.booking.actualQueuePosition) person in the queue
+	#end
+	#if($config.model.booking.notice)
+	<br />Your public notice to everyone: <span id="notice_value">$config.model.booking.notice</span> <button id="edit_notice" class="icon edit small">edit</button>
+	#end
+</div>
+<h2>And now?</h2>
+<ul class="asList">
+	<li>
+		$util.html.a('mybookings').setContent('View all my bookings')
+	</li>
+	<li>
+		<a href="$util.html.getHref('viewrequest')?v=$config.model.booking.id">View Job Information</a>
+	</li>
+	<li>
+		<a href="$util.html.getHref('editrequest')?v=$config.model.booking.id">Edit Job Information</a>
+	</li>
+	<li>
+		$util.html.a('book2').setContent('Book something else')
+	</li>
+	<li>
+		<a href="$util.html.getHref('book2')?a=$config.model.booking.facility.key">Book another $config.model.booking.facility.label</a>
+	</li>
+	<li>
+		<a href="$util.html.getHref('agreementde')?v=$config.model.booking.id">View Agreement (german version)</a>
+	</li>
+	<li>
+		<a href="$util.html.getHref('agreementen')?v=$config.model.booking.id">View Agreement (englisch version)</a>
+	</li>
+</ul>
+#include("global/dialog_notice_of_booking.html")

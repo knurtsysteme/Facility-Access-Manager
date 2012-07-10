@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="bean201009280930" name="bean201009280930" class="de.knurt.fam.template.controller.DelegateResourceController">
+	</bean>
+	<bean id="bean201009281054" name="bean201009281053" class="de.knurt.fam.template.util.TemplateConfig" factory-method="me">
+		<property name="contentFactory" ref="defaultTemplateFactory" />
+		<property name="answerFactory" ref="defaultAnswerFactory" />
+		<property name="resourceController" ref="defaultResourceController" />
+		<property name="contentProperties" ref="defaultTemplateProperties" />
+	</bean>
+	<bean id="defaultAnswerFactory" name="defaultAnswerFactory" class="de.knurt.fam.template.controller.DefaultAnswerFactory" factory-method="me">
+	</bean>
+	<bean id="defaultResourceController" name="defaultResourceController" class="de.knurt.fam.template.controller.DefaultResourceController">
+	</bean>
+	<bean id="defaultTemplateFactory" name="defaultTemplateFactory" class="de.knurt.fam.template.velocity.VelocityFileContentFactory" factory-method="me">
+	</bean>
+
+	<bean id="defaultTemplateProperties" name="defaultTemplateProperties" class="de.knurt.fam.template.model.TemplateContentPropertiesDefault" factory-method="me" />
+        
+    <bean id="famMessageSourceControl" class="de.knurt.fam.core.content.text.FamText" factory-method="getInstance" />
+
+    <!--
+	This defines the encoding of the entire application.
+	If an ldap server is connected, this must be the authentification uses
+	there for computing the password hashes.
+    -->
+    <bean id="shaPasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+         <constructor-arg value="256"/>
+     </bean>
+
+    <bean id="dasEncoderControl" class="de.knurt.fam.core.aspects.security.encoder.FamEncoderControl" abstract="true">
+    </bean>
+    <bean id="bean201008211236" class="de.knurt.fam.core.aspects.security.encoder.FamEncoder" factory-method="getInstance">
+        <property name="encoder" ref="shaPasswordEncoder" />
+    </bean>
+    <bean id="dasCookiePassEncoderControl" class="de.knurt.fam.core.aspects.security.encoder.FamCookiePassEncoderControl" factory-method="getInstance" parent="dasEncoderControl" />
+    <bean id="dasTmpAccessEncoderControl" class="de.knurt.fam.core.aspects.security.encoder.FamTmpAccessEncoderControl" factory-method="getInstance" parent="dasEncoderControl" />
+    <bean id="dasUserPassEncoderControl" class="de.knurt.fam.core.aspects.security.encoder.FamUserPassEncoderControl" factory-method="getInstance" parent="dasEncoderControl" />
+
+    <bean class="de.knurt.heinzelmann.ui.html.StrictHtmlFactory" factory-method="getInstance">
+        <property name="mustAttributeKeys">
+            <map>
+                <entry key="a" value="title" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="bean201007211354" class="de.knurt.fam.core.content.text.AccessGlobalTemplate" factory-method="getInstance">
+    </bean>
+
+     	<!-- view resolver -->
+
+	<bean id="mainViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+	<!-- multi language support -->
+
+	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="lang" />
+	</bean>
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="cookieName" value="lang" />
+	</bean>
+
+	<!--
+        own solution for not message locales (like calendar etc.)
+        MUST BE DEFINED
+    -->
+	<bean id="dasRequestContainer" scope="request" class="de.knurt.fam.core.config.FamRequestContainer" factory-method="getInstance" />
+
+
+	<!--
+        This authentificates a user on every page.
+        DO NOT CHANGE THE SCOPE OF THIS BEAN
+        Scope must be "session"! Otherwise, the system may auth everyone or noone!!!
+    -->
+	<bean name="sessionauth" class="de.knurt.fam.core.aspects.security.auth.SessionAuth" scope="session">
+	</bean>
+	<bean name="requestauth" class="de.knurt.fam.core.aspects.security.auth.RequestAuth" scope="request">
+	</bean>
+
+  <!-- availability decider -->
+  <bean class="de.knurt.fam.core.util.booking.BookingIsAvailableDeciderProxy" factory-method="getInstance">
+    <property name="deciderFactory">
+      <bean class="de.knurt.fam.core.util.booking.BookingIsAvailableDeciderFactoryDefault" factory-method="getInstance" />
+     </property>
+  </bean>
+ 
+  <!-- 
+    basic cronjobs installed.
+    notice: more cronjobs possibly registered over plugins
+  -->
+  <bean id="bean201201111256" class="de.knurt.fam.core.model.config.CronjobActionContainer" factory-method="getInstance">
+    <property name="cronjobActions">
+      <list>
+        <bean class="de.knurt.fam.core.model.config.CronjobActionMailsApplicationsForResource" factory-method="getInstance" />
+        <bean class="de.knurt.fam.core.model.config.CronjobActionMailsApplicationsForSystem" factory-method="getInstance" />
+        <bean class="de.knurt.fam.core.model.config.CronjobActionMailsSendSavedAndUnsent" factory-method="getInstance" />
+        <bean class="de.knurt.fam.core.model.config.CronjobActionMailsAccountExpired" factory-method="getInstance" />
+      </list>
+    </property>
+  </bean>
+   <!-- define the role of a user if nothing else can be supposed -->
+  <bean name="bean201010101103" class="de.knurt.fam.core.aspects.security.auth.FamAuth" factory-method="me">
+    <!--  the authentication method - do only change if you know what you do! -->
+    <property name="userAuthentication" ref="standardAuth" />
+  </bean>
+
+ 
+</beans>

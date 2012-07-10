@@ -1,0 +1,5 @@
+#include("styles/jquery-ui.custom.css")
+#include("styles/all-tables.css")
+#include("styles/jquery_datatables.css")
+ul#available_rights_are {margin-left: 0 !important;}
+.dataTables_wrapper{min-height: 0;}

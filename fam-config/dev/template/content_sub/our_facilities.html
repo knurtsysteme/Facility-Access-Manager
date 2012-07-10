@@ -1,0 +1,12 @@
+<h2>Our Facilities</h2>
+<ul>
+#foreach($page in $config.xml.getChild("pages").getChildren() )
+        #if($page.getAttribute("class") && $page.getAttributeValue("class")=='infopage')
+                #if($page.getAttributeValue("name")==$config.page.getAttributeValue("name"))
+    <li>$lang.page.getChildText("headline")</li>
+                #else
+    <li>$util.html.a($page.getAttributeValue("name"), $lang.xml, $config.xml)</li>
+                #end
+        #end
+#end
+</ul>

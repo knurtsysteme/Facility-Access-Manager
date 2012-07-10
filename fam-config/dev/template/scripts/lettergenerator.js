@@ -1,0 +1,7 @@
+#include("lib/jquery-1.4.2.min.js")
+#include("lib/jquery-ui.custom.min.js")
+#include("lib/jquery.notifications-1.1.min.js")
+#include("scripts/Base.js")
+#include("scripts/tables_jq.js")
+#include("scripts/lettergenerator_inc.js")
+#include("lib/jquery.dataTables.min.js")

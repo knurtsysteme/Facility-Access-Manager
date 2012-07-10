@@ -1,0 +1,27 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+.printarea * {
+	margin: 0;
+	padding: 0;
+}
+
+.printarea .entry {
+	font-family: monospace;
+	font-size: 10pt;
+	margin-top: 5mm;
+}
+
+.printarea .strong {
+	font-weight: bold;
+}
+.printarea p {
+	margin-top:10px;
+}
+
+.printarea .detail_help {
+	border-top: 1px solid black;
+	margin-top:0px;
+	padding-top:0px;
+}
+.printarea h2 {
+	margin-top: 35px !important;
+}

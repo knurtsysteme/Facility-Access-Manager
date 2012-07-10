@@ -1,0 +1,48 @@
+<fieldset id="fs_cd">
+    <legend>Contact Details</legend>
+    <input type="hidden" value="" name="department" id="js_real_value_department" />
+    <input type="hidden" value="" name="company" id="js_real_value_company" />
+    <input type="hidden" value="" name="departmentLabel" id="js_departmentLabel" />
+    <input type="hidden" value="" name="departmentKey" id="js_departmentKey" />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+            	#parse('global/input_street.html')
+                </td>
+                <td>
+            	#parse('global/input_streetno.html')
+                </td>
+            </tr>
+            <tr>
+                <td>
+            	#parse('global/input_zipcode.html')
+                </td>
+                <td>
+	            	#parse('global/input_city.html')
+                </td>
+            </tr>
+            <tr>
+                <td>
+	            	#parse('global/input_phone1.html')
+                </td>
+                <td>
+	            	#parse('global/input_phone2.html')
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p id="phone1_id_hint" style="display:none;">
+                    Fill in at least one phone number and please do not forget your country code (e.g. +44 for United Kingdom).
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    #parse('global/input_country.html')
+                </td>
+            </tr>
+            #parse('global/input_company_table_rows.html')
+        </tbody>
+    </table>
+</fieldset>

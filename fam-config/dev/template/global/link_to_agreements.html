@@ -1,0 +1,15 @@
+<div style="background-color: white; border: 1px solid black; padding: 10px;">
+    <div>
+        <h2>Print out and sign</h2>
+        <div>
+            If you did not do it yet, please print out and sign following aggreement and take it with you on your next visit<br />
+            #set($href = $util.html.getHref("agreementde") + "?v=" + $booking.id)
+            <a href="$href" target="_blank">Order (german)</a>
+        </div>
+	<div style="margin-top: 20px">
+            <strong>For legal reasons, you have to print out and sign the German-Version</strong>.<br />
+            #set($href = $util.html.getHref("agreementen") + "?v=" + $booking.id)
+            <a href="$href" target="_blank">To view the english version click here</a>
+        </div>
+    </div>
+</div>

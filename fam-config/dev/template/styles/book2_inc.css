@@ -1,0 +1,20 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+#js_booking_request_needs,#jedit_notice_of_booking_text {
+	overflow-y: auto;
+}
+
+#jedit_notice_of_booking_text {
+	height: 300px;
+	width: 100%;
+}
+
+.js_notice button {
+	font-size: 90%;
+	margin-left: 0.5em;
+	padding: 0.1em;
+	position: relative;
+}
+
+#js_booking_request_needs .notice button {
+	padding: 0
+}

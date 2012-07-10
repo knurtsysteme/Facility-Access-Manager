@@ -1,0 +1,10 @@
+#if($config.model.n==1 && $config.user.hasRight2ViewPage("configjobsurvey"))
+#parse("content_main/protected/tutorial_1.html")
+#else
+<h1>Available Tutorials</h1>
+<ul class="subbanch.swf">
+    #if($config.user.hasRight2ViewPage("configjobsurvey"))
+    <li><a href="?n=1" title="Configure Job Data Processing">How to configure the job data processing</a></li>
+    #end
+</ul>
+#end

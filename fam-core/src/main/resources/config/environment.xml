@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="userMailSender" class="de.knurt.fam.core.util.mail.UserMailSender" factory-method="getInstance" />
+	<!--
+	authentications 4 pages.
+	set view name to rights.
+	if needOneOf set to empty, admin rights needed.
+	WARNING: CHANGES MAY EFFECT STRONG SECURITY HOLES!!!
+    -->
+	<bean name="viewPageAuthentication" class="de.knurt.fam.core.aspects.security.auth.ViewPageAuthentication" factory-method="getInstance">
+		<property name="needOneOf"><!-- Map<String, int> -->
+			<map>
+				<entry key="facilityemergency" value="6" />
+				<entry key="jobsmanager" value="5,6" />
+				<entry key="statistics" value="9" />
+				<entry key="statisticdisplayofweekimage" value="9" />
+				<entry key="systemmodifyusers" value="4" />
+				<entry key="systemverifyaccounts" value="4" />
+				<entry key="system" value="4,6" />
+				<entry key="editsoa" value="" />
+				<entry key="systemoverview" value="6" />
+				<entry key="systemfacilityavailability" value="6" />
+				<entry key="meta_facilityoverview" value="3,5,6" />
+				<entry key="systemmodifyapplications" value="5" />
+				<entry key="systemusers" value="4" />
+				<entry key="systembookings" value="3,5" />
+				<entry key="systemlistofusermails" value="" />
+				<entry key="systemlistofrolesandrights" value="" />
+				<entry key="systemlistofconfiguredfacilities" value="" />
+				<entry key="viewsystemconfiguration" value="" />
+				<entry key="configjobsurvey" value="5,6" />
+				<entry key="systemfacilityavailabilityoverview" value="5,6" />
+			</map>
+		</property>
+	</bean>
+	<!--
+        set single access to pages.
+        important notice: you cannot add pages here, because 
+        all controller classes of given view name must support the direct access authentication.
+    -->
+	<bean id="bean201001230952" class="de.knurt.fam.core.aspects.security.auth.DirectPageAccessContainer" factory-method="getInstance" />
+
+</beans>

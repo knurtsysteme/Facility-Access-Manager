@@ -1,0 +1,72 @@
+<h1>Set rules for booking facilities</h1>
+#if($config.model.queue_based)
+Setting rules for this facility is impossible.
+#elseif($config.model.show_suddenFailureIsActive)
+<h1 style="margin-top: 20px;" id="newrule">There is an actual sudden failure on this facility</h1>
+<div>
+    $util.html.a("facilityemergency").setContent('Please stop this failure before editing availabilitiy rules.')
+</div>
+#else
+<div>
+        Here you can set availabilities and unavailabilities for “${config.model.facility_name}”.<br />
+        Unavailabilities are seperated in “maintenance” and “general” (like “opening hours” or “open days”).<br />
+        All booking requests overlapping an unavailability will be canceled. In the calendar,
+        booking requests are shown in red colored (<a href="#legend">legend of all colors</a>).
+    </div>
+    #if($config.model.flag_hasmanyunits)
+    <div>
+        <strong>You can set an (un)availability only for all ${config.model.string_nameofunits}. This may change in future versions.</strong>
+    </div>
+    #end
+    #if($config.model.flag_haschildren)
+    <div>
+        This facility has ${config.model.number_children} children. If you set an (un)availability, this effects all child facilities.<br />
+        <a href="systemfacilityavailability.html">For an overview of child facilities or to select another facility, please go to here</a>.
+    </div>
+    #end
+    <div>
+        $util.html.a("systemfacilityavailabilityoverview").setContent('Edit availabilities here') and get an overview of it in the <a href="${config.model.link_weekview}">week view</a> or in the <a href="${config.model.link_monthview}">month view</a>.
+    </div>
+<hr style="margin-bottom: 5px;" class="fullwidth" />
+#if($config.model.show_edit==false)
+<form action="${config.model.link_overview}" method="get">
+    ${config.model.link_hidden_inputs}
+    <button type="submit" class="icon ${config.model.add_or_edit}">${config.model.link_overview_text}</button>
+</form>
+<hr style="margin-top: 10px;" class="fullwidth" />
+#end
+
+${config.model.content}
+
+#if($config.model.show_edit)
+#parse("content_main/admin/systemfacilityavailability_content_show_edit.html")
+#else
+<div id="legend">
+    <h2>Legend</h2>
+    <ul>
+        <li>
+            <img src="availabilitylegendimage.img?status=available" title="available" alt="available"/>: fully available
+        </li>
+        <li>
+            <img src="availabilitylegendimage.img?status=applied" title="applied" alt="applied"/>: partially available
+        </li>
+        <li>
+            <img src="availabilitylegendimage.img?status=booked" title="booked" alt="booked"/>: booked up (not available)
+        </li>
+        <li>
+            <img src="availabilitylegendimage.img?status=generalnot" title="generalnot" alt="generalnot"/>: time beyond working hours or yesterdays (not available)
+        </li>
+        <li>
+            <img src="availabilitylegendimage.img?status=maintenance" title="maintenance" alt="maintenance"/>: maintenance (not available)
+        </li>
+        <li>
+            <img src="availabilitylegendimage.img?status=failure" title="sudden failure" alt="sudden failure"/>: sudden failure
+        </li>
+        <li>
+            <img src="availabilitylegendimage.img?status=mustnotstarthere" title="session must not start here" alt="session must not start here"/>: impossible to start a session here
+        </li>
+    </ul>
+</div>
+#end
+
+#end ## time booking facility

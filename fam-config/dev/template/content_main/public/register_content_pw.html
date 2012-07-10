@@ -1,0 +1,34 @@
+<fieldset id="fs_pw">
+    <legend>Password</legend>
+    <table>
+    <tbody>
+        <tr>
+            <td>
+                <label for="pass1_id">Choose a password</label>
+                <br />
+                <input type="password" name="pass1" id="pass1_id" value="" />
+            </td>
+            <td>
+                <label for="pass2_id">Re-enter password <span id="js_scrollwork_password_ok" class="no"></span></label>
+                <br />
+                <input type="password" name="pass2" id="pass2_id" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="hint" id="passhint">
+                <table id="js_scrollwork_password_strength">
+                    <tr>
+                        <td id="js_scrollwork_password_0">weak</td>
+                        <td id="js_scrollwork_password_1">medium</td>
+                        <td id="js_scrollwork_password_2">strong</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px;display:none;" class="hint" id="pass1_id_hint">
+                    Get it to "medium" or "strong".<br />
+                    Must be at least 8 characters with 2 letters and 2 non-letters. 20 characters as maximum.
+                </p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</fieldset>

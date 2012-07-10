@@ -1,0 +1,37 @@
+<h1>$FamText.facilityNameWithCapacityUnits($config.model.booking) (Job ID $config.model.booking.id)</h1>
+<div>
+	#if($config.model.user_owned_booking)
+	Requested on $FamDateFormat.getDateAndTimeShort($config.model.booking.seton).
+	#else
+	Requested by $config.model.booking.user.fullName on $FamDateFormat.getDateAndTimeShort($config.model.booking.seton).
+	#end
+	#if($config.model.booking.notice)
+	<br />Public notice: $config.model.booking.notice
+	#end
+</div>
+	<h2>
+	Operators Feedback
+	#if(!$config.model.user_owned_booking)
+	<a href="$util.html.href('editfeedback')?v=$config.model.booking.id">edit</a>
+	#end
+	</h2>
+<div>
+	<iframe scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=3&amp;jobid=$config.model.booking.id")">
+		You need an up to dated browser
+	</iframe>
+</div>
+<div>
+	#if(!$config.model.user.hasRight2ViewPage("jobsmanager"))
+	<button class="icon back" onclick="javascript:window.location='$util.html.href('jobsmanager')'">
+		All Jobs
+	</button>
+	#end
+	<button class="icon print" onclick="javascript:window.location='$util.html.hrefWithAQuery('jobsurvey', "?step=3&amp;jobid=$config.model.booking.id")'">
+		Print view
+	</button>
+	#if(!$config.model.user_owned_booking)
+	<button class="icon edit" onclick="javascript:window.location='$util.html.href('editfeedback')?v=$config.model.booking.id'">
+		Edit Feedback
+	</button>
+	#end
+</div>

@@ -1,0 +1,30 @@
+#if($config.model.newsitems.size() > 0)
+<table class="standard">
+	<thead>
+		<tr>
+			<th>When?</th>
+			<th>What?</th>
+			<th>Further&nbsp;info</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($newsitem in $config.model.newsitems)
+		<tr>
+			#if($util.value.isNull($newsitem.eventStarts))
+			<td>?</td>
+			#else
+			<td>$util.sort.span($newsitem.eventStarts)$FamDateFormat.getDateAndTimeShort($newsitem.eventStarts)#if($newsitem.eventEnds) - $FamDateFormat.getDateAndTimeShort($newsitem.eventEnds)#end</td>
+			#end
+			<td>$newsitem.description</td>
+			#if($newsitem.linkToFurtherInformation)
+			<td><a href="$newsitem.linkToFurtherInformation">read more</a></td>
+			#else
+			<td></td>
+			#end
+		</tr>
+		#end
+	</tbody>
+</table>
+#else
+<div>No news for today so far</div> 
+#end

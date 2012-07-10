@@ -1,0 +1,3 @@
+ALTER TABLE usermail DROP COLUMN cc;
+ALTER TABLE usermail DROP COLUMN bcc;
+

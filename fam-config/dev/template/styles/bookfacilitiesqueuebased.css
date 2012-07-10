@@ -1,0 +1,21 @@
+#getinline_text {
+	font-size: 30px;
+}
+
+#getinline_pic {
+	background-image: url('icons/getInLine.gif');
+	height: 64px;
+	width: 183px;
+	display: inline-block;
+}
+
+#getinline_pic_noqueue {
+	background-image: url('icons/getInLine.gif');
+	height: 64px;
+	width: 50px;
+	display: inline-block;
+}
+
+button {
+	text-align: center;
+}

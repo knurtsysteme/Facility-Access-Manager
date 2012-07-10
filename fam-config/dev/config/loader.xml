@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--
+	load the configuration for mails, calendar, facilitites and logbooks.
+    -->
+    <import resource="./mail.xml" />
+    <import resource="./calendarDefaultViews.xml" />
+    <import resource="./facilitiesConfigured.xml" />
+    <import resource="./facilitiesPoolAbstract.xml" />
+    <import resource="./facilitiesPoolBookable.xml" />
+    <import resource="./facilitiesPoolBookingRulesAbstract.xml" />
+    <import resource="./facilitiesPoolNoneBookable.xml" />
+    <import resource="./logbooksConfigured.xml" />
+    <import resource="./logbooksPool.xml" />
+    <import resource="./rolesAndRights.xml" />
+
+</beans>

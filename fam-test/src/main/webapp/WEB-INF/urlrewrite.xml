@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.5//EN"
+    "http://www.tuckey.org/res/dtds/urlrewrite2.5.dtd">
+<urlrewrite>
+    <!--
+        rules to map html-pages to:
+        [resource]/delegate.html
+    -->
+    <rule>
+        <from>/molybdenum-suite.xml$</from>
+        <to>/molybdenum-suite__xml__delegate.fam</to>
+    </rule>
+
+</urlrewrite>

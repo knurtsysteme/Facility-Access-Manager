@@ -1,0 +1,47 @@
+#set($legend_class='')
+#set($legend_message='Sign in as Administrator')
+#if($config.resource)
+    #if($config.resource.unknownUser)
+    #set($legend_class='warning')
+    #set($legend_message='Unknown user')
+    
+    #elseif($config.resource.accountExpired)
+    #set($legend_class='warning')
+    #set($legend_message='Your account is expired!')
+    
+    #elseif($config.resource.invalidAuth)
+    #set($legend_class='warning')
+    #set($legend_message='Wrong username / password')
+    
+    #elseif($config.resource.loggedOut)
+    #set($legend_class='success')
+    #set($legend_message='You have signed out')
+    
+    #elseif($config.resource.lostSession)
+    #set($legend_class='warning')
+    #set($legend_message='You signed out or your session is timed out. Please Sign in again.')
+    #end
+#end
+	<h1>Admin-Area</h1>
+        <form style="margin-top: 20px;" action="$util.html.getHref('adminhome', $lang.page, $config.xml)" method="post" class="textblock">
+            <fieldset>
+                <legend class="$legend_class">$legend_message</legend>
+            	<p class="block">
+            		If you are not an administrator $util.html.a("corehome").setContent("please Sign in as user").
+            	</p>
+            	<p class="block">
+	            	<label for="username">Username:</label><br />
+	            	<input type="text" name="username" id="username" value="" />
+            	</p>
+            	<p>
+	            	<label for="password">Password:</label><br />
+	            	<input type="password" name="password" id="password" value="" />
+            	</p>
+            	<p class="block">
+                	<input type="checkbox" name="rememberme" id="rememberme" />&nbsp;<label for="rememberme">Remember me</label>
+            	</p>
+	            <p class="block">
+	                <button id="admin_submit" type="submit" class="icon login"><span class="image"></span>Sign in</button>
+	            </p>
+            </fieldset>
+        </form>

@@ -1,0 +1,79 @@
+<h1>Overview of applications and conflicts</h1>
+#if($config.model.has_conficts)
+<div class="warning">
+	There are conflicts!
+</div>
+#end
+<table class="standard">
+	<thead>
+		<tr>
+			<th>Conflict</th>
+			<th>Application</th>
+			<th>Your decision</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($booking in $config.model.bookings)
+		<tr id="booking_$booking.id">
+			<td>
+				#set($conflig_size=$booking.conflicts.size())
+			#if($conflig_size>0)
+			<ul>
+				<li>
+					<span class="icon warn">$conflig_size#if($conflig_size==1) Conflict#else Conflicts#end with:</span>
+				</li>
+				#foreach($conflict in $booking.conflicts)
+				<li>
+					<a href="#booking_$conflict.id">$conflict.user.fullName (Job ID: $conflict.id)</a>
+				</li>
+				#end
+			</ul> 
+			#else
+				-
+			#end
+			</td>
+			<td>
+				Requested on: $FamDateFormat.getDateAndTimeShort($booking.dateStart)<br />
+				<a href="mailto:$booking.user.mail">$booking.user.fullName</a>
+			<br />
+			Applied for: $FamText.facilityNameWithCapacityUnits($booking)<br />
+			Job ID: $booking.id
+			<br />
+			#if($booking.notice)
+			Public notice: $booking.notice
+			<br />
+			#end
+			#if($booking.isTimeBased())
+			Applied for Time:&nbsp;$FamDateFormat.getDateAndTimeShort($booking.dateStart)&nbsp;-&nbsp;$FamDateFormat.getDateAndTimeShort($booking.dateEnd)
+			#else
+			Position in queue:&nbsp;$booking.actualQueuePosition
+			#end
+			<br />
+			</td>
+			<td>
+			<form method="post" action="">
+				<input type="hidden" value="$booking.id" name="v">
+				<label for="reason_$booking.id">if you want to give a reason for your decision please enter text here:</label>
+				<br />
+				<input type="text" value="" id="reason_$booking.id" name="w">
+				<p>
+					User gets bonus:
+				</p>
+				<table class="yesNoForms">
+					<tbody>
+						<tr>
+							<td class="yesForm">
+							<button class="icon confirm" title="confirm application" value="1" type="submit" name="y">
+								confirm application
+							</button></td><td class="noForm">
+							<button class="icon delete" title="refusal application" value="0" type="submit" name="y">
+								refusal application
+							</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</form></td>
+		</tr>
+		#end
+	</tbody>
+</table>

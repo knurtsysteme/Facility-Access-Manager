@@ -1,0 +1,26 @@
+    <h1>Where do you want to go?</h1>
+    <div id="quicksand">
+        <div id="jui_tabs">
+            <ul style="margin-left:0;">
+                #foreach($jui_tab in $config.model.jui_tabs)
+                <li class="quicksand_button" id="$jui_tab.get(1)" style="list-style-image:none;">
+                    <a href="#jquery-ui-pseudo">$jui_tab.get(0)</a>
+                    <input type="hidden" value="$jui_tab.get(2)" />
+                </li>
+                #end
+            </ul>
+            <ul id="quicksand_clickitems" style="margin-left:0;">
+                #foreach($quicksand_clickitem in $config.model.quicksand_clickitems)
+                #set($page = $util.page.get($quicksand_clickitem.get(3)))
+                <li class="$quicksand_clickitem.get(2)" id="$quicksand_clickitem.get(0)">
+                    <div>
+                        #set($a_content = "<img height='50' width='50' class='quicksand_clickitem' alt='$page.title' src='$quicksand_clickitem.get(1)' /><span style='display:block'>$page.headline</span>")
+                        $util.html.a($quicksand_clickitem.get(3), $lang.xml, $config.xml).setContent($a_content)
+                    </div>
+                </li>
+                #end
+            </ul>
+        </div>
+        <div style="display: none;" id="jquery-ui-pseudo">
+        </div>
+    </div>

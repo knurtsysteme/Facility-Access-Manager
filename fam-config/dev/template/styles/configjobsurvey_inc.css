@@ -1,0 +1,28 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+textarea {
+	width: 100% !important;
+}
+.ui-dialog-content ul.asList {
+	list-style-position: inside;
+}
+#facility_selection div.js_help {
+	display: inline;
+}
+.tab_step {
+	padding: 0 !important;
+}
+textarea.has_no_input {
+	color: #DDDDDD;
+}
+#container_show .jui_tabs, #container_edit .jui_tabs, #container_preview .jui_tabs {
+	margin-top: 10px;
+}
+#container_show .buttons, #container_edit .buttons, #container_preview .buttons {
+	text-align: right;
+}
+textarea {
+	width: 100% !important;
+}
+.ui-resizable-handle {
+	display: none !important;
+}

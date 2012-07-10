@@ -1,0 +1,64 @@
+<h1>$FamText.facilityNameWithCapacityUnits($config.model.booking) (Job ID $config.model.booking.id)</h1>
+<div>
+	#if($config.model.user_owned_booking)
+	#if(!$config.model.booking.canceled && !$config.model.booking.endsInPast() && !$config.model.booking.sessionAlreadyBegun())
+	#if($config.model.booking.isTimeBased())
+	Time requested $FamDateFormat.getDateFormattedWithTime($config.model.booking.dateStart)&nbsp;to&nbsp;$FamDateFormat.getDateFormattedWithTime($config.model.booking.dateEnd).
+	#else
+	Your are the $FamText.getOrdinal($config.model.booking.actualQueuePosition) person in the queue
+	#end
+	#end
+	<br />
+	Requested on $FamDateFormat.getDateAndTimeShort($config.model.booking.seton).
+	<br />
+	Status: $FamText.statusOfBookingAsText($config.user, $config.model.booking)
+	#else
+	This is not your session
+	#end
+</div>
+#if($config.model.booking.canceled)
+<div class="hint">Booking has been canceled</div>
+#else
+	#if($config.model.booking.isTimeBased())
+	<h2>
+	Notice processable by all
+	</h2>
+	<div>
+		<textarea id="jedit_notice_of_booking_text" name="notice">$!config.model.booking.notice</textarea>
+	</div>
+	#end
+	<h2>
+	Job Survey <a href="$util.html.href('viewrequest')?v=$config.model.booking.id">view</a>
+	</h2>
+<div>
+	<iframe id="jobsurvey" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=0&amp;jobid=$config.model.booking.id")">
+		You need an actual browser
+	</iframe>
+</div>
+<div>
+	#if($config.model.user_owned_booking)
+	<p id="update_panel">
+	<button type="submit" id="jobsurvey_update" class="icon save">
+		Save changes
+	</button>
+	</p>
+	#end
+	<p>
+	#if($config.model.user_owned_booking)
+	<button class="icon back" onclick="javascript:window.location='$util.html.href('mybookings')?v=$config.model.booking.id'">
+		My Bookings
+	</button>
+	#end
+	<button class="icon view" onclick="javascript:window.location='$util.html.href('viewrequest')?v=$config.model.booking.id'">
+		View Job Information
+	</button>
+	<button class="icon print" onclick="javascript:window.location='$util.html.hrefWithAQuery('jobsurvey', "?step=1&amp;jobid=$config.model.booking.id")'">
+		Print view
+	</button>
+	</p>
+	#if($config.model.user_owned_booking)
+	<input type="hidden" name="idJobDataProcessing" id="input_idJobDataProcessing" value="" />
+	<input type="hidden" name="jobid" value="$config.model.booking.id" />
+	#end
+</div>
+#end

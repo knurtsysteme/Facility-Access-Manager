@@ -1,0 +1,23 @@
+<h2>Update-Hint</h2>
+#if($config.model.system.update_active)
+	#if($config.model.system.is_actual)
+		<div>
+		No update available.
+		</div>
+	#else
+		<div class="hint">
+		<a href="$config.model.system.download_page">Please update your version of the Facility Access Manager soon</a>.<br />
+		Your Version: $config.version<br />
+		Actual Version: $config.model.system.actual_version
+		</div>
+	#end
+#else
+	<div class="warn">
+	Checking automatically for updates is not active. <a href="${config.model.system.update_url}">Please visit the update page to check for updates manually</a>.
+	</div>
+#end
+<h2>Hints</h2>
+<div>
+	Please maintain facilities, users and bookings here.<br />
+	$util.html.a('corehome').setContent("Click here, if you like to book a facility.")
+</div>

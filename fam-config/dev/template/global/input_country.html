@@ -1,0 +1,7 @@
+<label for="country_id">Country</label><br />
+<select name="country" id="country_id">
+    <option value="-1">Select entry</option>
+    #foreach($country in $lang.xml.getChild("global").getChild("countries").getChildren() )
+    <option value="$country.getAttributeValue('code')">$country.getAttributeValue('name')</option>
+    #end
+</select>

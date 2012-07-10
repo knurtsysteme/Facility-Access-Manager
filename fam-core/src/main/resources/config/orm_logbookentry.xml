@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="LogbookEntry">
+
+    <parameterMap id="LogbookEntry.insert.param" class="de.knurt.fam.core.model.persist.LogbookEntry">
+        <parameter property="logbookId" />
+        <parameter property="content" />
+        <parameter property="headline" />
+        <parameter property="ofUserName" />
+        <parameter property="languageAsString" />
+        <parameter property="date" />
+        <parameter property="tagsAsCsv"/>
+    </parameterMap>
+    <insert id="LogbookEntry.insert" parameterMap="LogbookEntry.insert.param">
+	INSERT INTO logbookentry (id, logbookId, content, headline, ofUserName, locale_id, dateMade, tags)
+	VALUES (null, ?, ?, ?, ?, ?, ?, ?)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+
+    <parameterMap id="LogbookEntry.update.param" class="de.knurt.fam.core.model.persist.LogbookEntry">
+        <parameter property="logbookId" />
+        <parameter property="content" />
+        <parameter property="headline" />
+        <parameter property="ofUserName" />
+        <parameter property="languageAsString" />
+        <parameter property="date" />
+        <parameter property="tagsAsCsv" />
+        <parameter property="id" />
+    </parameterMap>
+    <update id="LogbookEntry.update" parameterMap="LogbookEntry.update.param">
+	UPDATE logbookentry
+	SET logbookId = ?, content = ?, headline = ?, ofUserName = ?, locale_id = ?, dateMade = ?, tags = ?
+	WHERE id = ?
+    </update>
+
+    <update id="LogbookEntry.delete" parameterClass="de.knurt.fam.core.model.persist.LogbookEntry">
+        DELETE FROM logbookentry
+		WHERE id = #id#
+    </update>
+
+    <resultMap id="LogbookEntry.select.all.result" class="de.knurt.fam.core.model.persist.LogbookEntry">
+        <result property="id" column="id"/>
+        <result property="logbookId" column="logbookId"/>
+        <result property="content" column="content"/>
+        <result property="headline" column="headline"/>
+        <result property="ofUserName" column="ofUserName"/>
+        <result property="languageAsString" column="locale_id"/>
+        <result property="date" column="dateMade"/>
+        <result property="tagsFromCsv" column="tags"/>
+    </resultMap>
+    <statement id="LogbookEntry.select.all" resultMap="LogbookEntry.select.all.result" resultClass="de.knurt.fam.core.model.persist.LogbookEntry">
+	SELECT *
+	FROM logbookentry
+	ORDER BY dateMade DESC
+    </statement>
+
+    <statement id="LogbookEntry.select.where" resultMap="LogbookEntry.select.all.result" resultClass="de.knurt.fam.core.model.persist.LogbookEntry">
+		SELECT *
+		FROM logbookentry
+		WHERE $value$
+    </statement>
+
+    <statement id="LogbookEntry.select.like" resultMap="LogbookEntry.select.all.result" resultClass="de.knurt.fam.core.model.persist.LogbookEntry">
+	SELECT *
+	FROM logbookentry
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="id">
+	      id = #id#
+            </isNotNull>
+            <isNotNull prepend="AND" property="logbookId">
+	      logbookId = #logbookId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="content">
+	      content = #content#
+            </isNotNull>
+            <isNotNull prepend="AND" property="headline">
+	      headline = #headline#
+            </isNotNull>
+            <isNotNull prepend="AND" property="ofUserName">
+	      ofUserName = #ofUserName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="languageAsString">
+	      locale_id = #languageAsString#
+            </isNotNull>
+            <isNotNull prepend="AND" property="date">
+	      dateMade = #date#
+            </isNotNull>
+            <isNotNull prepend="AND" property="tagsAsCsv">
+	      tags = #tagsAsCsv#
+            </isNotNull>
+        </dynamic>
+ 	ORDER BY dateMade DESC
+    </statement>
+</sqlMap>

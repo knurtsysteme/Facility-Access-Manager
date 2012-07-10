@@ -1,0 +1,125 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+/* overview pages */
+div.category_links {
+}
+div#left_block {
+float:left;
+padding-right:20px;
+width:345px;
+height: 1000px;
+}
+div#right_block {
+margin-left:350px;
+padding-top: 1px;
+width: 400px;
+}
+div.inner_block {
+height: 60px;
+}
+div.inner_block div.icon {
+background-color:#fff;
+background-repeat: no-repeat;
+background-attachment: scroll;
+background-position: 0 0;
+float:left;
+height:50px;
+margin-right:10px;
+width:50px;
+}
+div.inner_block div a {
+display:block;
+height:100%;
+text-decoration:none;
+border: 0px solid black;
+background-repeat:no-repeat;
+}
+div.inner_block div#access_facilities_icon a {
+background-image: url('../icons/access_facilities_icon.gif');
+}
+div.inner_block div#access_facilities_core_icon a {
+background-image: url('../icons/access_facilities_core_icon.gif');
+}
+div.inner_block div#logbooks_icon a {
+background-image: url('../icons/logbooks_icon.gif');
+}
+div.inner_block div#information_icon a {
+background-image: url('../icons/information_icon.gif');
+}
+div.inner_block div#my_profile_icon a {
+background-image: url('../icons/my_profile_icon.gif');
+}
+div.inner_block div#workonbookings_icon a {
+background-image: url('../icons/workonbookings.gif');
+}
+div.inner_block div#blackboeard_icon a {
+background-image: url('../icons/blackboeard_icon.gif');
+}
+div.inner_block div#cancelation_icon a {
+background-image: url('../icons/appointment-new.png');
+}
+div.inner_block div#admin_icon a {
+background-image: url('../icons/admin_icon.gif');
+}
+div.inner_block div#create_info_page_icon a {
+background-image: url('../icons/create_info_page_icon.gif');
+}
+div.inner_block div#cancel_bookings_icon a {
+background-image: url('../icons/cancel_bookings_icon.gif');
+}
+div.inner_block div#see_applications_icon a {
+background-image: url('../icons/see_applications_icon.gif');
+}
+div.inner_block div#admin_show_statistics_icon a {
+background-image: url('../icons/statistics.gif');
+}
+div.inner_block div#alert_icon a {
+background-image: url('../icons/alert_icon.gif');
+}
+div.inner_block div#status_icon a {
+background-image: url('../icons/status_icon.gif');
+}
+div.inner_block div#see_researches_icon a {
+background-image: url('../icons/see_researches_icon.gif');
+}
+div.inner_block div#logout_icon a {
+background-image: url('../icons/logout_icon.gif');
+}
+div.inner_block div#calendar_icon a {
+background-image: url('../icons/calendar_icon.gif');
+}
+div.inner_block div#people_icon a {
+background-image: url('../icons/people.gif');
+}
+div.inner_block div#verifypeople_icon a {
+background-image: url('../icons/verifypeople.gif');
+}
+div.inner_block div#lettergenerator a {
+background-image: url('../icons/verifypeople.gif');
+}
+div.inner_block div#modifypeople_icon a {
+background-image: url('../icons/modifypeople.gif');
+}
+div.inner_block div#bookings_icon a {
+background-image: url('../icons/bookings_icon.gif');
+}
+div.inner_block div#meta_icon a {
+background-image: url('../icons/manreadbook_icon.gif');
+}
+div.inner_block div#rolesrights_icon a {
+background-image: url('../icons/rolesandrights_icon.gif');
+}
+div.inner_block div#letter_icon a {
+background-image: url('../icons/letter_icon.gif');
+}
+
+
+div.inner_block a {
+font-size: 100%;
+font-weight: bold;
+}
+div.block h2 {
+margin-bottom: 10px;
+}
+div.block {
+margin-top: 10px;
+}

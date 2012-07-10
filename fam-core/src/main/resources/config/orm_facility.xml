@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="facility">
+
+    <parameterMap id="facility.availability.insert.param" class="de.knurt.fam.core.model.persist.FacilityAvailability">
+        <parameter property="available"/>
+        <parameter property="endOfBasePeriodOfTime"/>
+        <parameter property="startOfBasePeriodOfTime"/>
+        <parameter property="interval"/>
+        <parameter property="facilityKey"/>
+        <parameter property="timeStampSet"/>
+        <parameter property="notice"/>
+        <parameter property="usernameSetThis"/>
+    </parameterMap>
+    <insert id="facility.availability.insert" parameterMap="facility.availability.insert.param">
+	INSERT INTO facility_availability (id, available, tfend, tfstart, tfinterval, facilityKey, timestampset, notice, usernameSetThis)
+	VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+
+    <parameterMap id="facility.availability.update.param" class="de.knurt.fam.core.model.persist.FacilityAvailability">
+        <parameter property="available"/>
+        <parameter property="endOfBasePeriodOfTime"/>
+        <parameter property="startOfBasePeriodOfTime"/>
+        <parameter property="interval"/>
+        <parameter property="facilityKey"/>
+        <parameter property="timeStampSet"/>
+        <parameter property="notice"/>
+        <parameter property="usernameSetThis"/>
+        <parameter property="id"/>
+    </parameterMap>
+    <update id="facility.availability.update" parameterMap="facility.availability.update.param">
+	UPDATE facility_availability
+	SET available = ?, tfend = ?, tfstart = ?, tfinterval = ?, facilityKey = ?, timestampset = ?, notice = ?, usernameSetThis = ?
+	WHERE id = ?
+    </update>
+
+    <delete id="facility.availability.delete" parameterClass="de.knurt.fam.core.model.persist.FacilityAvailability">
+        DELETE FROM facility_availability
+        WHERE id = #id#
+    </delete>
+
+    <resultMap id="facility.availability.select.all.result" class="de.knurt.fam.core.model.persist.FacilityAvailability">
+	<result property="id" column="id"/>
+	<result property="facilityKey" column="facilityKey"/>
+	<result property="available" column="available"/>
+        <result property="usernameSetThis" column="usernameSetThis" />
+	<result property="endOfBasePeriodOfTime" column="tfend"/>
+	<result property="startOfBasePeriodOfTime" column="tfstart"/>
+	<result property="interval" column="tfinterval"/>
+	<result property="timeStampSet" column="timestampset"/>
+	<result property="notice" column="notice"/>
+    </resultMap>
+    <statement id="facility.availability.select.all" resultMap="facility.availability.select.all.result" resultClass="de.knurt.fam.core.model.persist.FacilityAvailability">
+	SELECT *
+	FROM facility_availability
+	ORDER BY tfstart
+    </statement>
+
+    <statement id="facility.availability.select.idmax" resultClass="java.lang.Integer">
+	SELECT max(id)
+        FROM facility_availability;
+    </statement>
+
+    <statement id="facility.availability.select.where" resultMap="facility.availability.select.all.result" resultClass="de.knurt.fam.core.model.persist.FacilityAvailability">
+	SELECT *
+	FROM facility_availability
+	<dynamic prepend="WHERE">
+	  <isNotNull prepend="AND" property="id">
+	      id = #id#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="usernameSetThis">
+	      usernameSetThis = #usernameSetThis#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="facilityKey">
+	      facilityKey = #facilityKey#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="available">
+	      available = #available#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="endOfBasePeriodOfTime">
+	      tfend = #endOfBasePeriodOfTime#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="startOfBasePeriodOfTime">
+	      tfstart = #startOfBasePeriodOfTime#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="interval">
+	      tfinterval = #interval#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="timeStampSet">
+	      timestampset = #timeStampSet#
+	  </isNotNull>
+	  <isNotNull prepend="AND" property="notice">
+	      notice = #notice#
+	  </isNotNull>
+	</dynamic>
+	ORDER BY tfstart
+    </statement>
+    
+    <statement
+        id="facility.responsibility.select.of.user"
+        resultClass="java.lang.String"
+         parameterClass="de.knurt.fam.core.model.persist.User">
+		SELECT facility_key
+		FROM facility_responsibility
+		WHERE username = #username# AND revoked IS NULL
+    </statement>
+    <update id="facility.responsibility.update.remove" parameterClass="de.knurt.fam.core.model.persist.User">
+		UPDATE facility_responsibility
+		SET revoked = CURRENT_TIMESTAMP
+		WHERE username = #username#
+    </update>
+    
+    <insert id="facility.responsibility.insert" parameterClass="java.util.Properties">
+		INSERT INTO facility_responsibility(username, facility_key) 
+		VALUES(#username#, #facility_key#)
+    </insert>
+    
+    
+</sqlMap>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.5//EN"
+    "http://www.tuckey.org/res/dtds/urlrewrite2.5.dtd">
+<urlrewrite>
+	<!--
+        catch things not mapped:
+        subdirectory-contents
+        some specific files
+	-->
+	<rule>
+		<from>/bp_images/(.+)$</from>
+		<to>/bp_images/$1</to>
+	</rule>
+	<rule>
+		<from>/demo/(.+)$</from>
+		<to>/demo/$1</to>
+	</rule>
+	<rule>
+		<from>/font-face-kits/(.+)$</from>
+		<to>/font-face-kits/$1</to>
+	</rule>
+	<rule>
+		<from>/icons/(.+)$</from>
+		<to>/icons/$1</to>
+	</rule>
+	<rule>
+		<from>/blueimp/(.+)$</from>
+		<to>/blueimp/$1</to>
+	</rule>
+	<rule>
+		<from>/images/(.+)$</from>
+		<to>/images/$1</to>
+	</rule>
+	<rule>
+		<from>/jquerybubblepopup-theme/(.+)$</from>
+		<to>/jquerybubblepopup-theme/$1</to>
+	</rule>
+	<rule>
+		<from>/jquery_datatables_images/(.+)$</from>
+		<to>/jquery_datatables_images/$1</to>
+	</rule>
+	<rule>
+		<from>/tiny_mce/(.+)$</from>
+		<to>/tiny_mce/$1</to>
+	</rule>
+	<rule>
+		<from>/jquery\.js</from>
+		<to>/jquery.js</to>
+	</rule>
+
+
+	<!--
+        rules to map fam-pages throw java-engine.
+        map from:
+        /[filename]-[resource].[suffix]
+        to:
+		/[resource]__[filename]__[suffix]__delegate.fam
+		e.g.:
+		map go-home.html to home_go_html__delegate.fam
+    -->
+	<rule>
+		<from>/(.+)-([a-z0-9]+)\.([a-z0-9]+)$</from>
+		<to>/$2__$1__$3__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/(.+)-([a-z0-9]+)\.(.+)(?:\?.+)$</from>
+		<to>/$2__$1__$3__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/bookfacilitiesdone\.html$</from>
+		<to>/bookfacilitiesdone__default__html__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/singletermsofuseadminview\.html\?(.+)$</from>
+		<to>/singletermsofuseadminview__default__html__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/actualsingletermsofuse\.html\?(.+)$</from>
+		<to>/termsofuse__default__html__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/termsofuse\.html\?(.+)$</from>
+		<to>/termsofuse__default__html__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/(.+)\.img\?(.+)$</from>
+		<to>/$1__default__png__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/(.+)\.img$</from>
+		<to>/$1__default__png__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/(.+)\.json$</from>
+		<to>/$1__default__json__delegate.fam</to>
+	</rule>
+
+	<!-- 
+		go home shorties
+	-->
+	<rule>
+		<from>/$</from>
+		<to>/home__default__html__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>/\?(.*)$</from>
+		<to>/home__default__html__delegate.fam</to>
+	</rule>
+	<rule>
+		<from>$</from>
+		<to>/home__default__html__delegate.fam</to>
+	</rule>
+
+</urlrewrite>

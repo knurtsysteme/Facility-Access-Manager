@@ -1,0 +1,5 @@
+<h2>Kindly note that ...</h2>
+<div>
+<p>... this is a list of actual jobs where the session time is not finished now.</p>
+<p>#if($config.user.hasRight2ViewPage("jobsmanager")) Please visit the $util.html.a('jobsmanager').setContent('Jobs Manager') to see all jobs not canceled. #else($config.user.hasRight2ViewPage("jobsmanager")) You are not allowed to see past jobs. #end</p>
+</div>

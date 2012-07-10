@@ -1,0 +1,97 @@
+<h1 style="margin-top: 20px;">Add a new rule</h1>
+<div>
+    $config.model.actual_step of 3
+</div>
+#set($url = $util.html.getHref('systemfacilityavailability') + ${config.model.querystring})
+#set($method = "post")
+#if($config.model.actual_step != 3)
+#set($url = $url + "#newrule")
+#set($method = "get")
+#end
+<form action="$url" method="$method">
+    <p>
+        ${config.model.hiddenInputs}
+    </p>
+    #if($config.model.actual_step==1)
+    <fieldset>
+        <legend>Choose availability</legend>
+        <p>
+            ${config.model.facility_name} is ...
+        </p>
+        <p>
+            <input checked="checked" type="radio" name="${config.model.name_available}" value="${config.model.value_available_nomaintenance}" id="${config.model.name_available}${config.model.value_available_nomaintenance}_id"/>
+            <label for="${config.model.name_available}${config.model.value_available_nomaintenance}_id">
+                <img alt="maintenance (not available)" src="availabilitylegendimage.img?status=maintenance" title="maintenance (not available)" style="border: 1px solid black" />
+                ... ${config.model.text_available_nomaintenance}
+            </label><br />
+
+            <input type="radio" name="${config.model.name_available}" value="${config.model.value_available_noingeneral}" id="${config.model.name_available}${config.model.value_available_noingeneral}_id" />
+            <label for="${config.model.name_available}${config.model.value_available_noingeneral}_id">
+                <img alt="time beyond working hours or yesterdays (not available)" src="availabilitylegendimage.img?status=generalnot" title="time beyond working hours or yesterdays (not available)" style="border: 1px solid black" />
+                ... ${config.model.text_available_noingeneral}
+            </label><br />
+
+            <input type="radio" name="${config.model.name_available}" value="${config.model.value_available_mustnotstarthere}" id="${config.model.name_available}${config.model.value_available_mustnotstarthere}_id" />
+            <label for="${config.model.name_available}${config.model.value_available_mustnotstarthere}_id">
+                <img alt="impossible to start a session here" src="availabilitylegendimage.img?status=mustnotstarthere" title="impossible to start a session here" style="border: 1px solid black" />
+                ... ${config.model.text_available_mustnotstarthere}
+            </label><br />
+
+            <input type="radio" name="${config.model.name_available}" value="${config.model.value_available_available}" id="${config.model.name_available}${config.model.value_available_available}_id" />
+            <label for="${config.model.name_available}${config.model.value_available_available}_id">
+                <img alt="fully available (you can book it)" src="availabilitylegendimage.img?status=available" title="fully available (you can book it)" style="border: 1px solid black" />
+                ... ${config.model.text_available_available}
+            </label>
+        </p>
+    </fieldset>
+    <fieldset>
+        <legend>Choose interval</legend>
+        <p>
+            <input checked="checked" type="radio" name="${config.model.name_interval}" value="${config.model.value_interval_onetime}" id="${config.model.name_interval}${config.model.value_interval_onetime}_id"/>&nbsp;<label for="${config.model.name_interval}${config.model.value_interval_onetime}_id">Do not repeat.</label><br />
+        </p>
+        <p>
+            Repeat every ...<br />
+            <input type="radio" name="${config.model.name_interval}" value="${config.model.value_interval_yearly}" id="${config.model.name_interval}${config.model.value_interval_yearly}_id" />&nbsp;<label for="${config.model.name_interval}${config.model.value_interval_yearly}_id">... year.</label><br />
+            <input type="radio" name="${config.model.name_interval}" value="${config.model.value_interval_monthly}" id="${config.model.name_interval}${config.model.value_interval_monthly}_id" />&nbsp;<label for="${config.model.name_interval}${config.model.value_interval_monthly}_id">... month.</label><br />
+            <input type="radio" name="${config.model.name_interval}" value="${config.model.value_interval_weekly}" id="${config.model.name_interval}${config.model.value_interval_weekly}_id" />&nbsp;<label for="${config.model.name_interval}${config.model.value_interval_weekly}_id">... week.</label><br />
+            <input type="radio" name="${config.model.name_interval}" value="${config.model.value_interval_daily}" id="${config.model.name_interval}${config.model.value_interval_daily}_id" />&nbsp;<label for="${config.model.name_interval}${config.model.value_interval_daily}_id">... day.</label>
+        </p>
+    </fieldset>
+    <button type="submit" class="icon next">next step</button>
+    #end
+    #if($config.model.actual_step==2)
+    <p>
+        Set by now:
+    </p>
+    ${config.model.text_info}
+    <fieldset style="margin-top: 10px;">
+        <legend>Set time</legend>
+        <p>
+            ${config.model.select_time}
+        </p>
+    </fieldset>
+    <fieldset style="margin-top: 10px;">
+        <legend>Optional notice</legend>
+        <p>
+            <label for="${config.model.name_notice}_id">Show this notice:</label><br />
+            <textarea cols="20" rows="15" name="${config.model.name_notice}" id="${config.model.name_notice}_id"></textarea>
+        </p>
+    </fieldset>
+    <button type="submit" class="icon next">view changes and confirm</button>
+    #end
+    #if($config.model.actual_step==3)
+    <p>
+        Confirm this inputs:
+    </p>
+    ${config.model.text_info}
+    <p style="margin-top: 20px;">
+        <button type="submit" class="icon next">Submit</button><br />
+    </p>
+    #end
+</form>
+#if($config.model.actual_step==2 || $config.model.actual_step==3)
+<form action="systemfacilityavailability.html" method="get">
+    <input type="hidden" value="${config.model.text_facilitykey}" name="${config.model.name_facilitykey}"/>
+    <button class="icon back" type="submit">Cancel!</button>
+</form>
+#end

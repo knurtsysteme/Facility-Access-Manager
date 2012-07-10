@@ -1,0 +1,129 @@
+ #set($booking=$config.model.booking)
+      	#if($config.model.booking && $config.model.booking.jobId)
+ 	<h1>Job ID: $config.model.booking.jobId</h1>
+ 	<div>
+ 		<h3>Job Status</h3>
+ 		<ul>
+ 		#if($booking.lastInvoiced)
+	 		<li id="info_last_invoiced">Last invoiced: $FamDateFormat.getDateShort($booking.lastInvoiced)</li>
+		#else
+ 			<li id="info_last_invoiced">Not invoiced by now</li>
+ 		#end
+ 		#if($booking.processed)
+ 			<li>Processed</li>
+ 		#else
+ 			<li>Not processed</li>
+ 		#end
+ 		</ul>
+ 	</div>
+      	#else
+ 	<h1>&nbsp;</h1>
+      	#end
+      <form action="$util.html.getHref('lettergenerator')" method="POST" id="letterform">
+      	<fieldset>
+      	<legend>Letter content</legend>
+      	<table>
+      		<tr class="subhead">
+      			<th colspan="2">Header</th>
+      		</tr>
+      		<tr>
+      			<td><label for="date_id">Date (DD.MM.YYYY):</label></td>
+      			<td><input type="text" name="date" value="$!config.model.date" id="date_id" /></td>
+      		</tr>
+      		<tr>
+      			<td><label for="recipient_id">Recipient</label></td>
+      			<td><textarea rows="5" cols="20" id="recipient_id" name="recipient">$!config.model.recipient</textarea></td>
+      		</tr>
+      		<tr class="subhead">
+      			<th colspan="2">Body</th>
+      		</tr>
+      		<tr>
+      			<td><label for="headline_id">Headline</label></td>
+      			<td><input type="text" name="headline" value="$!config.model.headline" id="headline_id" /></td>
+      		</tr>
+      		<tr>
+      			<td><label for="billaddress_id">Billaddress</label></td>
+      			<td><textarea rows="5" cols="20" id="billaddress_id" name="billaddress">$!config.model.billaddress</textarea></td>
+      		</tr>
+      		<tr>
+      			<td>
+      				<label for="maintext_id">Maintext
+      				#if($config.model.booking)
+	      				<br />
+	      				<span class="hint">Please always check the price to pay (if given)! The correct price may differ.
+						#if($config.model.booking.facilityKey.equals("crystalmation_plates_20dg"))
+							<br />
+							Please insert: <br />
+							- The number of plates<br />
+							- Optimization screens<br />
+							- The price to pay
+	      				#elseif($config.model.booking.facilityKey.equals("massSpectrometer_fullLengthAnalysis") || $config.model.booking.facilityKey.equals("massSpectrometer_fullLengthAnalysis2"))
+							<br />
+							Please insert:<br />
+							- The number of samples<br />
+							- The price to pay
+    					#elseif($config.model.booking.facilityKey.equals("microCalCapillaryDifferentialScanningCalorimeter") || $config.model.booking.facilityKey.equals("itc") || $config.model.booking.facilityKey.equals("dsf"))
+							<br />
+							Please insert:<br />
+							- Runs with same protein<br />
+							- The price to pay
+	      				#end
+	      				</span>
+      				#end
+      				</label>
+  				</td>
+      			<td><textarea rows="15" cols="20" id="maintext_id" name="maintext">$!config.model.maintext</textarea></td>
+      		</tr>
+      		<tr class="subhead">
+      			<th colspan="2">Signer</th>
+      		</tr>
+      		<tr>
+      			<td><label for="signer_id">Name signer</label></td>
+      			<td><input type="text" name="signer" value="$!config.model.signer" id="signer_id" /></td>
+      		</tr>
+      		<tr>
+      			<td><label for="phone_id">Telephone of signer</label></td>
+      			<td><input type="text" name="telephone" value="$!config.model.phone" id="phone_id" /></td>
+      		</tr>
+      		<tr>
+      			<td><label for="signer_city_id">City signed and date</label></td>
+      			<td><input type="text" name="city" value="$!config.model.signer_city" id="signer_city_id" /></td>
+      		</tr>
+      	</table>
+      	</fieldset>
+      	<fieldset>
+      		<legend>Options</legend>
+      		<p>
+	      		<input type="radio" name="event" value="show" id="event_show_id" checked="checked" /><label for="event_show_id">&nbsp;Show PDF</label><br />
+	      		<input type="radio" name="event" value="email" id="event_email_id" /><label for="event_email_id">&nbsp;Send PDF via E-Mail</label>
+      		</p>
+      		<table style="display: none;" id="email_form">
+      			<tr>
+      				<td><label for="email_from_id">From</label></td>
+      				<td><input id="email_from_id" type="text" name="email_from" value="$!config.model.email_from" /></td>
+      			</tr>
+      			<tr>
+      				<td><label for="email_recipient_id">To</label></td>
+      				<td><input id="email_recipient_id" type="text" name="email_recipient" value="$!config.model.email_recipient" /></td>
+      			</tr>
+      			<tr>
+      				<td><label for="email_subject_id">Subject</label></td>
+      				<td><input id="email_subject_id" type="text" name="email_subject" value="$!config.model.email_subject" /></td>
+      			</tr>
+      			<tr>
+      				<td><label for="email_message_id">Message</label></td>
+      				<td><textarea id="email_message_id" rows="7" cols="20" name="email_message">$!config.model.email_message</textarea></td>
+      			</tr>
+	      		#if($booking.id)
+      			<tr>
+      				<td>Status</td>
+      				<td>
+		      			<input type="hidden" name="v" value="$booking.id" />
+		      			<input type="checkbox" name="invoiced" id="invoiced_id" checked="checked" /><label for="invoiced_id">&nbsp;Set as invoiced</label><br />
+      				</td>
+      			</tr>
+    	  		#end
+      		</table>
+      	</fieldset>
+      	<button class="icon send" type="submit">Submit</button>
+      </form>      

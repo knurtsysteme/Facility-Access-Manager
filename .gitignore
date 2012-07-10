@@ -17,10 +17,17 @@ profiles.xml
 .tomcatplugin
 C:*
 
-# make your own plattform depending scripts starting with:
-exec_*
+# ignore test reports
+*report.html
 
-# make your own poms starting with:
-pom_*
+# ignore contents in testing folders
+fam-config/dev/files/users/*
+fam-config/dev/plugins/*
+
+# make your own plattform depending scripts:
+*/exec_*.sh
+
+# make your own poms:
+*/pom_*.xml
 
 

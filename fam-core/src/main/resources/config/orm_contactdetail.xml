@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ContactDetail">
+
+    <parameterMap id="ContactDetail.insert.param" class="de.knurt.fam.core.model.persist.ContactDetail">
+        <parameter property="username" />
+        <parameter property="title" />
+        <parameter property="detail" />
+    </parameterMap>
+    <insert id="ContactDetail.insert" parameterMap="ContactDetail.insert.param">
+	INSERT INTO contactdetail (id, username, title, detail)
+	VALUES (null, ?, ?, ?)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+
+    <parameterMap id="ContactDetail.update.param" class="de.knurt.fam.core.model.persist.ContactDetail">
+        <parameter property="username" />
+        <parameter property="title" />
+        <parameter property="detail" />
+        <parameter property="id" />
+    </parameterMap>
+    <update id="ContactDetail.update" parameterMap="ContactDetail.update.param">
+	UPDATE contactdetail
+	SET username = ?, title = ?, detail = ?
+	WHERE id = ?
+    </update>
+
+    <delete id="ContactDetail.delete" parameterClass="de.knurt.fam.core.model.persist.ContactDetail">
+        DELETE FROM contactdetail
+        WHERE id = #id#
+    </delete>
+
+    <resultMap id="ContactDetail.select_like.result" class="de.knurt.fam.core.model.persist.ContactDetail">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="title" column="title"/>
+        <result property="detail" column="detail"/>
+    </resultMap>
+
+    <statement id="ContactDetail.select_like" resultMap="ContactDetail.select_like.result" resultClass="de.knurt.fam.core.model.persist.ContactDetail">
+	SELECT *
+	FROM contactdetail
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="id">
+	      id = #id#
+            </isNotNull>
+            <isNotNull prepend="AND" property="username">
+	      username = #username#
+            </isNotNull>
+            <isNotNull prepend="AND" property="title">
+	      title = #title#
+            </isNotNull>
+            <isNotNull prepend="AND" property="detail">
+	      detail = #detail#
+            </isNotNull>
+        </dynamic>
+	ORDER BY title
+    </statement>
+
+
+</sqlMap>

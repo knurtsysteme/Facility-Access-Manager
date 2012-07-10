@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="KeyValue">
+
+    <insert id="KeyValue.insert" parameterClass="de.knurt.fam.core.model.persist.KeyValue">
+		INSERT INTO key_value (id, k, v)
+		VALUES (null, #k#, #v#)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+
+    <update id="KeyValue.update" parameterClass="de.knurt.fam.core.model.persist.KeyValue">
+		UPDATE key_value
+		SET v = #v#
+		WHERE k = #k#
+    </update>
+
+    <delete id="KeyValue.delete" parameterClass="de.knurt.fam.core.model.persist.KeyValue">
+        DELETE FROM key_value
+		WHERE k = #k#
+    </delete>
+
+    <resultMap id="KeyValue.select.all.result" class="de.knurt.fam.core.model.persist.KeyValue">
+        <result property="id" column="id"/>
+        <result property="k" column="k"/>
+        <result property="v" column="v"/>
+    </resultMap>
+    <statement
+        id="KeyValue.select.all"
+        resultMap="KeyValue.select.all.result"
+        resultClass="de.knurt.fam.core.model.persist.KeyValue">
+		SELECT *
+		FROM key_value
+		ORDER BY k
+    </statement>
+    <statement
+        id="KeyValue.select.where_key"
+        resultMap="KeyValue.select.all.result"
+        resultClass="de.knurt.fam.core.model.persist.KeyValue">
+		SELECT *
+		FROM key_value
+		WHERE k = #k#
+    </statement>
+
+</sqlMap>

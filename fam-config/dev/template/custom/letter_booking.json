@@ -1,0 +1,15 @@
+#set($today=$FamDateFormat.getCustomDate("dd.MM.yyyy"))
+{
+	"headline" : "Use of a facility",
+	"date" : "$!today",
+	"phone" : "Phone: $authuser.phone1",
+	"recipient" : "An\nMax Mustermann",
+	"billaddress" : "$!booking.user.fullName\n$!booking.user.mainAddress.street $!booking.user.mainAddress.streetno\n$!booking.user.mainAddress.zipcode $!booking.user.mainAddress.city",
+ 	"maintext" : "used this facility: $booking.facility.label. PLEASE ADD TEXT HERE.",
+	"signer_city" : "$authuser.mainAddress.city, $!today",
+	"signer" : "$authuser.fullName",
+	"email_recipient" : "",
+	"email_from" : "$authuser.mail",
+	"email_subject" : "[FAM] Job processed for: $booking.user.fullName",
+	"email_message" : "Dear Max Mustermann,\n\nplease find attached an PDF-Document.\n\nBest\n$authuser.fullName"
+}

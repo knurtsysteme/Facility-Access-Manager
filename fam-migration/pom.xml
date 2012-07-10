@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.knurt.fam.dev.migration</groupId>
+  <artifactId>fam-migration</artifactId>
+  <version>1.8.1</version>
+  <name>Facility Access Manager Dev Lib Migration</name>
+  <description>Resources for the CouchDB and SQL-Database to init and migrate</description>
+  <url>http://facility-access-manager.com/docs/${project.version}/${project.artifactId}</url>
+  <licenses>
+    <license>
+      <name>Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported</name>
+      <url>http://creativecommons.org/licenses/by-nc-sa/3.0</url>
+      <distribution>3.0</distribution>
+      <comments>
+        Copyright 2009-2012 by KNURT Systeme (http://www.knurt.de)
+
+        Licensed under the Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported;
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://creativecommons.org/licenses/by-nc-sa/3.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language
+        governing permissions and
+        limitations under the License.
+            </comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>knurt.de</name>
+    <url>http://www.knurt.de</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>danieloltmanns</id>
+      <name>Daniel Oltmanns</name>
+      <email>info@knurt.de</email>
+      <url>http://www.knurt.de</url>
+      <organization>KNURT Systeme</organization>
+      <organizationUrl>http://www.knurt.de</organizationUrl>
+      <roles>
+        <role>project manager</role>
+        <role>architect</role>
+        <role>art director</role>
+        <role>web designer</role>
+        <role>coder</role>
+        <role>documentarist</role>
+        <role>tester</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <organization>Max Planck Institute of Biophysics</organization>
+      <organizationUrl>http://www.biophys.mpg.de</organizationUrl>
+      <roles>
+        <role>constituent</role>
+      </roles>
+      <timezone>1</timezone>
+    </contributor>
+  </contributors>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.6</version>
+          <executions>
+            <execution>
+              <phase>install</phase>
+              <configuration>
+                <target name="update production json">
+                  <echo>update as.json</echo>
+                  <echo>TODO #373 DELETE REVISION MANUALY</echo>
+                  <exec executable="wget" os="Linux">
+                    <!-- TODO #373 DELETE REVISION MANUALY -->
+                    <arg line="${dev.couchdb.default.url}/_design/as --output-document src/main/resources/couchdb/production/_design/as.json" />
+                  </exec>
+                </target>
+              </configuration>
+              <goals>
+                <goal>run</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <dev.couchdb.admin.url>http://admin:secret@127.0.0.1:5984/fam</dev.couchdb.admin.url>
+    <dev.couchdb.default.url>http://127.0.0.1:5984/fam</dev.couchdb.default.url>
+  </properties>
+</project>

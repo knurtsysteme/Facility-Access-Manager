@@ -1,0 +1,32 @@
+<h2>Reload Configuration</h2>
+#if($config.model.configuration_reloaded)
+	<div class="hint">Configuration has been reloaded</div>
+#else
+	<div>
+		<p>If you changed the xml-configuration just click this button to become changes effective:</p>
+		<p><button class="icon reload" onclick="javascript:window.location=window.location + '?reload=config'">Reload Config</button></p>
+	</div>
+#end
+	<h2>System configuration parameters.</h2>
+	<table class="standard">
+		<thead>
+			<tr>
+				<th>key</th>
+				<th>value</th>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach($key in $config.model.props.keySet())
+			#if($key != 'model' && $key != 'page' && $key != 'xml' && $key != 'user')
+			#set($value = $config.model.props.get($key))
+			#if($value == '')
+			#set($value = '[EMPTY]')
+			#end
+			<tr>
+				<td>$key</td>
+				<td>$value</td>
+			</tr>
+			#end
+			#end
+		</tbody>
+	</table>

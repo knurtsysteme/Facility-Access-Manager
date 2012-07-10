@@ -1,0 +1,276 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.knurt.fam.dev.test</groupId>
+  <version>1.8.1</version>
+  <artifactId>fam-test</artifactId>
+  <packaging>war</packaging>
+  <name>Facility Access Manager Dev Web Test</name>
+  <description>
+    Front-End-Tests needed to be installed in development environments. This execution of the tests are build in the main project test phase. A Firefox is used for molybdenum tests (not included).
+  </description>
+  <url>http://facility-access-manager.com/docs/${project.version}/${project.artifactId}</url>
+  <licenses>
+    <license>
+      <name>Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported</name>
+      <url>http://creativecommons.org/licenses/by-nc-sa/3.0</url>
+      <distribution>3.0</distribution>
+      <comments>
+        Copyright 2009-2012 by KNURT Systeme (http://www.knurt.de)
+
+        Licensed under the Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported;
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://creativecommons.org/licenses/by-nc-sa/3.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language
+        governing permissions and
+        limitations under the License.
+            </comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>knurt.de</name>
+    <url>http://www.knurt.de</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>danieloltmanns</id>
+      <name>Daniel Oltmanns</name>
+      <email>info@knurt.de</email>
+      <url>http://www.knurt.de</url>
+      <organization>KNURT Systeme</organization>
+      <organizationUrl>http://www.knurt.de</organizationUrl>
+      <roles>
+        <role>project manager</role>
+        <role>architect</role>
+        <role>art director</role>
+        <role>web designer</role>
+        <role>coder</role>
+        <role>documentarist</role>
+        <role>tester</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <organization>Max Planck Institute of Biophysics</organization>
+      <organizationUrl>http://www.biophys.mpg.de</organizationUrl>
+      <roles>
+        <role>constituent</role>
+      </roles>
+      <timezone>1</timezone>
+    </contributor>
+  </contributors>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${version.springframework}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.tuckey</groupId>
+      <artifactId>urlrewrite</artifactId>
+      <version>2.5.2</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.16</version>
+    </dependency>
+    <dependency>
+      <groupId>de.knurt.fam.core</groupId>
+      <artifactId>fam-core</artifactId>
+      <version>1.8.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <version>3.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>fam-test</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <downloadSources>true</downloadSources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>tomcat-maven-plugin</artifactId>
+        <configuration>
+          <path>/fam-test</path>
+        </configuration>
+        <version>1.1</version>
+      </plugin>
+      <plugin>
+        <groupId>com.lazerycode.jmeter</groupId>
+        <artifactId>jmeter-maven-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <id>jmeter-tests</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jmeter</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.molyb.automation.maven</groupId>
+        <artifactId>molybdenum-maven-plugin</artifactId>
+        <configuration>
+          <profilename>molybdenum-test</profilename>
+          <firefoxexec>${molybdenum.firefoxexec}</firefoxexec>
+          <testsuiteurl>${molybdenum.testsuiteurl}</testsuiteurl>
+          <report>target/moly-reports/report.html</report>
+          <argument></argument>
+          <headless>false</headless>
+          <dontrun>false</dontrun>
+          <consolelogging>true</consolelogging>
+          <log>target/molybdenum.log</log>
+          <extensions>
+            <extension>
+              <xpi>${molybdenum.xpi}</xpi>
+            </extension>
+          </extensions>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <configuration>
+              <target name="copy_jmeter_test_results">
+                <copy todir="src/main/webapp/jmeter">
+                  <fileset dir="target/jmeter/report">
+                    <exclude name="**/.svn" />
+                    <exclude name="**jtl" />
+                  </fileset>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/test/jmeter</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+      <testResource>
+        <directory>src/test/jmeter</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <repositories>
+    <repository>
+      <id>molybdenum</id>
+      <name>Molybdenum Artifact Maven Repository</name>
+      <url>http://molyb.org/maven-repo/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>molybdenum</id>
+      <name>Molybdenum Plugin Maven Repository</name>
+      <url>http://molyb.org/maven-repo/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8.1</version>
+        <configuration>
+          <overview>${basedir}src/main/resources/overview.html</overview>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.springframework>3.0.5.RELEASE</version.springframework>
+    <test.couchdb.id1>73cddd89cb25b8b678b271b3bb3a7f2b</test.couchdb.id1>
+    <molybdenum.password>test1234</molybdenum.password>
+    <molybdenum.admin>daoltman</molybdenum.admin>
+    <molybdenum.extern>daoltma1</molybdenum.extern>
+    <molybdenum.operator>daoltma2</molybdenum.operator>
+    <molybdenum.intern>daoltma3</molybdenum.intern>
+    <molybdenum.jsunit.testrunner>file://${project.build.testSourceDirectory}/../resources/jsunit</molybdenum.jsunit.testrunner>
+    <molybdenum.template.dir>${project.build.testSourceDirectory}/../resources/</molybdenum.template.dir>
+    <molybdenum.xpath.content>/html/body/div[3]/div[3]/div[2]</molybdenum.xpath.content>
+    <molybdenum.button.login.send>xpath=${molybdenum.xpath.content}/div[2]/form/p[4]/button</molybdenum.button.login.send>
+    <molybdenum.button.register.send>xpath=${molybdenum.xpath.content}/form/div[2]/p/button</molybdenum.button.register.send>
+    <molybdenum.button.logbookentry.send>xpath=${molybdenum.xpath.content}/form/fieldset/div/p[7]/button</molybdenum.button.logbookentry.send>
+    <molybdenum.testsuiteurl>http://localhost/fam-test/molybdenum-suite__xml__delegate.fam</molybdenum.testsuiteurl>
+    <molybdenum.firefoxexec>/usr/bin/firefox</molybdenum.firefoxexec>
+    <molybdenum.xpi>src/main/resources/molybdenum-0.7.6.xpi</molybdenum.xpi>
+  </properties>
+</project>
+

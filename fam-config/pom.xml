@@ -1,0 +1,363 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.knurt.fam.config</groupId>
+  <artifactId>fam-config</artifactId>
+  <version>1.8.1</version>
+  <name>Facility Access Manager Configuration</name>
+  <description>
+    Configuration and Templates
+  </description>
+  <dependencies></dependencies>
+  <url>http://facility-access-manager.com/docs/${project.version}/${project.artifactId}</url>
+  <licenses>
+    <license>
+      <name>Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported</name>
+      <url>http://creativecommons.org/licenses/by-nc-sa/3.0</url>
+      <distribution>3.0</distribution>
+      <comments>
+        Copyright 2009-2012 by KNURT Systeme (http://www.knurt.de)
+
+        Licensed under the Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported;
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://creativecommons.org/licenses/by-nc-sa/3.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language
+        governing permissions and
+        limitations under the License.
+            </comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>knurt.de</name>
+    <url>http://www.knurt.de</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>danieloltmanns</id>
+      <name>Daniel Oltmanns</name>
+      <email>info@knurt.de</email>
+      <url>http://www.knurt.de</url>
+      <organization>KNURT Systeme</organization>
+      <organizationUrl>http://www.knurt.de</organizationUrl>
+      <roles>
+        <role>project manager</role>
+        <role>architect</role>
+        <role>art director</role>
+        <role>web designer</role>
+        <role>coder</role>
+        <role>documentarist</role>
+        <role>tester</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <organization>Max Planck Institute of Biophysics</organization>
+      <organizationUrl>http://www.biophys.mpg.de</organizationUrl>
+      <roles>
+        <role>constituent</role>
+      </roles>
+      <timezone>1</timezone>
+    </contributor>
+  </contributors>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>docs</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <configuration>
+              <target name="optimize_html, js_and_css">
+                <delete dir="target/pro" />
+                <echo>lessc</echo>
+                <echo>lessc all-news.less</echo>
+                <exec executable="lessc" os="Linux">
+                  <arg line="dev/template/styles/all-news.less dev/template/styles/all-news.css" />
+                </exec>
+                <echo>lessc all-icons.less</echo>
+                <exec executable="lessc" os="Linux">
+                  <arg line="dev/template/styles/all-icons.less dev/template/styles/all-icons.css" />
+                </exec>
+                <echo>lessc users_inc.less</echo>
+                <exec executable="lessc" os="Linux">
+                  <arg line="dev/template/styles/users_inc.less dev/template/styles/users_inc.css" />
+                </exec>
+                <echo>copy dev to pro</echo>
+                <copy todir="target/pro">
+                  <fileset dir="dev">
+                    <exclude name="**/.svn" />
+                    <exclude name="**/*less" />
+                  </fileset>
+                </copy>
+                <echo>optimize scripts/Base.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base.js dev/template/scripts/Base.js" />
+                </exec>
+                <echo>optimize scripts/JobSurveyFileUpload.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/JobSurveyFileUpload.js dev/template/scripts/JobSurveyFileUpload.js" />
+                </exec>
+                <echo>optimize scripts/Base_Calendar.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_Calendar.js dev/template/scripts/Base_Calendar.js" />
+                </exec>
+                <echo>optimize scripts/Base_Calendar_target/prototype.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_Calendar_prototype.js dev/template/scripts/Base_Calendar_prototype.js" />
+                </exec>
+                <echo>optimize scripts/Base_Register.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_Register.js dev/template/scripts/Base_Register.js" />
+                </exec>
+                <echo>optimize scripts/Base_User.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_User.js dev/template/scripts/Base_User.js" />
+                </exec>
+                <echo>optimize scripts/Base_NoticeUpdate.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_NoticeUpdate.js dev/template/scripts/Base_NoticeUpdate.js" />
+                </exec>
+                <echo>optimize scripts/bookfacilitiesdone_inc.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/bookfacilitiesdone_inc.js dev/template/scripts/bookfacilitiesdone_inc.js" />
+                </exec>
+                <echo>optimize scripts/Base_Calendar_Util.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_Calendar_Util.js dev/template/scripts/Base_Calendar_Util.js" />
+                </exec>
+                <echo>optimize scripts/JobSurvey.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/JobSurvey.js dev/template/scripts/JobSurvey.js" />
+                </exec>
+                <echo>optimize scripts/JobSurveyIO.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/JobSurveyIO.js dev/template/scripts/JobSurveyIO.js" />
+                </exec>
+                <echo>optimize scripts/JobSurveyDataProcessing.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/JobSurveyDataProcessing.js dev/template/scripts/JobSurveyDataProcessing.js" />
+                </exec>
+                <echo>optimize scripts/ValidationConfiguration.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/ValidationConfiguration.js dev/template/scripts/ValidationConfiguration.js" />
+                </exec>
+                <echo>optimize lib/jquery.serializeobject.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jquery.serializeobject.js dev/template/lib/jquery.serializeobject.js" />
+                </exec>
+                <echo>optimize styles/adminhome.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/adminhome.css dev/template/styles/adminhome.css" />
+                </exec>
+                <echo>optimize styles/all-navigation.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-navigation.css dev/template/styles/all-navigation.css" />
+                </exec>
+                <echo>optimize styles/all-news.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-news.css dev/template/styles/all-news.css" />
+                </exec>
+                <echo>optimize styles/book2.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/book2.css dev/template/styles/book2.css" />
+                </exec>
+                <echo>optimize styles/configjobsurvey.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/configjobsurvey.css dev/template/styles/configjobsurvey.css" />
+                </exec>
+                <echo>optimize styles/corehome.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/corehome.css dev/template/styles/corehome.css" />
+                </exec>
+                <echo>optimize styles/all-pages.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-pages.css dev/template/styles/all-pages.css" />
+                </exec>
+                <echo>optimize styles/all-icons.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-icons.css dev/template/styles/all-icons.css" />
+                </exec>
+                <echo>optimize styles/jquery-ui.custom.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/jquery-ui.custom.css dev/template/styles/jquery-ui.custom.css" />
+                </exec>
+                <echo>optimize lib/jquery.bubblepopup.v2.1.5.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jquery.bubblepopup.v2.1.5.css dev/template/lib/jquery.bubblepopup.v2.1.5.css" />
+                </exec>
+                <echo>optimize styles/register_inc.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/register_inc.css dev/template/styles/register_inc.css" />
+                </exec>
+                <echo>optimize lib/jquery.passvalidator.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jquery.passvalidator.js dev/template/lib/jquery.passvalidator.js" />
+                </exec>
+                <echo>optimize lib/regexp.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/regexp.js dev/template/lib/regexp.js" />
+                </exec>
+                <echo>optimize lib/jquery.easing.1.3.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jquery.easing.1.3.js dev/template/lib/jquery.easing.1.3.js" />
+                </exec>
+                <echo>optimize scripts/QuicksandControl.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/QuicksandControl.js dev/template/scripts/QuicksandControl.js" />
+                </exec>
+                <echo>optimize lib/jquery.notifications.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jquery.notifications.css dev/template/lib/jquery.notifications.css" />
+                </exec>
+                <echo>optimize scripts/browser-update.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/browser-update.js dev/template/scripts/browser-update.js" />
+                </exec>
+                <echo>optimize lib/browser-update-org.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/browser-update-org.js dev/template/lib/browser-update-org.js" />
+                </exec>
+                <echo>optimize styles/overviewpage.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/overviewpage.css dev/template/styles/overviewpage.css" />
+                </exec>
+                <echo>optimize scripts/lettergenerator_inc.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/lettergenerator_inc.js dev/template/scripts/lettergenerator_inc.js" />
+                </exec>
+                <echo>optimize scripts/tables_jq.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/tables_jq.js dev/template/scripts/tables_jq.js" />
+                </exec>
+                <echo>optimize styles/all-tables.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-tables.css dev/template/styles/all-tables.css" />
+                </exec>
+                <echo>optimize styles/jquery_datatables.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/jquery_datatables.css dev/template/styles/jquery_datatables.css" />
+                </exec>
+                <echo>optimize styles/lettergenerator_inc.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/lettergenerator_inc.css dev/template/styles/lettergenerator_inc.css" />
+                </exec>
+                <echo>optimize lib/jqueryFileTree.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jqueryFileTree.js dev/template/lib/jqueryFileTree.js" />
+                </exec>
+                <echo>optimize lib/prototype.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/prototype.js dev/template/lib/prototype.js" />
+                </exec>
+                <echo>optimize lib/effects.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/effects.js dev/template/lib/effects.js" />
+                </exec>
+                <echo>optimize lib/dragdrop.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/dragdrop.js dev/template/lib/dragdrop.js" />
+                </exec>
+                <echo>optimize lib/CalendarPopupCompact.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/CalendarPopupCompact.js dev/template/lib/CalendarPopupCompact.js" />
+                </exec>
+                <echo>optimize scripts/Base_prototype.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_prototype.js dev/template/scripts/Base_prototype.js" />
+                </exec>
+                <echo>optimize scripts/contactdetails_inc.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/contactdetails_inc.js dev/template/scripts/contactdetails_inc.js" />
+                </exec>
+                <echo>optimize lib/json2.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/json2.js dev/template/lib/json2.js" />
+                </exec>
+                <echo>optimize lib/date.format.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/date.format.js dev/template/lib/date.format.js" />
+                </exec>
+                <echo>optimize lib/jquery-ui-timepicker-addon.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jquery-ui-timepicker-addon.js dev/template/lib/jquery-ui-timepicker-addon.js" />
+                </exec>
+                <echo>optimize scripts/EditSoaPage.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/EditSoaPage.js dev/template/scripts/EditSoaPage.js" />
+                </exec>
+                <echo>optimize scripts/edit_request_or_feedback_inc.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/edit_request_or_feedback_inc.js dev/template/scripts/edit_request_or_feedback_inc.js" />
+                </exec>
+                <echo>optimize styles/contactdetails.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/contactdetails.css dev/template/styles/contactdetails.css" />
+                </exec>
+                <echo>optimize styles/all-dialogs.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-dialogs.css dev/template/styles/all-dialogs.css" />
+                </exec>
+                <echo>optimize styles/users_inc.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/users_inc.css dev/template/styles/users_inc.css" />
+                </exec>
+                <echo>optimize styles/all-calendars.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-calendars.css dev/template/styles/all-calendars.css" />
+                </exec>
+                <echo>optimize styles/all-calendars-booking.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/all-calendars-booking.css dev/template/styles/all-calendars-booking.css" />
+                </exec>
+                <echo>optimize styles/bookfacilitiesqueuebased.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/bookfacilitiesqueuebased.css dev/template/styles/bookfacilitiesqueuebased.css" />
+                </exec>
+                <echo>optimize lib/jqueryFileTree.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/lib/jqueryFileTree.css dev/template/lib/jqueryFileTree.css" />
+                </exec>
+                <echo>optimize styles/agreement.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/agreement.css dev/template/styles/agreement.css" />
+                </exec>
+                <echo>optimize styles/jobsmanager_inc.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/jobsmanager_inc.css dev/template/styles/jobsmanager_inc.css" />
+                </exec>
+                <echo>optimize styles/book2_inc.css</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/styles/book2_inc.css dev/template/styles/book2_inc.css" />
+                </exec>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <directory.tmp>/tmp</directory.tmp>
+    <file.yui.jar>lib/yuicompressor-2.4.7.jar</file.yui.jar>
+    <file.htmlcompressor.jar>lib/htmlcompressor-1.5.3.jar</file.htmlcompressor.jar>
+  </properties>
+</project>

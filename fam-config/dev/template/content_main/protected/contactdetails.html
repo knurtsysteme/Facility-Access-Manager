@@ -1,0 +1,230 @@
+<style type="text/css">
+#body_contactdetails button.delete { display: none; }                         
+</style>
+    <h1>Contact details</h1>
+    <div class="js_hide"><a href="#change">Change contact details</a>&nbsp;|&nbsp;<a href="home.html">home</a></div>
+    <div class="likeFieldset" id="js_actionPanel" style="display: none;"></div>
+    <div class="likeFieldset" id="js_overview">
+        <h3>$config.model.user2change.getFullName()#if($config.model.user2change.show_status) ($config.model.status)#end</h3>
+        $config.model.summary
+        <div style="margin-top: 10px;">
+            <button class="icon add js_show js_add" type="submit" style=""><span class="image"></span>Add something else</button>
+        </div>
+        <div id="home_link" class="js_show" style="display: none; text-align: right; float: right; margin-top: -10px; font-size: 80%;">
+        		$util.html.a('corehome').setContent('Home') | $util.html.a('changepassword').setContent('Change password')
+        </div>
+    </div>
+    <h1 id="change" class="js_hide">Change details</h1>
+    <form action="do-not-use-contactdetails.html" class="js_hide textblock" method="post">
+
+        <fieldset>
+            <legend>Personal information</legend>
+            <input type="hidden" value="" name="department" id="js_real_value_department" />
+            <input type="hidden" value="" name="company" id="js_real_value_company" />
+            <input type="hidden" value="" name="departmentLabel" id="js_departmentLabel" />
+            <input type="hidden" value="" name="departmentKey" id="js_departmentKey" />
+            <div class="input">
+                <table>
+                    <tr>
+                        <td class="js_male">
+                            <label for="male_id">Gender</label> <br />
+                            <select name="male" id="male_id">
+                                <option value=""#if($util.value.isNull($config.model.user2change.isMale())) selected="selected"#end>Please choose</option>
+                                <option value="1"#if($util.value.isNull($config.model.user2change.isMale()) == false && $config.model.user2change.isMale() == true) selected="selected"#end>Male</option>
+                                <option value="0"#if($util.value.isNull($config.model.user2change.isMale()) == false && $config.model.user2change.isMale() == false) selected="selected"#end>Female</option>
+                            </select></td>
+                        <td class="js_title">
+                            <label for="title_id">Title</label> <br />
+                            <select name="title" id="title_id">
+                                <option value=""#if($util.value.isNull($config.model.user2change.getTitle())) selected="selected"#end>Please choose</option>
+                                <option value="Mrs."#if($config.model.user2change.title && $config.model.user2change.getTitle() == 'Mrs.') selected="selected"#end>Mrs.</option>
+                                <option value="Mr."#if($config.model.user2change.title && $config.model.user2change.getTitle() == 'Mr.') selected="selected"#end>Mr.</option>
+                                <option value="Dr."#if($config.model.user2change.title && $config.model.user2change.getTitle() == 'Dr.') selected="selected"#end>Dr.</option>
+                                <option value="Prof."#if($config.model.user2change.title && $config.model.user2change.getTitle() == 'Prof.') selected="selected"#end>Prof.</option>
+                            </select></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="input required">
+                <table id="js_username">
+                    <tr>
+                        <td class="js_fname"><label for="fname_id">First name</label> <br />
+                            <input type="text" name="fname" id="fname_id" value="$!config.model.user2change.getFname()" />
+                        </td>
+                        <td class="js_sname"><label for="sname_id">Last Name</label> <br />
+                            <input type="text" name="sname" id="sname_id" value="$!config.model.user2change.getSname()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="input required">
+                <table>
+                    <tr>
+                        <td class="js_birthdate">
+                            <label for="birthdate_id">Day of birth</label>
+                            <input type="text" name="birthdate" id="birthdate_id" value="$!config.model.user2change.getBirthdateFormValue()" class="w30" /><br />
+                            <span class="hint" id="nonjs_hint">
+                                <a href="#" id="js_birthday" style="display: none;">Select</a>
+                                <br class="js_show" style="display: none;" />
+		e.g. "24.06.1970" for "24th June of 1970" </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <fieldset style="" id="changeContactDetails"><legend>Main contact details</legend>
+            <div class="input">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td class="w100 js_mail"><label for="mail_id">e-mail<br />
+			Please notice: All changes made will only be in effect from now on. All e-mails regarding activities in the past will be sent to the email address that was active at the time of the activity.
+                                </label><br />
+                                <input type="text" value="$!config.model.user2change.mail" id="mail_id" name="mail" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input">
+                <input type="hidden" name="hasBeenSent" value="true" />
+                <input type="hidden" name="user_id" value="$!config.model.user2change.getId()" />
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td class="w90 js_address">
+                                <label for="street_id">Street</label><br />
+                                <input type="text" name="street" id="street_id" value="$!config.model.address.getStreet()" />
+                            </td>
+                            <td class="w10 js_address"><label for="streetno_id">No</label><br />
+                                <input type="text" name="streetno" id="streetno_id" value="$!config.model.address.getStreetno()" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td class="w30 js_address"><label for="zipcode_id">Zip/Postal Code</label><br />
+                                <input type="text" name="zipcode" id="zipcode_id" value="$!config.model.address.getZipcode()" />
+                            </td>
+                            <td class="w70 js_address"><label for="city_id">City</label><br />
+                                <input type="text" name="city" id="city_id" value="$!config.model.address.getCity()" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input last">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td class="w50 js_address" colspan="2">
+                                <label for="country_id">Country</label><br />
+                                <select name="country" id="country_id" style="width: 100%;">
+                                    <option value="-1">Select entry</option>
+                                    #foreach($country in $lang.xml.getChild("global").getChild("countries").getChildren() )
+                                    <option value="$country.getAttributeValue('code')"#if($config.model.address.getCountry() == $country.getAttributeValue('code')) selected="selected"#end>$country.getAttributeValue('name')</option>
+                                    #end
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input">
+                <table>
+                    <tr>
+                        <td class="w50 js_company">
+                            <label for="company_id">Institution</label><br />
+                            <input type="text" name="company" id="company_id" value="#if($config.model.user2change.company)$config.model.user2change.company#end" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="input">
+                <table>
+                    <tr>
+                        <td class="w50 js_intendedResearch">
+		            		<label for="intendedResearch_id">Please describe your intended research project here (max. <span id="js_chars_left"></span> characters left):</label>
+							<br />
+							<textarea id="intendedResearch_id" cols="55" rows="10" name="intendedResearch">#if($config.model.user2change.intendedResearch)$config.model.user2change.intendedResearch#end</textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="input">
+                <table>
+                    <tr>
+                        <td class="w50 js_departmentLabel">
+                            <label for="departmentLabel_id">Department</label><br />
+                            <input type="text" name="departmentLabel" id="departmentLabel_id" value="#if($config.model.user2change.departmentLabel)$config.model.user2change.departmentLabel#end" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="input">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td class="w50 js_phone1">
+                                <label for="phone1_id">Phone number (landline)</label><br />
+                                #set($value = "")
+                                #if($config.model.user2change.phone1)
+                                #set($value = $config.model.user2change.phone1)
+                                #end
+                                <input type="text" value="$value" id="phone1_id" name="phone1" />
+                            </td>
+                            <td class="w50 js_phone2">
+                                <label for="phone2_id">Phone number (mobile)</label><br />
+                                #set($value = "")
+                                #if($config.model.user2change.phone2)
+                                #set($value = $config.model.user2change.phone2)
+                                #end
+                                <input type="text" value="$value" id="phone2_id" name="phone2" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="hint">Do not forget your country code (e.g. +44 for United Kingdom)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <fieldset style="">
+                <legend>Free input</legend>
+                <div class="input">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Contact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #foreach($existingContactDetail in $config.model.existingContactDetails)
+                            <tr>
+                                <td><input type="text" name="title_$existingContactDetail.id" value="$existingContactDetail.title" /></td>
+                                <td><input type="text" name="detail_$existingContactDetail.id" value="$existingContactDetail.detail" /></td>
+                            </tr>
+                            #end
+                            <tr>
+                                <td colspan="2">Append an entry</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="title_new" value="" /></td>
+                                <td><input type="text" name="detail_new" value="" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <div class="input last">
+                <button type="submit" class="icon next"><span class="image"></span>Change details</button>
+                <button type="reset" class="icon back"><span class="image"></span>Reset details</button>
+            </div>
+        </fieldset>
+    </form>

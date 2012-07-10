@@ -1,0 +1,54 @@
+<table class="standard">
+	<thead>
+		<tr>
+			<th>Facility</th>
+			<th>Session</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($booking in $config.model.bookings)
+		<tr>
+			<td>$FamText.facilityNameWithCapacityUnits($booking)</td>
+			<td>$util.sort.span($booking.seton)
+				Requested: $FamDateFormat.getDateAndTimeShort($booking.seton)<br />
+				Status: $FamText.statusOfBookingAsText($config.user, $booking)<br />
+				#if(!$booking.canceled && !$booking.endsInPast() && !$booking.sessionAlreadyBegun())
+					#if($booking.isTimeBased())
+						Time:&nbsp;$FamDateFormat.getDateAndTimeShort($booking.dateStart)&nbsp;-&nbsp;$FamDateFormat.getDateAndTimeShort($booking.dateEnd)
+					#else
+						Position in queue:&nbsp;$booking.actualQueuePosition
+					#end<br />
+				#end
+				#if($booking.notice)
+				Public notice: $booking.notice
+				#end
+				Job ID: $booking.id
+			</td>
+			<td>
+			#if(!$booking.canceled && !$booking.endsInPast() && !$booking.sessionAlreadyBegun())
+			<form method="post" class="deleteButton" action="">
+				<p>
+					<input type="hidden" value="$booking.id" name="v">
+					<input type="hidden" value="true" name="u">
+				</p>
+				<p>
+					<button class="icon cancel" title="cancel!" type="submit">
+						Cancel!
+					</button>
+				</p>
+			</form>
+			#end
+			<button class="icon view" onclick="javascript:window.location='$util.html.href('viewrequest')?v=$booking.id'">Details</button>
+			#if(!$booking.canceled && !$booking.endsInPast() && !$booking.sessionAlreadyBegun())
+				<button class="icon edit" onclick="javascript:window.location='$util.html.href('editrequest')?v=$booking.id'">Edit</button>
+			#end
+			#if($booking.processed)
+				<button class="icon view" onclick="javascript:window.location='$util.html.href('viewfeedback')?v=$booking.id'">View Feedback</button>
+			#end
+			<button class="icon view" onclick="javascript:window.location='$util.html.href('agreementen')?v=$booking.id'">Agreement</button>
+			</td>
+		</tr>
+		#end
+	</tbody>
+</table>

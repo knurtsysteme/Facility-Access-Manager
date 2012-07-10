@@ -1,0 +1,30 @@
+#if($config.model.page_content)
+	#if($config.model.invalid_session)
+		<div class="hint">
+		    Please (re)accept the following Terms of Use Agreements before start working.
+		</div>
+	#end
+	#if($util.value.isNull($config.model.isAdminTermsOfUseSinglePage) == false && $config.model.isAdminTermsOfUseSinglePage == false)
+		#if($config.model.pagenumber && $config.model.pagecount)
+			<div>Page $config.model.pagenumber of $config.model.pagecount</div>
+		#end
+	#end
+	#if($config.model.page_content == '')
+		#parse("global/termsofusepage_main.html")
+	#else
+		$config.model.page_content
+	#end
+	#if($config.model.page.forcePrinting)
+		<div id="forcePrinting" class="warning">
+		    You have to print out and sign this agreement yet. Please bring it with you on your next visit.<br />
+		    On most browsers you find the Print out dialog in "File &rarr; Print".<br />
+		    Alternatively Press <code>Strg + P</code> (on Windows and Linux) or <code>&#8984; + P</code> (on Macs).
+		</div>
+	#end
+	#if($util.value.isNull($config.model.isAdminTermsOfUseSinglePage) == false && $config.model.isAdminTermsOfUseSinglePage == false)
+	<form action="$util.html.getHref('termsofuse')" method="$config.model.method">
+	    $config.model.hiddenInputsForNextPage
+	    $config.model.acceptButton
+	</form>
+	#end
+#end

@@ -1,0 +1,233 @@
+<div id="jhelp_content" style="display: none;">
+	#if($config.model.first_time_booking)
+		<h3 id="jhelp_content_first_time_booking" style="margin-top: 10px;">Welcome to our booking calendar</h3>
+		<div>
+			This is the first time you book one of our facility. Please read our support below.<br />
+			You can open this dialog anytime by clicking the “Need support?” button at the top of the page.
+		</div>
+	#end
+	<h3 style="margin-top: 10px;">Your rights</h3>
+	<ul>
+		<li class="must_apply">You have to apply for this facility.</li>
+		<li class="must_not_apply">You are allowed to book this facility without application.</li>
+		<li>
+			Your request has to be between <strong class="min_bookable_time_units"></strong> and <strong class="max_bookable_time_units"></strong>.
+		</li>
+	</ul>
+	<h3 class="must_not_apply">Book something</h3>
+	<h3 class="must_apply">Apply for something something</h3>
+	<ul>
+		<li>
+			<span class="help_step">Step 1</span>: Check the facility and - if relevant - the units you would like to make a reservation for. You can change the facility and / or the units by clicking <code>Change units</code>
+		</li>
+		<li>
+			<span class="help_step">Step 2</span>: Click on “Request <span class="booking_capacity_units_with_label"></span>” and fill out the form for start- and end-time. Alternatively search the calendar and click on the start-time you want. 
+		</li>
+		<li>
+			<span class="help_step">Step 3</span>: Customize start- and end-time to your needs.
+		</li>
+		<li>
+			<span class="help_step">Step 4</span>: Click on “Check” to get free time slots. If nothing is available, you have to change your requested start- and end-time and / or units. 
+		</li>
+		<li>
+			<span class="help_step">Step 5</span>: Finish your reservation by clicking on an available time slot.
+		</li>
+	</ul>
+	<h3>View workload on facility</h3>
+	<ul>
+		<li>
+			Search the big coloured calendar by clicking the date you are interested in at the small calendar above.
+		</li>
+		<li>
+			Choose between month and week view.
+		</li>
+		<li>
+			There are different colours with different meanings. You get more information if you mouse over the calendar.
+		</li>
+	</ul>
+</div>
+<div id="jchoose_capacity_units_content" style="display: none;">
+	<h3>How many units do you like?</h3>
+	<p>
+		<select name="capacity_units"></select>
+	</p>
+</div>
+#include("global/dialog_notice_of_booking.html")
+<div id="joptions">
+	<table>
+		<thead>
+			<tr>
+				<td style="width:260px;"><div id="js_datepicker"></div></td>
+				<td>
+				<h3>I would like to make a reservation</h3>
+				<ul id="id_like_to_book">
+					<li class="must_apply">You have to apply for this facility.</li>
+					<li><button class="icon next request_facility">Request <span class="booking_capacity_units_with_label"></span></button></li>
+					<li><button class="icon change change_capacity_units hide_if_1_unit">Change units</button></li>
+					<li><button class="icon change change_facility">Change facility</button></li>
+					<li><button class="icon help jhelp_button">Need support?</button></li>
+				</ul>
+				</td>
+			</tr>
+		</thead>
+	</table>
+</div>
+<div class="dasCalendar" id="jui_tabs_wait"></div>
+<div class="dasCalendar" id="jui_tabs">
+	<div id="jnavigation">
+		<ul class="noListStyle">
+			<li>
+				<a href="#jweek" id="js_tab_week">Week: <span></span></a>
+			</li>
+			<li>
+				<a href="#jmonth" id="js_tab_month">Month: <span></span></a>
+			</li>
+		</ul>
+	</div>
+	<div id="jweek">
+		<table id="week_table">
+			<thead>
+				<tr>
+					<th class="year"></th>
+					<th class="day_0"></th>
+					<th class="day_1"></th>
+					<th class="day_2"></th>
+					<th class="day_3"></th>
+					<th class="day_4"></th>
+					<th class="day_5"></th>
+					<th class="day_6"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th><div></div></th>
+					<td class="day_0"></td>
+					<td class="day_1"></td>
+					<td class="day_2"></td>
+					<td class="day_3"></td>
+					<td class="day_4"></td>
+					<td class="day_5"></td>
+					<td class="day_6"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="jmonth">
+		<table id="month_table">
+			<thead>
+				<tr>
+					<th class="month_year"></th>
+					<th class="day_0"></th>
+					<th class="day_1"></th>
+					<th class="day_2"></th>
+					<th class="day_3"></th>
+					<th class="day_4"></th>
+					<th class="day_5"></th>
+					<th class="day_6"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="week_0">
+					<th class="week_0"></th>
+					<td class="day_0"></td>
+					<td class="day_1"></td>
+					<td class="day_2"></td>
+					<td class="day_3"></td>
+					<td class="day_4"></td>
+					<td class="day_5"></td>
+					<td class="day_6"></td>
+				</tr>
+				<tr class="week_1">
+					<th class="week_1"></th>
+					<td class="day_0"></td>
+					<td class="day_1"></td>
+					<td class="day_2"></td>
+					<td class="day_3"></td>
+					<td class="day_4"></td>
+					<td class="day_5"></td>
+					<td class="day_6"></td>
+				</tr>
+				<tr class="week_2">
+					<th class="week_2"></th>
+					<td class="day_0"></td>
+					<td class="day_1"></td>
+					<td class="day_2"></td>
+					<td class="day_3"></td>
+					<td class="day_4"></td>
+					<td class="day_5"></td>
+					<td class="day_6"></td>
+				</tr>
+				<tr class="week_3">
+					<th class="week_3"></th>
+					<td class="day_0"></td>
+					<td class="day_1"></td>
+					<td class="day_2"></td>
+					<td class="day_3"></td>
+					<td class="day_4"></td>
+					<td class="day_5"></td>
+					<td class="day_6"></td>
+				</tr>
+				<tr class="week_4">
+					<th class="week_4"></th>
+					<td class="day_0"></td>
+					<td class="day_1"></td>
+					<td class="day_2"></td>
+					<td class="day_3"></td>
+					<td class="day_4"></td>
+					<td class="day_5"></td>
+					<td class="day_6"></td>
+				</tr>
+				<tr class="week_5">
+					<th class="week_5"></th>
+					<td class="day_0"></td>
+					<td class="day_1"></td>
+					<td class="day_2"></td>
+					<td class="day_3"></td>
+					<td class="day_4"></td>
+					<td class="day_5"></td>
+					<td class="day_6"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="js_booking_request">
+	<div id="js_booking_request_needs">
+		<div>
+			<ul class="noListStyle">
+				<li>
+					<a href="#js_booking_request_tab_1">Reservation</a>
+				</li>
+				<li>
+					<a href="#js_booking_request_tab_2">Details</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tab_step" id="js_booking_request_tab_1">
+			<div>
+				<h3>I'd like to use it between ...</h3>
+				<div id="js_timeframe">
+					#set($value=$FamDateFormat.getDateAndTimeShort())
+					<p>
+						<input type="text" id="j_start_date" value="$value" tabindex="-1" />
+						... and ...
+						<input type="text" id="j_end_date" value="$value" tabindex="-2" />!
+					</p>
+				</div>
+			</div>
+			<div id="js_booking_request_possibilities_wrapper" style="display:none;">
+				<h3>Available time slots</h3>
+				<div>Please choose one of the following available time slots next to your request to finish your booking.</div>
+				<ul id="js_booking_request_possibilities"></ul>
+			</div>
+			<div id="js_booking_request_no_possibilities" style="display:none;">
+				<h3>Could not find a free time slot</h3>
+				<div>Please change your request above and retry by clicking “Check” again.</div>
+				<div><button class="icon help jhelp_button">Need support?</button></div>
+			</div>
+			<div id="js_booking_request_message" style="display:none;">
+			</div>
+		</div>
+		<div class="tab_step" id="js_booking_request_tab_2"></div>
+	</div>
+</div>

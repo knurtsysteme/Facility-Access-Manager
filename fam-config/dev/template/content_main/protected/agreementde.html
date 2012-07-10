@@ -1,0 +1,75 @@
+<div>
+	#set($url_2_en = $util.html.getHref("agreementen") + "?v=" + ${config.model.booking.id})
+    <a href="$url_2_en">View in english</a>
+</div>
+<div class="printarea">
+<h1>Nutzungsvereinbarung</h1>
+<div>
+    <p class="entry">
+        $config.user.fullName
+    </p>
+    <p class="detail_help">
+        (Titel Vorname Name)
+    </p>
+    <h2>Arbeitgeber</h2>
+    <p class="entry">
+        $config.user.company
+    </p>
+    <p class="detail_help">
+        (Forschungseinrichtung)
+    </p>
+    <h2>Kontaktdaten</h2>
+    <p class="entry">
+        $config.user.mail,&nbsp;$config.user.phone
+    </p>
+    <p class="detail_help">
+        (E-Mail-Adresse, Telefon)
+    </p>
+    <p class="entry">
+        #if($config.user.mainAddress)
+        $config.user.mainAddress.street, $config.user.mainAddress.streetno, $config.user.mainAddress.zipcode, $config.user.mainAddress.city, $config.user.mainAddress.getCountryName()
+        #end
+    </p>
+    <p class="detail_help">
+        (Strasse, Hausnummer, Postleitzahl und Ort)
+    </p>
+    <p>
+        ggf. abweichende Rechnungsanschrift
+    </p>
+    <p class="entry">
+        &nbsp;
+    </p>
+    <p class="detail_help">
+        (Strasse, Hausnummer, Postleitzahl und Ort)
+    </p>
+    <p>
+        vereinbart mit $globallang.getChildText("service_offered_by") folgende Nutzung und Leistungen:
+    </p>
+    #set($facilityKey = $config.model.booking.facilityKey)
+    #if($facilityKey.equals("schoolbus"))
+    <h2>Verwendung des Schulbusses</h2>
+    <p>
+    	Der Bus wird sauber zurückgestellt. Ich fahre vorsichtig!
+    </p>
+    #else
+    <p>
+    	Die Geräte werden pfleglich behandelt.
+    </p>
+    #end
+    <p>
+        Mit der Beauftragung erkenne ich die Nutzungsvereinbarung mit den darin enthaltenen Rechten und Pflichten ausdrücklich an.
+    </p>
+    <p class="entry">
+        &nbsp;
+    </p>
+    <p class="detail_help">
+        (Ort, Datum)
+    </p>
+    <p class="entry">
+        &nbsp;
+    </p>
+    <p class="detail_help">
+        (Unterschrift)
+    </p>
+</div>
+</div>

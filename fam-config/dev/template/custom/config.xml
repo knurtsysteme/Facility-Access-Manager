@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <!--
+    configuration of the system mainly page definitions. after changes in this file go to "Admin" -> "System configuration" and click "Reload Config" page dependent config. keys in this properties files are available over $config.xml.getChild([resource_name]).getChildText([element]). e.g.
+    $config.xml.getChild($resource_name).getChildText("headline") to get the headline of the actual page pages have a shortcut, so that $config.page.getChildText("headline") on the home-page is the same as $config.xml.getChild("home").getChildText("headline")
+  -->
+<fam>
+  <global>
+    <!--  $globalconf.getChildText('logo') -->
+    <logo>demo/demo_logo.png</logo>
+    <!--  $globalconf.getChildText('analytics-domain') -->
+    <analytics-domain>analyse.knurtsysteme.de</analytics-domain>${globallang.getChildText('logo')}
+  </global>
+  <pages>
+    <!-- PUBLIC -->
+    <page name="home" visibility="public" class="infopage" />
+    <page name="termsofuse" visibility="protected" />
+    <page name="unknownerror" visibility="public" />
+    <page name="indoor" visibility="public" class="infopage" />
+    <page name="outdoor" visibility="public" class="infopage" />
+    <page name="fleet" visibility="public" class="infopage" />
+    <page name="setnewpassword" visibility="public" />
+    <page name="forgottenpassword" visibility="public" />
+    <page name="register" visibility="public" />
+    <page name="registersent" visibility="public" />
+    <!--  show which private policy to show here -->
+    <page name="imprint" visibility="public" facebook="false" google-analytics="false" google-adsense="false" google-plus-1="false" piwik-de="true" piwik-en="false" twitter="false" />
+
+    <!-- ADMIN -->
+    <page name="adminhome" visibility="admin" />
+    <page name="lettergenerator" visibility="admin" />
+    <page name="editfeedback" visibility="admin" />
+    <page name="editsoa" visibility="admin" />
+    <page name="configjobsurvey" visibility="admin" />
+    <page name="singletermsofuseadminview" visibility="admin" />
+    <page name="jobsmanager" visibility="admin" />
+    <page name="systemlistofusermails" visibility="admin" />
+    <page name="systemlistofrolesandrights" visibility="admin" />
+    <page name="systemlistofconfiguredfacilities" visibility="admin" />
+    <page name="viewsystemconfiguration" visibility="admin" />
+    <page name="systemmeta" visibility="admin" />
+    <page name="facilityemergency" visibility="admin" />
+    <page name="systemmodifyapplications" visibility="admin" />
+    <page name="statistics" visibility="admin" />
+    <page name="systembookings" visibility="admin" />
+    <page name="editfacilityavailability" visibility="admin" />
+    <page name="systemfacilityavailability" visibility="admin" />
+    <page name="systemfacilityavailabilityoverview" visibility="admin" />
+    <page name="admin" visibility="admin" />
+    <page name="plugins" visibility="admin" />
+    <page name="users" visibility="admin" />
+    <page name="jobsurveypreview" visibility="admin" />
+
+    <!-- PROTECTED -->
+    <page name="corehome" visibility="protected" />
+    <page name="news" visibility="protected" />
+    <page name="mybookings" visibility="protected" />
+    <page name="contactdetails" visibility="protected" />
+    <page name="changepassword" visibility="protected" />
+    <page name="tutorial" visibility="protected" />
+    <page name="logbook" visibility="protected" />
+    <page name="logbookmakepost" visibility="protected" />
+    <page name="viewrequest" visibility="protected" />
+    <page name="viewfeedback" visibility="protected" />
+    <page name="agreementde" visibility="protected" />
+    <page name="agreementen" visibility="protected" />
+    <page name="login" visibility="protected" />
+    <page name="eventsofday" visibility="protected" />
+    <page name="logout" visibility="protected" />
+    <page name="book" visibility="protected" />
+    <page name="book2" visibility="protected" />
+    <page name="editrequest" visibility="protected" />
+    <page name="bookfacilitiesdone" visibility="protected" />
+    <page name="jobsurvey" visibility="protected" />
+    <page name="filemanager" visibility="protected" />
+  </pages>
+</fam>

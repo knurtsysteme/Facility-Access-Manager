@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- access to logbooks -->
+    <bean id="accessLogbook" class="de.knurt.fam.core.control.persistence.dao.config.LogbookConfigDao" factory-method="getInstance">
+        <property name="configuredInstances"> <!-- Map<Logbook> -->
+            <map>
+                <entry key="famLogbook" value-ref="famLogbook" />
+                <entry key="bus1Logbook" value-ref="bus1Logbook" />
+                <entry key="bus2Logbook" value-ref="bus2Logbook" />
+                <entry key="bus3Logbook" value-ref="bus3Logbook" />
+                <entry key="bus4Logbook" value-ref="bus4Logbook" />
+                <entry key="bus5Logbook" value-ref="bus5Logbook" />
+            </map>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!--
+    access to facilities.
+    these are facilities used to develop the system.
+    put all known facilities into it.
+  -->
+  <bean id="accessFacility" class="de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao" factory-method="getInstance">
+    <!--
+      this is a technical concrete facility, used for facilities in db that are
+      not configured anymore. DO NOT REMOVE.
+    -->
+    <property name="unknownFacility">
+      <bean class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable" />
+    </property>
+    <!-- 
+      put in your facilities here
+    -->
+    <property name="configuredInstances"> <!-- Map<Facility> -->
+      <map>
+        <entry key="playSchool" value-ref="playSchool" />
+        <entry key="indoor" value-ref="indoor" />
+        <entry key="playground" value-ref="playground" />
+        <entry key="sportsHall" value-ref="sportsHall" />
+        <entry key="ballBath" value-ref="ballBath" />
+        <entry key="slide" value-ref="slide" />
+        <entry key="teetertotter" value-ref="teetertotter" />
+        <entry key="schoolbus" value-ref="schoolbus" />
+        <entry key="fleet" value-ref="fleet" />
+        <entry key="vehicles" value-ref="vehicles" />
+        <entry key="tools" value-ref="tools" />
+        <entry key="bus1" value-ref="bus1" />
+        <entry key="bus2" value-ref="bus2" />
+        <entry key="bus3" value-ref="bus3" />
+        <entry key="bus4" value-ref="bus4" />
+        <entry key="bus5" value-ref="bus5" />
+        <entry key="carRepairShop" value-ref="carRepairShop" />
+      </map>
+    </property>
+  </bean>
+</beans>

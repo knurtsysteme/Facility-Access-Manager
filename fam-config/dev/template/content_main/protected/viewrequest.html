@@ -1,0 +1,61 @@
+<h1>$FamText.facilityNameWithCapacityUnits($config.model.booking) (Job ID $config.model.booking.id)</h1>
+<div>
+	#if(!$config.model.booking.canceled && !$config.model.booking.endsInPast() && !$config.model.booking.sessionAlreadyBegun())
+		#if($config.model.booking.isTimeBased())
+			Time requested $FamDateFormat.getDateFormattedWithTime($config.model.booking.dateStart)&nbsp;to&nbsp;$FamDateFormat.getDateFormattedWithTime($config.model.booking.dateEnd).
+		#else
+			#if($config.model.user_owned_booking)
+				Your are the $FamText.getOrdinal($config.model.booking.actualQueuePosition) person in the queue
+			#else
+				$config.model.booking.user.fullName is on $FamText.getOrdinal($config.model.booking.actualQueuePosition) position in the queue
+			#end
+		#end
+	#end
+	<br />
+	Requested on $FamDateFormat.getDateAndTimeShort($config.model.booking.seton).
+	#if($config.model.booking.notice)
+	<br />Public notice: $config.model.booking.notice
+	#end
+	<br />
+	Status: $FamText.statusOfBookingAsText($config.user, $config.model.booking)
+	#if(!$config.model.booking.processed)
+		<br />Job is not processed yet.
+	#end
+</div>
+#if($config.model.booking.processed)
+<div class="hint">
+	You got feedback ($util.html.aWithAQuery('viewfeedback', "?v=$config.model.booking.id").setContent("view"))
+</div>
+#end
+
+<h2>
+Job Survey
+#if($config.model.user_owned_booking && !$config.model.booking.canceled && !$config.model.booking.endsInPast() && !$config.model.booking.sessionAlreadyBegun())
+<a href="$util.html.href('editrequest')?v=$config.model.booking.id">edit</a>
+#end
+</h2>
+<div>
+	<iframe scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=1&amp;jobid=$config.model.booking.id")">
+		You need an up to dated browser
+	</iframe>
+</div>
+<div>
+	#if($config.model.user_owned_booking)
+	<button class="icon back" onclick="javascript:window.location='$util.html.hrefWithAQuery('mybookings', "?v=$config.model.booking.id")'">
+		My Bookings
+	</button>
+	#end
+	<button class="icon print" onclick="javascript:window.location='$util.html.hrefWithAQuery('jobsurvey', "?step=1&amp;jobid=$config.model.booking.id")'">
+		Print view
+	</button>
+	#if($config.model.user_owned_booking && !$config.model.booking.canceled && !$config.model.booking.endsInPast() && !$config.model.booking.sessionAlreadyBegun())
+	<button class="icon edit" onclick="javascript:window.location='$util.html.href('editrequest')?v=$config.model.booking.id'">
+		Edit Job Survey
+	</button>
+	#end
+	#if($config.model.booking.processed)
+		<button class="icon view" onclick="javascript:window.location='$util.html.href('viewfeedback')?v=$config.model.booking.id'">
+			View Feedback
+		</button>
+	#end
+</div>

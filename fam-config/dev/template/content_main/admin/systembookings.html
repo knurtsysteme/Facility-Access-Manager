@@ -1,0 +1,40 @@
+<h1>Overview of actual jobs</h1>
+<table class="standard">
+    <thead>
+        <tr>
+	    <th>Id</th>
+	    <th>User</th>
+	    <th>Units queried</th>
+	    <th>Queried facility</th>
+	    <th>Date of query</th>
+	    <th>Session time</th>
+	    <th>Notice</th>
+        </tr>
+    </thead>
+    <tbody>
+        #foreach($booking in $config.model.bookings)
+        <tr>
+            <td>$booking.id</td>
+            <td>$booking.username</td>
+            <td>$FamText.facilityNameWithCapacityUnits($booking)</td>
+            <td>$booking.facility.label</td>
+            <td>$util.sort.span($booking.seton)$FamDateFormat.getDateAndTimeShort($booking.seton)</td>
+            
+            <td>
+            	#if($booking.isTimeBased())
+					$util.sort.span($booking.dateStart)$FamDateFormat.getDateAndTimeShort($booking.dateStart)<br />$FamDateFormat.getDateAndTimeShort($booking.dateEnd)
+				#else
+					<span style="display:none;">0000$booking.actualQueuePosition</span>$FamText.getOrdinal($booking.actualQueuePosition) person in queue
+				#end
+				</td>
+				<td>
+				#if($booking.notice)
+				$booking.notice
+				#else
+				-
+				#end
+			</td>
+        </tr>
+        #end
+    </tbody>
+</table>

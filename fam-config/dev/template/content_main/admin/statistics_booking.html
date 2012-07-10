@@ -1,0 +1,33 @@
+<h1>Statistic: $config.model.statistic.label</h1>
+<div>
+  $util.html.a('statistics').setContent('Back')
+</div>
+<table class="standard">
+  <thead>
+    <tr>
+      <th>Facility</th>
+      <th>Total</th>
+      <th>Canceled</th>
+      <th>Applications</th>
+      <th>Made</th>
+      <th>Processed</th>
+    </tr>
+  </thead>
+  <tbody>
+    #foreach($facility in $config.model.facilityStatistics.keySet())
+    #set($props=$config.model.facilityStatistics.get($facility))
+    #set($tdclass="")
+    #if($facility.key==$config.model.rootFacility.key)
+    #set($tdclass="point_out")
+    #end
+    <tr>
+      <td class="$tdclass">$facility.label</td>
+      <td class="$tdclass">$props.total</td>
+      <td class="$tdclass">$props.canceled</td>
+      <td class="$tdclass">$props.application</td>
+      <td class="$tdclass">$props.made</td>
+      <td class="$tdclass">$props.processed</td>
+    </tr>
+    #end
+  </tbody>
+</table>

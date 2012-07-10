@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- configured statistics -->
+    <bean id="statistics_bean200910120807" class="de.knurt.fam.core.model.config.statistics.FamStatisticContainer" factory-method="getInstance">
+        <property name="availableStatistics">
+            <list>
+                <bean id="bean200910110825" class="de.knurt.fam.core.model.config.statistics.FamStatisticDisplayOfWeek">
+                    <property name="label" value="Display of week" />
+                    <property name="id" value="1" />
+                </bean>
+                <bean id="bean201207041109" class="de.knurt.fam.core.model.config.statistics.FamStatisticBookings">
+                    <property name="label" value="Bookings" />
+                    <property name="id" value="2" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+
+</beans>

@@ -1,0 +1,49 @@
+<h1>List of all roles</h1>
+<table class="standard fullwidth">
+    <thead>
+        <tr>
+	    <th>Role</th>
+	    <th>Description</th>
+	    <th>Default rights</th>
+	    <th>Users having that role</th>
+        </tr>
+    </thead>
+    <tbody>
+        #foreach($role in $config.model.roles)
+        <tr>
+            <td>$role.label</td>
+            <td>$role.description</td>
+            <td>
+            	#set($us=$role.rights)
+				#if($us && $us.size() > 0)
+				#set($i=1)
+				#foreach($u in $us)
+				$u#if($i<$us.size()), #end
+				#set($i=$i+1)
+				#end
+				#else
+				-
+				#end
+			</td>
+            <td>
+            	#set($us=$role.users)
+				#if($us && $us.size() > 0)
+				#set($i=1)
+				#foreach($u in $us)
+				$u.username#if($i<$us.size()), #end
+				#set($i=$i+1)
+				#end
+				#else
+				-
+				#end
+			</td>
+        </tr>
+        #end
+    </tbody>
+</table>
+<h2>Available rights are:</h2>
+<ul id="available_rights_are">
+    #foreach($availableright in $config.model.availablerights)
+    <li>$availableright</li>
+    #end
+</ul>

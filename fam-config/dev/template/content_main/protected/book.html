@@ -1,0 +1,88 @@
+#if ($config.user.isAllowedToOverrideApplications($config.model.facility))
+#set($message_legend_applied = "but you can book it anyway")
+#set($message_legend_available = "you can book it")
+#else
+#set($message_legend_applied = "you can apply for it too")
+#set($message_legend_available = "you can apply for it")
+#end <h1>Request for “$config.model.facility.label”</h1>
+#if($config.model.booking_strategy_is_queue_based)
+<div>
+	#if($config.model.actualQueueLength == 0)
+	<p>
+		Usually you have to join the end of a queue to use this facility.
+	</p>
+	<p>
+		Lucky that there is actually no queue at all.
+	</p>
+	<p>
+		If you want to use “$config.model.facility.label”, please <strong>click the button below</strong> to be the early bird and arrive as soon as possible.
+	</p>
+	#else
+	<p>
+		There is a queue of $config.model.actualQueueLength #if($config.model.actualQueueLength==1)person#else people#end for the use of this facility. You will have to join the end of the queue to use this facility.
+	</p>
+	#end
+</div>
+#if($config.model.actualQueueLength != 0)
+<div>
+	<ul>
+		<li>
+			Actual queue length is: $config.model.actualQueueLength
+		</li>
+		<li>
+			Expect your turn at: $config.model.expectedYourTurnAt
+		</li>
+	</ul>
+</div>
+#end
+<form action="bookfacilitiesdone.html" method="post">
+	$config.model.hiddenInput
+	#if($config.model.actualQueueLength == 0)
+	<button type="submit" title="start the queue">
+		<p id="getinline_text">
+			Be first in line
+		</p>
+		<p id="getinline_pic_noqueue"></p>
+	</button>
+	#else
+	<button type="submit" title="to get in line get here">
+		<p id="getinline_text">
+			get in line
+		</p>
+		<p id="getinline_pic"></p>
+	</button>
+	#end
+</form>
+#else
+<div>
+	$config.model.rightsSummary
+</div>
+<hr class="fullwidth" />
+$config.model.content
+<div id="legend">
+	<h2>Legend</h2>
+	<ul>
+		<li>
+			<img src="availabilitylegendimage.img?status=available" title="available" alt="available"/>: fully available ($message_legend_available)
+		</li>
+		<li>
+			<img src="availabilitylegendimage.img?status=applied" title="applied" alt="applied"/>: partially available ($message_legend_applied)
+		</li>
+		<li>
+			<img src="availabilitylegendimage.img?status=booked" title="booked" alt="booked"/>: booked up (not available)
+		</li>
+		<li>
+			<img src="availabilitylegendimage.img?status=generalnot" title="generalnot" alt="generalnot"/>: time beyond working hours or yesterdays (not available)
+		</li>
+		<li>
+			<img src="availabilitylegendimage.img?status=maintenance" title="maintenance" alt="maintenance"/>: maintenance (not available)
+		</li>
+		<li>
+			<img src="availabilitylegendimage.img?status=failure" title="sudden failure" alt="sudden failure"/>: sudden failure
+		</li>
+		<li>
+			<img src="availabilitylegendimage.img?status=mustnotstarthere" title="session must not start here" alt="session must not start here"/>: impossible to start a session here
+		</li>
+	</ul>
+</div>
+#end

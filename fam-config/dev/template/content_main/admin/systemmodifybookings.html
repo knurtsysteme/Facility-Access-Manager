@@ -1,0 +1,23 @@
+<h1>Cancel bookings</h1>
+<table class="standard fullwidth">
+	<thead>
+		<tr>
+			<th>Booking</th>
+			<th>Date booking made</th>
+			<th>Session time</th>
+			<th>Status</th>
+			<th>Send feedback</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($booking in $config.model.bookings)
+		<tr>
+			<td>$booking.getShortSummary()</td>
+			<td>$util.sort.span($booking.original.getSeton())$booking.getSeton()</td>
+			<td>$booking.getTimeframe()</td>
+			<td>$booking.getBookingStatus()</td>
+			<td>$booking.getAdminSendDecisionForm()</td>
+		</tr>
+		#end
+	</tbody>
+</table>

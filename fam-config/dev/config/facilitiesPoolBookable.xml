@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!--
+    pool of concrete facilities bookable
+  -->
+  
+  <!--  bus 1 -->
+  <bean name="bus1" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
+    <property name="parentFacility" ref="vehicles" />
+    <property name="bookingRule">
+      <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardDefaultTimeBasedBookingRule">
+    <property name="smallestMinutesBookable" value="60" />
+      </bean>
+    </property>
+  </bean>
+    
+  <!--  bus 2 -->
+  <bean name="bus2" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1" />
+    
+  <!--  bus 3 -->
+  <bean name="bus3" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1" />
+    
+  <!--  bus 4 -->
+  <bean name="bus4" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1" />
+    
+  <!--  bus 5 -->
+  <bean name="bus5" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1" />
+    
+  <!--  the car repair shop bookable queue based -->
+  <bean name="carRepairShop" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
+    <property name="parentFacility" ref="tools" />
+    <property name="bookingRule">
+      <bean class="de.knurt.fam.core.model.config.UsersUnitsQueueBasedBookingRule" parent="standardDefaultQueueBasedBookingRule" />
+    </property>
+  </bean>
+  
+  <!--  sports hall -->
+  <bean name="sportsHall" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
+    <property name="parentFacility" ref="indoor" />
+    <property name="bookingRule">
+      <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardDefaultTimeBasedBookingRule">
+        <property name="smallestMinutesBookable" value="60" />
+      </bean>
+    </property>
+  </bean>
+  
+  <!--  the ball bath -->
+  <bean name="ballBath" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
+    <property name="parentFacility" ref="indoor" />
+  </bean>
+
+  <!--  the slide -->
+  <bean name="slide" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
+    <property name="parentFacility" ref="playground" />
+    <property name="bookingRule">
+      <bean class="de.knurt.fam.core.model.config.UsersUnitsQueueBasedBookingRule" parent="standardDefaultQueueBasedBookingRule" />
+    </property>
+  </bean>
+
+  <!--  a teeter totter -->
+  <bean name="teetertotter" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
+    <property name="parentFacility" ref="playground" />
+    <property name="bookingRule">
+      <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardDefaultTimeBasedBookingRule">
+        <property name="defaultSetOfRulesForARole">
+          <bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" parent="standardSetOfRulesForARoleBean">
+            <property name="minBookableTimeUnits" value="1" />
+            <property name="maxBookableTimeUnits" value="100" />
+          </bean>
+        </property>
+        <property name="smallestMinutesBookable" value="5" />
+        <property name="smallestTimeLabelEqualsOneXKey" value="teetertotter" />
+      </bean>
+    </property>
+  </bean>
+  
+  <!--  the schoolbus -->
+  <bean name="schoolbus" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
+    <property name="parentFacility" ref="vehicles" />
+    <property name="capacityUnits" value="10" />
+    <property name="bookingRule">
+      <bean name="bean200909281651" class="de.knurt.fam.core.model.config.TimeBasedBookingRule">
+        <property name="smallestMinutesBookable" value="60" />
+        <property name="defaultSetOfRulesForARole">
+          <bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" parent="standardSetOfRulesForARoleBean">
+            <property name="minBookableTimeUnits" value="1" />
+            <property name="maxBookableTimeUnits" value="10" />
+            <property name="minBookableCapacityUnits" value="1" />
+            <property name="maxBookableCapacityUnits" value="3" />
+          </bean>
+        </property>
+        <property name="setsOfRulesForARole">
+          <map>
+            <entry key="intern" value-ref="bean201009011148" />
+            <entry key="extern" value-ref="bean201009011150" />
+          </map>
+        </property>
+        <property name="key">
+          <null />
+        </property>
+        <property name="smallestTimeLabelEqualsOneXKey" value="hour" />
+        <property name="mustStartAt">
+          <null />
+        </property>
+      </bean>
+    </property>
+  </bean>
+</beans>

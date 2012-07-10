@@ -1,0 +1,29 @@
+	<h1>List of all configured facilities</h1>
+	<table class="standard">
+		<thead>
+			<tr>
+				<th>Label</th>
+				<th>Key</th>
+				<th>Children</th>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach($facility in $config.model.facilities)
+			<tr>
+				<td>$facility.label</td>
+				<td>$facility.key</td>
+				<td>
+				#if($facility.hasChildren())
+				#set($i=1)
+				#foreach($child in $facility.children)
+				$child.label#if($i<$facility.children.size()), #end
+				#set($i=$i+1)
+				#end
+				#else
+				-
+				#end
+				</td>
+			</tr>
+			#end
+		</tbody>
+	</table>

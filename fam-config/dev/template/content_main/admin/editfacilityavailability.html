@@ -1,0 +1,21 @@
+<h1>Edit notice</h1>
+#if($config.model.succ)
+<div id="successMessage">
+	Your rule has been updated.
+</div>
+#end
+<form action="$config.model.formaction" method="post">
+	<fieldset style="margin-top: 10px;">
+		<legend>
+			Optional notice
+		</legend>
+		<p>
+			<label for="${config.model.name_notice}_id">Show this notice:</label>
+			<br />
+			<textarea cols="20" rows="15" name="${config.model.name_notice}" id="${config.model.name_notice}_id">${config.model.text_notice}</textarea>
+		</p>
+	</fieldset>
+	<button type="submit" class="icon next">
+		submit!
+	</button>
+</form>

@@ -1,0 +1,128 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+button.icon {
+  text-align: left;
+  padding: 3px 5px 3px 5px;
+}
+button.icon small {
+  font-size: 0.8em;
+  padding: 1px 0 0;
+}
+button.icon:hover span.image {
+  background-image: url('icons/glyphicons_hover.png');
+}
+.icon span.image {
+  background: url("icons/glyphicons.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  float: left;
+  height: 15px;
+  margin: 0;
+  width: 18px;
+}
+.icon.small span.image {
+  margin: 0;
+}
+.icon.add span.image {
+  background-position: 0px -492px;
+}
+.icon.remove span.image {
+  background-position: -26px -492px;
+}
+.icon.delete span.image {
+  background-position: -52px -492px;
+}
+.icon.confirm span.image {
+  background-position: -156px -518px;
+}
+.icon.small.cancel span.image {
+  background-position: -182px -518px;
+}
+.icon.cancel span.image {
+  background-position: -182px -518px;
+}
+.icon.no span.image {
+  background-position: -182px -518px;
+}
+.icon.login span.image {
+  background-position: -104px -518px;
+}
+.icon.edit span.image {
+  background-position: -104px -596px;
+}
+.icon.newuser span.image {
+  background-position: -156px 0px;
+}
+.icon.back span.image,
+.icon.prev span.image {
+  background-position: 0px -544px;
+}
+.icon.print span.image,
+.icon span.print span.image {
+  background-position: -130px -26px;
+}
+.icon.forw span.image,
+.icon.next span.image {
+  background-position: -26px -544px;
+}
+.icon.help span.image {
+  background-position: -104px -518px;
+}
+.icon.send span.image {
+  background-position: -52px -388px;
+}
+.icon.save span.image {
+  background-position: -104px -337px;
+}
+.icon.download span.image {
+  background-position: -26px -466px;
+}
+.icon.change span.image {
+  background-position: 0px -207px;
+}
+.icon.view span.image {
+  background-position: -26px -129px;
+}
+.icon.ok span.image {
+  background-position: -156px -518px;
+}
+.icon.reload span.image {
+  background-position: -26px -207px;
+}
+.icon.warn span.image {
+  background-position: -208px -181px;
+}
+.icon.comment span.image {
+  background-position: -130px -622px;
+}
+.icon.trash span.image,
+.icon.bin span.image {
+  background-position: -156px -26px;
+}
+.icon.damage span.image {
+  background-position: -130px -518px;
+}
+.icon.dead span.image {
+  background-position: 0px -751px;
+}
+.jqueryFileTree li.facility {
+  background: url('icons/forw.gif') left top no-repeat;
+}
+body.infopage #content_main ul li,
+ul.subbanch,
+ul.asList {
+  list-style-image: url('icons/subbanch.gif');
+}
+span.none_print,
+span.print {
+  width: 19px;
+  height: 19px;
+  display: inline-block;
+  margin: 0 0 -5px 1px;
+  background-color: white;
+  border: 1px solid black;
+}
+span.none_print {
+  background: #ffffff url('icons/none_printer.gif') no-repeat scroll 2px 2px;
+}
+span.print {
+  background: #ffffff url('icons/printer.gif') no-repeat scroll 2px 2px;
+}

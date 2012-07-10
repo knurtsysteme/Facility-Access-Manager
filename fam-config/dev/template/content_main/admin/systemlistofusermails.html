@@ -1,0 +1,27 @@
+    <h1>Overview of all system emails</h1>
+<table class="standard fullwidth">
+    <thead>
+        <tr>
+	    <th>User</th>
+	    <th>Subject</th>
+	    <th>Date has to be send</th>
+	    <th>Date sent</th>
+        </tr>
+    </thead>
+    <tbody>
+        #foreach($mail in $config.model.mails)
+        <tr>
+            <td>$mail.username</td>
+            <td>$mail.subject</td>
+           	<td>$util.sort.span($mail.toSendDate)$FamDateFormat.getDateAndTimeShort($mail.toSendDate)</td>
+           	<td>
+                #if($mail.wasSentDate)
+                	$util.sort.span($mail.wasSentDate)$FamDateFormat.getDateAndTimeShort($mail.wasSentDate)
+            	#else
+            		-
+                #end
+       		</td>
+        </tr>
+        #end
+    </tbody>
+</table>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--
+        define the default view of the calendar.
+        WEEK = "2";
+        MONTH = "3";
+        OVERVIEW = "4";
+        
+        THIS IS ONLY RECOGNIZED BY THE AVAILABILITY CALENDAR AND NOT IN THE BOOKING CALENDAR.
+        THIS WILL BE REMOVED IN LATER VERSIONS.
+    -->
+    <bean id="bean200909300643" class="de.knurt.fam.core.util.time.CalendarViewResolver" factory-method="getInstance">
+        <property name="defaultViewOnNotDefined" value="2" />
+        <property name="defaultView_onFacility">
+            <map>
+                <entry key="schoolbus" value="3" />
+            </map>
+        </property>
+    </bean>
+
+</beans>

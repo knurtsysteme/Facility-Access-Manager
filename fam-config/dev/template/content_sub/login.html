@@ -1,0 +1,61 @@
+#set($legend_class='')
+#set($legend_message='Sign in')
+#if($config.resource)
+    #if($config.resource.unknownUser)
+    #set($legend_class='warning')
+    #set($legend_message='Unknown user')
+    
+    #elseif($config.resource.accountExpired)
+    #set($legend_class='warning')
+    #set($legend_message='Your account is expired!')
+    
+    #elseif($config.resource.invalidAuth)
+    #set($legend_class='warning')
+    #set($legend_message='Wrong username / password')
+    
+    #elseif($config.resource.loggedOut)
+    #set($legend_class='success')
+    #set($legend_message='You have signed out')
+    
+    #elseif($config.resource.lostSession)
+    #set($legend_class='warning')
+    #set($legend_message='You signed out or<br />your session is timed out.<br />Please Sign in again.')
+    #end
+#end
+<form style="margin-top: 20px;" action="$util.html.getHref('corehome', $lang.page, $config.xml)" method="post">
+	<fieldset>
+		<legend class="$legend_class">
+			$legend_message
+		</legend>
+		<p>
+			<label for="username">Username:</label>
+			<br />
+      #if($util.html.getHref('corehome', $lang.page, $config.xml).startsWith('http://facility-access-manager.com'))
+			<input type="text" name="username" id="username" value="gasystem" style="width: 200px" />
+      #else
+      <input type="text" name="username" id="username" value="" style="width: 200px" />
+      #end
+		</p>
+		<p>
+			<label for="password">Password:</label>
+			<br />
+      #if($util.html.getHref('corehome', $lang.page, $config.xml).startsWith('http://facility-access-manager.com'))
+      <input type="password" name="password" id="password" value="gast1234" style="width: 200px" />
+      #else
+      <input type="password" name="password" id="password" value="" style="width: 200px" />
+      #end
+		</p>
+		<p style="margin-top: 10px;">
+			<input type="checkbox" name="rememberme" id="rememberme" />
+			<label for="rememberme">Remember me next time</label>
+		</p>
+		<p style="margin-top: 10px;">
+			<button id="admin_submit" type="submit" class="icon login">
+				Sign in
+			</button>
+		</p>
+	</fieldset>
+</form>
+#if($resource_name!='register')
+<button class="icon newuser js_show" style="display:none;" onclick="javascript:window.location='$util.html.href('register')'">Register</button>
+#end

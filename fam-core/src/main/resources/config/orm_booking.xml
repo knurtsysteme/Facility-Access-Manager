@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Booking">
+
+    <parameterMap id="Booking.insert.param" class="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterParameter">
+        <parameter property="username"/>
+        <parameter property="seton"/>
+        <parameter property="status_id"/>
+        <parameter property="status_seton"/>
+        <parameter property="facilityKey"/>
+        <parameter property="capacityUnits"/>
+        <parameter property="time_end"/>
+        <parameter property="time_start"/>
+        <parameter property="cancelation_username"/>
+        <parameter property="cancelation_reason"/>
+        <parameter property="cancelation_seton"/>
+        <parameter property="notice" />
+        <parameter property="idBookedInBookingStrategy" />
+        <parameter property="processed" />
+    </parameterMap>
+    <insert id="Booking.insert" parameterMap="Booking.insert.param">
+	INSERT INTO booking (id, username, seton, status_id, status_seton, facilityKey, capacityUnits, time_end, time_start, cancelation_username, cancelation_reason, cancelation_seton, notice, idBookedInBookingStrategy, processed)
+	VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+    <parameterMap id="Booking.update.param" class="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterParameter">
+        <parameter property="username"/>
+        <parameter property="seton"/>
+        <parameter property="status_id"/>
+        <parameter property="lastInvoiced"/>
+        <parameter property="status_seton"/>
+        <parameter property="facilityKey"/>
+        <parameter property="capacityUnits"/>
+        <parameter property="time_end"/>
+        <parameter property="time_start"/>
+        <parameter property="cancelation_username"/>
+        <parameter property="cancelation_reason"/>
+        <parameter property="cancelation_seton"/>
+        <parameter property="notice" />
+        <parameter property="idBookedInBookingStrategy" />
+        <parameter property="processed" />
+        <parameter property="id"/>
+    </parameterMap>
+    <update id="Booking.update" parameterMap="Booking.update.param">
+	UPDATE booking
+	SET username = ?, seton = ?, status_id = ?, last_invoiced = ?, status_seton = ?, facilityKey = ?, capacityUnits = ?, time_end = ?, time_start = ?, cancelation_username = ?, cancelation_reason = ?, cancelation_seton = ?, notice = ?, idBookedInBookingStrategy = ?, processed = ?
+	WHERE id = ?
+    </update>
+    <statement id="Booking.select.all" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+	SELECT *
+	FROM booking
+	ORDER BY seton
+    </statement>
+    <statement id="Booking.select.actualQueue" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+	SELECT *
+	FROM booking
+        WHERE cancelation_seton IS NULL
+        AND facilityKey = #key#
+        AND processed = 0
+	ORDER BY seton
+    </statement>
+    <delete id="Booking.delete" parameterClass="de.knurt.fam.core.model.persist.booking.Booking">
+        DELETE FROM booking
+		WHERE id = #id#
+    </delete>
+    <statement id="Booking.select.uncanceledFutureTimeBookingsAndApplicationsOf" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+	SELECT *
+	FROM booking
+        WHERE cancelation_seton IS NULL
+        AND facilityKey = #key#
+        AND time_end IS NOT NULL
+	ORDER BY seton
+    </statement>
+    <statement id="Booking.select.sqlwhere" parameterClass="java.lang.String" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+		SELECT *
+		FROM booking
+		WHERE $value$
+    </statement>
+    
+    <statement id="Booking.select.allUncanceled" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+	SELECT *
+	FROM booking
+        WHERE cancelation_seton IS NULL
+	ORDER BY seton
+    </statement>
+    <statement id="Booking.select.allFromUser" parameterClass="de.knurt.fam.core.model.persist.User" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+	SELECT *
+	FROM booking
+        WHERE username = #username#
+	ORDER BY seton
+    </statement>
+    <statement id="Booking.select.uncanceledTimeBookingsAndApplicationsOf" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+	SELECT *
+	FROM booking
+        WHERE cancelation_seton IS NULL
+        AND facilityKey = #key#
+	ORDER BY seton
+    </statement>
+
+    <statement id="Booking.select.where" parameterClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterParameter" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+	SELECT *
+	FROM booking
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="id">
+	      id = #id#
+            </isNotNull>
+            <isNotNull prepend="AND" property="username">
+	      username = #username#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seton">
+	      seton = #seton#
+            </isNotNull>
+            <isNotNull prepend="AND" property="status_id">
+	      status_id = #status_id#
+            </isNotNull>
+            <isNotNull prepend="AND" property="status_seton">
+	      status_seton = #status_seton#
+            </isNotNull>
+            <isNotNull prepend="AND" property="time_start">
+	      time_start = #time_start#
+            </isNotNull>
+            <isNotNull prepend="AND" property="cancelation_username">
+	      cancelation_username = #cancelation_username#
+            </isNotNull>
+            <isNotNull prepend="AND" property="capacityUnits">
+	      capacityUnits = #capacityUnits#
+            </isNotNull>
+            <isNotNull prepend="AND" property="cancelation_reason">
+	      cancelation_reason = #cancelation_reason#
+            </isNotNull>
+            <isNotNull prepend="AND" property="facilityKey">
+	      facilityKey = #facilityKey#
+            </isNotNull>
+            <isNotNull prepend="AND" property="time_end">
+	      time_end = #time_end#
+            </isNotNull>
+            <isNotNull prepend="AND" property="notice">
+              notice = #notice#
+            </isNotNull>
+            <isNotNull prepend="AND" property="cancelation_seton">
+	      cancelation_seton = #cancelation_seton#
+            </isNotNull>
+            <isNotNull prepend="AND" property="last_invoiced">
+	      last_invoiced = #lastInvoiced#
+            </isNotNull>
+
+        </dynamic>
+	ORDER BY seton
+    </statement>
+
+</sqlMap>

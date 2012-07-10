@@ -1,0 +1,39 @@
+// @since 1.8.0 (04/26/2012)
+// @author Daniel Oltmanns
+
+@import "all-mixins.less";
+
+#famtab_news {
+	li { 
+		margin-bottom: 2px;
+	}
+	.time {
+		font-weight: bold;
+	}
+	tr {
+		border-bottom: 1px solid black;
+		border-top: 1px solid black;
+	}
+	tr.new {
+		.fam-highlight-box
+	}
+	#news_last_update {
+		float:left;
+	}
+	#news_show_all {
+		text-align:right;
+	}
+}
+
+#news_notification {
+	display: block;
+	position: absolute;
+	background-color: @mark-color;
+	color: white;
+	padding: 1px 3px;
+	font-size: 0.8em;
+	font-weight: bold;
+	margin: -10px 0 0 60px;
+	z-index: 1001;
+	.fam-2-corners-rounded(5px);
+}

@@ -1,0 +1,10 @@
+CREATE TABLE facility_responsibility (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  username VARCHAR(255) NOT NULL,
+  facility_key VARCHAR(255) NOT NULL,
+  received TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  revoked TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY(id)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+ALTER TABLE facilityavailability RENAME facility_availability;

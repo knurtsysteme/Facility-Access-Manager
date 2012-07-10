@@ -1,0 +1,113 @@
+#set($fontsize=10)
+#set($left=56)
+#set($textWidth=375)
+#set($left2=440)
+{
+	"customid": "$customid",
+  	"templateurl": "$config.service_pdf__templateurl",
+  	"contents": 
+  	[
+	  	{
+		    "text": "$recipient",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"line-height" : 13,
+				"left" : $left,
+				"bottom" : 615,
+				"width" : 220,
+				"height" : 70
+		    }
+	  	},
+	  	{
+		    "text": "$telephone",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"line-height" : 13,
+				"left" : $left2,
+				"bottom" : 615,
+				"width" : 220,
+				"height" : 70
+		    }
+	  	},
+	  	{
+		    "text": "$headline",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"font-weight" : "bold",
+				"font-style" : "italic",
+				"left" : $left,
+				"bottom" : 600,
+				"width" : $textWidth,
+				"height" : 25
+		    }
+	    },
+	  	{
+		    "text": "$date",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"left" : $left2,
+				"bottom" : 600,
+				"width" : 90,
+				"height" : 25
+		    }
+	    },
+	  	{
+		    "text": "$billaddress",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"line-height" : 16,
+				"left" : $left,
+				"bottom" : 470,
+				"width" : $textWidth,
+				"height" : 100
+		    }
+	    },
+	  	{
+		    "text": "$maintext",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"line-height" : 16,
+				"left" : $left,
+				"bottom" : 55,
+				"width" : $textWidth,
+				"height" : 425
+		    }
+	    },
+	  	{
+		    "text": "$city",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"left" : $left,
+				"bottom" : 170,
+				"width" : $textWidth,
+				"height" : 25
+		    }
+	    },
+	  	{
+		    "text": "$signer",
+		    "style": 
+		    {
+				"font-family" : "Helvetica",
+				"font-size" : $fontsize,
+				"left" : $left,
+				"bottom" : 105,
+				"width" : $textWidth,
+				"height" : 25
+		    }
+	  	}
+  	]
+}

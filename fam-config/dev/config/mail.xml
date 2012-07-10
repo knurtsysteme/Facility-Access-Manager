@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- 
+  when do you want to send out email messages?
+  the value "0" means without any delay.
+   -->
+	<bean id="userMailBox" class="de.knurt.fam.core.util.mail.OutgoingUserMailBox" factory-method="getInstance">
+    <!--  base minutes as unit -->
+		<property name="timeUnitsBaseInMinutes" value="5" />
+	   <!--  mail if an admin clicks "send new password" -->
+  	<property name="timeUnitsSend_ForgottenPassword" value="0" />
+     <!--  mail on book something -->
+		<property name="timeUnitsSend_BookingMade" value="0" />
+     <!--  mail on apply for something -->
+		<property name="timeUnitsSend_ApplicationConfirmation" value="0" />
+     <!--  registration mail -->
+		<property name="timeUnitsSend_Registration" value="0" />
+     <!--  booking cancelation mail -->
+		<property name="timeUnitsSend_BookingCancelation" value="2" />
+	</bean>
+
+</beans>

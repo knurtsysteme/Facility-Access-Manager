@@ -1,0 +1,13 @@
+<div id="book_calendar" style="display: none;">
+    #parse("content_main/protected/book2_content_calendar.html")
+</div>
+<div id="job_survey_wrapper" style="display: none;">
+    #parse("content_main/protected/job_survey_wrapper.html")
+</div>
+<div id="jchoose_facility_content" style="display: none;">
+	<h1>Please choose the facility to book below</h1>
+    <div class="jFileTreeWrapper">
+	$config.model.facilitieslist
+    </div>
+</div>
+<input type="hidden" name="idJobDataProcessing" id="idJobDataProcessing" value="" />

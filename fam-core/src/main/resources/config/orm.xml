@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <sqlMap resource="config/orm_user.xml" />
+    <sqlMap resource="config/orm_facility.xml" />
+    <sqlMap resource="config/orm_logbookentry.xml" />
+    <sqlMap resource="config/orm_usermail.xml" />
+    <sqlMap resource="config/orm_booking.xml" />
+    <sqlMap resource="config/orm_keyvalue.xml" />
+    <sqlMap resource="config/orm_contactdetail.xml" />
+</sqlMapConfig>

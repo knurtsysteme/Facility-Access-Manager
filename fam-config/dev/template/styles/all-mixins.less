@@ -1,0 +1,36 @@
+// define all mixins used by fam and the yui-preserved comment
+// @version 1.8.0 (26/04/2012)
+// @author Daniel Oltmanns
+/*! KNURT Systeme - part of the Facility Access Manager */
+
+// color for everything that can be clicked on. e.g.
+// - links
+// - buttons
+// - tabs
+@click-color:#9C0F0F;
+
+// color for mark up things. e.g.
+// - hints
+// - headlines
+@mark-color:#3C63B4;
+
+@mark-color-bg:#DDDDFF;
+@click-color-bg:#FFEEEE;
+
+// border radius used in fam
+.fam-2-corners-rounded (@radius: 16px) {
+	-moz-border-radius: @radius 0 @radius 0;
+	-webkit-border-radius: @radius 0 @radius 0;
+	border-radius: @radius 0 @radius 0;
+}
+
+.fam-highlight-box() {
+	background: @mark-color-bg; // Old browsers
+	background: -moz-linear-gradient(top,  @mark-color-bg 0%, white 30%, white 70%, @click-color-bg 100%); // FF3.6+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@mark-color-bg), color-stop(30%,white), color-stop(70%,white), color-stop(100%,@click-color-bg)); // Chrome,Safari4+
+	background: -webkit-linear-gradient(top,  @mark-color-bg 0%,white 30%,white 70%,@click-color-bg 100%); // Chrome10+,Safari5.1+
+	background: -o-linear-gradient(top,  @mark-color-bg 0%,white 30%,white 70%,@click-color-bg 100%); // Opera 11.10+
+	background: -ms-linear-gradient(top,  @mark-color-bg 0%,white 30%,white 70%,@click-color-bg 100%); // IE10+ 
+	background: linear-gradient(top,  @mark-color-bg 0%,white 30%,white 70%,@click-color-bg 100%); // W3C 
+	filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@mark-color-bg', endColorstr='@click-color-bg',GradientType=0 )"; // IE6-9 
+}

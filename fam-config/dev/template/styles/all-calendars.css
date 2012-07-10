@@ -1,0 +1,420 @@
+table.overview th {
+	font-weight: bolder;
+}
+
+table.overview td,table.overview th {
+	border: 1px solid black;
+}
+
+table.overview td {
+	
+}
+
+div.dasCalendar table {
+	width: 100%;
+}
+
+table,table th,table tr {
+	border: 0px solid transparent;
+	background-color: transparent;
+}
+
+div.dasCalendar tr td,div.dasCalendar tr th {
+	border: 1px solid black;
+}
+
+div.dasCalendar td.today {
+	
+}
+
+div.dasCalendar td.lastX,div.dasCalendar tbody td.weekOfYear,div.dasCalendar td.lastX div.daynumber {
+	color: #999999 !important;
+	text-shadow: none;
+	font-size: 100%;
+}
+
+div.dasCalendar td.nextX,div.dasCalendar td.nextX div.daynumber {
+	font-size: 100%;
+}
+
+div.dasCalendar td.nextX,div.dasCalendar td.lastX {
+	background-color: #EEEEEE;
+}
+
+div.dasCalendar thead th,div.dasCalendar tbody td.weekOfYear {
+	border: 0px solid black;
+	font-weight: normal;
+}
+
+div.dasCalendar tbody td.weekOfYear {
+	width: 20px;
+}
+
+div.dasCalendar table table,div.dasCalendar table table td,div.dasCalendar table th {
+	font-size: 90%;
+	border: 0px solid black;
+	margin: 0;
+	padding: 0 !important;
+}
+
+div.weekHtml td {
+	padding: 0;
+}
+
+div.weekHtml td div {
+	padding: 3px;
+}
+
+div.dasCalendar table table button {
+	margin: 0;
+	padding: 0 !important;
+}
+
+div.dasCalendarNavigation {
+	text-align: center;
+	background-color: transparent;
+}
+
+div.dasCalendarNavigation table {
+	width: 350px;
+	left: 50%;
+	margin-left: -175px;
+	position: relative;
+}
+
+div.dasCalendarNavigation p {
+	margin-bottom: 0 !important;
+	margin-top: 2px;
+	width: 100% !important;
+}
+
+div.dasCalendarNavigation a {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+div.dasCalendarNavigation a.thisX {
+	color: black;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+div.dasCalendarNavigation a.lastX,div.dasCalendarNavigation a.nextX {
+	color: #444444;
+	font-size: 18px;
+}
+
+div.dasCalendarNavigation a.lastYear,div.dasCalendarNavigation a.nextYear,div.dasCalendarNavigation a.xBefore,div.dasCalendarNavigation a.xAfter {
+	color: #444444;
+	font-size: 14px;
+}
+
+div.dasCalendarNavigation a.lastYear,div.dasCalendarNavigation a.nextYear {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+div.dasCalendar td.status {
+	
+}
+
+div.dasCalendar div.daynumber {
+	font-weight: bold;
+	width: 15px;
+	right: 15px;
+	text-shadow: 1px 1px 3px black;
+	text-align: right;
+	width: 100%;
+	color: white;
+	font-size: 130%;
+	margin-left: -5px;
+}
+
+div.dasCalendar td.today div.daynumber {
+	color: #9C0F0F;
+	text-shadow: 1px 1px 3px white;
+}
+
+div.dasCalendar td .calContent a,div.dasCalendar td .calContent span.bookedUp {
+	padding: 3px;
+	background-color: white;
+}
+
+div.dasCalendar td .calContent a:hover {
+	background-color: white;
+}
+
+div.dasCalendar td .calContent a {
+	border: 1px outset #9C0F0F;
+}
+
+div.dasCalendar td .calContent span.bookedUp {
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+	border: 1px solid #999999;
+}
+
+div.dasCalendar td span.big {
+	font-size: 35px;
+}
+
+div.dasCalendar td .calContent {
+	text-align: center;
+}
+
+div.dasCalendar button,div.dasCalendar fieldset {
+	font-size: 13px;
+	margin: 5px !important;
+}
+
+/* small js calendar */
+div#glasspanelContent {
+	border: 5px ridge black;
+	background-color: white;
+}
+
+/* overview calender */
+.notable,.notable td {
+	border: 0px solid black !important;
+}
+
+.notable:hover td {
+	background-color: transparent !important;
+}
+
+table {
+	width: 100%;
+}
+
+/* legend */
+#legend {
+	position: relative;
+	left: 40px;
+	width: 700px;
+}
+
+#legend li {
+	margin-top: 5px;
+}
+
+div.dasCalendar input[type="text"],div.dasCalendar textarea {
+	width: 100px;
+}
+
+div.dasCalendar div {
+	margin-bottom: 10px;
+}
+
+div.dasCalendar {
+	width: 890px !important;
+}
+
+/* JS */
+div.bubble {
+	max-width: 250px;
+}
+
+div.bubble div {
+	margin-bottom: 10px;
+}
+
+div.bubble_navi {
+	text-align: right;
+	margin-right: 5px;
+	border-bottom: 1px solid black;
+	padding-right: 10px;
+}
+
+div.bubble_navi a.tab {
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	padding-left: 2px;
+	padding-right: 2px;
+	background-color: white;
+}
+
+div.bubble_navi a.tab:hover {
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid white;
+	background-color: white;
+	color: black;
+}
+
+#js_responsePanel div {
+	border-top: 1px solid black;
+	margin-bottom: 10px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 10px;
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	width: 100%;
+}
+
+#js_responsePanel p {
+	margin-bottom: 5px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 5px;
+}
+
+#js_booking_request_panel div.bubble_navi {
+	background: #fff url('bgmenu_navi.gif') no-repeat scroll 0 0;
+	border-top: 3px ridge black;
+	border-left: 3px ridge black;
+	border-right: 3px ridge black;
+	margin: -4px;
+	padding: 2px;
+	text-align: right;
+}
+
+.bubble div.bubble_navi {
+	background: #fff url('bgmenu_navi.gif') repeat-y scroll 0 0;
+	padding: 6px 10px 0 0;
+	text-align: right;
+	margin: -14px -6px 12px -6px;
+	border: 1px solid black;
+}
+
+#js_booking_request_panel button {
+	cursor: pointer;
+}
+
+#js_booking_request_panel td.date select {
+	width: 110px;
+}
+
+#js_booking_request_panel td.time select {
+	width: 50px;
+}
+
+div.bubble {
+	border: 1px solid black;
+	background-color: white;
+}
+
+div.bubble .bubble_tab_panel {
+	margin-bottom: 20px;
+}
+
+#js_booking_request_panel button,div.bubble button {
+	border: 1px solid black;
+	color: white;
+	background-color: #9C0F0F;
+	font-weight: bold;
+	margin: 2px;
+	padding: 2px;
+}
+
+#js_booking_request_panel form {
+	margin-top: 15px;
+	padding-left: 10px;
+}
+
+#js_booking_request_panel {
+	background-color: white;
+	width: 350px;
+	padding: 3px;
+	position: absolute;
+	border-left: 3px ridge black;
+	border-right: 3px ridge black;
+	border-bottom: 3px ridge black;
+	cursor: move;
+	text-align: center;
+}
+
+.calContent form,.calContent form fieldset {
+	border: 0px solid black;
+}
+
+body#body_systemfacilityavailability .calContent form fieldset {
+	background-color: white !important;
+	border: 1px solid black !important;
+}
+
+.calContent form fieldset label {
+	
+}
+
+/**
+ * 	do not change the "!important" height values here. it must be exactly this to match values in javascript file!
+ */
+#month_table tbody th {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	height: 120px !important;
+	min-height: 120px !important;
+	max-height: 120px !important;
+	width: 41px;
+}
+
+#month_table tbody td {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	height: 120px !important;
+	min-height: 120px !important;
+	max-height: 120px !important;
+	width: 127px;
+}
+
+#month_table thead th {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+}
+
+#month_table thead {
+	height: 14px;
+}
+
+#week_table td {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	height: 480px !important;
+	min-height: 480px !important;
+	max-height: 480px !important;
+	width: 127px;
+	border: 1px solid black;
+}
+
+#week_table tbody tr th {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	width: 40px;
+}
+
+#week_table thead {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	height: 14px;
+}
+
+#week_table tbody tr {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+}
+
+#week_table tbody {
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+}
+
+#week_table tbody tr th div {
+	background: url("images/timelineofdayimage_480px.png") no-repeat scroll 0 0 transparent;
+	height: 480px;
+	margin-bottom: 0px;
+}

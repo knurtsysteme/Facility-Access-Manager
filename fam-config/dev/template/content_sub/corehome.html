@@ -1,0 +1,50 @@
+#if($globallang.getChild("maintenance").getAttributeValue("modus") == "show-message" )
+<h2>Maintenance</h2>
+<div class="warning">
+$globallang.getChild("maintenance").getChildText("message")
+</div>
+#end
+
+<h2>Today</h2>
+#if($config.model.newsitems && $config.model.newsitems.size() > 0)
+	<ul>
+	#set($news_today=false)
+	#foreach($newsitem in $config.model.newsitems)
+		#if($FamDateFormat.getCustomDate($newsitem.eventStarts, "d.M.yyyy") == $FamDateFormat.getCustomDate("d.M.yyyy"))
+			#set($news_today=true)
+			#if($FamDateFormat.getCustomDate($newsitem.eventStarts, "HH:mm") == $FamDateFormat.getCustomDate("HH:mm"))
+				#set($time_from="Now")
+      #elseif($FamDateFormat.getCustomDate($newsitem.eventStarts, "HH:mm")=="00:00")
+        #set($time_from="")
+			#else
+				#set($time_from=$FamDateFormat.getCustomDate($newsitem.eventStarts, "HH:mm"))
+			#end
+	
+			#if($util.value.isNull($newsitem.eventEnds))
+				#set($time_to="")
+			#elseif($FamDateFormat.getCustomDate($newsitem.eventEnds, "d.M.yyyy") == $FamDateFormat.getCustomDate("d.M.yyyy"))
+				#set($time_to=$FamDateFormat.getCustomDate($newsitem.eventEnds, "HH:mm"))
+			#else
+				#set($time_to=$FamDateFormat.getCustomDate($newsitem.eventEnds, "d.M HH:mm"))
+			#end
+		
+			<li>
+			$time_from
+			#if($time_to!="")&nbsp;to $time_to#end $newsitem.description#if($newsitem.linkToFurtherInformation)&nbsp;(<a href="$newsitem.linkToFurtherInformation">more</a>)#end
+			</li>
+		#end
+	#end
+	#if(!$news_today)
+	No news so far
+	#end
+	</ul>
+#else
+	<div>No news so far</div>
+#end
+
+#if($config.user.hasAdminTasks())
+<h2>Hints</h2>
+<div>
+	To maintain the system, facilities, users and bookings please visit the $util.html.a("adminhome").setContent("Admin-Pages").
+</div>
+#end

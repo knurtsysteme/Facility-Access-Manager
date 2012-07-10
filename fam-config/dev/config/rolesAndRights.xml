@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- 
+    roles and rights
+    every role has a set of rights.
+    You get an overview and explenation of available rights by
+    clicking "Roles and Rights" in the admin-area.
+  -->
+  <!-- external user -->
+  <bean name="externRole" class="de.knurt.fam.core.model.config.Role">
+    <property name="rights" value="7" />
+  </bean>
+  
+  <!-- internal user -->
+  <bean name="internRole" class="de.knurt.fam.core.model.config.Role">
+    <property name="rights" value="1,2,7,8,10,11" />
+  </bean>
+
+  <!-- admin -->
+  <bean name="adminRole" class="de.knurt.fam.core.model.config.Role">
+    <property name="rights" value="0" />
+  </bean>
+
+  <!-- operator -->
+  <bean name="facilityGuardianRole" class="de.knurt.fam.core.model.config.Role">
+    <property name="rights" value="1,2,3,5,6,7,8,9,10,11" />
+  </bean>
+
+  <!-- set active roles and standards -->
+  <bean id="roleAccess" name="roleAccess" class="de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao" factory-method="getInstance">
+    <!--  role of the user if nothing else can be suggested -->
+    <property name="standardId" value="extern" />
+    <!--  roles of admin -->
+    <property name="adminId" value="admin" />
+    <!--  users being admins -->
+    <property name="usernamesOfAdmins" value="daoltman" />
+    <!--  active roles configured -->
+    <property name="configuredInstances"> <!-- Map<String, Role> -->
+      <map>
+        <entry key="extern" value-ref="externRole" />
+        <entry key="intern" value-ref="internRole" />
+        <entry key="admin" value-ref="adminRole" />
+        <entry key="operator" value-ref="facilityGuardianRole" />
+      </map>
+    </property>
+  </bean>
+
+  <!-- 
+    department and roles. if a user select one of the following departments, he gets automatically a specific role.
+    ATTENTION: This might be a security hole if a user gets to much rights after registration!!!
+  -->
+  <bean name="ps_pr" class="de.knurt.fam.core.model.config.Department">
+    <property name="title" value="Parent Representation" />
+    <property name="role" ref="externRole" />
+    <property name="key" value="ps_pr" />
+  </bean>
+  <bean name="ps_scg" class="de.knurt.fam.core.model.config.Department">
+    <property name="title" value="Small Children Group" />
+    <property name="role" ref="externRole" />
+    <property name="key" value="ps_scg" />
+  </bean>
+  <bean name="ps_bcg" class="de.knurt.fam.core.model.config.Department">
+    <property name="title" value="Big Children Group" />
+    <property name="role" ref="externRole" />
+    <property name="key" value="ps_bcg" />
+  </bean>
+
+  <!--  departments being active -->
+  <bean id="bean201008201229" class="de.knurt.fam.core.control.persistence.dao.config.KnownDepartmentConfigDao" factory-method="getInstance">
+    <constructor-arg>
+      <list> <!-- ArrayList<Department> -->
+        <ref bean="ps_pr" />
+        <ref bean="ps_scg" />
+        <ref bean="ps_bcg" />
+      </list>
+    </constructor-arg>
+  </bean>
+  
+  <!--
+    configuration for what role must put in which input.
+    values are given comma seperated.
+    possible keys:
+    birthdate,male,title,sname,fname,oneofphones,address
+    oneofphones: if phone1 or phone2 must be there.
+    address: all address components must be there and not empty
+  -->
+  <bean id="bean2010310903" class="de.knurt.fam.core.util.mvc.validator.MandatoryUserFieldValidator" factory-method="getInstance">
+    <property name="mandatoryRolesAndFields">
+      <map>
+        <entry key="extern" value="male,title,sname,fname" />
+        <entry key="intern" value="company,statementOfAgreementAccepted,birthdate,male,title,sname,fname,oneofphones,address,department,intendedResearch" />
+        <entry key="admin" value="company,statementOfAgreementAccepted,birthdate,male,title,sname,fname,oneofphones,address,department,intendedResearch" />
+        <entry key="operator" value="company,statementOfAgreementAccepted,birthdate,male,title,sname,fname,oneofphones,address,department,intendedResearch" />
+      </map>
+    </property>
+  </bean>
+</beans>

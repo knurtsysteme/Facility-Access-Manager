@@ -1,0 +1,30 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+#edituser_control_intendedResearch,
+#intendedResearch_id {
+  width: 500px;
+}
+table.newuser td {
+  vertical-align: bottom;
+  width: 250px;
+}
+table td.intendedResearch {
+  text-align: center;
+}
+table td.responsibility {
+  text-align: center;
+}
+table.standard tr.headline {
+  background-color: white;
+  border: 1px solid black;
+}
+.delete_user_dialog input,
+.delete_user_dialog label {
+  cursor: pointer;
+}
+.delete_user_dialog h3 {
+  font-size: 1.5em;
+  color: #3c63b4;
+}
+.delete_user_dialog label {
+  font-weight: bold;
+}

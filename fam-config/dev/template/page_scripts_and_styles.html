@@ -1,0 +1,38 @@
+## ################################################
+## SCRIPTS
+## ################################################
+## browser selector and
+## global script defining variables needed in scripts below
+##
+<script type="text/javascript">
+#parse("scripts/fam_global.js")
+## parse scripts for page - if file exists
+#if($util.value.fileExists("custom/${resource_name}.js"))
+	#parse("custom/${resource_name}.js")
+#elseif($util.value.fileExists("scripts/${resource_name}.js"))
+	#parse("scripts/${resource_name}.js")
+#else
+	#parse("scripts/all-pages-default.js")
+#end
+</script>
+<!--[if lt IE 9]><script src="blueimp/js/html5.js"></script><![endif]-->
+
+## ################################################
+## STYLES
+## ################################################
+## very basic style
+##
+<style type="text/css">
+#parse("styles/all-pages.css")
+#parse("styles/all-icons.css")
+#parse("styles/all-navigation.css")
+#parse("styles/all-news.css")
+## parse a custom style for all pages - if file exists
+#if($util.value.fileExists("custom/all-pages-update.css"))#parse("custom/all-pages-update.css")#end
+## parse a style file of page - if files exists
+#if($util.value.fileExists("custom/${resource_name}.css"))
+	#parse("custom/${resource_name}.css")
+#elseif($util.value.fileExists("styles/${resource_name}.css"))
+	#parse("styles/${resource_name}.css")
+#end
+</style>

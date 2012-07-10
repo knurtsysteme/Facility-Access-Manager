@@ -1,0 +1,68 @@
+<h1>Alert failure</h1>
+<form method="post" action="$util.html.getHref('facilityemergency')">
+	<fieldset>
+		<legend>
+			Alert a failure
+		</legend>
+		<input type="hidden" value="$config.model.value_no" name="$config.model.qk_yesno"/>
+		<table>
+			<thead>
+				<tr>
+					<td><label for="200910160842">This facility crashed:</label></td>
+					<td>
+					<select id="200910160842" name="$config.model.qk_facility">
+						$config.model.options_facility
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label>Probably ready-to-use in:</label></td>
+					<td> $config.model.select_timeunits </td>
+				</tr>
+			</thead>
+		</table>
+		<p>
+			<button class="icon send" type="submit">
+				Submit this!
+			</button>
+		</p>
+	</fieldset>
+</form>
+<h2>Overview and set in working order again</h2>
+<table class="standard">
+	<thead>
+		<tr>
+			<th>Facility</th>
+			<th>Status</th>
+			<th>Revoke</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($facility in $config.model.facilities)
+		<tr>
+			<td>$facility.label</td>
+			#set($tmp='ok')
+			#if(!$facility.isInWorkingOrderNow())
+			#set($tmp='damage')
+			#end
+			<td>
+				<span class="icon $tmp"></span>
+				#if($facility.getIsReadyToUseIn() != 0)
+				Ready to use again in $FamText.getTimeInput($facility.getIsReadyToUseIn())
+				#end
+			</td>
+			<td>
+				#if($facility.isInWorkingOrderNow())
+				-
+				#else
+				<form action="$util.html.getHref('facilityemergency')" method="POST">
+				<input type="hidden" name="a" value="$facility.key" />
+				<input type="hidden" name="y" value="1" />
+				<button class="icon ok">Revoke alert!</button>
+				</form>
+				#end
+			</td>
+		</tr>
+		#end
+	</tbody>
+</table>

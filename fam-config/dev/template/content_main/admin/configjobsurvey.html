@@ -1,0 +1,251 @@
+<h2>View and change the actual configuration for<br />$config.model.facility_choosen.label</h2>
+#if($config.model.facilities.size() > 1)
+<form method="get" action="$util.html.getHref('configjobsurvey', $lang.page, $config.xml)" id="facility_selection">
+	<fieldset>
+		<legend>
+			Choose facility to work on
+		</legend>
+		<div>
+			<select name="facility_choosen" id="js_facility_choosen">
+				#foreach($facility in $config.model.facilities) <option value="$facility.key" #if($config.model.facility_choosen.key == $facility.key) selected="selected"#end>$facility.label</option>
+				#end
+			</select>
+		</div>
+		#if($config.model.facility_choosen.getChildren(true).size() > 0)
+		<div class="point_out">
+			Changes on this facility may effect $config.model.facility_choosen.getChildren(true).size() more facilities
+			<div class="js_help">
+				If there is nothing else defined for, changes are made for following facilities as well:
+				<ul class="asList">
+					#foreach($facility in $config.model.facility_choosen.getChildren(true))
+					<li>
+						$facility.label
+					</li>
+					#end
+				</ul>
+			</div>
+		</div>
+		#end
+	</fieldset>
+</form>
+#end
+<div id="container_show">
+	<div class="buttons">
+		<button class="edit icon">Edit</button>
+	</div>
+	<div class="jui_tabs">
+		<div>
+			<ul class="noListStyle">
+				<li>
+					<a href="#show_tab_step_0">Edit Request</a>
+				</li>
+				<li>
+					<a href="#show_tab_step_1">View Request</a>
+				</li>
+				<li>
+					<a href="#show_tab_step_2">Edit Feedback</a>
+				</li>
+				<li>
+					<a href="#show_tab_step_3">View Feedback</a>
+				</li>
+			</ul>
+		</div>
+		#set($step=0)
+		<div class="tab_step" id="show_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+		#set($step=1)
+		<div class="tab_step" id="show_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+		#set($step=2)
+		<div class="tab_step" id="show_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+		#set($step=3)
+		<div class="tab_step" id="show_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="container_edit">
+	<div class="buttons">
+		<button id="back_2_show" class="back icon">Back</button>
+		<button id="action_preview" class="preview next icon">Preview</button>
+	</div>
+	<div class="jui_tabs">
+		<div>
+			<ul class="noListStyle">
+				<li>
+					<a href="#edit_tab_step_0">Ask user</a>
+				</li>
+				<li>
+					<a href="#edit_tab_step_1">Get userinput</a>
+				</li>
+				<li>
+					<a href="#edit_tab_step_2">Give feedback</a>
+				</li>
+				<li>
+					<a href="#edit_tab_step_3">View feedback</a>
+				</li>
+			</ul>
+		</div>
+		#set($step=0)
+		<div class="tab_step" id="edit_tab_step_${step}">
+			<div class="jui_tabs">
+				<div>
+					<ul class="noListStyle">
+						<li>
+							<a href="#edit_tab_step_${step}_0">HTML</a>
+						</li>
+						<li>
+							<a href="#edit_tab_step_${step}_1">JavaScript</a>
+						</li>
+					</ul>
+				</div>
+				<div id="edit_tab_step_${step}_0">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getStructure($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getStructure($step, false)) #end
+					<textarea name="structure_step_${step}" id="structure_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+				<div id="edit_tab_step_${step}_1">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getBehaviour($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getBehaviour($step, false)) #end
+					<textarea name="behaviour_step_${step}" id="behaviour_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+			</div>
+		</div>
+		#set($step=1)
+		<div class="tab_step" id="edit_tab_step_${step}">
+			<div class="jui_tabs">
+				<div>
+					<ul class="noListStyle">
+						<li>
+							<a href="#edit_tab_step_${step}_1">HTML</a>
+						</li>
+						<li style="display: none;">
+							<a href="#edit_tab_step_${step}_2">JavaScript</a>
+						</li>
+					</ul>
+				</div>
+				<div id="edit_tab_step_${step}_1">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getStructure($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getStructure($step, false)) #end 				
+					<textarea name="structure_step_${step}" id="structure_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+				<div id="edit_tab_step_${step}_2">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getBehaviour($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getBehaviour($step, false)) #end 				
+					<textarea name="behaviour_step_${step}" id="behaviour_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+			</div>
+		</div>
+		#set($step=2)
+		<div class="tab_step" id="edit_tab_step_${step}">
+			<div class="jui_tabs">
+				<div>
+					<ul class="noListStyle">
+						<li>
+							<a href="#edit_tab_step_${step}_1">HTML</a>
+						</li>
+						<li>
+							<a href="#edit_tab_step_${step}_2">JavaScript</a>
+						</li>
+					</ul>
+				</div>
+				<div id="edit_tab_step_${step}_1">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getStructure($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getStructure($step, false)) #end 				
+					<textarea name="structure_step_${step}" id="structure_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+				<div id="edit_tab_step_${step}_2">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getBehaviour($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getBehaviour($step, false)) #end 				
+					<textarea name="behaviour_step_${step}" id="behaviour_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+			</div>
+		</div>
+		#set($step=3)
+		<div class="tab_step" id="edit_tab_step_${step}">
+			<div class="jui_tabs">
+				<div>
+					<ul class="noListStyle">
+						<li>
+							<a href="#edit_tab_step_${step}_1">HTML</a>
+						</li>
+						<li style="display: none;">
+							<a href="#edit_tab_step_${step}_2">JavaScript</a>
+						</li>
+					</ul>
+				</div>
+				<div id="edit_tab_step_${step}_1">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getStructure($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getStructure($step, false)) #end
+<textarea name="structure_step_${step}" id="structure_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+				<div id="edit_tab_step_${step}_2">
+					#set($tmp_val_exists=$config.model.has_job_data_processing && ! $util.value.isNull($config.model.job_data_processing.getBehaviour($step, false)))
+					#set($tmp_val='') #if($tmp_val_exists) #set($tmp_val=$config.model.job_data_processing.getBehaviour($step, false)) #end
+<textarea name="behaviour_step_${step}" id="behaviour_step_${step}" cols="100" rows="15">$util.html.getEntities($tmp_val)</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="container_preview">
+	<div class="buttons">
+		<button id="back_2_edit" class="back icon">Back</button>
+		<button id="action_publish" class="publish add icon">Publish</button>
+		<button id="action_reload" class="reload add icon" style="display:none;">Refresh</button>
+	</div>
+	<div class="jui_tabs">
+		<div>
+			<ul class="noListStyle">
+				<li>
+					<a href="#preview_tab_step_0">Ask user</a>
+				</li>
+				<li>
+					<a href="#preview_tab_step_1">Get userinput</a>
+				</li>
+				<li>
+					<a href="#preview_tab_step_2">Give feedback</a>
+				</li>
+				<li>
+					<a href="#preview_tab_step_3">View feedback</a>
+				</li>
+			</ul>
+		</div>
+		#set($step=0)
+		<div class="tab_step" id="preview_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="preview_jobsurvey_0" scrolling="no" frameborder="no" style="width: 100%;" src="">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+		#set($step=1)
+		<div class="tab_step" id="preview_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="preview_jobsurvey_1" scrolling="no" frameborder="no" style="width: 100%;" src="">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+		#set($step=2)
+		<div class="tab_step" id="preview_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="preview_jobsurvey_2" scrolling="no" frameborder="no" style="width: 100%;" src="">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+		#set($step=3)
+		<div class="tab_step" id="preview_tab_step_${step}">
+			<div class="jui_tabs">
+				<iframe id="preview_jobsurvey_3" scrolling="no" frameborder="no" style="width: 100%;" src="">Your browser do not support iframes</iframe>
+			</div>
+		</div>
+	</div>
+</div>

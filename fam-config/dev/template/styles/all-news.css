@@ -1,0 +1,41 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+#famtab_news li {
+  margin-bottom: 2px;
+}
+#famtab_news .time {
+  font-weight: bold;
+}
+#famtab_news tr {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+#famtab_news tr.new {
+  background: #ddddff;
+  background: -moz-linear-gradient(top, #ddddff 0%, #ffffff 30%, #ffffff 70%, #ffeeee 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ddddff), color-stop(30%, #ffffff), color-stop(70%, #ffffff), color-stop(100%, #ffeeee));
+  background: -webkit-linear-gradient(top, #ddddff 0%, #ffffff 30%, #ffffff 70%, #ffeeee 100%);
+  background: -o-linear-gradient(top, #ddddff 0%, #ffffff 30%, #ffffff 70%, #ffeeee 100%);
+  background: -ms-linear-gradient(top, #ddddff 0%, #ffffff 30%, #ffffff 70%, #ffeeee 100%);
+  background: linear-gradient(top, #ddddff 0%, #ffffff 30%, #ffffff 70%, #ffeeee 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@mark-color-bg', endColorstr='@click-color-bg',GradientType=0 );
+}
+#famtab_news #news_last_update {
+  float: left;
+}
+#famtab_news #news_show_all {
+  text-align: right;
+}
+#news_notification {
+  display: block;
+  position: absolute;
+  background-color: #3c63b4;
+  color: white;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin: -10px 0 0 60px;
+  z-index: 1001;
+  -moz-border-radius: 5px 0 5px 0;
+  -webkit-border-radius: 5px 0 5px 0;
+  border-radius: 5px 0 5px 0;
+}

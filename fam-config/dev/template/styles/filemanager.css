@@ -1,0 +1,5 @@
+#include("lib/blueimp/css/bootstrap.min.css")
+#include("lib/blueimp/css/bootstrap-responsive.min.css")
+#include("lib/blueimp/css/bootstrap-image-gallery.min.css")
+#include("lib/blueimp/css/jquery.fileupload-ui.css")
+.btn:hover span {color: white;}

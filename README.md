@@ -1,13 +1,6 @@
-Facility-Access-Manager
-=======================
+![fam logo](http://facility-access-manager.com/images/fam_logo_free_blue.png)
 
-***DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT***
-
-***Don't read - this is only a draft by now***
-
-***DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT DRAFT***
-
-Online access manager for all kind of facilities
+This is an online access manager for all kind of facilities
 
 * [Official homepage](http://facility-access-manager.com)
 * [Demo](http://facility-access-manager.com/fam-core)
@@ -82,7 +75,8 @@ You need the [server requirements as described above](#b-a).
 Furthermore:
 * [Maven] (http://maven.apache.org)
 * [Java-Heinzelmann] (https://github.com/knurtsysteme/java-heinzelmann) See ```pom.xml``` to find out which version.
-* [less] (http://lesscss.org) running out of the box (without npm).
+* on couch works [CouchApp] (http://couchapp.org/)
+* on css works [less] (http://lesscss.org) running out of the box (without npm).
 
 ... and git.
 

@@ -1,0 +1,61 @@
+<input type="hidden" value="" name="v" id="booking_article_number" />
+<div id="jobsurvey_queue_wrapper" style="display: none;">
+	<h2>I would like to make a reservation</h2>
+	<div>
+		Facility: <span class="facility_label"></span><a href="#" class="change_facility">→&nbsp;Change</a>
+	</div>
+	<div>
+		<p class="queue_does_not_exist">There is a queue for the use of this facility and you are the first person in the queue.</p>
+		<p class="queue_exists">There is a queue for the use of this facility. The queue has actual a length of <span class="js_actual_queue_length"></span>.</p>
+	</div>
+	<div class="has_job_data_processing" style="display: none;">
+		<h3>Please fill in our Job-Survey</h3>
+		<iframe scrolling="no" frameborder="no" style="width: 100%;">
+			Your browser do not support iframes
+		</iframe>
+	</div>
+	<div class="has_no_job_data_processing">
+		All you have to do is to join the end of the queue by clicking “Get in line” above.
+	</div>
+	<div class="validation_result" style="display: none;margin-bottom:10px;"></div>
+	<div class="waiting_icon" style="display: none"></div>
+	<div>
+		<button class="submit" type="submit" title="to get in line go here">
+			<p id="getinline_text">
+				Get in line!
+			</p>
+			<p id="getinline_pic"></p>
+		</button>
+	</div>
+</div>
+<div id="jobsurvey_time_wrapper" style="display: none;">
+	<h3 id="js_is_perfect_match" style="display: none;">Your reservation details</h3>
+	<h3 id="js_is_not_perfect_match_1_unit" style="display: none;">Possibility next to your request</h3>
+	<h3 id="js_is_not_perfect_match_many_units" style="display: none;">Possibilities next to your request</h3>
+	<ul id="js_booking_request_possibilities"></ul>
+	<div><button class="icon change request_facility">Try another time</button></div>
+	<div class="has_job_data_processing" style="display: none;">
+		<h3>Please fill in our Job-Survey</h3>
+		<iframe scrolling="no" frameborder="no" style="width: 100%;">
+			Your browser do not support iframes
+		</iframe>
+		<div class="validation_result" style="display: none;margin-bottom:10px;"></div>
+	</div>
+	<h3>Notice to everybody (optional)</h3>
+	<div>
+		<p>
+			Leave a short notice shown in the calendar and everybody can see and edit.
+		</p>
+		<p>
+			<textarea name="notice"></textarea>
+		</p>
+	</div>
+	<div>
+		<button class="icon send submit" type="submit" title="make reservation">
+			Submit reservation!
+		</button>
+		<button id="cancel_time_reservation" class="icon cancel" title="cancel reservation">
+			Cancel!
+		</button>
+	</div>
+</div>

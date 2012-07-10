@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- 
+	inject the configuration folder of the facility access manager.
+	by default, the configuration folder is /opt/knurt/fam/.
+	if you like to have a different config file, decomment the constructor-arg line in the bean and set your own config dir as value.
+	-->
+	<bean id="config" class="de.knurt.fam.connector.FamConfig">
+		<!--	    <constructor-arg index="0" type="java.lang.String" value="/path/to/your/configuration/dir"/>-->
+	</bean>
+
+
+</beans>

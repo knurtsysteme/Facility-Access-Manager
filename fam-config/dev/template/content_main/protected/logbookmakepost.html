@@ -1,0 +1,60 @@
+    <h1>Logbook “$config.model.logbook_label”</h1>
+    <div>
+        <p>
+            $config.model.logbook_description
+        </p>
+        #if($config.model.is_post && !$config.model.succ)
+        <p class="warning">
+            Insertion failed. Please complete your inputs.
+        </p>
+        #else
+        <p>
+            Here you can submit a post to the logbook.
+        </p>
+        #end
+        <p>
+            $util.html.a('logbook').setContent('Back to all logbooks')
+        </p>
+    </div>
+    <form action="$util.html.getHref('logbookmakepost')" method="post" accept-charset="UTF-8">
+        <fieldset>
+            <legend>Please post your comment in English</legend>
+            <div>
+                <input type="hidden" name="logbookId" value="$config.model.logbook_logbookId" />
+                <input type="hidden" name="$config.model.logbook_logbookId_queryKey" value="$config.model.logbook_logbookId" />
+                <p>
+                    <label for="id_headline">Headline of your post</label>
+                    <br />
+                    <input id="id_headline" type="text" name="headline" value="$config.model.logbook.headline" />
+                </p>
+                <p>
+                    <label for="id_content">Your message</label>
+                    <br />
+                    <textarea id="id_content" name="content" rows="20" cols="30">$config.model.logbook.content</textarea>
+                </p>
+                <p>
+                    Choose a category<br />
+                    #foreach($musttag in $config.model.logbook_musttags)
+                    #set($musttag = $musttag.trim())
+                    #if($config.model.logbook.tags && $config.model.logbook.tags.size() > 0 && $config.model.logbook.musttag.equals($musttag))
+                    <input type="radio" name="musttag" id="id_$musttag" value="$musttag" checked="checked"/>&nbsp;<label for="id_$musttag">$musttag</label><br />
+                    #else
+                    <input type="radio" name="musttag" id="id_$musttag" value="$musttag"/>&nbsp;<label for="id_$musttag">$musttag</label><br />
+                    #end
+                    #end
+                </p>
+                <p>
+                    <label for="id_tagoptional">Type in more categories if you want</label><br />
+                    #if($util.value.isNull($config.model.logbook.tagoptional))
+                    <input type="text" id="id_tagoptional" name="tagoptional" value="" />
+                    #else
+                    <input type="text" id="id_tagoptional" name="tagoptional" value="#if($config.model.logbook.tagoptional)$config.model.logbook.tagoptional#end" />
+                    #end
+                </p>
+                <p>
+                    <button type="submit" class="icon send"><span class="image"></span> post</button>
+                </p>
+
+            </div>
+        </fieldset>
+    </form>

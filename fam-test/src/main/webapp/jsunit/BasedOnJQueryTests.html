@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>JSUnit</title>
+		<link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="jquery-latest.js"></script>
+		<script type="text/javascript" src="qunit.js"></script>
+		<script type="text/javascript" src="jquery-ui.custom.min.js"></script>
+		<script type="text/javascript" src="jquery.tinymce.js"></script>
+		<script type="text/javascript" src="jqueryFileTree.js"></script>
+		<script type="text/javascript" src="jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="Base.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				FacilityOverviewTree.init(Facilities.keys);
+			});
+		</script>
+		<script type="text/javascript" src="Base_Calendar_Util.js"></script>
+		<script type="text/javascript" src="QuicksandControl.js"></script>
+		<script type="text/javascript" src="EditSoaPage.js"></script>
+		<script type="text/javascript" src="BasedOnJQueryTests.js"></script>
+	</head>
+	<body>
+		<h1 id="qunit-header">QUnit example</h1>
+		<h2 id="qunit-banner"></h2>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture">
+			test markup, will be hidden
+		</div>
+		<div id="testpanel"></div>
+		<h1>UserInput</h1>
+		<div id="test_userinput">
+			<input type="text" name="a" value="v_a" />
+			<input type="text" name="b" value="v_b" />
+			<textarea name="c">v_c</textarea>
+			<select name="d">
+				<option value="v_fail">v_fail</option><option value="v_d" selected="selected">v_d</option>
+			</select>
+			<input type="checkbox" name="e" value="v_fail" />
+			<input type="checkbox" name="e" value="v_e0" checked="checked" />
+			<input type="checkbox" name="e" value="v_e1" checked="checked" />
+			<input type="radio" name="f" value="v_fail" />
+			<input type="radio" name="f" value="v_f" checked="checked" />
+		</div>
+	</body>
+</html>

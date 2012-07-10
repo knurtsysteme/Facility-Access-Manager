@@ -1,0 +1,40 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+div.likeFieldset table#contactDetailsSummary td {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    padding-left: 0px;
+    padding-right: 20px;
+    vertical-align: top;
+}
+div.likeFieldset table#contactDetailsSummary td.action {
+    border-left: 1px solid black;
+    padding-left: 5px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    width:120px;
+}
+div.likeFieldset table#contactDetailsSummary td.action form {
+    float: left;
+}
+div.likeFieldset table#contactDetailsSummary td.action form * {
+    margin: 0px !important;
+}
+div.likeFieldset table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+div.likeFieldset {
+    width: 480px;
+}
+span.missed {
+    background-color: yellow;
+    color: red;
+}
+#contactDetailsSummary p {
+    margin-bottom: 0px !important;
+}
+#intendedResearch_id {
+	width:450px;
+}

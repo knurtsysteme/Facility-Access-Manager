@@ -1,0 +1,36 @@
+<div class="famtab first">
+	<div class="famtab_title">
+		Sign in
+	</div>
+	<div class="famtab_content">
+		<form action="$util.html.getHref('corehome', $lang.page, $config.xml)" method="post">
+			<div>
+				<p style="float: left; margin-right: 10px;">
+					<label for="tab_login_username">
+						Username:
+					</label>
+					<br />
+					<input type="text" name="username" id="tab_login_username" value="" style="width: 100px" />
+				</p>
+				<p style="float:left; margin-right: 10px;">
+					<label for="tab_login_password">
+						Password:
+					</label>
+					<br />
+					<input type="password" name="password" id="tab_login_password" value="" style="width: 100px" />
+				</p>
+				<p style="padding-top: 9px;">
+					<button type="submit" class="icon next">
+						Sign in
+					</button>
+				</p>
+			</div>
+			<div style="clear: left; margin-top: 10px;">
+				<input type="checkbox" name="rememberme" id="rememberme" />
+				<label for="rememberme">
+					Remember me
+				</label>
+			</div>
+		</form>
+	</div>
+</div>

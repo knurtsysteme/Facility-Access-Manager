@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+configuration of the system mainly in language purposes.
+after changes in this file go to "Admin" -> "System configuration" and click "Reload Config"
+
+page dependent language. keys in this properties files are available over $lang.xml.getChild([resource_name]).getChildText([element]). e.g. $lang.xml.getChild($resource_name).getChildText("headline") to get the headline of the actual page pages have a shortcut, so that
+$lang.page.getChildText("headline") on the home-page is the same as $lang.xml.getChild("home").getChildText("headline")
+
+ -->
+<fam>
+	<global>
+    <!--  ${globallang.getChildText('logo')} -->
+		<logo>Logo of the Demo-Nursery-School</logo>
+		<!-- 
+		Service is offered by. 
+		This is shown e.g. on the terms and imprints
+		 -->
+		<service_offered_by>Your Company Name here</service_offered_by>
+		<!-- 
+		Flag for maintenance modus (if noticed by the template):
+		show-message: the template may put out the config_maintenance_message
+		block-message: the system shows the message and block user from using the system
+		false: no maintenance (default)
+		 -->
+		<maintenance modus="false">
+			<message>The system is maintained for you between 9th June 2012 and 10th June 2012. Kindly excuse any inconvenience.</message>
+		</maintenance>
+		<countries>
+			<country code="ac" name="Ascension Island" />
+			<country code="ad" name="Andorra" />
+			<country code="ae" name="United Arab Emirates" />
+			<country code="af" name="Afghanistan" />
+			<country code="ag" name="Antigua and Barbuda" />
+			<country code="ai" name="Anguilla" />
+			<country code="al" name="Albania" />
+			<country code="am" name="Armenia" />
+			<country code="an" name="Netherlands Antilles" />
+			<country code="ao" name="Angola" />
+			<country code="aq" name="Antarctica" />
+			<country code="ar" name="Argentina" />
+			<country code="as" name="American Samoa" />
+			<country code="at" name="Austria" />
+			<country code="au" name="Australia" />
+			<country code="aw" name="Aruba" />
+			<country code="ax" name="Åland Islands" />
+			<country code="az" name="Azerbaijan" />
+			<country code="ba" name="Bosnia and Herzegovina" />
+			<country code="bb" name="Barbados" />
+			<country code="bd" name="Bangladesh" />
+			<country code="be" name="Belgium" />
+			<country code="bf" name="Burkina Faso" />
+			<country code="bg" name="Bulgaria" />
+			<country code="bh" name="Bahrain" />
+			<country code="bi" name="Burundi" />
+			<country code="bj" name="Benin" />
+			<country code="bl" name="Saint Barthélemy" />
+			<country code="bm" name="Bermuda" />
+			<country code="bn" name="Brunei Darussalam" />
+			<country code="bo" name="Bolivia" />
+			<country code="br" name="Brazil" />
+			<country code="bs" name="Bahamas" />
+			<country code="bt" name="Bhutan" />
+			<country code="bv" name="Bouvet island" />
+			<country code="bw" name="Botswana" />
+			<country code="by" name="Belarus" />
+			<country code="bz" name="Belize" />
+			<country code="ca" name="Canada" />
+			<country code="cd" name="DR Congo" />
+			<country code="cf" name="Central African Republic" />
+			<country code="cg" name="Congo" />
+			<country code="ch" name="Switzerland" />
+			<country code="ci" name="Cote d’Ivoire" />
+			<country code="ck" name="Cook Islands" />
+			<country code="cl" name="Chile" />
+			<country code="cm" name="Cameroon" />
+			<country code="cn" name="China" />
+			<country code="co" name="Colombia" />
+			<country code="cr" name="Costa Rica" />
+			<country code="cu" name="Cuba" />
+			<country code="cv" name="Cape Verde" />
+			<country code="cx" name="Christmas island" />
+			<country code="cy" name="Cyprus" />
+			<country code="cz" name="Czech Republic" />
+			<country code="de" name="Germany" />
+			<country code="dj" name="Djibouti" />
+			<country code="dk" name="Denmark" />
+			<country code="dm" name="Dominica" />
+			<country code="do" name="Dominican Republic" />
+			<country code="dz" name="Algeria" />
+			<country code="ec" name="Ecuador" />
+			<country code="ee" name="Estonia" />
+			<country code="eg" name="Egypt" />
+			<country code="eh" name="Western Sahara" />
+			<country code="er" name="Eritrea" />
+			<country code="es" name="Spain" />
+			<country code="et" name="Ethiopia" />
+			<country code="fi" name="Finland" />
+			<country code="fj" name="Fiji" />
+			<country code="fo" name="Faroe islands" />
+			<country code="fr" name="France" />
+			<country code="ga" name="Gabon" />
+			<country code="gd" name="Grenada" />
+			<country code="ge" name="Georgia" />
+			<country code="gf" name="French Guiana" />
+			<country code="gg" name="Guernsey" />
+			<country code="gh" name="Ghana" />
+			<country code="gi" name="Gibraltar" />
+			<country code="gl" name="Greenland" />
+			<country code="gm" name="Gambia" />
+			<country code="gn" name="Guinea" />
+			<country code="gp" name="Guadeloupe" />
+			<country code="gq" name="Equatorial Guinea" />
+			<country code="gr" name="Greece" />
+			<country code="gt" name="Guatemala" />
+			<country code="gu" name="Guam" />
+			<country code="gw" name="Guinea-Bissau" />
+			<country code="gy" name="Guyana" />
+			<country code="hk" name="Hong Kong" />
+			<country code="hn" name="Honduras" />
+			<country code="hr" name="Croatia" />
+			<country code="ht" name="Haiti" />
+			<country code="hu" name="Hungary" />
+			<country code="id" name="Indonesia" />
+			<country code="ie" name="Ireland" />
+			<country code="il" name="Israel" />
+			<country code="im" name="Isle of Man" />
+			<country code="in" name="India" />
+			<country code="iq" name="Iraq" />
+			<country code="ir" name="Iran" />
+			<country code="is" name="Iceland" />
+			<country code="it" name="Italy" />
+			<country code="jm" name="Jamaica" />
+			<country code="je" name="Jersey" />
+			<country code="jo" name="Jordan" />
+			<country code="jp" name="Japan" />
+			<country code="ke" name="Kenya" />
+			<country code="kg" name="Kyrgyzstan" />
+			<country code="kh" name="Cambodia" />
+			<country code="ki" name="Kiribati" />
+			<country code="km" name="Comoros" />
+			<country code="kn" name="Saint Kitts and Nevis" />
+			<country code="kp" name="North Korea" />
+			<country code="kr" name="South Korea" />
+			<country code="kw" name="Kuwait" />
+			<country code="ky" name="Cayman Islands" />
+			<country code="kz" name="Kazakhstan" />
+			<country code="la" name="Lao" />
+			<country code="lb" name="Lebanon" />
+			<country code="lc" name="Saint Lucia" />
+			<country code="li" name="Liechtenstein" />
+			<country code="lk" name="Sri Lanka" />
+			<country code="lr" name="Liberia" />
+			<country code="ls" name="Lesotho" />
+			<country code="lt" name="Lithuania" />
+			<country code="lu" name="Luxembourg" />
+			<country code="lv" name="Latvia" />
+			<country code="ly" name="Libyan Arab Jamahiriya" />
+			<country code="ma" name="Morocco" />
+			<country code="mc" name="Monaco" />
+			<country code="md" name="Moldova, Republic of" />
+			<country code="me" name="Montenegro" />
+			<country code="mg" name="Madagascar" />
+			<country code="mh" name="Marshall Islands" />
+			<country code="mk" name="Macedonia" />
+			<country code="ml" name="Mali" />
+			<country code="mm" name="Myanmar" />
+			<country code="mn" name="Mongolia" />
+			<country code="mo" name="Macau" />
+			<country code="mq" name="Martinique" />
+			<country code="mr" name="Mauritania" />
+			<country code="ms" name="Montserrat" />
+			<country code="mt" name="Malta" />
+			<country code="mu" name="Mauritius" />
+			<country code="mv" name="Maldives" />
+			<country code="mw" name="Malawi" />
+			<country code="mx" name="Mexico" />
+			<country code="my" name="Malaysia" />
+			<country code="mz" name="Mozambique" />
+			<country code="na" name="Namibia" />
+			<country code="nc" name="New Caledonia" />
+			<country code="ne" name="Niger" />
+			<country code="nf" name="Norfolk Island" />
+			<country code="ng" name="Nigeria" />
+			<country code="ni" name="Nicaragua" />
+			<country code="nl" name="Netherlands" />
+			<country code="no" name="Norway" />
+			<country code="np" name="Nepal" />
+			<country code="nr" name="Nauru" />
+			<country code="nu" name="Niue" />
+			<country code="nz" name="New Zealand" />
+			<country code="om" name="Oman" />
+			<country code="pa" name="Panama" />
+			<country code="pe" name="Peru" />
+			<country code="pf" name="French Polynesia" />
+			<country code="pg" name="Papua New Guinea" />
+			<country code="ph" name="Philippines" />
+			<country code="pk" name="Pakistan" />
+			<country code="pl" name="Poland" />
+			<country code="pm" name="St. Pierre and Miquelon" />
+			<country code="pn" name="Pitcairn" />
+			<country code="pr" name="Puerto Rico" />
+			<country code="ps" name="Palestian Territories" />
+			<country code="pt" name="Portugal" />
+			<country code="pw" name="Palau" />
+			<country code="py" name="Paraguay" />
+			<country code="qa" name="Qatar" />
+			<country code="re" name="Reunion" />
+			<country code="ro" name="Romania" />
+			<country code="rs" name="Serbia" />
+			<country code="ru" name="Russian Federation" />
+			<country code="rw" name="Rwanda" />
+			<country code="sa" name="Saudi Arabia" />
+			<country code="sb" name="Solomon Islands" />
+			<country code="sc" name="Seychelles" />
+			<country code="sd" name="Sudan" />
+			<country code="se" name="Sweden" />
+			<country code="sg" name="Singapore" />
+			<country code="sh" name="St. Helena" />
+			<country code="si" name="Slovenia" />
+			<country code="sk" name="Slovakia" />
+			<country code="sl" name="Sierra Leone" />
+			<country code="sm" name="San Marino" />
+			<country code="sn" name="Senegal" />
+			<country code="so" name="Somalia" />
+			<country code="sr" name="Suriname" />
+			<country code="st" name="Sao Tome and Principe" />
+			<country code="sv" name="El Salvador" />
+			<country code="sy" name="Syrian Arab Republic" />
+			<country code="sz" name="Swaziland" />
+			<country code="td" name="Chad" />
+			<country code="tg" name="Togo" />
+			<country code="th" name="Thailand" />
+			<country code="tj" name="Tajikistan" />
+			<country code="tk" name="Tokelau" />
+			<country code="tl" name="East Timor" />
+			<country code="tm" name="Turkmenistan" />
+			<country code="tn" name="Tunisia" />
+			<country code="to" name="Tonga" />
+			<country code="tr" name="Turkey" />
+			<country code="tt" name="Trinidad and Tobago" />
+			<country code="tv" name="Tuvalu" />
+			<country code="tw" name="Taiwan" />
+			<country code="tz" name="Tanzania" />
+			<country code="ua" name="Ukraine" />
+			<country code="ug" name="Uganda" />
+			<country code="uk" name="United Kingdom" />
+			<country code="us" name="United States" />
+			<country code="uy" name="Uruguay" />
+			<country code="uz" name="Uzbekistan" />
+			<country code="ve" name="Venezuela" />
+			<country code="vn" name="Viet Nam" />
+			<country code="vu" name="Vanuatu" />
+			<country code="ws" name="Samoa" />
+			<country code="ye" name="Yemen" />
+			<country code="yt" name="Mayotte" />
+			<country code="yu" name="Yugoslavia" />
+			<country code="za" name="South Africa" />
+			<country code="zm" name="Zambia" />
+			<country code="zw" name="Zimbabwe" />
+		</countries>
+		<companies>
+			<company code="inside" name="Nursery School">
+				<departments>
+					<department code="office" name="Office" />
+					<department code="admin" name="Admin-Office" />
+					<department code="nurse" name="Nursery school teacher" />
+				</departments>
+			</company>
+			<company code="outside" name="Other company">
+				<departments>
+					<department code="cfab" name="Cleaning Fritz and Brother Co." />
+					<department code="cram" name="Car Repair and more AG" />
+					<department code="rup" name="Repair ur Play" />
+				</departments>
+			</company>
+		</companies>
+	</global>
+	<pages>
+
+		<page name="forgottenpassword">
+			<title>Request a new password here</title>
+			<headline>Request a new password</headline>
+		</page>
+		<page name="setnewpassword">
+			<title>Create a new password here</title>
+			<headline>Create a new password</headline>
+		</page>
+		<page name="changepassword">
+			<title>From time to time you may want to change your password here</title>
+			<headline>Change my password</headline>
+		</page>
+		<page name="home">
+			<title>Welcome to the Facility Access Manager of the Demo-Nursery-School</title>
+			<headline>Demo-Nursery-School</headline>
+		</page>
+		<page name="jobsmanager">
+			<title>Jobs Manager</title>
+			<headline>Jobs Manager</headline>
+		</page>
+		<page name="editfeedback">
+			<title>Give User a Feedback</title>
+			<headline>Give User a Feedback</headline>
+		</page>
+		<page name="viewfeedback">
+			<title>View Feedback</title>
+			<headline>View Feedback</headline>
+		</page>
+		<page name="eventsofday">
+			<title>Events of the day</title>
+			<headline>Events of the day</headline>
+		</page>
+		<page name="unknownerror">
+			<title>Unknown Error</title>
+			<headline>Unknown Error</headline>
+		</page>
+		<page name="bookfacilitiesdone">
+			<title>We got your booking</title>
+			<headline>We got your booking</headline>
+		</page>
+		<page name="agreementde">
+			<title>Agreement of facility order (German)</title>
+			<headline>Agreement of facility order (German)</headline>
+		</page>
+		<page name="agreementen">
+			<title>Agreement of facility order</title>
+			<headline>Agreement of facility order</headline>
+		</page>
+		<page name="lettergenerator">
+			<title>Write custom PDF files for you or to send it via email</title>
+			<headline>Generate a letter</headline>
+		</page>
+		<page name="editrequest">
+			<title>Edit Job Survey</title>
+			<headline>Edit Job Survey</headline>
+		</page>
+		<page name="imprint">
+			<title>Imprint</title>
+			<headline>Imprint</headline>
+		</page>
+		<page name="corehome">
+			<title>Welcome</title>
+			<headline>Welcome</headline>
+		</page>
+		<page name="login">
+			<headline>Sign in</headline>
+			<title>Enter our system here, if you already have a password</title>
+		</page>
+		<page name="book">
+			<headline>Book a facility</headline>
+			<title>Book one of our facilities</title>
+		</page>
+		<page name="book2">
+			<headline>Book a facility</headline>
+			<title>Book one of our facilities</title>
+		</page>
+		<page name="adminhome">
+			<title>Admin-Area</title>
+			<headline>Welcome to the Admin-Area</headline>
+		</page>
+		<page name="systemmeta">
+			<headline>Product-Information</headline>
+			<title>Get information of this Facility Access Manager</title>
+		</page>
+		<page name="facilityemergency">
+			<headline>Alert failure</headline>
+			<title>Please tell us immediately about broken facilities</title>
+		</page>
+		<page name="systemmodifyapplications">
+			<headline>Verify booking requests</headline>
+			<title>Decide who gets the bonus for which application</title>
+		</page>
+		<page name="editfacilityavailability">
+			<headline>Edit Facility Rules</headline>
+			<title>Edit Facility Rules</title>
+		</page>
+		<page name="systemfacilityavailability">
+			<headline>Facility Manager</headline>
+			<title>Determine general rules for booking facilities</title>
+		</page>
+		<page name="mybookings">
+			<headline>My bookings</headline>
+			<title>View and cancel your booking requests. Get and edit information about your sessions</title>
+		</page>
+		<page name="contactdetails">
+			<headline>My Contact details</headline>
+			<title>Add, change or remove data to your personal contact details</title>
+		</page>
+		<page name="statistics">
+			<headline>View statistics</headline>
+			<title>Get statistical information about the use of facilities</title>
+		</page>
+		<page name="systembookings">
+			<headline>Actual jobs</headline>
+			<title>Show details of actual jobs</title>
+		</page>
+		<page name="tutorial">
+			<headline>Tutorials</headline>
+			<title>Learn everything about the system and how to use it by watching instructional films</title>
+		</page>
+		<page name="logbook">
+			<headline>Enter logbook</headline>
+			<title>Post a status message to be a news item readable by all. Read all messages.</title>
+		</page>
+		<page name="logbookmakepost">
+			<headline>Make post in logbook</headline>
+			<title>Make post in logbook</title>
+		</page>
+		<page name="viewrequest">
+			<headline>View Job Information</headline>
+			<title>View Job Information</title>
+		</page>
+		<page name="systemfacilityavailabilityoverview">
+			<headline>Change availability of facility</headline>
+			<title>Configure times of when your facility is available and when it is not</title>
+		</page>
+		<page name="configjobsurvey">
+			<headline>Config Job Data</headline>
+			<title>Define, how a job is processed on which facility</title>
+		</page>
+		<page name="news">
+			<headline>News of the day</headline>
+			<title>News of the day</title>
+		</page>
+		<page name="editsoa">
+			<headline>Edit Agreements</headline>
+			<title>View, create, delete or change the Terms of use agreements for different roles</title>
+		</page>
+		<page name="singletermsofuseadminview">
+			<title>View a single Terms of use agreement</title>
+			<headline>View a single Terms of use agreement</headline>
+		</page>
+		<page name="systemlistofusermails">
+			<title>Show e-mails sent from system to users</title>
+			<headline>System E-Mails</headline>
+		</page>
+		<page name="systemlistofrolesandrights">
+			<title>Get an overview about configured roles and rights</title>
+			<headline>Roles and rights</headline>
+		</page>
+		<page name="systemlistofconfiguredfacilities">
+			<title>Show details of all configured facilities</title>
+			<headline>Configured Facilities</headline>
+		</page>
+		<page name="viewsystemconfiguration">
+			<title>System Configuration</title>
+			<headline>System Configuration</headline>
+		</page>
+		<page name="indoor">
+			<title>Our indoor facilities</title>
+			<headline>Welcome in our rooms</headline>
+		</page>
+		<page name="outdoor">
+			<title>Our outdoor facilities</title>
+			<headline>Our facilities outside</headline>
+		</page>
+		<page name="fleet">
+			<title>This is our fleet</title>
+			<headline>This is our fleet</headline>
+		</page>
+		<page name="registersent">
+			<title>Thank you</title>
+			<headline>We got your registration</headline>
+		</page>
+		<page name="admin">
+			<title>Admin-Area</title>
+			<headline>Sign in</headline>
+		</page>
+		<page name="logout">
+			<title>You have signed out</title>
+			<headline>You have signed out</headline>
+		</page>
+		<page name="plugins">
+			<title>Overview of plugins</title>
+			<headline>Overview of plugins</headline>
+		</page>
+		<page name="users">
+			<headline>User Manager</headline>
+			<title>View and edit users there roles, accounts and contact details.</title>
+		</page>
+		<page name="termsofuse">
+			<headline>Terms of use agreements</headline>
+			<title>View the actual terms of use agreements</title>
+		</page>
+		<page name="register">
+			<title>Apply for a new account for free</title>
+			<headline>Registration</headline>
+		</page>
+		<page name="jobsurvey">
+			<title>View a Job Survey</title>
+			<headline>Job Survey</headline>
+		</page>
+		<page name="jobsurveypreview">
+			<title>Preview of a Job Survey</title>
+			<headline>Job Survey (Preview)</headline>
+		</page>
+		<page name="filemanager">
+			<title>Organize files you need to work with our facilities</title>
+			<headline>File-Manager</headline>
+		</page>
+	</pages>
+</fam>

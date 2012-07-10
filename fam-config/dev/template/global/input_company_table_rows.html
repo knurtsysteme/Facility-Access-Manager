@@ -1,0 +1,45 @@
+<tr>
+    <td colspan="2">
+        <label for="js_company_select">
+            Institution
+        </label>
+        <br />
+        <select id="js_company_select" name="js_company_select" class="js_company_input">
+            <option value="-1">Select entry</option>
+            #foreach($company in $lang.xml.getChild("global").getChild("companies").getChildren() )
+            <option value="$company.getAttributeValue('code')">$company.getAttributeValue('name')</option>
+            #end
+            <option value="unknown">Other</option>
+        </select>
+    </td>
+</tr>
+#foreach($company in $lang.xml.getChild("global").getChild("companies").getChildren() )
+#set($company_code = $company.getAttributeValue('code'))
+<tr style="display: none;" id="js_department_$company_code" class="js_department_input">
+    <td colspan="2">
+        <label for="department_id_$company_code">Department</label>
+        <br />
+        <select class="js_department" id="department_id_$company_code" name="department_id_$company_code">
+            <option value="-1">Select entry</option>
+            #foreach($department in $company.getChild("departments").getChildren() )
+            <option value="${company_code}_$department.getAttributeValue('code')">$department.getAttributeValue('name')</option>
+            #end
+            <option value="unknown">Other</option>
+        </select>
+    </td>
+</tr>
+#end
+<tr style="display: none;" id="js_company_unknown" class="js_company_input">
+    <td colspan="2">
+        <label for="company_id_unknown">Please specify institution:</label>
+        <br />
+        <input type="text" class="js_company" id="company_id_unknown" name="company_id_unknown" value="" />
+    </td>
+</tr>
+<tr style="display: none;" id="js_department_unknown" class="js_department_input">
+    <td colspan="2">
+        <label for="department_id_unknown">Please specify department:</label>
+        <br />
+        <input type="text" class="js_department" name="department_id_unknown" id="department_id_unknown" value="" />
+    </td>
+</tr>

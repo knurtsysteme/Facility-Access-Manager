@@ -1,0 +1,174 @@
+#set($url_past_jobs = $util.html.getHref('jobsmanager') + ${config.model.alreadyProcessedQueryString})
+#set($url_to_this_facility = $util.html.getHref('jobsmanager') + "?a=" + $config.model.facility.key)
+
+	#if($config.model.isRequest4Past)
+   <h1>Jobs already processed</h1>
+   #else
+   <h1>Jobs coming next</h1>
+   #end
+
+	## ##############
+	## Summary list
+	## ##############
+	<ul style="margin-bottom: 10px">
+		#if($config.model.users_facilities.size() == 1)
+	   		<li>$config.model.facility.label</li>
+	   	#else
+		   	<li>
+			   	<form action="$util.html.getHref('jobsmanager')" method="GET">
+				   	<select name="a" onChange="javascript:Base.WaitingIcon.showOnPage();this.form.submit();">
+				   	#foreach($users_facility in $config.model.users_facilities)
+				   		#set($selected="")
+				   		#if($users_facility.key.equals($config.model.facility.key))
+					   		#set($selected="selected='selected'")
+				   		#end
+				   		<option value="$users_facility.key" $selected>$users_facility.label</option>
+				   	#end
+				   	</select>
+			   	</form>
+		   	</li>
+	   	#end
+		#if(!$config.model.is_queue_based && $config.model.showUnitsUsedNow)
+			<li>
+				#if($config.model.facility.capacityUnits==1)
+					#if($config.model.unitsUsedNow==1)
+						Facility is in use now
+					#else
+						Facility is <strong>not</strong> in use now
+					#end
+				#else
+					Units in use now: $config.model.unitsUsedNow <span class="js_help" style="display: none;">These are the units the systems knows of as „booked for now“. Please always register: real life may differ.</span>
+				#end
+			</li>
+		#end
+	   	<li>Other pages: 
+	   		#if($config.model.isRequest4Past)
+	       <a href="$url_to_this_facility">Show actual jobs</a>
+		   	#else 
+	       <a href="$url_past_jobs">Show already processed jobs</a>
+		   	#end
+	   	</li>
+   </ul>
+   
+   ## ##############
+   ## message on no jobs
+   ## ##############
+   #if($config.model.bookings.size() == 0)
+   <div>
+   	#if($config.model.isRequest4Past)
+   	No job processed yet 
+   	#else 
+   	No job open 
+   	#end
+   </div>
+   #else
+   ## ##############
+   ## table of jobs
+   ## ##############
+    <table class="standard">
+	    <thead>
+			<tr>
+   				#if(!$config.model.isRequest4Past)
+			    <th>Position</th>
+			    #end
+			    <th>Job</th>
+			    <th>User</th>
+			    <th>Details</th>
+				#if(!$config.model.is_queue_based)
+			    <th>Time</th>
+			    #end
+			    <th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		#set($i=1)
+    	#foreach($booking in $config.model.bookings)
+			<tr>
+   				#if(!$config.model.isRequest4Past)
+			    <td>$i</td>
+			    #end
+			    <td>ID: $booking.id<br />
+			    	$util.html.aWithAQuery('viewrequest', "?v=$booking.id").setContent('Survey')&nbsp;($util.html.aWithAQuery('jobsurvey', "?step=1&amp;jobid=$booking.id").setContent('Printview'))
+			    </td>
+			    <td>$booking.username ($booking.user.roleId)</td>
+			    <td>
+			    	#if(!$util.value.isNull($booking.lastInvoiced))
+	        			Last invoiced: $FamDateFormat.getDateShort($booking.lastInvoiced)
+	        		#elseif($booking.user.hasRight(11, null)==true)
+	        			No Invoice needed
+	        		#else
+	        			Not invoiced yet
+		        	#end
+			    </td>
+				#if(!$config.model.is_queue_based)
+			    <td>
+			    	$util.sort.span($booking.sessionTimeFrame)
+			    	$FamDateFormat.getDateAndTimeShort($booking.sessionTimeFrame.dateStart) - $FamDateFormat.getDateAndTimeShort($booking.sessionTimeFrame.dateEnd)
+			    </td>
+			    #end
+		        <td class="action">
+		        	#if($booking.application)
+		        		$util.html.a("systemmodifyapplications").setContent("Accept this application first")
+		        	#else
+		        		#set($even_odd="even")
+	   					#if(!$config.model.isRequest4Past)
+		   					<button class="icon comment small $even_odd" onclick="javascript:window.location='$util.html.href('editfeedback')?v=$booking.id'">
+								Edit Feedback
+							</button>
+							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
+		   					<button class="icon view small $even_odd" onclick="javascript:window.location='$util.html.href('viewfeedback')?v=$booking.id'">
+								View Feedback
+							</button>
+			        	#end
+	
+			        	#if($booking.user.hasRight(11, null)==false)
+							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
+							<form method="post" class="invoiceButton $even_odd" action="">
+								<p>
+									<input type="hidden" value="$booking.id" name="v" /> ## booking id
+									<input type="hidden" value="1" name="h" /> ## sent flag
+									<input type="hidden" value="invoice" name="action" /> ## action flag
+									<button class="icon ok small" title="invoice!" type="submit">Set invoiced</button>
+								</p>
+							</form>
+							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
+				        	<p class="bill $even_odd">
+								<button class="icon send small" onclick="javascript:window.location='$util.html.hrefWithAQuery('lettergenerator', "?v=$booking.id")'">
+									Send Invoice
+								</button>
+				        	</p>
+			        	#end
+	   					#if(!$booking.processed)
+							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
+							<form method="post" class="processedButton $even_odd" action="save-jobsmanager.html">
+								<p>
+									<input type="hidden" value="$booking.id" name="v">
+									<input type="hidden" value="$booking.facilityKey" name="a">
+									<input type="hidden" value="1" name="h">
+									<input type="hidden" value="false" name="ajax">
+								</p>
+								<p>
+									<button class="icon ok small" title="processed!" type="submit">Set processed</button>
+								</p>
+							</form>
+						#end
+	   					#if(!$config.model.isRequest4Past)
+							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
+							<form method="post" class="deleteButton $even_odd" action="">
+								<p>
+									<input type="hidden" value="$booking.id" name="v">
+									<input type="hidden" value="true" name="u">
+								</p>
+								<p>
+									<button class="icon cancel small" title="cancel!" type="submit">Cancel Booking</button>
+								</p>
+							</form>
+			        	#end
+		        	#end
+	        	</td>
+			</tr>
+		#set($i=$i+1)
+		#end
+		</tbody>
+   </table>
+    #end

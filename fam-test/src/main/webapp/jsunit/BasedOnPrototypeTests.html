@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>JSUnit</title>
+		<script type="text/javascript" src="prototype.js"></script>
+		<script type="text/javascript" src="scrollwork.js"></script>
+		<script type="text/javascript" src="unittest.js"></script>
+		<script type="text/javascript" src="Base_prototype.js"></script>
+		<link rel="stylesheet" href="test.css" type="text/css" />
+	</head>
+	<body>
+		<h1>Prototype tests</h1>
+		<p>
+			Tests the class <code>FontStyler</code>
+		</p>
+		<!-- Log output -->
+		<div id="testlog"></div>
+		<div id="mylog"></div>
+		<!-- Tests follow -->
+		<script type="text/javascript" language="javascript" charset="utf-8">
+			// <![CDATA[
+
+			new Test.Unit.Runner({
+				testCreate : function() {
+					with(this) {
+						assertNotNull(Base);
+						assertNotNull(Base.useJavaScript);
+						assertNotNull(Base.init);
+						assertNotNull(Base.WaitingIcon);
+						assertNotNull(Base.WaitingIcon.show);
+						assertNotNull(Base.Ajax);
+						assertNotNull(Base.Calendar);
+						assertNotNull(Base.Calendar.getPopUpCalendar);
+						assertNotNull(Base.Calendar.privateGet);
+
+						assertEqual(true, Base.useJavaScript());
+					}
+				},
+				test_pseudoSetFinished : function() {
+					with(this) {
+						$('mylog').innerHTML = "<p id='finished'>finished</p>";
+						window.setTimeout(function() {
+						}, 100);
+					}
+				}
+			}, "testlog");
+
+			// ]]>
+		</script>
+	</body>
+</html>

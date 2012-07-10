@@ -1,0 +1,11 @@
+<label for="mail_id">
+#if(!$util.value.isNull($config.model.templateResource.request.getParameter("emailExists")) && $config.model.templateResource.request.getParameter("emailExists") == "true")
+<span class="warning">E-Mail-Adress is already in-use</span>
+#else
+E-Mail
+#end
+</label>
+<br />
+<input type="text" name="mail" id="mail_id" value="" />
+<p class="hint" id="mail_id_hint" style="display: none;">Essential input.<br />
+Please double-check to avoid typos.</p>

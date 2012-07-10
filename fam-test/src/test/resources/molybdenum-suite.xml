@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+#set($pass_standard="test1234")
+#set($pass_new="1234test")
+#set($secret_statistics_username=$FamConnector.getGlobalProperty('statistics_username'))
+#set($secret_statistics_password=$FamConnector.getGlobalProperty('statistics_password'))
+#set($test_id=$FamDateFormat.getCustomDate('MMddyyyyHHmmss'))
+<selenium-testsuite label="">
+	<test name="first_init" desc="create user, reset database etc.">
+		$action.reset()
+	</test>
+	<test name="ticket_27__go_to_page_after_login_adminhome" desc="go to requested page after login">
+		$action.logout()
+		$action.open('statistics')
+		$assert.page('admin')
+		$action.login('admin')
+		$assert.page('statistics')
+	</test>
+	<test name="statistics_direct_access" desc="direct access works">
+		$action.logout()
+		#set($query="?z="+$secret_statistics_username+"&amp;ab="+$secret_statistics_password)
+		$action.open('statistics', $query)
+		$assert.page('statistics')
+	</test>
+	<test name="ticket_27__go_to_page_after_login_corehome" desc="go to requested page after login">
+		$action.logout()
+		$action.open('logbook')
+		$assert.page('login')
+		$action.login('extern')
+		$assert.page('logbook')
+	</test>
+	<test name="statistics_not_for_externs" desc="go not to requested page after login if not auth">
+		$action.logout()
+		$action.open('statistics')
+		$assert.page('admin')
+		$action.login('extern')
+		$assert.page('admin')
+	</test>
+	<test name="changepassword_succ" desc="sign up and change password succ">
+		$action.logout()
+		$action.login('extern')
+		$action.open('changepassword')
+		<command command="type" target="id=oldpass_id" value="$pass_standard" desc="" />
+		<command command="type" target="id=pass1_id" value="$pass_new" desc="" />
+		<command command="type" target="id=pass2_id" value="$pass_new" desc="" />
+		<command command="clickAndWait" target="id=changepassword_submit" value="" desc="" />
+		<command command="assertElementPresent" target="id=changepassword_succ" value="" desc="" />
+		<!-- user does not have to re sign up -->
+		$action.open('logbook')
+		$assert.page('logbook')
+		<!--  users new password works -->
+		$action.logout()
+		$action.login('extern')
+		$assert.page('login')
+		$action.login('extern', $pass_new)
+		$assert.page('corehome')
+		<!--  reset dirty test -->
+		$action.reset()
+	</test>
+	<test name="jobsurvey_no_general_access_1" desc="no access if not logged in">
+		$action.logout()
+		$action.open('jobsurvey')
+		$assert.page('home')
+	</test>
+	<test name="jobsurvey_no_general_access_2" desc="no access if not logged in with query">
+		$action.logout()
+		#set($query="?step=0&amp;facility=bus1")
+		$action.open('jobsurvey', $query)
+		$assert.page('home')
+	</test>
+	<test name="jobsurvey_no_access_by_extern" desc="not allowed to give himself feedback">
+		$action.logout()
+		$action.login('extern')
+		#set($query="?step=2&amp;facility=bus1")
+		$action.open('jobsurvey', $query)
+		<command command="assertTextPresent" target="regexp:.*201203281229.*" value="" desc="error code" />
+	</test>
+	<test name="bookfacilitiesdone_assert_home_on_no_jobid_given" desc="this page is only shown if a valid jobId is given">
+		$action.logout()
+		$action.login('admin')
+		#set($query="?jobId=654654654654")
+		$action.open('bookfacilitiesdone', $query)
+		$assert.notpage('bookfacilitiesdone')
+	</test>
+	<test name="changepassword_fail_old_wrong" desc="sign up and change password fail - wrong old pass">
+		$action.logout()
+		$action.login('extern')
+		$action.open('changepassword')
+		<command command="type" target="id=oldpass_id" value="wrong" desc="" />
+		<command command="type" target="id=pass1_id" value="$pass_new" desc="" />
+		<command command="type" target="id=pass2_id" value="$pass_new" desc="" />
+		<command command="clickAndWait" target="id=changepassword_submit" value="" desc="" />
+		<command command="assertElementPresent" target="id=changepassword_failed_wrongold" value="" desc="" />
+		<!--  users new password does not works -->
+		$action.logout()
+		$action.login('extern', $pass_new)
+		$assert.page('login')
+		$action.login('extern')
+		$assert.page('corehome')
+	</test>
+	<test name="changepassword_fail_not_equal" desc="sign up and change password fail - new not equals">
+		$action.logout()
+		$action.login('extern')
+		$action.open('changepassword')
+		<command command="type" target="id=oldpass_id" value="$pass_standard" desc="" />
+		<command command="type" target="id=pass1_id" value="$pass_new" desc="" />
+		<command command="type" target="id=pass2_id" value="$pass_standard" desc="" />
+		<command command="clickAndWait" target="id=changepassword_submit" value="" desc="" />
+		<command command="assertElementPresent" target="id=changepassword_failed_wrongnew" value="" desc="" />
+		<!--  users new password does not works -->
+		$action.logout()
+		$action.login('extern', $pass_new)
+		$assert.page('login')
+		$action.login('extern')
+		$assert.page('corehome')
+	</test>
+	<test name="statistics_admin_access_not_for_interns" desc="go not to requested page after login if not auth">
+		$action.logout()
+		$action.open('statistics')
+		$assert.page('admin')
+		$action.login('intern')
+		$assert.page('admin')
+	</test>
+	<test name="statistics_admin_access_for_operators" desc="go not to requested page after login if not auth">
+		$action.logout()
+		$action.open('statistics')
+		$assert.page('admin')
+		$action.login('operator')
+		$assert.page('statistics')
+	</test>
+	<test name="register_succ" desc="simple register and check thanks-page">
+		$action.logout()
+		$action.open('register')
+		<command command="select" target="id=male_id" value="label=Male" desc="" />
+		<command command="select" target="id=title_id" value="label=Mr." desc="" />
+		<command command="type" target="id=fname_id" value="Max" desc="" />
+		<command command="type" target="id=sname_id" value="Mustermann" desc="" />
+		<command command="type" target="id=birthdate_id" value="01.01.2001" desc="" />
+		<command command="type" target="id=mail_id" value="mamuster@gmx.de" desc="" />
+		<command command="type" target="id=pass1_id" value="$pass_standard" desc="" />
+		<command command="fireEvent" target="id=pass1_id" value="keyup" desc="" />
+		<command command="type" target="id=pass2_id" value="$pass_standard" desc="" />
+		<command command="fireEvent" target="id=pass2_id" value="keyup" desc="" />
+		<command command="type" target="id=street_id" value="Mühlenstraße" desc="" />
+		<command command="type" target="id=streetno_id" value="1a" desc="" />
+		<command command="type" target="id=zipcode_id" value="24989" desc="" />
+		<command command="type" target="id=city_id" value="Dollerup" desc="" />
+		<command command="type" target="id=phone1_id" value="no" desc="" />
+		<command command="type" target="id=phone2_id" value="+491633645506" desc="" />
+		<command command="select" target="id=country_id" value="label=Germany" desc="" />
+		<command command="select" target="id=js_company_select" value="label=Other" desc="" />
+		<command command="type" target="id=company_id_unknown" value="KNURT Systeme" desc="" />
+		<command command="type" target="id=department_id_unknown" value="KNURT Systeme" desc="" />
+		<command command="type" target="id=intendedResearch_id" value="intended research project" desc="" />
+		<command command="clickAndWait" target="id=register_submit" value="" desc="" />
+		$assert.page('registersent')
+	</test>
+	<test name="users_add_user" desc="add a new user">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.open('users')
+		<command command="click" target="link=Add a new user" value="" desc="" />
+		<command command="select" target="id=male_id" value="label=Male" desc="" />
+		<command command="select" target="id=title_id" value="label=Mr." desc="" />
+		<command command="type" target="id=fname_id" value="Max" desc="" />
+		<command command="type" target="id=sname_id" value="Mustermann" desc="" />
+		<command command="type" target="id=birthdate_id" value="01.01.2001" desc="" />
+		<command command="type" target="id=mail_id" value="mamuster@gmx.de" desc="" />
+		<command command="type" target="id=street_id" value="Musterstraße" desc="" />
+		<command command="type" target="id=streetno_id" value="1" desc="" />
+		<command command="type" target="id=zipcode_id" value="12345" desc="" />
+		<command command="type" target="id=city_id" value="Musterstadt" desc="" />
+		<command command="type" target="id=phone1_id" value="555" desc="" />
+		<command command="select" target="id=country_id" value="label=Germany" desc="" />
+		<command command="type" target="id=password_id" value="$pass_standard" desc="" />
+		<command command="type" target="id=company_id" value="Muster Institution" desc="" />
+		<command command="type" target="id=departmentlabel_id" value="Muster Department" desc="" />
+		<command command="select" target="id=roleid_id" value="label=External user" desc="" />
+		<command command="click" target="xpath=/html/body/div[8]/div[3]/div/button[2]" value="" desc="" />
+		<command command="waitForNotVisible" target="css=#street_id" value="" desc="Dialog must be closed after inserting" />
+		$action.open('users')
+		<command command="assertText" target="css=#content_main .dataTables_info" value="1 to 5 of 5" desc="max mustermann is inserted" />
+	</test>
+	#set($users_delete_button_target="xpath=/html/body/div[9]/div[3]/div/button[2]")
+	<test name="users_delete_user_1" desc="Put user to trash">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.open('users')
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody" value="regexp:.*External.*" desc="user put into trash" />
+		<command command="click" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td[5]/a[3]" value="" desc="click delete for external user" />
+		<command command="waitForVisible" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="assertChecked" target="id=delete_user_0" value="" desc="" />
+		<command command="click" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+		$action.open('users')
+		<command command="assertElementPresent" target="id=please_reload_page" value="" desc="" />
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td[4]" value="regexp:.*trash.*" desc="user put into trash" />
+		<command command="assertNotText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td[4]" value="regexp:.*nonym.*" desc="user is not anonym" />
+	</test>
+	<test name="users_delete_user_2" desc="Put user to trash and anonymize irreversible">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.open('users')
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody" value="regexp:.*External.*" desc="user put into trash" />
+		<command command="click" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td[5]/a[3]" value="" desc="click delete for external user" />
+		<command command="waitForVisible" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="click" target="id=delete_user_2" value="" desc="" />
+		<command command="click" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="assertConfirmationPresent" target="" value="" desc="" />
+		<command command="storeConfirmation" target="" value="1" desc="" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+		$action.open('users')
+		<command command="assertElementPresent" target="id=please_reload_page" value="" desc="" />
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr/td[4]" value="regexp:.*trash.*" desc="user put into trash" />
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr/td[4]" value="regexp:.*nonym.*" desc="user is anonym" />
+	</test>
+	<test name="users_delete_user_3" desc="Put user to trash, anonymize irreversible and delete all user's data">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.open('users')
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody" value="regexp:.*External.*" desc="user put into trash" />
+		<command command="click" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td[5]/a[3]" value="" desc="click delete for external user" />
+		<command command="waitForVisible" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="click" target="id=delete_user_3" value="" desc="" />
+		<command command="click" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="assertConfirmationPresent" target="" value="" desc="" />
+		<command command="storeConfirmation" target="" value="1" desc="" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+		$action.open('users')
+		<command command="assertElementPresent" target="id=please_reload_page" value="" desc="" />
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr/td[4]" value="regexp:.*trash.*" desc="user put into trash" />
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr/td[4]" value="regexp:.*nonym.*" desc="user is anonym" />
+	</test>
+	<test name="users_delete_user_4" desc="Completly delete user">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.open('users')
+		<command command="assertText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody" value="regexp:.*External.*" desc="user put into trash" />
+		<command command="click" target="xpath=/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td[5]/a[3]" value="" desc="click delete for external user" />
+		<command command="waitForVisible" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="click" target="id=delete_user_1" value="" desc="" />
+		<command command="click" target="$users_delete_button_target" value="" desc="OK Button" />
+		<command command="assertConfirmationPresent" target="" value="" desc="" />
+		<command command="storeConfirmation" target="" value="1" desc="" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+		$action.open('users')
+		<command command="assertElementPresent" target="id=please_reload_page" value="" desc="" />
+		<command command="assertNotText" target="xpath=/html/body/div[2]/div[3]/div/table/tbody" value="regexp:.*External.*" desc="user put into trash" />
+	</test>
+	<test name="jsunit_jquery" desc="test jsunit tests okay - jquery">
+		<command command="open" target="$action.getTestProp('molybdenum.fam-test-url')/jsunit/BasedOnJQueryTests.html" value="" desc="" />
+		<command command="waitForElementPresent" target="xpath=//*[@id=&quot;qunit-testresult&quot;]" value="" desc="" />
+		<command command="verifyText" target="xpath=/html/body/p/span[3]" value="0" desc="" />
+		<tags />
+	</test>
+	<test name="jsunit_prototype" desc="test jsunit tests okay - prototype">
+		<command command="open" target="$action.getTestProp('molybdenum.fam-test-url')/jsunit/BasedOnPrototypeTests.html" value="" desc="" />
+		<command command="waitForElementPresent" target="id=finished" value="" desc="" />
+		<command command="verifyText" target="id=logsummary" value="regexp:.*0 failures, 0 errors.*" desc="" />
+	</test>
+	<test name="ticket_185" desc="redirect_with_query_parameters">
+		$action.logout()
+		$action.open('corehome', '?a=b')
+		$action.login('admin')
+		$assert.page('corehome', '?a=b')
+	</test>
+	<test name="configjobsurvey_show_facilities_operators" desc="redirect_with_query_parameters">
+		$action.reset()
+		$action.logout()
+		$action.open('corehome')
+		$action.login('operator')
+		$action.open('configjobsurvey')
+		$assert.page('configjobsurvey')
+		<command command="assertElementPresent" target="id=facility_selection" value="" desc="" />
+		<command command="assertElementPresent" target="css=#facility_selection option[value=indoor]" value="" desc="" />
+		<command command="assertElementNotPresent" target="css=#facility_selection option[value=fleet]" value="" desc="" />
+	</test>
+	<test name="configjobsurvey_show_facilities_admins" desc="redirect_with_query_parameters">
+		$action.reset()
+		$action.logout()
+		$action.open('corehome')
+		$action.login('admin')
+		$action.open('configjobsurvey')
+		$assert.page('configjobsurvey')
+		<command command="assertElementPresent" target="id=facility_selection" value="" desc="" />
+		<command command="assertElementPresent" target="css=#facility_selection option[value=indoor]" value="" desc="" />
+		<command command="assertElementPresent" target="css=#facility_selection option[value=fleet]" value="" desc="" />
+		<command command="assertElementPresent" target="css=#facility_selection option[value=playSchool]" value="" desc="" />
+	</test>
+	<test name="configjobsurvey_show_facilities_extern" desc="redirect_with_query_parameters">
+		$action.reset()
+		$action.logout()
+		$action.open('corehome')
+		$action.login('extern')
+		$assert.page('corehome')
+	</test>
+	<test name="configjobsurvey_submit_succ" desc="job survey can be previewed - input without form elements">
+		$action.reset()
+		$action.logout()
+		$action.open('corehome')
+		$action.login('admin')
+		$action.open('configjobsurvey', '?facility_choosen=bus1')
+		<command command="assertElementPresent" target="id=container_show" value="" desc="" />
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="s0" desc="" />
+		<command command="type" target="id=behaviour_step_0" value="b0" desc="" />
+		<command command="type" target="id=structure_step_1" value="s1" desc="" />
+		<command command="type" target="id=behaviour_step_1" value="b1" desc="" />
+		<command command="type" target="id=structure_step_2" value="s2" desc="" />
+		<command command="type" target="id=behaviour_step_2" value="b2" desc="" />
+		<command command="type" target="id=structure_step_3" value="$facility.label" desc="" />
+		<command command="type" target="id=behaviour_step_3" value="$facility.label" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="id=preview_tab_step_0" value="" desc="" />
+		<command command="click" target="id=action_publish" value="" desc="" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+	</test>
+	<test name="configjobsurvey_replace_preview" desc="job survey can be previewed - input without form elements">
+		$action.reset()
+		$action.logout()
+		$action.open('corehome')
+		$action.login('admin')
+		$action.open('configjobsurvey', '?facility_choosen=bus3')
+		<command command="assertElementPresent" target="id=container_show" value="" desc="" />
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="s0" desc="" />
+		<command command="type" target="id=structure_step_1" value="s1" desc="" />
+		<command command="type" target="id=structure_step_2" value="s2" desc="" />
+		<command command="type" target="id=structure_step_3" value="$facility.label" desc="" />
+		<command command="clickAndWait" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="id=preview_tab_step_0" value="" desc="" />
+		$action.open('jobsurveypreview', '?step=0&amp;articleno=jobdataprocessing_daoltman_bus3')
+		<command command="assertText" target="css=body" value="regexp:s0" desc="" />
+		$action.open('jobsurveypreview', '?step=1&amp;articleno=jobdataprocessing_daoltman_bus3')
+		<command command="assertText" target="css=body" value="regexp:s1" desc="" />
+		$action.open('jobsurveypreview', '?step=2&amp;articleno=jobdataprocessing_daoltman_bus3')
+		<command command="assertText" target="css=body" value="regexp:s2" desc="" />
+		$action.open('jobsurveypreview', '?step=3&amp;articleno=jobdataprocessing_daoltman_bus3')
+		<command command="assertNotText" target="css=body" value="regexp:facility" desc="velocity var is replaced" />
+	</test>
+	<test name="book2_jobsurvey_time" desc="edit template and validate showing on booking request">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.open('configjobsurvey', '?facility_choosen=bus1')
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="waitForNotVisible" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="&lt;span id='molybdenum_st'&gt;st_${test_id} $facility.key&lt;/span&gt;" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="id=preview_tab_step_0" value="" desc="" />
+		<command command="waitForNotVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="click" target="id=action_publish" value="" desc="" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+		$action.logout()
+		$action.login('extern')
+		$action.open('book2', '?a=bus1')
+		<command command="waitForElementPresent" target="css=.ui-dialog-buttonset .ui-button" value="" desc="" />
+		<command command="click" target="css=.ui-dialog-buttonset .ui-button" value="" desc="" />
+		<command command="click" target="css=.request_facility" value="" desc="" />
+		<command command="waitForElementPresent" target="xpath=/html/body/div[918]/div[11]/div/button" value="" desc="" />
+		<command command="click" target="xpath=/html/body/div[918]/div[11]/div/button" value="" desc="" />
+		<command command="waitForElementPresent" target="id=molybdenum_st" value="" desc="" />
+		<command command="assertText" target="molybdenum_st" value="st_${test_id} bus1" desc="" />
+	</test>
+	<test name="book2_jobsurvey_queue" desc="show configured job survey on queue booking">
+		$action.reset()
+		$action.logout()
+		$action.open('corehome')
+		$action.login('admin')
+		#set($query="?step=0&amp;facility_choosen=slide")
+		$action.open('configjobsurvey', $query)
+		<command command="assertElementPresent" target="id=container_show" value="" desc="" />
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="&lt;input type='text' name='moly_$test_id' /&gt;" desc="" />
+		<command command="type" target="id=structure_step_1" value="&lt;div id='moly_id_$test_id'&gt;$jobsurvey.get('moly_$test_id')&lt;/div&gt;" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="id=preview_tab_step_0" value="" desc="" />
+		<command command="click" target="id=action_publish" value="" desc="" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+		$action.open('book2', '?a=slide')
+		<command command="waitForElementPresent" target="id=jobsurvey_queue_wrapper" value="" desc="" />
+		<command command="waitForElementPresent" target="css=[name=moly_$test_id]" value="" desc="" />
+		<command command="type" target="css=[name=moly_$test_id]" value="val_$test_id" desc="" />
+		<command command="click" target="css=#jobsurvey_queue_wrapper .submit" value="" desc="" />
+		<command command="waitForElementPresent" target="id=thanks_headline" value="" desc="" />
+	</test>
+	<test name="ticket_262__better_information_on_login_failed" desc="show message of expiration date if login is right but expired">
+		$action.reset()
+		$action.ticket_262()
+		$action.logout()
+		$assert.page('login')
+		$action.login('extern')
+		<command command="verifyText" target="css=#content_sub legend.warning" value="regexp:.*expired.*" desc="" />
+	</test>a
+	<test name="ticket_340_A" desc="show add file in job survey pdf xls">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.ticket_340()
+		$action.open('configjobsurvey', '?facility_choosen=bus1')
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="&lt;html&gt;&lt;head&gt;&lt;link rel='stylesheet' href='get-iframejobsurvey.css' /&gt;&lt;script type='text/javascript' src='get-iframejobsurvey.js'&gt;&lt;/script&gt;&lt;script type='text/javascript'&gt;var FileUpload = {suffixes:['pdf','xls'],min_files:1,max_files:5,selector:'#a'};&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='a'&gt;&lt;/div&gt;&lt;div id='b'&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" desc="" />
+		<command command="type" target="id=behaviour_step_0" value="" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="css=.attachments" value="" desc="" />
+		<command command="verifyText" target="id=a" value="regexp:.*pdf.*" desc="pdf files shown" />
+		<command command="verifyText" target="id=a" value="regexp:.*xls.*" desc="xls files shown" />
+		<command command="verifyNotText" target="id=a" value="regexp:.*doc.*" desc="doc files NOT shown" />
+	</test>
+	<test name="ticket_340_B" desc="show add file in job survey doc">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.ticket_340()
+		$action.open('configjobsurvey', '?facility_choosen=bus1')
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="&lt;html&gt;&lt;head&gt;&lt;link rel='stylesheet' href='get-iframejobsurvey.css' /&gt;&lt;script type='text/javascript' src='get-iframejobsurvey.js'&gt;&lt;/script&gt;&lt;script type='text/javascript'&gt;var FileUpload = {suffixes:['doc'],min_files:1,max_files:2,selector:'#b'};&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='a'&gt;&lt;/div&gt;&lt;div id='b'&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" desc="" />
+		<command command="type" target="id=behaviour_step_0" value="" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="id=attachment_1" value="" desc="" />
+		<command command="verifyText" target="id=b" value="regexp:.*doc.*" desc="doc files shown" />
+		<command command="verifyNotText" target="id=b" value="regexp:.*pdf.*" desc="pdf files NOT shown" />
+		<command command="verifyNotText" target="id=b" value="regexp:.*xls.*" desc="xls files NOT shown" />
+		<command command="click" target="css=#b input[value=a.doc]" value="" desc="" />
+		<command command="click" target="css=#b input[value=b.doc]" value="" desc="" />
+		<command command="click" target="css=#b input[value=c.doc]" value="" desc="" />
+		<command command="assertElementPresent" target="css=.ui-dialog" value="" desc="" />
+	</test>
+	<test name="ticket_340_C" desc="show add file in job survey no files">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.ticket_340()
+		$action.open('configjobsurvey', '?facility_choosen=bus1')
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="&lt;html&gt;&lt;head&gt;&lt;link rel='stylesheet' href='get-iframejobsurvey.css' /&gt;&lt;script type='text/javascript' src='get-iframejobsurvey.js'&gt;&lt;/script&gt;&lt;script type='text/javascript'&gt;var FileUpload = {suffixes:['xxx'],min_files:1,max_files:2,selector:'#b'};&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='a'&gt;&lt;/div&gt;&lt;div id='b'&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" desc="" />
+		<command command="type" target="id=behaviour_step_0" value="" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="css=#b .warning" value="" desc="" />
+		<command command="verifyText" target="css=#b .warning" value="regexp:.*lease upload.*" desc="no files there" />
+	</test>
+	<test name="ticket_340_D" desc="show add file in job survey default">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.ticket_340()
+		$action.open('configjobsurvey', '?facility_choosen=bus1')
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="&lt;html&gt;&lt;head&gt;&lt;link rel='stylesheet' href='get-iframejobsurvey.css' /&gt;&lt;script type='text/javascript' src='get-iframejobsurvey.js'&gt;&lt;/script&gt;&lt;script type='text/javascript'&gt;var FileUpload = {selector:'#a'};&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='a'&gt;&lt;/div&gt;&lt;div id='b'&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" desc="" />
+		<command command="type" target="id=behaviour_step_0" value="" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="css=input[type=radio]" value="" desc="" />
+		<command command="verifyElementPresent" target="css=input[type=radio]" value="" desc="we have radio buttons at default (for one file)" />
+	</test>
+	<test name="jobsurvey_access_by_extern_1" desc="extern can access the job survey page">
+		$action.logout()
+		$action.login('extern')
+		#set($query="?step=0&amp;facility=bus1")
+		$action.open('jobsurvey', $query)
+		<command command="assertElementNotPresent" target="css=div" value="" desc="There is no div on the page as signal for job survey" />
+		<command command="assertTextNotPresent" target="regexp:.*201203281229.*" value="" desc="it is not the error code" />
+	</test>
+	<test name="jobsurvey_access_by_extern_2" desc="extern can access the second step">
+		$action.logout()
+		$action.login('extern')
+		#set($query="?step=1&amp;facility=bus1")
+		$action.open('jobsurvey', $query)
+		<command command="assertElementNotPresent" target="css=div" value="" desc="There is no div on the page as signal for job survey" />
+		<command command="assertTextNotPresent" target="regexp:.*201203281229.*" value="" desc="it is not the error code" />
+	</test>
+	<test name="ticket_340_E" desc="set it, book it, view booking and files are there">
+		$action.reset()
+		$action.logout()
+		$action.login('admin')
+		$action.ticket_340()
+		$action.open('configjobsurvey', '?facility_choosen=slide')
+		<command command="click" target="css=#container_show > .buttons > .edit" value="" desc="" />
+		<command command="waitForVisible" target="id=edit_tab_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_0" value="&lt;html&gt;&lt;head&gt;&lt;link rel='stylesheet' href='get-iframejobsurvey.css' /&gt;&lt;script type='text/javascript' src='get-iframejobsurvey.js'&gt;&lt;/script&gt;&lt;script type='text/javascript'&gt;var FileUpload = {suffixes:['pdf'],min_files:1,max_files:5,selector:'#a'};&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='a'&gt;&lt;/div&gt;&lt;div id='b'&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" desc="" />
+		<command command="type" target="id=behaviour_step_0" value="" desc="" />
+		<command command="type" target="id=structure_step_1" value="&lt;html&gt;&lt;head&gt;&lt;link rel='stylesheet' href='get-iframejobsurvey.css' /&gt;&lt;script type='text/javascript' src='get-iframejobsurvey.js'&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='a'&gt;\#if($attachments.size() > 0)&lt;a href='$attachments.get(0).url'&gt;$attachments.get(0).name&lt;/a&gt;\#end&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" desc="" />
+		<command command="click" target="css=#container_edit > .buttons > .preview" value="" desc="" />
+		<command command="waitForVisible" target="css=.attachments" value="" desc="" />
+		<command command="click" target="id=action_publish" value="" desc="" />
+		<command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+		$action.open('book2', '?a=slide')
+		<command command="waitForElementPresent" target="id=jobsurvey_queue_wrapper" value="" desc="" />
+		<command command="waitForElementPresent" target="css=#a input[value=a.pdf]" value="" desc="" />
+		<command command="click" target="css=#a input[value=a.pdf]" value="" desc="" />
+		<command command="click" target="css=#a input[value=b.pdf]" value="" desc="" />
+		<command command="click" target="css=#getinline_pic" value="" desc="" />
+		<command command="waitForElementPresent" target="id=thanks_headline" value="" desc="" />
+		$action.open('mybookings')
+		<command command="click" target="css=button.icon.view" value="" desc="view booking" />
+		<command command="waitForElementPresent" target="id=a" value="" desc="" />
+		<command command="verifyText" target="id=a" value="regexp:.*pdf.*" desc="pdf files shown" />
+		<command command="verifyNotText" target="id=a" value="regexp:.*xls.*" desc="xls files NOT shown" />
+		<command command="verifyNotText" target="id=a" value="regexp:.*doc.*" desc="doc files NOT shown" />
+<!--  TODO verify it is a download! do not know how.... -->
+<!--		<command command="click" target="css=#a a" value="" desc="download file" />-->
+<!--		<command command="waitForAlert" target="" value="" desc="" />-->
+	</test>
+</selenium-testsuite>

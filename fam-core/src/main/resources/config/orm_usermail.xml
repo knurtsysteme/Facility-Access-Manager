@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserMail">
+
+    <parameterMap id="UserMail.insert.param" class="de.knurt.fam.core.model.persist.UserMail">
+        <parameter property="username" />
+        <parameter property="subject" />
+        <parameter property="msg" />
+        <parameter property="to" />
+        <parameter property="toSendDate" />
+        <parameter property="wasSentDate" />
+        <parameter property="msgAfterSent" />
+    </parameterMap>
+    <insert id="UserMail.insert" parameterMap="UserMail.insert.param">
+	INSERT INTO usermail (id, username, subject, msg, recipient, toSendDate, wasSentDate, msgAfterSent)
+	VALUES (null, ?, ?, ?, ?, ?, ?, ?)
+        <selectKey resultClass="int" keyProperty="id">
+	    SELECT @@IDENTITY AS ID
+        </selectKey>
+    </insert>
+
+    <parameterMap id="UserMail.update.param" class="de.knurt.fam.core.model.persist.UserMail">
+        <parameter property="username" />
+        <parameter property="subject" />
+        <parameter property="msg" />
+        <parameter property="to" />
+        <parameter property="toSendDate" />
+        <parameter property="wasSentDate" />
+        <parameter property="msgAfterSent" />
+        <parameter property="id" />
+    </parameterMap>
+    <update id="UserMail.update" parameterMap="UserMail.update.param">
+	UPDATE usermail
+	SET username = ?, subject = ?, msg = ?, recipient = ?, toSendDate = ?, wasSentDate = ?, msgAfterSent = ?
+	WHERE id = ?
+    </update>
+
+    <resultMap id="UserMail.select.all.result" class="de.knurt.fam.core.model.persist.UserMail">
+        <result property="id" column="id"/>
+        <result property="toSendDate" column="toSendDate"/>
+        <result property="wasSentDate" column="wasSentDate"/>
+        <result property="username" column="username"/>
+        <result property="subject" column="subject"/>
+        <result property="msg" column="msg"/>
+        <result property="to" column="recipient"/>
+        <result property="msgAfterSent" column="msgAfterSent"/>
+    </resultMap>
+    <statement id="UserMail.select.all" resultMap="UserMail.select.all.result" resultClass="de.knurt.fam.core.model.persist.UserMail">
+	SELECT *
+	FROM usermail
+	ORDER BY toSendDate DESC
+    </statement>
+
+    <statement id="UserMail.select.where" resultMap="UserMail.select.all.result" resultClass="de.knurt.fam.core.model.persist.UserMail">
+	SELECT *
+	FROM usermail
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="id">
+	      id = #id#
+            </isNotNull>
+            <isNotNull prepend="AND" property="toSendDate">
+	      toSendDate = #toSendDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="wasSentDate">
+	      wasSentDate = #wasSentDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="username">
+	      username = #username#
+            </isNotNull>
+            <isNotNull prepend="AND" property="subject">
+	      subject = #subject#
+            </isNotNull>
+            <isNotNull prepend="AND" property="msg">
+	      msg = #msg#
+            </isNotNull>
+            <isNotNull prepend="AND" property="to">
+	      recipient = #to#
+            </isNotNull>
+            <isNotNull prepend="AND" property="msgAfterSent">
+            	msgAfterSent = #msgAfterSent#
+            </isNotNull>
+        </dynamic>
+	ORDER BY toSendDate DESC
+    </statement>
+
+    <statement id="UserMail.select.mustBeSendNow" parameterClass="java.util.Date" resultMap="UserMail.select.all.result" resultClass="de.knurt.fam.core.model.persist.UserMail">
+	SELECT *
+	FROM usermail
+        WHERE wasSentDate IS NULL
+        AND toSendDate &lt;= #value#
+	ORDER BY toSendDate DESC
+    </statement>
+
+</sqlMap>

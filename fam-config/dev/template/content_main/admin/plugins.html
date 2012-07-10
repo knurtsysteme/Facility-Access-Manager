@@ -1,0 +1,38 @@
+    #if($config.model.plugins.size() <= 0)
+	<h1>No plugins installed</h1>
+    #else
+	<h1>$config.model.plugins.size() #if($config.model.plugins.size()==1) plugin is #else plugins are #end installed</h1>
+        <ul style="margin-bottom: 10px;">
+        #foreach($plugin in $config.model.plugins )
+        	<li><a href="#$plugin.iD">$plugin.name</a></li>
+        #end
+        </ul>
+        #foreach($plugin in $config.model.plugins )
+        <div style="border: 1px solid black; padding: 5px; background-color: #EEE;" id="$plugin.iD">
+            <div>
+                <div style="overflow: hidden; border: 1px solid black; float: left; width:100px; height:100px; margin-right: 5px;">
+                    <img src="$plugin.imageURL" alt="$plugin.name" width="*" height="*" />
+                </div>
+                <h3>$plugin.name</h3>
+                <div>
+                    <p>
+                    Version: $plugin.version
+                    </p>
+                    <p style="font-weight: bolder">
+                    $plugin.shortDescription
+                    </p>
+                    <p style="clear: left">
+                    	$plugin.longDescription
+                	</p>
+                    </p>
+                </div>
+            </div>
+            <ul style="clear: left;">
+                <li>Publisher <a href="$plugin.publisherURL">$plugin.publisher</a></li>
+                <li>Needs Facility Access Manager Version between $plugin.compatibilityFrom and $plugin.compatibilityTo</li>
+                <li>License: $plugin.licenseHint</li>
+                <li>Status: #if($plugin.active)activated #else deactivated #end</li>
+            </ul>
+        </div>
+        #end
+    #end

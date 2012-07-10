@@ -1,0 +1,143 @@
+/*! KNURT Systeme - part of the Facility Access Manager */
+#joptions td {
+	border: 0px solid black;
+}
+
+#joptions {
+	border: 0px solid black;
+}
+
+#js_datepicker .ui-datepicker {
+	font-size: 13px;
+}
+
+#js_datepicker .ui-datepicker-header {
+	height: 20px;
+}
+
+#js_datepicker .ui-datepicker-calendar {
+	
+}
+
+#js_datepicker .ui-datepicker-calendar th {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	overflow-y: scroll;
+}
+
+div.ezpz_tooltip {
+	border: 1px solid black;
+	background-color: white;
+	padding: 3px 10px;
+	width: 200px;
+}
+
+div.ezpz_tooltip .infoicon {
+	float: left;
+	margin-left: -18px;
+	margin-top: -11px;
+}
+
+div.ezpz_tooltip .clickhint,div.ezpz_tooltip .time {
+	color: #666666;
+	font-size: 90%;
+}
+
+div.ezpz_tooltip .label {
+	border-bottom: 1px solid #666666;
+	border-top: 1px solid #666666;
+	padding: 5px 0;
+}
+
+#month_table .day_number {
+	color: white;
+	text-shadow: 1px 1px 1px black;
+}
+
+#week_table th.date_shown {
+	font-weight: bold;
+}
+
+#month_table div.date_shown {
+	color: black;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px yellow;
+}
+
+div#content_main #id_like_to_book {
+	margin: 0;
+}
+
+#id_like_to_book li {
+	margin-bottom: 5px;
+}
+
+#id_like_to_book select.time_chooser {
+	width: 70px;
+}
+
+.ui-dialog-content h3 {
+	color: #9C0F0F;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 10px 0 5px 0;
+}
+
+.ui-dialog .ui-resizable-se {
+	cursor: se-resize;
+	position: inherit;
+}
+
+ul#js_booking_request_possibilities li a {
+	width: 100%;
+}
+
+ul#js_booking_request_possibilities li {
+	width: 100%;
+	list-style-position: inside;
+	list-style-type: square;
+	margin: 5px 0;
+}
+
+ul#js_booking_request_possibilities li:hover a {
+	color: #9C0F0F;
+	background-color: #fcefa1;
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header {
+	margin-bottom: 8px;
+}
+
+.ui-timepicker-div dl {
+	text-align: left;
+}
+
+.ui-timepicker-div dl dt {
+	height: 25px;
+}
+
+.ui-timepicker-div dl dd {
+	margin: -25px 0 10px 65px;
+}
+
+.ui-timepicker-div td {
+	font-size: 90%;
+}
+
+.ui-slider-handle {
+	position: relative;
+	border: 2px solid #9C0F0F !important;
+}
+
+/* help */
+#jhelp_content .help_step {
+	font-weight: bold;
+}
+
+#jhelp_content li {
+	margin-top: 5px;
+}

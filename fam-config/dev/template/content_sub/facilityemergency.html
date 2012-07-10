@@ -1,0 +1,21 @@
+#if($config.model.succ)
+<div class="success">
+	Status changed.
+</div>
+#end 
+<h2>Hint</h2>
+<div>
+	Here you can set a sudden failure of a facility.
+</div>
+<div class="warning">
+	All booking requests overlapping the expected duration will be canceled on a failure alert.
+</div>
+<div>
+	If your facility is seperated into units, you can set the failure only on the entire facility (on all units) and not just for parts of it.
+</div>
+<div>
+	You can stop the failed status before the expected time run out. But this will <strong>not</strong> annul the cancelation of affected booking requests.
+</div>
+<div>
+	If you want to set a regular maintenance on a facility you are responsible for, $util.html.a('systemfacilityavailability').setContent('please use this link') instead of this page.
+</div>

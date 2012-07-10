@@ -1,0 +1,75 @@
+<div>
+	#set($url_2_de = $util.html.getHref("agreementde") + "?v=" + ${config.model.booking.id})
+	<a href="$url_2_de">German version</a>
+</div>
+<div class="printarea">
+<h1>Agreement of facility order</h1>
+<div>
+    <p class="entry">
+        $config.user.fullName
+    </p>
+    <p class="detail_help">
+        (Title, Name, Surname)
+    </p>
+    <h2>Employer</h2>
+    <p class="entry">
+        #if($config.user.company)$config.user.company#end
+    </p>
+    <p class="detail_help">
+        (Research Institute)
+    </p>
+    <h2>Contact details</h2>
+    <p class="entry">
+        $config.user.mail,&nbsp;$config.user.phone
+    </p>
+    <p class="detail_help">
+        (E-Mail-Address, Telephone)
+    </p>
+    <p class="entry">
+        #if($config.user.mainAddress)
+        $config.user.mainAddress.street, $config.user.mainAddress.streetno, $config.user.mainAddress.zipcode, $config.user.mainAddress.city, $config.user.mainAddress.countryName
+        #end
+    </p>
+    <p class="detail_help">
+        (Street, House no., Postcode, Town/City)
+    </p>
+    <p>
+        or other address to which invoice should be sent
+    </p>
+    <p class="entry">
+        &nbsp;
+    </p>
+    <p class="detail_help">
+        (Street, House no., Postcode, Town/City)
+    </p>
+    <p>
+        Hereby agrees with the $globallang.getChildText("service_offered_by"), the following usage and services:
+    </p>
+    #set($facilityKey = $config.model.booking.facilityKey)
+    #if($facilityKey.equals("schoolbus"))
+    <h2>USE OF THE SCHOOLBUS</h2>
+    <p>
+    	The bus returned cleaned up. I take care of our children!
+    </p>
+    #else
+    <p>
+    	I take care of the facility.
+    </p>
+    #end
+    <p>
+        In signing this contract I hereby consent to the terms of the User Agreement and all the rights and obligations contained therein. I confirm I have received a copy of the User Agreement including the Appendices.
+    </p>
+    <p class="entry">
+        &nbsp;
+    </p>
+    <p class="detail_help">
+        (Place, Date)
+    </p>
+    <p class="entry">
+        &nbsp;
+    </p>
+    <p class="detail_help">
+        (Signature)
+    </p>
+</div>
+</div>

@@ -1,0 +1,12 @@
+@charset 'UTF-8';
+body {
+	background-color: transparent;
+}
+.table th, .table td {
+	padding: 3px;
+}
+.table td.name {
+	overflow: hidden;
+	width: 30px;
+	vertical-align: middle;
+}
