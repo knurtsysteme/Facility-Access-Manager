@@ -4,6 +4,7 @@ This is an online access manager for all kind of facilities
 
 * [Official homepage](http://facility-access-manager.com)
 * [Demo](http://facility-access-manager.com/fam-core)
+* [JavaDoc](http://facility-access-manager.com/docs)
 
 
 README Contents
