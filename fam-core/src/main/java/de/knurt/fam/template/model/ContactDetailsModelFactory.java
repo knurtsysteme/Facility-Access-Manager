@@ -38,7 +38,7 @@ import de.knurt.heinzelmann.ui.html.HtmlFactory;
  */
 public class ContactDetailsModelFactory {
 
-    @SuppressWarnings("deprecation") // TODO #361 kill uses of deprecations
+    @SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 	public Properties getProperties(TemplateResource templateResource) {
 		Properties result = new Properties();
 		User userauth = templateResource.getAuthUser();

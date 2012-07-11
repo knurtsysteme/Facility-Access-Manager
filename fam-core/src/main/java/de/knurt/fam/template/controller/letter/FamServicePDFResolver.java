@@ -40,7 +40,7 @@ public class FamServicePDFResolver implements BoardUnit<JSONObject, PostMethod> 
 
 	/** {@inheritDoc} */
     @Override
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 	public PostMethod process(JSONObject datum) {
 
 		// create connection

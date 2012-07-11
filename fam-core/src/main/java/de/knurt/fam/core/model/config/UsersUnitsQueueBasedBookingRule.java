@@ -114,7 +114,7 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return 0
 	 */
 	public int getMaxQueueLength() {
-		return 0; // TODO #169 a queue can have a maximum length: di and unit tests
+		return 0; // TODO #14 a queue can have a maximum length: di and unit tests
 	}
 
 	/**

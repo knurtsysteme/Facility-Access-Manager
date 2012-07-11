@@ -93,7 +93,7 @@ public class UserMailSender {
 	 * @return number of sent mails
 	 */
 	public static int sendUserMails() {
-		// TODO see #243 email booking reminder is sent on canceled booking
+		// TODO see #17 email booking reminder is sent on canceled booking
 		int result = 0;
 		for (UserMail mail : FamDaoProxy.userDao().getUserMailsThatMustBeSendNow()) {
 			boolean wasSent = send(mail);

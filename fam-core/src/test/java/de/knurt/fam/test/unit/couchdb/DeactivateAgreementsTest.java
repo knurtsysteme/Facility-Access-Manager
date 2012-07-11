@@ -24,7 +24,7 @@ import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/test-dependencies.xml" })
 public class DeactivateAgreementsTest {
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 	@Test
 	public void insertNewForExtern() {
 		SoaActivationDocument externOld = this.insertAndGet("extern");
@@ -72,7 +72,7 @@ public class DeactivateAgreementsTest {
 		assertTrue(foundAll[2]);
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 	@Test
 	public void insertNewForIntern() {
 		SoaActivationDocument internOld = this.insertAndGet("intern");
@@ -108,7 +108,7 @@ public class DeactivateAgreementsTest {
 		assertTrue(foundAll[2]);
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 	@Test
 	public void checkFields() {
 		SoaActivationDocument internOld = this.insertAndGet("intern");

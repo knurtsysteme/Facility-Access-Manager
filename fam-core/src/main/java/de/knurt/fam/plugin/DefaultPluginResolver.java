@@ -128,7 +128,7 @@ public class DefaultPluginResolver implements PluginResolver {
 				if (this.implementz(plugin.getClass(), RegisterSubmission.class)) {
 					if (found == true) {
 						throw new PluginConfigurationException("Found more than one RegisterSubmission classes");
-						// TODO #120 supply a solution Ticket
+						// TODO #19 supply a solution Ticket
 					}
 					this.registerSubmission = (RegisterSubmission) plugin;
 					found = true;

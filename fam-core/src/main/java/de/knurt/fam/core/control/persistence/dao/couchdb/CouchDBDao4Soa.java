@@ -97,7 +97,7 @@ public class CouchDBDao4Soa implements FamSoaDao {
 	}
 
 	public List<SoaActivationPageDocument> getSoasForUser(User user) {
-		// TODO #334 do not use FamCouchDBDao#getAll
+		// TODO #13 do not use FamCouchDBDao#getAll
 		List<SoaActivationDocument> soas = this.getAllSoaActivation();
 		List<SoaActivationPageDocument> result = null;
 		for (SoaActivationDocument soa : soas) {
@@ -129,7 +129,7 @@ public class CouchDBDao4Soa implements FamSoaDao {
 	/** {@inheritDoc}} */
 	@Override
 	public List<SoaActivationDocument> getSoaActivationDocumentsForDeactivation(SoaActivationDocument newSoaActivationDocument) {
-		// TODO #334 do not use FamCouchDBDao#getAll
+		// TODO #13 do not use FamCouchDBDao#getAll
 		List<SoaActivationDocument> result = new ArrayList<SoaActivationDocument>();
 		List<SoaActivationDocument> all_sads = this.getAllSoaActivation();
 		for (SoaActivationDocument sad : all_sads) {

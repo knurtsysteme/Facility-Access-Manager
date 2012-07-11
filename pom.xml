@@ -46,8 +46,12 @@
       <organizationUrl>http://www.knurt.de</organizationUrl>
       <roles>
         <role>project manager</role>
+        <role>architect</role>
         <role>art director</role>
+        <role>web designer</role>
         <role>coder</role>
+        <role>documentarist</role>
+        <role>tester</role>
       </roles>
       <timezone>1</timezone>
     </developer>

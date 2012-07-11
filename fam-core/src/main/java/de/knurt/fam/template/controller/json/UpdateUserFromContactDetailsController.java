@@ -245,8 +245,7 @@ public class UpdateUserFromContactDetailsController extends JSONController {
 		return result;
 	}
 
-	@SuppressWarnings("deprecation")
-	// TODO #361 kill uses of deprecations
+	@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 	private HtmlElement getSummaryTable(HttpServletRequest rq) {
 		User user = ContactDetailsRequestHandler.getUserOfRequest(rq);
 		return ContactDetailsRequestHandler.getSummaryTable(user);

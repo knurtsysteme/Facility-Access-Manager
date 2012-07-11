@@ -27,7 +27,7 @@ import de.knurt.fam.core.model.config.Facility;
  * @author Daniel Oltmanns
  * @since 0.20090514 (05/14/2009)
  */
-@SuppressWarnings("deprecation") // TODO #361 kill uses of deprecations
+@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 public class FamWeekAvailabilityHtml extends FamWeekHtml {
 
     private Facility facility;

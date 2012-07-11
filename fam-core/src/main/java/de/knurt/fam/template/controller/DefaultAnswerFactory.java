@@ -83,7 +83,7 @@ public class DefaultAnswerFactory implements AnswerFactory {
 			pw.write(String.format("template-directory: %s\n", FamConnector.templateDirectory()));
 			pw.write("----\n");
 			pw.write("Is the page defined in config and lang xml? Is the visibility set correctly in both?");
-			// TODO #110 create dtd for template system
+			// TODO #20 create dtd for template system
 		} else {
 			mav = RedirectResolver.redirect(RedirectTarget.PUBLIC_HOME);
 		}

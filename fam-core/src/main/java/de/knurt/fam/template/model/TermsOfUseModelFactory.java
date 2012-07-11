@@ -44,7 +44,7 @@ import de.knurt.heinzelmann.util.velocity.VelocityStringRenderUtil;
  */
 public class TermsOfUseModelFactory {
 
-	// TODO #387 enhance effectivity
+	// TODO #5 enhance effectivity
 
 	private TermsOfUseResolver termsOfUseResolver = null;
 

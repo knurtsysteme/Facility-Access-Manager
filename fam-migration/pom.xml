@@ -81,9 +81,9 @@
               <configuration>
                 <target name="update production json">
                   <echo>update as.json</echo>
-                  <echo>TODO #373 DELETE REVISION MANUALY</echo>
+                  <echo>TODO #23 DELETE REVISION MANUALY</echo>
                   <exec executable="wget" os="Linux">
-                    <!-- TODO #373 DELETE REVISION MANUALY -->
+                    <!-- TODO #23 DELETE REVISION MANUALY -->
                     <arg line="${dev.couchdb.default.url}/_design/as --output-document src/main/resources/couchdb/production/_design/as.json" />
                   </exec>
                 </target>

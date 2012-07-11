@@ -56,7 +56,7 @@ public class PdfLetterFromBooking implements BoardUnit<Booking, JSONObject> {
 		context.put("FamDateFormat", FamDateFormat.class);
 		context.put("math", new MathTool());
 		context.put("config", FamConnector.getGlobalProperties());
-		// TODO @see #220 Whitspace between "EUR" and Price is missed
+		// TODO @see #16 Whitspace between "EUR" and Price is missed
 		NumberFormat euro = DecimalFormat.getCurrencyInstance(Locale.GERMANY);
 		euro.setCurrency(Currency.getInstance("EUR"));
 		context.put("euro", euro);

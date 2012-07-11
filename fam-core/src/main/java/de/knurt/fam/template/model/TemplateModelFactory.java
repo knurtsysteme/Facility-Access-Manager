@@ -70,8 +70,7 @@ import de.knurt.heinzelmann.ui.html.HtmlFactory;
  * @author Daniel Oltmanns
  * @since 1.3.0 (10/15/2010)
  */
-@SuppressWarnings("deprecation")
-// TODO #361 kill uses of deprecations
+@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 public class TemplateModelFactory {
 	private TemplateResource templateResource;
 
@@ -168,7 +167,7 @@ public class TemplateModelFactory {
 		} else if (templateResource.getName().equals("book")) {
 			FacilityBookable bd = RequestInterpreter.getBookableFacility(this.templateResource.getRequest());
 			if (bd == null) {
-				// TODO #135 if there is only one facility show it directly
+				// TODO #22 if there is only one facility show it directly
 				// ↓ create overview with first root facility
 				result.put("client_redirect", TemplateHtml.me().getHref("book2"));
 				result.put("actualQueueLength", "");
@@ -266,7 +265,7 @@ public class TemplateModelFactory {
 			result.put("jsonfacilities", getJSONFacilities(root.getKey()));
 			result.put("jsonvar", String.format("var FacilityOverviewTreeUrlBase = '%s'", baseUrl));
 		} else if (templateResource.getName().equals("systemfacilityavailability")) {
-			// TODO #135 if there is only one facility show it directly
+			// TODO #22 if there is only one facility show it directly
 			result.putAll(new FacilityAvailabilityModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("mybookings")) {
 			result.put("bookings", templateResource.getAuthUser().getBookings());

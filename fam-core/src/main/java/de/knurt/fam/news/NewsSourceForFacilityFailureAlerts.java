@@ -54,7 +54,7 @@ public class NewsSourceForFacilityFailureAlerts implements NewsSource {
 						}
 					} else if (da.isNotAvailableBecauseOfSuddenFailure()) {
 						description = String.format("Not usable: %s", facility.getLabel()); // INTLANG
-						// TODO @see #232 both links do make sense for e.g.
+						// TODO @see #18 both links do make sense for e.g.
 						// admins
 						if (to.hasRight2ViewPage("facilityemergency")) {
 							ni.setLinkToFurtherInformation(TemplateHtml.href("facilityemergency"));

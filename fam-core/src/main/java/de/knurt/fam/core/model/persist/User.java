@@ -882,7 +882,7 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 	public boolean hasAdminTasks() {
 		boolean result = this.isAdmin() || this.hasResponsibilities4Facilities();
 		if (!result) {
-			// TODO #161 connect with all admin pages
+			// TODO #15 connect with all admin pages
 			result = this.hasRight2ViewPage("statistics");
 		}
 		return result;

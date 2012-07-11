@@ -37,7 +37,7 @@ import de.knurt.heinzelmann.util.query.QueryString;
  * @author Daniel Oltmanns
  * @since 1.3.0 (10/21/2010)
  */
-@SuppressWarnings("deprecation") // TODO #361 kill uses of deprecations
+@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 public class LogbookModelFactory {
 
 	public Properties getProperties(TemplateResource templateResource) {

@@ -81,7 +81,7 @@ public class StoreFamDocumentTest {
 
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 	@Test
 	public void storeASoaActivation() {
 		SoaActivationDocument sad = new SoaActivationDocument();

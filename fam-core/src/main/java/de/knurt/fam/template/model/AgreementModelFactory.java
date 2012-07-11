@@ -27,7 +27,6 @@ import de.knurt.heinzelmann.util.text.DurationAdapter.SupportedLanguage;
 
 /**
  * model for agreements of a specific order.
- * TODO #329 this does not have any role in the standard template
  * 
  * @author Daniel Oltmanns
  * @since 1.3.0 (10/27/2010)

@@ -71,7 +71,7 @@ import de.knurt.heinzelmann.util.time.TimeFrame;
  * @author Daniel Oltmanns
  * @since 0.20090421 (04/21/2009)
  */
-@SuppressWarnings("deprecation") // TODO #361 kill uses of deprecations
+@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 public class FacilityAvailabilityModelFactory {
 
 	private HtmlElement getTimeInput(HttpServletRequest request) {

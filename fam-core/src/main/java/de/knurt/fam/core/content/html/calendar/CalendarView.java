@@ -25,7 +25,7 @@ import de.knurt.fam.core.content.html.calendar.factory.FamCalendarHtmlFactory;
  * @author Daniel Oltmanns
  * @since 0.20090516 (05/16/2009)
  */
-@SuppressWarnings("deprecation") // TODO #361 kill uses of deprecations
+@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 public interface CalendarView extends Selectable {
 
     /**

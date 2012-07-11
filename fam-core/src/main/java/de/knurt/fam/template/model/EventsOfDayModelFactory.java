@@ -37,7 +37,7 @@ import de.knurt.fam.core.util.mvc.RequestInterpreter;
  * @author Daniel Oltmanns
  * @since 0.20090710 (07/10/2009)
  */
-@SuppressWarnings("deprecation") // TODO #361 kill uses of deprecations
+@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 public class EventsOfDayModelFactory {
 
 	public Properties getProperties(TemplateResource templateResource) {
