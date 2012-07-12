@@ -33,6 +33,7 @@ import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.UserMail;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.util.UserFactory;
+import de.knurt.heinzelmann.util.auth.RandomPasswordFactory;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 
 /**
@@ -122,13 +123,14 @@ public abstract class UserDao extends AbstractFamDao<User> {
 		if (user.getUsername() == null || user.getUsername().equals("")) {
 			result = this.getNewUsername(user);
 		} else {
-			result = user.getUsername();
+			result = user.getUsername().replaceAll("[0-9]", "");
 		}
 		result = this.makeUniqueUsername(result);
 		return result;
 	}
 
 	// XXX on many equal usernames performance is not acceptable here!
+	// TODO #29 kill that crazy stuff
 	private String makeUniqueUsername(String username) {
 		username = username.trim().toLowerCase();
 		User example = UserFactory.me().getUserWithUsername(username);
@@ -154,6 +156,14 @@ public abstract class UserDao extends AbstractFamDao<User> {
 			}
 			example.setUsername(username);
 			i++;
+		}
+		if (i >= 101) {
+			// there are already to many users
+			char[] possibleChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+			while (this.userLikeExists(example)) {
+				String randomUsername = RandomPasswordFactory.me().getPassword(8, possibleChars);
+				example = UserFactory.me().getUserWithUsername(randomUsername);
+			}
 		}
 		return username;
 	}
