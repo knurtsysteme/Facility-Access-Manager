@@ -26,9 +26,12 @@ README Contents
   * [Templates](#d-e)
   * [Mails](#d-g)
   * [Roles and Rights](#d-h)
+
 <!-- TODO #26 uncomment
+
 5. [Update Instructions](#z)
   * [1.8.1 → 1.8.2](#z-a)
+
 -->
 
 
