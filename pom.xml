@@ -188,11 +188,13 @@
                 <copy todir="${download-directory}opt/knurt/fam/config">
                   <fileset dir="fam-config/target/pro/config">
                     <exclude name="**/.svn" />
+                    <exclude name="**/.git*" />
                   </fileset>
                 </copy>
                 <copy todir="${download-directory}opt/knurt/fam/template">
                   <fileset dir="fam-config/target/pro/template">
                     <exclude name="**/.svn" />
+                    <exclude name="**/.git*" />
                   </fileset>
                 </copy>
 
@@ -205,7 +207,12 @@
                 <concat destfile="${download-directory}migration/init.sql">
                   <fileset dir="fam-migration/src/main/resources/mysql" includes="*sql" />
                 </concat>
-                <copy file="fam-migration/target/classes/couchdb/production/_design/as.json" tofile="${download-directory}migration/as.json" />
+                <copy todir="${download-directory}migration">
+                  <fileset dir="fam-migration/target/classes/release">
+                    <exclude name="**/.svn" />
+                    <exclude name="**/.git*" />
+                  </fileset>
+                </copy>
 
 
                 <echo>create readme</echo>

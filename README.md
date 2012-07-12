@@ -26,7 +26,7 @@ README Contents
   * [Templates](#d-e)
   * [Mails](#d-g)
   * [Roles and Rights](#d-h)
-<!--- TODO #26 uncomment
+<!-- TODO #26 uncomment
 5. [Update Instructions](#z)
   * [1.8.1 → 1.8.2](#z-a)
 -->
@@ -367,7 +367,7 @@ role.desc.myrole=This role is my role
 role.label.myrole= My Role
 ```
 
-<!--- TODO #26 uncomment
+<!-- TODO #26 uncomment
 <a name="z"/>
 Update Instructions
 -------------------
