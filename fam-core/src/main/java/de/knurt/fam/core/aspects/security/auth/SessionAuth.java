@@ -161,7 +161,7 @@ public class SessionAuth {
 	 * is saved in the session, he is set here.
 	 * 
 	 * @param rq
-	 *            actual request
+	 *            current request
 	 * @return true, if a user is saved in this session or in given cookies
 	 */
 	public boolean hasAuthUser(HttpServletRequest rq) {

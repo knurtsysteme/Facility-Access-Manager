@@ -27,7 +27,7 @@ import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
  */
 public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule implements QueueBasedBookingRule {
 
-	private Integer actualQueueLength = null;
+	private Integer currentQueueLength = null;
 	private Integer assertUnitsPerHourProcessed = null;
 
 	/**
@@ -123,9 +123,9 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public int getActualQueueLength() {
+	public int getCurrentQueueLength() {
 		this.initQueue();
-		return this.actualQueueLength;
+		return this.currentQueueLength;
 	}
 
 	/**
@@ -135,8 +135,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 */
 	private boolean initQueue() {
 		boolean result = false;
-		if (this.actualQueueLength == null) {
-			this.actualQueueLength = FamDaoProxy.bookingDao().getActualQueueLength(this.getFacility());
+		if (this.currentQueueLength == null) {
+			this.currentQueueLength = FamDaoProxy.bookingDao().getCurrentQueueLength(this.getFacility());
 			result = true;
 		}
 		return result;
@@ -167,16 +167,16 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	}
 
 	public void incrementQueue() {
-		if (!this.initQueue()) { // queue has been init and has actual value
+		if (!this.initQueue()) { // queue has been init and has current value
 			// already
-			this.actualQueueLength++;
+			this.currentQueueLength++;
 		}
 	}
 
 	public void reduceQueue() {
-		if (!this.initQueue()) { // queue has been init and has actual value
+		if (!this.initQueue()) { // queue has been init and has current value
 			// already
-			this.actualQueueLength--;
+			this.currentQueueLength--;
 		}
 	}
 

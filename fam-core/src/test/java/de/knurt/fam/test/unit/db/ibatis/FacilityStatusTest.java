@@ -31,7 +31,7 @@ import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
-import de.knurt.fam.core.util.booking.ActualFacilityStatus;
+import de.knurt.fam.core.util.booking.CurrentFacilityStatus;
 import de.knurt.fam.test.utils.AssertSomehowEquals;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
@@ -51,9 +51,9 @@ public class FacilityStatusTest extends FamIBatisTezt {
     @Test
     public void everyFacilityHasAStatus() {
         Facility facility = TeztBeanSimpleFactory.getFacility1();
-        ActualFacilityStatus ds = facility.getFacilityStatus();
+        CurrentFacilityStatus ds = facility.getFacilityStatus();
         assertNotNull(ds);
-        assertEquals(ActualFacilityStatus.class, ds.getClass());
+        assertEquals(CurrentFacilityStatus.class, ds.getClass());
     }
 
     /**
@@ -63,7 +63,7 @@ public class FacilityStatusTest extends FamIBatisTezt {
     public void everyFacilityStatusHasAFacilityAvailability() {
         this.clearDatabase();
         Facility facility = TeztBeanSimpleFactory.getFacility1();
-        ActualFacilityStatus ds = facility.getFacilityStatus();
+        CurrentFacilityStatus ds = facility.getFacilityStatus();
         FacilityAvailability da = ds.getFacilityAvailability();
         assertNotNull(da);
         assertEquals(FacilityAvailability.class, da.getClass());
@@ -89,7 +89,7 @@ public class FacilityStatusTest extends FamIBatisTezt {
         assertEquals(1, FamDaoProxy.bookingDao().getAllUncanceledBookingsAndApplicationsOfToday(b.getFacility()).size());
 
         Facility facility = TeztBeanSimpleFactory.getFacility1();
-        ActualFacilityStatus ds = facility.getFacilityStatus();
+        CurrentFacilityStatus ds = facility.getFacilityStatus();
         FacilityAvailability da = ds.getFacilityAvailability();
         assertNotNull(da);
         assertEquals(FacilityAvailability.BOOKED_NOT_AVAILABLE, da.getAvailable().intValue());
@@ -114,7 +114,7 @@ public class FacilityStatusTest extends FamIBatisTezt {
         assertEquals(1, FamDaoProxy.facilityDao().getAll().size());
 
         Facility facility = TeztBeanSimpleFactory.getFacility1();
-        ActualFacilityStatus ds = facility.getFacilityStatus();
+        CurrentFacilityStatus ds = facility.getFacilityStatus();
         FacilityAvailability daGot = ds.getFacilityAvailability();
         assertNotNull(daGot);
         assertEquals(FacilityAvailability.MAINTENANCE_NOT_AVAILABLE, daGot.getAvailable().intValue());
@@ -140,7 +140,7 @@ public class FacilityStatusTest extends FamIBatisTezt {
         assertEquals(1, FamDaoProxy.facilityDao().getAll().size());
 
         Facility facility = TeztBeanSimpleFactory.getFacility1();
-        ActualFacilityStatus ds = facility.getFacilityStatus();
+        CurrentFacilityStatus ds = facility.getFacilityStatus();
         FacilityAvailability daGot = ds.getFacilityAvailability();
         assertNotNull(daGot);
         assertEquals(1, FamDaoProxy.facilityDao().getAll().size());

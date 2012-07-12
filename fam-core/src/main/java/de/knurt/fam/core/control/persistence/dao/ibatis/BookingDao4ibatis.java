@@ -183,8 +183,8 @@ public class BookingDao4ibatis extends BookingDao {
 	/** {@inheritDoc} */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<QueueBooking> getActualQueue(FacilityBookable facility) {
-		List<BookingAdapterResult> sadapts = FamSqlMapClientDaoSupport.sqlMap().queryForList("Booking.select.actualQueue", facility);
+	public List<QueueBooking> getCurrentQueue(FacilityBookable facility) {
+		List<BookingAdapterResult> sadapts = FamSqlMapClientDaoSupport.sqlMap().queryForList("Booking.select.currentQueue", facility);
 		return BookingAdapterResult.getQueueBookings(sadapts);
 	}
 

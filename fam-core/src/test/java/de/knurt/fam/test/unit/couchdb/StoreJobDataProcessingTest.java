@@ -45,7 +45,7 @@ public class StoreJobDataProcessingTest {
 		JobDataProcessing document = TeztBeanSimpleFactory.getNewValidJobDataProcessing();
 		document.setTemplates(jdpts);
 		document.insertOrUpdate();
-		JobDataProcessing doc = CouchDBDao4Jobs.me().getActualJobDataProcessing(FacilityConfigDao.facility(document.getFacilityKey()), false);
+		JobDataProcessing doc = CouchDBDao4Jobs.me().getCurrentJobDataProcessing(FacilityConfigDao.facility(document.getFacilityKey()), false);
 		assertNotNull(doc.getTemplates());
 		assertEquals(2, doc.getTemplates().size());
 		assertEquals(doc.getBehaviour(0), "b0");
@@ -63,7 +63,7 @@ public class StoreJobDataProcessingTest {
 
 
 	@Test
-	public void getActual() {
+	public void getCurrent() {
 		JobDataProcessing document = TeztBeanSimpleFactory.getNewValidJobDataProcessing();
 		document.setFacilityKey(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE);
 		String username = "user_" + new Date().getTime();
@@ -79,9 +79,9 @@ public class StoreJobDataProcessingTest {
 		document2.setCreated(new Date().getTime() + 50000l);
 		document2.insertOrUpdate();
 		// getting the first one above
-		JobDataProcessing doc = CouchDBDao4Jobs.me().getActualJobDataProcessing(FacilityConfigDao.facility(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE), false);
+		JobDataProcessing doc = CouchDBDao4Jobs.me().getCurrentJobDataProcessing(FacilityConfigDao.facility(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE), false);
 		assertEquals(doc.getUsername(), username);
-		JobDataProcessing doc2 = CouchDBDao4Jobs.me().getActualJobDataProcessing(FacilityConfigDao.facility(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_2), false);
+		JobDataProcessing doc2 = CouchDBDao4Jobs.me().getCurrentJobDataProcessing(FacilityConfigDao.facility(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_2), false);
 		assertEquals(doc2.getUsername(), username2);
 	}
 
@@ -89,7 +89,7 @@ public class StoreJobDataProcessingTest {
 	public void allConnectionsClosed() {
 		int i = 0;
 		while (i++ < 50) {
-			CouchDBDao4Jobs.me().getActualJobDataProcessing(FacilityConfigDao.facility(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_QUEUE), true);
+			CouchDBDao4Jobs.me().getCurrentJobDataProcessing(FacilityConfigDao.facility(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_QUEUE), true);
 		}
 		assertEquals("there must be a timeout if this is not true", i, 51);
 	}

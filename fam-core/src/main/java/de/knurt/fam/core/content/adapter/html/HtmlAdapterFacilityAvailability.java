@@ -37,12 +37,12 @@ public class HtmlAdapterFacilityAvailability extends FamHtmlAdapter<FacilityAvai
 	/**
 	 * construct me
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user being authenticated
 	 * @param da
 	 *            availability being adapted
 	 */
-	protected HtmlAdapterFacilityAvailability(User actual, FacilityAvailability da) {
+	protected HtmlAdapterFacilityAvailability(User current, FacilityAvailability da) {
 		super(da);
 		this.da = da;
 	}

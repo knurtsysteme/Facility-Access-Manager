@@ -128,7 +128,7 @@ public class GetFacilityDetailsController extends JSONController {
 						UsersUnitsQueueBasedBookingRule qbbr = (UsersUnitsQueueBasedBookingRule) br;
 						QueueBooking qb = new QueueBooking(user, (FacilityBookable) facility);
 						SessionAuth.addToUsersShoppingCart(rq, qb);
-						result.put("actual_queue_length", qbbr.getActualQueueLength());
+						result.put("current_queue_length", qbbr.getCurrentQueueLength());
 						result.put("article_number", qb.getArticleNumber());
 					}
 					result.put("br", jsonBr);

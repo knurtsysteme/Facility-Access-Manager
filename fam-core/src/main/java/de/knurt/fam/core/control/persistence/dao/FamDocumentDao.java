@@ -31,7 +31,7 @@ public interface FamDocumentDao {
 	public boolean updateDocument(FamBaseDocument document, FamBaseDocument existing);
 
 	/**
-	 * set created to actual date, insert document into database and return true
+	 * set created to current date, insert document into database and return true
 	 * on success.
 	 * 
 	 * @param document

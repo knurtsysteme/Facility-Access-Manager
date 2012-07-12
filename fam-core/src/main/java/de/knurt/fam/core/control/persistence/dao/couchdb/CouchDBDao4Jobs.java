@@ -82,7 +82,7 @@ public class CouchDBDao4Jobs implements FamJobsDao {
 	}
 
 	/**
-	 * return the actual {@link JobDataProcessing} instance for the given
+	 * return the current {@link JobDataProcessing} instance for the given
 	 * facility or <code>null</code> if nothing is defined
 	 * 
 	 * @see couchdb <a href="http://localhost:5984/fam/_design/as/_list/newest_with_facility_key/all_job_data_processing?facilityKey=bus1"
@@ -95,14 +95,14 @@ public class CouchDBDao4Jobs implements FamJobsDao {
 	 *            <code>null</code>.
 	 */
 	@Override
-	public JobDataProcessing getActualJobDataProcessing(Facility facility, boolean useParent) {
+	public JobDataProcessing getCurrentJobDataProcessing(Facility facility, boolean useParent) {
 		QueryString queryString = QueryStringFactory.get("facilityKey", facility.getKey());
 		String uri = "_design/as/_list/newest_with_facility_key/all_job_data_processing";
 		try {
 			return FamCouchDBDao.getInstance().getContentAsBean(uri, queryString, JobDataProcessing.class);
 		} catch (JSONParseException e) {
 			if (useParent && facility.hasParent()) {
-				return this.getActualJobDataProcessing(facility.getParentFacility(), useParent);
+				return this.getCurrentJobDataProcessing(facility.getParentFacility(), useParent);
 			} else {
 				return null;
 			}
@@ -110,7 +110,7 @@ public class CouchDBDao4Jobs implements FamJobsDao {
 	}
 
 	/**
-	 * return the actual {@link JobDataProcessing} instance for the given
+	 * return the current {@link JobDataProcessing} instance for the given
 	 * facility or <code>null</code> if nothing is defined
 	 * 
 	 * @see couchdb <a href="http://localhost:5984/fam/_design/as/_list/newest_with_facility_key/all_job_data_processing?facilityKey=bus1"
@@ -122,7 +122,7 @@ public class CouchDBDao4Jobs implements FamJobsDao {
 	 *            if even the root facility has nothing defined return
 	 *            <code>null</code>.
 	 */
-	public JSONObject getActualJobDataProcessingAsJSONObject(Facility facility, List<Job> jobs, boolean useParent, boolean parseVelocity) {
+	public JSONObject getCurrentJobDataProcessingAsJSONObject(Facility facility, List<Job> jobs, boolean useParent, boolean parseVelocity) {
 		QueryString queryString = QueryStringFactory.get("facilityKey", facility.getKey());
 		String uri = "_design/as/_list/newest_with_facility_key/all_job_data_processing";
 		JSONObject result = null;
@@ -138,7 +138,7 @@ public class CouchDBDao4Jobs implements FamJobsDao {
 		} catch (JSONException e) {
 		}
 		if (result == null && useParent && facility.hasParent()) {
-			return this.getActualJobDataProcessingAsJSONObject(facility.getParentFacility(), jobs, useParent, parseVelocity);
+			return this.getCurrentJobDataProcessingAsJSONObject(facility.getParentFacility(), jobs, useParent, parseVelocity);
 		} else {
 			return result;
 		}

@@ -57,7 +57,7 @@ public class AvailabilityOverviewHtml extends FamOverviewHtml {
 	 * @param das
 	 *            availabilities to show in overview
 	 * @param auth
-	 *            actual user being auth
+	 *            current user being auth
 	 */
 	public AvailabilityOverviewHtml(Calendar cal, String facilityKey, List<FacilityAvailability> das, User auth) {
 		super("table");

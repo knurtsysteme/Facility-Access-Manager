@@ -285,44 +285,44 @@ public abstract class BookingDao extends AbstractFamDao<Booking> {
 	}
 
 	/**
-	 * return the actual length of the queue on a facility.
+	 * return the current length of the queue on a facility.
 	 * 
 	 * @param facility
 	 *            the queue length is checked for
-	 * @return the actual length of the queue on a facility.
+	 * @return the current length of the queue on a facility.
 	 */
-	public int getActualQueueLength(FacilityBookable facility) {
-		return this.getActualQueue(facility).size();
+	public int getCurrentQueueLength(FacilityBookable facility) {
+		return this.getCurrentQueue(facility).size();
 	}
 
 	/**
-	 * return the actual position of the given booking in the queue. if the
+	 * return the current position of the given booking in the queue. if the
 	 * given queue is canceled are the session is already made, return null. if
 	 * the session is running now, return 0. if the given booking is unknown
 	 * (not saved yet), return queue length
 	 * 
 	 * @param queueBasedBooking
 	 *            the position is given back.
-	 * @return the actual position of the given booking in the queue.
+	 * @return the current position of the given booking in the queue.
 	 * @throws DataIntegrityViolationException
 	 */
-	public Integer getActualPositionInQueue(QueueBooking queueBasedBooking) throws DataIntegrityViolationException {
+	public Integer getCurrentPositionInQueue(QueueBooking queueBasedBooking) throws DataIntegrityViolationException {
 		Integer result = null;
 		if (!queueBasedBooking.isCanceled() && !queueBasedBooking.sessionAlreadyMade() && queueBasedBooking.getSeton() != null) {
 			result = 0;
 			if (!queueBasedBooking.sessionAlreadyBegun()) {
-				List<QueueBooking> queue = this.getActualQueue(queueBasedBooking.getFacility());
+				List<QueueBooking> queue = this.getCurrentQueue(queueBasedBooking.getFacility());
 				try {
 					while (queue.get(result).getSeton().before(queueBasedBooking.getSeton()) || queue.get(result).getSeton().equals(queueBasedBooking.getSeton())) {
 						result++;
 					}
 				} catch (IndexOutOfBoundsException e) {
-					result = this.getActualQueueLength(queueBasedBooking.getFacility());
+					result = this.getCurrentQueueLength(queueBasedBooking.getFacility());
 				}
 			}
 		} else if (queueBasedBooking.getSeton() == null) { // unknown booking by
 			// now
-			result = this.getActualQueueLength(queueBasedBooking.getFacility());
+			result = this.getCurrentQueueLength(queueBasedBooking.getFacility());
 		}
 		return result;
 	}
@@ -330,14 +330,14 @@ public abstract class BookingDao extends AbstractFamDao<Booking> {
 	/**
 	 * return all bookings for the given facility as it is booked queue based.
 	 * the result list must be sorted by date set on and DOES NOT CONTAIN
-	 * canceled bookings. it contains the actual session, that has already begun
+	 * canceled bookings. it contains the current session, that has already begun
 	 * but not ended by now.
 	 * 
 	 * @param facility
 	 *            bookings are for
 	 * @return all bookings for the given facility as it is booked queue based.
 	 */
-	public abstract List<QueueBooking> getActualQueue(FacilityBookable facility);
+	public abstract List<QueueBooking> getCurrentQueue(FacilityBookable facility);
 
 	/**
 	 * check the availability situation for the given facility and cancel all

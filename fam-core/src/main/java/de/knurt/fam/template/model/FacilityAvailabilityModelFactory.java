@@ -345,28 +345,28 @@ public class FacilityAvailabilityModelFactory {
 				result.put("show_suddenFailureIsActive", false);
 				result.put("querystring", QueryStringBuilder.getBigCalendarQueryString(facilityKey, RequestInterpreter.getCalendar(templateResource.getRequest()), QueryKeys.OVERVIEW));
 
-				// get actual step
-				int actualStep = 1;
+				// get current step
+				int currentStep = 1;
 				try {
-					actualStep = Integer.parseInt(RequestInterpreter.getOf(templateResource.getRequest()));
+					currentStep = Integer.parseInt(RequestInterpreter.getOf(templateResource.getRequest()));
 				} catch (NumberFormatException e) {
 				} // ← stay step 1
 
 				QueryString hiddenInputs = null;
 				// ↘ it is the final sending of add new rule
-				if (actualStep >= 4) {
+				if (currentStep >= 4) {
 					hiddenInputs = new QueryString();
 					hiddenInputs.put(QueryKeys.QUERY_KEY_FACILITY, facilityKey);
 					hiddenInputs.put(QueryKeys.QUERY_KEY_CALENDAR_VIEW, QueryKeys.OVERVIEW);
-					actualStep = 1;
+					currentStep = 1;
 				} else {
 					hiddenInputs = QueryStringFactory.getInstance().get(templateResource.getRequest());
 				}
-				hiddenInputs.put(QueryKeys.QUERY_KEY_OF, actualStep + 1);
+				hiddenInputs.put(QueryKeys.QUERY_KEY_OF, currentStep + 1);
 				// ↘ set flag: nothing shall be deleted when submit form
 				hiddenInputs.put(QueryKeys.QUERY_KEY_DELETE, "-1");
 
-				switch (actualStep) {
+				switch (currentStep) {
 				case 1:
 					// choose of availability
 					result.put("name_available", QueryKeys.QUERY_KEY_AVAILABLILITY);
@@ -397,8 +397,8 @@ public class FacilityAvailabilityModelFactory {
 					break;
 				}
 
-				// set actual step
-				result.put("actual_step", actualStep);
+				// set current step
+				result.put("current_step", currentStep);
 
 				result.put("hiddenInputs", hiddenInputs.getAsHtmlInputsTypeHidden());
 			} else if (suddenFailureIsActive) {

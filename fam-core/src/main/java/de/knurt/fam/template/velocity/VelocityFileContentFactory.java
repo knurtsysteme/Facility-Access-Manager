@@ -96,7 +96,7 @@ public class VelocityFileContentFactory implements ContentFactory {
 		VelocityContext result = new VelocityContext();
 
 		Properties config = FamConnector.getGlobalProperties();
-		config.put("version", FamSystemMeta.ACTUAL_VERSION);
+		config.put("version", FamSystemMeta.CURRENT_VERSION);
 		config.put("deploydate", FamSystemMeta.getDateDeployed());
 		config.put("preview", FamSystemMeta.isPreview());
 		if (templateResource.isRequestForContent()) {

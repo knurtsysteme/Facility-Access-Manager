@@ -5,9 +5,9 @@
 			Time requested $FamDateFormat.getDateFormattedWithTime($config.model.booking.dateStart)&nbsp;to&nbsp;$FamDateFormat.getDateFormattedWithTime($config.model.booking.dateEnd).
 		#else
 			#if($config.model.user_owned_booking)
-				Your are the $FamText.getOrdinal($config.model.booking.actualQueuePosition) person in the queue
+				Your are the $FamText.getOrdinal($config.model.booking.currentQueuePosition) person in the queue
 			#else
-				$config.model.booking.user.fullName is on $FamText.getOrdinal($config.model.booking.actualQueuePosition) position in the queue
+				$config.model.booking.user.fullName is on $FamText.getOrdinal($config.model.booking.currentQueuePosition) position in the queue
 			#end
 		#end
 	#end

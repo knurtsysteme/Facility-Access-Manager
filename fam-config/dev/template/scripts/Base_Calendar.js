@@ -175,7 +175,7 @@ Base.Calendar.A_MINUTE_IN_MS = 60 * 1000;
 Base.Calendar.A_DAY_IN_MS = Base.Calendar.A_DAY_IN_MINUTES * Base.Calendar.A_MINUTE_IN_MS;
 
 Base.Calendar.Datepicker = {};
-Base.Calendar.Datepicker.getActualDate = function() {
+Base.Calendar.Datepicker.getCurrentDate = function() {
   return Base.Calendar.Datepicker.object == null ? null : Base.Calendar.Datepicker.object.datepicker("getDate");
 };
 Base.Calendar.Datepicker.object = null;
@@ -280,21 +280,21 @@ Base.Calendar.Tabs.loadAndShowInfo = function() {
   });
 }
 Base.Calendar.Tabs.update = function() {
-  var date = Base.Calendar.Datepicker.getActualDate();
+  var date = Base.Calendar.Datepicker.getCurrentDate();
   $('#js_tab_day span').html(Base.Calendar.Util.getDayAsText(date));
   $('#js_tab_week span').html(Base.Calendar.Util.getWeekAsText(date));
   $('#js_tab_month span').html(Base.Calendar.Util.getMonthAsText(date));
 };
 Base.Queue = {};
 Base.Queue.init = function() {
-  if(Booking.actual_queue_length==0) {
+  if(Booking.current_queue_length==0) {
     $('.queue_does_not_exist').show();
     $('.queue_exists').hide();
   }else {
     $('.queue_does_not_exist').hide();
     $('.queue_exists').show();
   }
-  $('.js_actual_queue_length').html(Booking.actual_queue_length);
+  $('.js_current_queue_length').html(Booking.current_queue_length);
   Base.JobSurvey.init("queue");
 };
 Base.JobSurvey = {};
@@ -403,11 +403,11 @@ Base.Calendar.View.init = function() {
 };
 Base.Calendar.View.update = function(force) {
   force = force || false;
-  var dateRequested = Base.Calendar.Datepicker.getActualDate();
-  var actualizeDay = Base.Calendar.View.dateShown == null || Base.Calendar.Util.getDayAsText(Base.Calendar.View.dateShown) != Base.Calendar.Util.getDayAsText(dateRequested);
-  var actualizeWeek = Base.Calendar.View.dateShown == null || Base.Calendar.Util.getWeekAsText(Base.Calendar.View.dateShown) != Base.Calendar.Util.getWeekAsText(dateRequested);
-  var actualizeMonth = Base.Calendar.View.dateShown == null || Base.Calendar.Util.getMonthAsText(Base.Calendar.View.dateShown) != Base.Calendar.Util.getMonthAsText(dateRequested);
-  if(force || actualizeDay || actualizeWeek || actualizeMonth) {
+  var dateRequested = Base.Calendar.Datepicker.getCurrentDate();
+  var refreshDay = Base.Calendar.View.dateShown == null || Base.Calendar.Util.getDayAsText(Base.Calendar.View.dateShown) != Base.Calendar.Util.getDayAsText(dateRequested);
+  var refreshWeek = Base.Calendar.View.dateShown == null || Base.Calendar.Util.getWeekAsText(Base.Calendar.View.dateShown) != Base.Calendar.Util.getWeekAsText(dateRequested);
+  var refreshMonth = Base.Calendar.View.dateShown == null || Base.Calendar.Util.getMonthAsText(Base.Calendar.View.dateShown) != Base.Calendar.Util.getMonthAsText(dateRequested);
+  if(force || refreshDay || refreshWeek || refreshMonth) {
     var data = Base.Calendar.Util.dateAsJson(dateRequested);
     data.facility = Facility.key;
     data.capacity_units = Booking.capacity_units;
@@ -421,16 +421,16 @@ Base.Calendar.View.update = function(force) {
         if(r && r.succ) {
           var cEvents = r.events; // calendar events
           // do not let the dom explode on month changes
-          if(force || actualizeMonth) $('.ezpz_tooltip').remove(); 
-          if(force || actualizeDay) {
+          if(force || refreshMonth) $('.ezpz_tooltip').remove(); 
+          if(force || refreshDay) {
             Base.Calendar.Day.update(cEvents);
             $('#js_tab_day span').effect("highlight", {}, 3000);
           }
-          if(force || actualizeWeek) {
+          if(force || refreshWeek) {
             Base.Calendar.Week.update(cEvents);
             $('#js_tab_week span').effect("highlight", {}, 3000);
           }
-          if(force || actualizeMonth) {
+          if(force || refreshMonth) {
             Base.Calendar.Month.update(cEvents);
             $('#js_tab_month span').effect("highlight", {}, 3000);
           }
@@ -462,7 +462,7 @@ Base.Calendar.Container = {};
 Base.Calendar.Container.init = function() {
 
   // fill in the example week (Base.Calendar.Container.exampleWeekDays)
-  var exampleWeekDay = Base.Calendar.Datepicker.getActualDate();
+  var exampleWeekDay = Base.Calendar.Datepicker.getCurrentDate();
   while(exampleWeekDay.getDay() != Base.Calendar.FIRST_DAY_OF_WEEK) {
     exampleWeekDay = new Date(exampleWeekDay.getTime() - Base.Calendar.A_DAY_IN_MS);
   }
@@ -483,7 +483,7 @@ Base.Calendar.Week.update = function(cEvents) {
   // ↓ get bars needed for week view
   // ↘ go back from choosen date to the first day of week as defined by the server(!).
   // ↘ assert that first element is first element of the week (@see java heinzelmann TimeFrameFactory#getMonthWithFullWeeks())
-  var firstDayOfWeek = Base.Calendar.Datepicker.getActualDate();
+  var firstDayOfWeek = Base.Calendar.Datepicker.getCurrentDate();
   var datebefore = null;
   while(firstDayOfWeek.getDay() != Base.Calendar.FIRST_DAY_OF_WEEK) {
     datebefore = firstDayOfWeek.getDate();
@@ -519,8 +519,8 @@ Base.Calendar.Week.update = function(cEvents) {
 Base.Calendar.Month = {};
 Base.Calendar.Month.update = function(cEvents) {
 
-  var dateRequested = Base.Calendar.Datepicker.getActualDate();
-  // ↖ actual date
+  var dateRequested = Base.Calendar.Datepicker.getCurrentDate();
+  // ↖ current date
   var dateWalker = dateRequested;
   // ↖ temp walker to work with
 

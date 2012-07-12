@@ -3,7 +3,7 @@
 configuration of the system mainly in language purposes.
 after changes in this file go to "Admin" -> "System configuration" and click "Reload Config"
 
-page dependent language. keys in this properties files are available over $lang.xml.getChild([resource_name]).getChildText([element]). e.g. $lang.xml.getChild($resource_name).getChildText("headline") to get the headline of the actual page pages have a shortcut, so that
+page dependent language. keys in this properties files are available over $lang.xml.getChild([resource_name]).getChildText([element]). e.g. $lang.xml.getChild($resource_name).getChildText("headline") to get the headline of the current page pages have a shortcut, so that
 $lang.page.getChildText("headline") on the home-page is the same as $lang.xml.getChild("home").getChildText("headline")
 
  -->
@@ -390,8 +390,8 @@ $lang.page.getChildText("headline") on the home-page is the same as $lang.xml.ge
 			<title>Get statistical information about the use of facilities</title>
 		</page>
 		<page name="systembookings">
-			<headline>Actual jobs</headline>
-			<title>Show details of actual jobs</title>
+			<headline>Current jobs</headline>
+			<title>Show details of current jobs</title>
 		</page>
 		<page name="tutorial">
 			<headline>Tutorials</headline>
@@ -479,7 +479,7 @@ $lang.page.getChildText("headline") on the home-page is the same as $lang.xml.ge
 		</page>
 		<page name="termsofuse">
 			<headline>Terms of use agreements</headline>
-			<title>View the actual terms of use agreements</title>
+			<title>View the current terms of use agreements</title>
 		</page>
 		<page name="register">
 			<title>Apply for a new account for free</title>

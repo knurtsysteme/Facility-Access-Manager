@@ -140,7 +140,7 @@ public abstract class FamWeekHtml extends CalendarOneWeekHtml implements Calenda
         String titleLastMonth = this.getContentAnchor(c, Calendar.LONG);
         String valLastMonth = this.getContentAnchor(c, Calendar.SHORT);
 
-        // anchor to actual and next of this WEEK_OF_YEAR
+        // anchor to current and next of this WEEK_OF_YEAR
         c.add(Calendar.WEEK_OF_YEAR, 1);
         String hrefThisMonth = this.getQueryString(c).getAsHtmlLinkHref();
         String titleThisMonth = "show totday's week"; // INTLANG

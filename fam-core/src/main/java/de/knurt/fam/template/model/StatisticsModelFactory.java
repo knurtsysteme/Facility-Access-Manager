@@ -91,7 +91,7 @@ public class StatisticsModelFactory {
 			if (today.get(Calendar.WEEK_OF_YEAR) == pointer.get(Calendar.WEEK_OF_YEAR)) {
 				tmp.att("selected");
 				tmp.add("Todays week"); // INTLANG
-				tmp.att("value", -1); // actual
+				tmp.att("value", -1); // current
 			} else {
 				tmp.add(pointer.get(Calendar.WEEK_OF_YEAR) + "");
 				tmp.att("value", pointer.getTimeInMillis());

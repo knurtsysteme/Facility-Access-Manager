@@ -42,10 +42,10 @@ public class BookingIsAvailableDeciderDefault implements BookingIsAvailableDecid
 	public boolean isAvailableForInsertion(QueueBooking bookingRequest) {
 		int maxLength = bookingRequest.getQueueBasedBookingRule().getMaxQueueLength();
 		boolean result = true;
-		if (maxLength <= 0 || bookingRequest.getActualQueuePosition() == null) {
+		if (maxLength <= 0 || bookingRequest.getCurrentQueuePosition() == null) {
 			result = true;
 		} else {
-			result = bookingRequest.getActualQueuePosition() <= bookingRequest.getQueueBasedBookingRule().getActualQueueLength();
+			result = bookingRequest.getCurrentQueuePosition() <= bookingRequest.getQueueBasedBookingRule().getCurrentQueueLength();
 		}
 		return result;
 	}

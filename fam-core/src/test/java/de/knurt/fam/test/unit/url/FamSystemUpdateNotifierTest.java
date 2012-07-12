@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.knurt.fam.connector.FamConnector;
@@ -37,18 +38,20 @@ public class FamSystemUpdateNotifierTest {
 	 * {@link FamSystemUpdateNotifier}
 	 */
 	@Test
+	// TODO #26 kill @Ignore
+	@Ignore("Update response must be updated from is_actual to is_current after release")
 	public void methodsExists() {
 		assertTrue(FamConnector.getGlobalPropertyAsBoolean("system.check_update"));
-		Properties av = FamSystemUpdateNotifier.actualVersion();
+		Properties av = FamSystemUpdateNotifier.currentVersion();
 		assertNotNull(av);
 		assertEquals(av.get("update_active"), true);
-		assertNotNull(av.get("is_actual"));
+		assertNotNull(av.get("is_current"));
 		assertNotNull(av.get("update_url"));
 		assertEquals(av.get("error"), false);
-		assertNotNull(av.get("actual_version"));
+		assertNotNull(av.get("current_version"));
 		assertNotNull(av.get("download_page"));
-		assertEquals(av.get("is_actual").getClass(), Boolean.class);
-		assertEquals(av.get("actual_version").getClass(), String.class);
+		assertEquals(av.get("is_current").getClass(), Boolean.class);
+		assertEquals(av.get("current_version").getClass(), String.class);
 		assertTrue(av.get("download_page").toString(), av.get("download_page").toString().startsWith("http://facility-access-manager.com"));
 		assertTrue(av.get("update_url").toString(), av.get("update_url").toString().startsWith("http://facility-access-manager.com"));
 	}

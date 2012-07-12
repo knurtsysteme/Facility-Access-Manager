@@ -75,7 +75,7 @@
 		<to>/singletermsofuseadminview__default__html__delegate.fam</to>
 	</rule>
 	<rule>
-		<from>/actualsingletermsofuse\.html\?(.+)$</from>
+		<from>/currentsingletermsofuse\.html\?(.+)$</from>
 		<to>/termsofuse__default__html__delegate.fam</to>
 	</rule>
 	<rule>

@@ -108,7 +108,7 @@ public class TemplateModelFactory {
 			result.put("jui_tabs", QuicksandHtml.getJuiTabs(templateResource));
 			result.put("quicksand_clickitems", QuicksandHtml.getClickItems(templateResource));
 		} else if (templateResource.getName().equals("adminhome")) {
-			result.put("system", FamSystemUpdateNotifier.actualVersion());
+			result.put("system", FamSystemUpdateNotifier.currentVersion());
 			result.put("jui_tabs", QuicksandHtml.getJuiTabs(templateResource));
 			result.put("quicksand_clickitems", QuicksandHtml.getClickItems(templateResource));
 		} else if (templateResource.getName().equals("systembookings")) {
@@ -170,7 +170,7 @@ public class TemplateModelFactory {
 				// TODO #22 if there is only one facility show it directly
 				// ↓ create overview with first root facility
 				result.put("client_redirect", TemplateHtml.me().getHref("book2"));
-				result.put("actualQueueLength", "");
+				result.put("currentQueueLength", "");
 				result.put("bookOrApplyFor", "");
 				result.put("hiddenInput", "");
 				result.put("expectedYourTurnAt", "");
@@ -186,7 +186,7 @@ public class TemplateModelFactory {
 					UsersUnitsQueueBasedBookingRule br = (UsersUnitsQueueBasedBookingRule) bd.getBookingRule();
 					QueueBooking qb = new QueueBooking(this.templateResource.getAuthUser(), bd);
 					SessionAuth.addToUsersShoppingCart(this.templateResource.getRequest(), qb);
-					result.put("actualQueueLength", br.getActualQueueLength());
+					result.put("currentQueueLength", br.getCurrentQueueLength());
 					result.put("bookOrApplyFor", qb.isBooked() ? "Book" : "Apply for");
 					result.put("hiddenInput", QueryStringBuilder.getArticleNumber(qb).getAsHtmlInputsTypeHidden());
 					result.put("expectedYourTurnAt", FamDateFormat.getDateFormattedWithTime(qb.getExpectedSessionStart()));

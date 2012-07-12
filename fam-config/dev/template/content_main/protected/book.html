@@ -7,27 +7,27 @@
 #end <h1>Request for “$config.model.facility.label”</h1>
 #if($config.model.booking_strategy_is_queue_based)
 <div>
-	#if($config.model.actualQueueLength == 0)
+	#if($config.model.currentQueueLength == 0)
 	<p>
 		Usually you have to join the end of a queue to use this facility.
 	</p>
 	<p>
-		Lucky that there is actually no queue at all.
+		Lucky that there is currently no queue at all.
 	</p>
 	<p>
 		If you want to use “$config.model.facility.label”, please <strong>click the button below</strong> to be the early bird and arrive as soon as possible.
 	</p>
 	#else
 	<p>
-		There is a queue of $config.model.actualQueueLength #if($config.model.actualQueueLength==1)person#else people#end for the use of this facility. You will have to join the end of the queue to use this facility.
+		There is a queue of $config.model.currentQueueLength #if($config.model.currentQueueLength==1)person#else people#end for the use of this facility. You will have to join the end of the queue to use this facility.
 	</p>
 	#end
 </div>
-#if($config.model.actualQueueLength != 0)
+#if($config.model.currentQueueLength != 0)
 <div>
 	<ul>
 		<li>
-			Actual queue length is: $config.model.actualQueueLength
+			Current queue length is: $config.model.currentQueueLength
 		</li>
 		<li>
 			Expect your turn at: $config.model.expectedYourTurnAt
@@ -37,7 +37,7 @@
 #end
 <form action="bookfacilitiesdone.html" method="post">
 	$config.model.hiddenInput
-	#if($config.model.actualQueueLength == 0)
+	#if($config.model.currentQueueLength == 0)
 	<button type="submit" title="start the queue">
 		<p id="getinline_text">
 			Be first in line

@@ -93,7 +93,7 @@ public class JobDataProcessingVelocityParser {
 	 * parse the given json object representing a {@link JobDataProcessing}
 	 * object. this is what couchdb does answer.
 	 * 
-	 * @see CouchDBDao4Jobs#getActualJobDataProcessingAsJSONObject(Facility,
+	 * @see CouchDBDao4Jobs#getCurrentJobDataProcessingAsJSONObject(Facility,
 	 *      boolean, boolean)
 	 * @param jobDataProcessingRepresentation
 	 *            {@link JSONObject} representing a {@link JobDataProcessing}

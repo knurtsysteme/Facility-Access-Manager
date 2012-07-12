@@ -36,14 +36,14 @@ public class HtmlAdapterFacilityAvailabilityFactory extends DasHtmlAdapterAbstra
 	/**
 	 * produce and return a {@link HtmlAdapterFacilityAvailability}.
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user being authenticated
 	 * @param mappedObject
 	 *            the availability being adapted.
 	 * @return a {@link HtmlAdapterFacilityAvailability}.
 	 */
 	@Override
-	protected HtmlAdapterFacilityAvailability getInstance(User actual, FacilityAvailability mappedObject) {
-		return new HtmlAdapterFacilityAvailability(actual, mappedObject);
+	protected HtmlAdapterFacilityAvailability getInstance(User current, FacilityAvailability mappedObject) {
+		return new HtmlAdapterFacilityAvailability(current, mappedObject);
 	}
 }

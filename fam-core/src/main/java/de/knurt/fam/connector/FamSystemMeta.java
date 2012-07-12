@@ -34,9 +34,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class FamSystemMeta {
 
     /**
-     * label for actual version.<br />
+     * label for current version.<br />
      */
-    public final static String ACTUAL_VERSION = "1.8.1";
+    public final static String CURRENT_VERSION = "1.8.1";
 
     /**
      * return the language used for the meta-tag
@@ -63,9 +63,9 @@ public class FamSystemMeta {
     }
 
     /**
-     * return true, if the actual configuration is a test system.
+     * return true, if the current configuration is a test system.
      * @see DefaultEnvironment#isDev()
-     * @return true, if the actual configuration is a test system.
+     * @return true, if the current configuration is a test system.
      */
     public static boolean isPreview() {
         return FamConnector.isPreviewSystem();

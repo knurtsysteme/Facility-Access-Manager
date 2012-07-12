@@ -46,7 +46,7 @@ public interface FamJobsDao {
 	boolean deleteJobs(User auth, User user, boolean withFeedback);
 
 	/**
-	 * return the actual {@link JobDataProcessing} for the given
+	 * return the current {@link JobDataProcessing} for the given
 	 * {@link Facility}. if useParent is true and no {@link JobDataProcessing}
 	 * is found for the given {@link Facility}, try to return the
 	 * {@link JobDataProcessing} for the parent {@link Facility}.
@@ -56,10 +56,10 @@ public interface FamJobsDao {
 	 *            requested
 	 * @param useParent
 	 *            use parent facility if true and nothing found
-	 * @return the actual {@link JobDataProcessing} for the given
+	 * @return the current {@link JobDataProcessing} for the given
 	 *         {@link Facility} or parent {@link Facility}
 	 */
-	JobDataProcessing getActualJobDataProcessing(Facility facility, boolean useParent);
+	JobDataProcessing getCurrentJobDataProcessing(Facility facility, boolean useParent);
 
 	/**
 	 * return the jobs of the given job id. this may be an empty list on no jobs

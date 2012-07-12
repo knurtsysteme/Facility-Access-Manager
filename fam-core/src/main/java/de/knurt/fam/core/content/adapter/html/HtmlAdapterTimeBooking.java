@@ -37,13 +37,13 @@ public class HtmlAdapterTimeBooking extends HtmlAdapterAbstractBooking<TimeBooki
 	/**
 	 * construct me
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user being authenticated
 	 * @param booking
 	 *            being adapted
 	 */
-	public HtmlAdapterTimeBooking(User actual, TimeBooking booking) {
-		super(actual, booking);
+	public HtmlAdapterTimeBooking(User current, TimeBooking booking) {
+		super(current, booking);
 		this.booking = booking;
 	}
 
@@ -62,7 +62,7 @@ public class HtmlAdapterTimeBooking extends HtmlAdapterAbstractBooking<TimeBooki
 	 * @return the status of booking.
 	 */
 	public String getBookingStatus() {
-		return this.centerIt(FamText.statusOfBookingAsText(this.getActualUser(), booking));
+		return this.centerIt(FamText.statusOfBookingAsText(this.getCurrentUser(), booking));
 	}
 
 	@Override

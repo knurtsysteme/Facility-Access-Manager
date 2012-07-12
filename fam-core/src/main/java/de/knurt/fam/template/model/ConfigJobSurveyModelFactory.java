@@ -48,7 +48,7 @@ public class ConfigJobSurveyModelFactory {
 			String requestingFacility = templateResource.getRequest().getParameter("facility_choosen");
 			Facility facilityChoosen = requestingFacility == null ? facilities.get(0) : FacilityConfigDao.facility(requestingFacility);
 			result.put("facility_choosen", facilityChoosen);
-			JobDataProcessing jdp = CouchDBDao4Jobs.me().getActualJobDataProcessing(facilityChoosen, true);
+			JobDataProcessing jdp = CouchDBDao4Jobs.me().getCurrentJobDataProcessing(facilityChoosen, true);
 			result.put("has_job_data_processing", jdp != null);
 			if (jdp != null) {
 				result.put("job_data_processing", jdp);

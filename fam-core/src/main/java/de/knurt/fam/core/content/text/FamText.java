@@ -102,8 +102,8 @@ public class FamText {
 		return cu + " " + bd.getBookingRule().getCapacityUnitName(cu);
 	}
 
-	private static boolean isBookingOfUser(User actual, Booking booking) {
-		return actual.getUsername().equals(booking.getUsername());
+	private static boolean isBookingOfUser(User current, Booking booking) {
+		return current.getUsername().equals(booking.getUsername());
 	}
 
 	/**
@@ -111,14 +111,14 @@ public class FamText {
 	 * 
 	 * @see #statusOfBookingAsImg(de.knurt.fam.core.model.persist.User,
 	 *      de.knurt.fam.core.model.persist.booking.Booking)
-	 * @param actual
+	 * @param current
 	 *            user requesting the status
 	 * @param booking
 	 *            the status is requested of
-	 * @return the status of the given booking for the actual user
+	 * @return the status of the given booking for the current user
 	 */
-	public static String statusOfBookingAsText(User actual, Booking booking) {
-		boolean usersBooking = isBookingOfUser(actual, booking);
+	public static String statusOfBookingAsText(User current, Booking booking) {
+		boolean usersBooking = isBookingOfUser(current, booking);
 		String alt = "unknown"; // INTLANG
 		if (booking.sessionAlreadyMade()) {
 			if (booking.getBookingStatus().isBooked()) {

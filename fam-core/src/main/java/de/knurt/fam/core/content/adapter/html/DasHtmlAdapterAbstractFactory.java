@@ -35,16 +35,16 @@ public abstract class DasHtmlAdapterAbstractFactory<T extends ViewableObject> {
 	/**
 	 * return instances of adapters for the given list of objects.
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user logged in into the system
 	 * @param viewableObjects
 	 *            list of objects being adapted.
 	 * @return instances of adapters for the given list of objects.
 	 */
-	public List<FamHtmlAdapter<T>> getInstances(User actual, List<T> viewableObjects) {
+	public List<FamHtmlAdapter<T>> getInstances(User current, List<T> viewableObjects) {
 		List<FamHtmlAdapter<T>> result = new ArrayList<FamHtmlAdapter<T>>(viewableObjects.size());
 		for (T mappedObject : viewableObjects) {
-			result.add(this.getInstance(actual, mappedObject));
+			result.add(this.getInstance(current, mappedObject));
 		}
 		return result;
 	}
@@ -52,11 +52,11 @@ public abstract class DasHtmlAdapterAbstractFactory<T extends ViewableObject> {
 	/**
 	 * return an instance of the adapter.
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user logged in into the system
 	 * @param viewableObject
 	 *            that is adapted
 	 * @return an instance of the adapter.
 	 */
-	protected abstract FamHtmlAdapter<T> getInstance(User actual, T viewableObject);
+	protected abstract FamHtmlAdapter<T> getInstance(User current, T viewableObject);
 }

@@ -186,26 +186,26 @@ public class TermsOfUseModelFactory {
 		return user;
 	}
 
-	private String getFormMethod(TermsOfUsePage actual) {
-		return termsOfUseResolver.isLastPage(actual.getPageno()) ? "POST" : "GET";
+	private String getFormMethod(TermsOfUsePage current) {
+		return termsOfUseResolver.isLastPage(current.getPageno()) ? "POST" : "GET";
 	}
 
-	private HtmlElement getAcceptButton(TermsOfUsePage actual, User user, TemplateResource templateResource) {
+	private HtmlElement getAcceptButton(TermsOfUsePage current, User user, TemplateResource templateResource) {
 		String message = "";
 		if (this.isOnlyAReview(user, templateResource)) {
-			if (termsOfUseResolver.isLastPage(actual.getPageno())) {
+			if (termsOfUseResolver.isLastPage(current.getPageno())) {
 				message += "Go home"; // INTLANG
 			} else {
 				message += "View next"; // INTLANG
 			}
 		} else {
 			message = "Accept these Terms of Use Agreements"; // INTLANG
-			if (!termsOfUseResolver.isLastPage(actual.getPageno())) {
+			if (!termsOfUseResolver.isLastPage(current.getPageno())) {
 				message += " and go to next page"; // INTLANG
 			}
 		}
 		HtmlElement result = FamSubmitButtonFactory.getNextButton(message);
-		if (actual.isForcePrinting()) {
+		if (current.isForcePrinting()) {
 			result.id("print_button");
 		}
 		return result;

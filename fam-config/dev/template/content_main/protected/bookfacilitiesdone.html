@@ -4,7 +4,7 @@
 	#if($config.model.booking.isTimeBased())
 		Time requested $FamDateFormat.getDateFormattedWithTime($config.model.booking.dateStart)&nbsp;to&nbsp;$FamDateFormat.getDateFormattedWithTime($config.model.booking.dateEnd).
 	#else
-		Your are the $FamText.getOrdinal($config.model.booking.actualQueuePosition) person in the queue
+		Your are the $FamText.getOrdinal($config.model.booking.currentQueuePosition) person in the queue
 	#end
 	#if($config.model.booking.notice)
 	<br />Your public notice to everyone: <span id="notice_value">$config.model.booking.notice</span> <button id="edit_notice" class="icon edit small">edit</button>

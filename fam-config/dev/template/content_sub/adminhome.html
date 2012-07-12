@@ -1,6 +1,6 @@
 <h2>Update-Hint</h2>
 #if($config.model.system.update_active)
-	#if($config.model.system.is_actual)
+	#if($config.model.system.is_current)
 		<div>
 		No update available.
 		</div>
@@ -8,7 +8,7 @@
 		<div class="hint">
 		<a href="$config.model.system.download_page">Please update your version of the Facility Access Manager soon</a>.<br />
 		Your Version: $config.version<br />
-		Actual Version: $config.model.system.actual_version
+		Current Version: $config.model.system.current_version
 		</div>
 	#end
 #else

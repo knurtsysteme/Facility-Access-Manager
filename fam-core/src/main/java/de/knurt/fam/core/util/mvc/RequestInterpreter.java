@@ -407,7 +407,7 @@ public class RequestInterpreter {
 	 * request!!!! <br />
 	 * this must have set all single calendar components (year, month, day of
 	 * year, hour of day, minute of hour) to not return <code>null</code>. <br />
-	 * if value "from" or "to" is not set, the actual date is taken! <br />
+	 * if value "from" or "to" is not set, the current date is taken! <br />
 	 * if "to" is before "from", it is not switched, but it is pushed to future
 	 * in 1 step of <code>interval</code>. if "to" is still before "from" then,
 	 * return <code>null</code> (because of this input shall not be possible).
@@ -495,7 +495,7 @@ public class RequestInterpreter {
 
 	/**
 	 * return the calendar of the given request. assuming parameters for each
-	 * field. if a field is not set, use the actual time on this field. use the
+	 * field. if a field is not set, use the current time on this field. use the
 	 * locale as given in request.
 	 * 
 	 * @see FamRequestContainer#locale()

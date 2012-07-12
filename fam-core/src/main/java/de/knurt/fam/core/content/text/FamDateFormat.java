@@ -121,12 +121,12 @@ public class FamDateFormat {
 	private static final IntegerNumeralFormat INF = new IntegerNumeralFormat(FamRequestContainer.locale());
 
 	/**
-	 * return {@link IntegerNumeralFormat#format(int)} in actual application
+	 * return {@link IntegerNumeralFormat#format(int)} in current application
 	 * language.
 	 * 
 	 * @param value
 	 *            to format
-	 * @return {@link IntegerNumeralFormat#format(int)} in actual application
+	 * @return {@link IntegerNumeralFormat#format(int)} in current application
 	 *         language.
 	 */
 	public static String getNumeralFormat(int value) {

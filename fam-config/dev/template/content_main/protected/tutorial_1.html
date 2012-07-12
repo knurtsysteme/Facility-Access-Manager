@@ -62,11 +62,11 @@
 <h3>Specific contents</h3>
 <div>
 	<p>
-	Use <code>$facility</code> to show something depending on the actual facility the user is called. Examples:
+	Use <code>$facility</code> to show something depending on the current facility the user is called. Examples:
 	</p>
 	<ul class="asList">
 		<li><code>$facility.label</code>: Shows the configured label of the facility</li>
-		<li><code>$facility.availabilityNotice</code>: Shows a notice about the actual availability</li>
+		<li><code>$facility.availabilityNotice</code>: Shows a notice about the current availability</li>
 		<li><code>$facility.isReadyToUseIn</code>: Shows the minutes until this facility is ready-to-use again</li>
 	</ul>
 	<p><a href="http://facility-access-manager.com/docs/${config.version}/fam-core/apidocs/de/knurt/fam/core/model/config/Facility.html">Please find the complete documentation of the Facility-Class here</a>. Normaly you only need <code>$facility.label</code> to be prepared if another label will be confiugred for the facility.</p>
@@ -231,6 +231,6 @@ Because of the job survey is shown in an iframe, there are some helper methods.
 <ul class="asList">
 	<li><code>JobSurveyIO.selector</code> is a jQuery selector to select an object in the iframe. Use this every time <code>JobSurveyIO.selector('#my_input')</code> instead of <code>$('#my_input')</code></li>
 	<li><code>JobSurveyIO.validate</code> function to override the validation behaviour of the page</li> 
-	<li><code>JobSurveyIO.getValue()</code> get the actual value of the page</li>
+	<li><code>JobSurveyIO.getValue()</code> get the current value of the page</li>
 	<li><code>JobSurveyIO.effectOnMissingInput('#foo');</code> shows an effect for a missing input with the id <code>#foo</code></li>
 </ul>

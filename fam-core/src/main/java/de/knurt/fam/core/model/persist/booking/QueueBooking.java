@@ -200,7 +200,7 @@ public class QueueBooking extends AbstractBooking implements Comparable<QueueBoo
 	 */
 	public Calendar getExpectedSessionStart() {
 		Calendar result = null;
-		Integer aqp = this.getActualQueuePosition();
+		Integer aqp = this.getCurrentQueuePosition();
 		if (aqp != null) {
 			result = Calendar.getInstance();
 			if (aqp > 0) {
@@ -259,13 +259,13 @@ public class QueueBooking extends AbstractBooking implements Comparable<QueueBoo
 
 	/**
 	 * return the position in the queue of this booking. if this is not a part
-	 * of the actual queue return queue length.
+	 * of the current queue return queue length.
 	 * 
-	 * @see BookingDao#getActualPositionInQueue(de.knurt.fam.core.model.persist.booking.QueueBooking)
+	 * @see BookingDao#getCurrentPositionInQueue(de.knurt.fam.core.model.persist.booking.QueueBooking)
 	 * @return the position in the queue of this booking.
 	 */
-	public Integer getActualQueuePosition() {
-		return FamDaoProxy.bookingDao().getActualPositionInQueue(this);
+	public Integer getCurrentQueuePosition() {
+		return FamDaoProxy.bookingDao().getCurrentPositionInQueue(this);
 	}
 
 	/**

@@ -4,7 +4,7 @@
 		#if($config.model.booking.isTimeBased())
 			Time requested $FamDateFormat.getDateFormattedWithTime($config.model.booking.dateStart)&nbsp;to&nbsp;$FamDateFormat.getDateFormattedWithTime($config.model.booking.dateEnd).
 		#else
-					$config.model.booking.user.fullName is on $FamText.getOrdinal($config.model.booking.actualQueuePosition) position in the queue
+					$config.model.booking.user.fullName is on $FamText.getOrdinal($config.model.booking.currentQueuePosition) position in the queue
 		#end
 	#end
 	<br />
@@ -18,7 +18,7 @@
 	</h2>
 	<div>
 		<iframe id="jobsurvey" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=2&amp;jobid=$config.model.booking.id")">
-			You need an actual browser
+			You need a browser that supports iframes
 		</iframe>
 	</div>
 	<div>

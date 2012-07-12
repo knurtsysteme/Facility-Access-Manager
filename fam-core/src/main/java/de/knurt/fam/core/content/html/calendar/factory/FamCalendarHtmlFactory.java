@@ -233,8 +233,8 @@ public abstract class FamCalendarHtmlFactory {
 	 * 
 	 * @param c
 	 *            the date is used to show the right calendar time.
-	 * @param actualCalVName
-	 *            view name of the actual calendar. this is used to show the
+	 * @param currentCalVName
+	 *            view name of the current calendar. this is used to show the
 	 *            view as link or not. e.g. if {@link QueryKeys#WEEK}, the
 	 *            "week view" is <strong>not</strong> shown as a link, but month
 	 *            view does.
@@ -245,16 +245,16 @@ public abstract class FamCalendarHtmlFactory {
 	 *            <code>&lt;noscript&gt;</code>
 	 * @return the head of the calendar containing the control panel.
 	 */
-	public HtmlElement getCalendarPrefixHtmlNavi(Calendar c, String actualCalVName, boolean timeWrapNavigationOnOverview, boolean noscriptTagOnOverview) {
+	public HtmlElement getCalendarPrefixHtmlNavi(Calendar c, String currentCalVName, boolean timeWrapNavigationOnOverview, boolean noscriptTagOnOverview) {
 		HtmlElement result = HtmlFactory.get("div");
 		Properties atts = new Properties();
 		String href = "";
 		String content = "";
 		HtmlElement element = null;
-		if (timeWrapNavigationOnOverview == true || actualCalVName.equals(QueryKeys.OVERVIEW) == false) {
+		if (timeWrapNavigationOnOverview == true || currentCalVName.equals(QueryKeys.OVERVIEW) == false) {
 			HtmlElement timeWrapDiv = HtmlFactory.get("div");
 			timeWrapDiv.addClassName("timeWrapDiv");
-			href = getQueryString(Calendar.getInstance(), actualCalVName).getAsHtmlLinkHref();
+			href = getQueryString(Calendar.getInstance(), currentCalVName).getAsHtmlLinkHref();
 			content = "show today"; // INTLANG
 			atts.put("title", content);
 			element = StrictHtmlFactory.get().get_a(href, content, atts);
@@ -280,7 +280,7 @@ public abstract class FamCalendarHtmlFactory {
 		}
 
 		content = "week view"; // INTLANG
-		if (actualCalVName.equals(QueryKeys.WEEK)) {
+		if (currentCalVName.equals(QueryKeys.WEEK)) {
 			element = HtmlFactory.get("span");
 			element.add(content);
 		} else {
@@ -293,7 +293,7 @@ public abstract class FamCalendarHtmlFactory {
 		result.add("&nbsp;");
 
 		content = "month view"; // INTLANG
-		if (actualCalVName.equals(QueryKeys.MONTH)) {
+		if (currentCalVName.equals(QueryKeys.MONTH)) {
 			element = HtmlFactory.get("span");
 			element.add(content);
 		} else {
@@ -306,7 +306,7 @@ public abstract class FamCalendarHtmlFactory {
 		result.add("&nbsp;");
 
 		content = "overview"; // INTLANG
-		if (actualCalVName.equals(QueryKeys.OVERVIEW)) {
+		if (currentCalVName.equals(QueryKeys.OVERVIEW)) {
 			element = HtmlFactory.get("span");
 			element.add(content);
 		} else {
@@ -329,8 +329,8 @@ public abstract class FamCalendarHtmlFactory {
 	 * 
 	 * @param c
 	 *            the date is used to show the right calendar time.
-	 * @param actualCalV
-	 *            view of the actual calendar. this is used to show the view as
+	 * @param currentCalV
+	 *            view of the current calendar. this is used to show the view as
 	 *            link or not. e.g. if {@link QueryKeys#WEEK}, the "week view"
 	 *            is <strong>not</strong> shown as a link, but month view does.
 	 * @param timeWrapNavigationOnOverview
@@ -341,8 +341,8 @@ public abstract class FamCalendarHtmlFactory {
 	 *            {@link FamCalendarHtmlFactory#getCalendarPrefixHtmlNavi(java.util.Calendar, de.knurt.fam.core.content.html.calendar.CalendarView, boolean, boolean)}
 	 * @return the head of the calendar containing the control panel.
 	 */
-	public HtmlElement getCalendarPrefixHtmlNavi(Calendar c, CalendarView actualCalV, boolean timeWrapNavigationOnOverview, boolean noscriptTagOnOverview) {
-		return this.getCalendarPrefixHtmlNavi(c, actualCalV.getCalendarViewName(), timeWrapNavigationOnOverview, noscriptTagOnOverview);
+	public HtmlElement getCalendarPrefixHtmlNavi(Calendar c, CalendarView currentCalV, boolean timeWrapNavigationOnOverview, boolean noscriptTagOnOverview) {
+		return this.getCalendarPrefixHtmlNavi(c, currentCalV.getCalendarViewName(), timeWrapNavigationOnOverview, noscriptTagOnOverview);
 	}
 
 	/**
@@ -411,7 +411,7 @@ public abstract class FamCalendarHtmlFactory {
 	 * might be a button sending a form or a simple link to another page.
 	 * 
 	 * @param c
-	 *            calendar for the actual cell
+	 *            calendar for the current cell
 	 * @return html of input form executing the form shown in the table's cell.
 	 */
 	protected Object getInputFormSend(Calendar c) {

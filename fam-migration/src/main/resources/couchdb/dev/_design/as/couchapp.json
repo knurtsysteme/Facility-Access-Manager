@@ -6,7 +6,7 @@
         "_view/all": "all documents with created attribute",
         "_view/all_soa": "@see all + and with type SOA",
         "_view/all_soa_activation": "@see all + and with type SOA_ACTIVATION and attributes roleId and soaActivePages. Must have at least one active page.",
-        "_view/actual_soa_activation" : "@see all_soa_activation + that are active",
+        "_view/current_soa_activation" : "@see all_soa_activation + that are active",
         "_view/history_soa_activation" : "@see all_soa_activation + that are not active anymore",
         "_view/all_job": "@see all + and with type JOB",
         "_view/all_job_data_processing": "@see all + and with type JOB_DATA_PROCESSING",

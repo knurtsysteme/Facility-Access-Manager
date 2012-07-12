@@ -363,7 +363,7 @@ var AsTable = {
 										url : url2contact,
 										data : parameters,
 										success : function(r) {
-											$form.html("<p>Changed!</p><p><a href=\"" + window.location.pathname + window.location.search + "\">Click here to actualize page.</a></p>");
+											$form.html("<p>Changed!</p><p><a href=\"" + window.location.pathname + window.location.search + "\">Click here to refresh page.</a></p>");
 										},
 										error : function(r) {
 											$('#as_dialog').clone().attr("id", "").html("error [code 200908141438]: " + r.responseText).show().dialog();

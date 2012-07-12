@@ -2,7 +2,7 @@
 #if($config.model.queue_based)
 Setting rules for this facility is impossible.
 #elseif($config.model.show_suddenFailureIsActive)
-<h1 style="margin-top: 20px;" id="newrule">There is an actual sudden failure on this facility</h1>
+<h1 style="margin-top: 20px;" id="newrule">There is currently a sudden failure on this facility</h1>
 <div>
     $util.html.a("facilityemergency").setContent('Please stop this failure before editing availabilitiy rules.')
 </div>

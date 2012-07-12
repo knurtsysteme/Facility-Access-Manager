@@ -454,7 +454,7 @@ public class TimeBookingRequest implements Purchasable, Cloneable {
 
 	/**
 	 * return true, if the requested capacity units is allowed to book in
-	 * general. this does not check the actual capacity units, that might differ
+	 * general. this does not check the current capacity units, that might differ
 	 * because of bookings or crashes.
 	 * 
 	 * @return true, if the requested capacity units is allowed to book.

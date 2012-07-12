@@ -20,7 +20,7 @@ class FacilityEmergencyController {
 		try {
 			Facility d = RequestInterpreter.getFacility(templateResource.getRequest());
 			if (RequestInterpreter.isYes(templateResource.getRequest())) { // facility is available again
-				FamDaoProxy.facilityDao().stopActualSuddenFailure(d, templateResource.getAuthUser());
+				FamDaoProxy.facilityDao().stopCurrentSuddenFailure(d, templateResource.getAuthUser());
 			} else if (RequestInterpreter.isNo(templateResource.getRequest())) { // facility failed
 				this.insertOrUpdateSuddenFailure(d, templateResource.getAuthUser(), templateResource.getRequest());
 			}
@@ -33,7 +33,7 @@ class FacilityEmergencyController {
 	private void insertOrUpdateSuddenFailure(Facility d, User userSetThis, HttpServletRequest request) {
 		Integer timeUnits = RequestInterpreter.getTimeUnits(request);
 		if (timeUnits != null) {
-			FacilityAvailability da = FamDaoProxy.facilityDao().getActualSuddenFailure(d);
+			FacilityAvailability da = FamDaoProxy.facilityDao().getCurrentSuddenFailure(d);
 			if (da == null) { // insert new
 				Calendar start = Calendar.getInstance();
 				Calendar end = Calendar.getInstance();

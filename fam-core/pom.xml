@@ -102,12 +102,12 @@
     <dependency>
       <groupId>de.knurt.heinzelmann</groupId>
       <artifactId>hm-util</artifactId>
-      <version>0.90.0</version>
+      <version>0.90.1</version>
     </dependency>
     <dependency>
       <groupId>de.knurt.heinzelmann</groupId>
       <artifactId>hm-ui</artifactId>
-      <version>0.90.0</version>
+      <version>0.90.1</version>
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
@@ -226,7 +226,12 @@
       <version>2.1.0.565</version>
       <scope>compile</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.codehaus.cjcook</groupId>
+      <artifactId>cjcook-examples</artifactId>
+      <version>0.17</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>

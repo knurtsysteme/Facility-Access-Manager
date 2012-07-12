@@ -60,11 +60,11 @@ public class JobSurveyViewHtml extends JobSurveyViewHtmlAbstract {
 		JobDataProcessing jdp = null;
 		if (isRequestForTemplate) {
 			Facility facility = FacilityConfigDao.facility(request.getParameter("facility"));
-			jdp = CouchDBDao4Jobs.me().getActualJobDataProcessing(facility, useParent);
+			jdp = CouchDBDao4Jobs.me().getCurrentJobDataProcessing(facility, useParent);
 		} else if (this.jobid > 0) {
 			// it is a request for a user input
 			try {
-				jdp = CouchDBDao4Jobs.me().getActualJobDataProcessing(FamDaoProxy.bookingDao().getBookingWithId(jobid).getFacility(), useParent);
+				jdp = CouchDBDao4Jobs.me().getCurrentJobDataProcessing(FamDaoProxy.bookingDao().getBookingWithId(jobid).getFacility(), useParent);
 			} catch (Exception e) {
 				// OK!
 			}

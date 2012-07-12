@@ -214,7 +214,7 @@ public class FamFormFactory {
 		table.addClassName("yesNoForms");
 		HtmlElement tr = HtmlFactory.get("tr");
 
-		// set actual value
+		// set current value
 		boolean yesIsActive = activate == null ? true : activate.booleanValue();
 		boolean noIsActive = activate == null ? true : !activate.booleanValue();
 

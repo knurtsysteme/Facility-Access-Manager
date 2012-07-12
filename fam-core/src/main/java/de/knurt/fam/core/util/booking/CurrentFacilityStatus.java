@@ -40,18 +40,18 @@ import de.knurt.heinzelmann.util.time.TimeFrame;
  * @author Daniel Oltmanns
  * @since 0.20090811
  */
-public class ActualFacilityStatus {
+public class CurrentFacilityStatus {
 
 	private Facility facility;
 
 	/**
-	 * construct the actual status for the given facility. actual means the status
+	 * construct the current status for the given facility. current means the status
 	 * of a facility <strong>now</strong>
 	 * 
 	 * @param facility
-	 *            the actual status for the given facility.
+	 *            the current status for the given facility.
 	 */
-	public ActualFacilityStatus(Facility facility) {
+	public CurrentFacilityStatus(Facility facility) {
 		this.facility = facility;
 	}
 

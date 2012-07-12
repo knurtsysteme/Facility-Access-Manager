@@ -35,14 +35,14 @@ public class HtmlAdapterUserFactory extends DasHtmlAdapterAbstractFactory<User> 
 	/**
 	 * return adapter for users.
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user logged in
 	 * @param mappedObject
 	 *            object being adapted
 	 * @return adapter for users.
 	 */
 	@Override
-	protected HtmlAdapterUser getInstance(User actual, User mappedObject) {
+	protected HtmlAdapterUser getInstance(User current, User mappedObject) {
 		return new HtmlAdapterUser(mappedObject);
 	}
 }

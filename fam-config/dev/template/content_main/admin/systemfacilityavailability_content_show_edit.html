@@ -1,10 +1,10 @@
 <h1 style="margin-top: 20px;">Add a new rule</h1>
 <div>
-    $config.model.actual_step of 3
+    $config.model.current_step of 3
 </div>
 #set($url = $util.html.getHref('systemfacilityavailability') + ${config.model.querystring})
 #set($method = "post")
-#if($config.model.actual_step != 3)
+#if($config.model.current_step != 3)
 #set($url = $url + "#newrule")
 #set($method = "get")
 #end
@@ -12,7 +12,7 @@
     <p>
         ${config.model.hiddenInputs}
     </p>
-    #if($config.model.actual_step==1)
+    #if($config.model.current_step==1)
     <fieldset>
         <legend>Choose availability</legend>
         <p>
@@ -59,7 +59,7 @@
     </fieldset>
     <button type="submit" class="icon next">next step</button>
     #end
-    #if($config.model.actual_step==2)
+    #if($config.model.current_step==2)
     <p>
         Set by now:
     </p>
@@ -79,7 +79,7 @@
     </fieldset>
     <button type="submit" class="icon next">view changes and confirm</button>
     #end
-    #if($config.model.actual_step==3)
+    #if($config.model.current_step==3)
     <p>
         Confirm this inputs:
     </p>
@@ -89,7 +89,7 @@
     </p>
     #end
 </form>
-#if($config.model.actual_step==2 || $config.model.actual_step==3)
+#if($config.model.current_step==2 || $config.model.current_step==3)
 <form action="systemfacilityavailability.html" method="get">
     <input type="hidden" value="${config.model.text_facilitykey}" name="${config.model.name_facilitykey}"/>
     <button class="icon back" type="submit">Cancel!</button>

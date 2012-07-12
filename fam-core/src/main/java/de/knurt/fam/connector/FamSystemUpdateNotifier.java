@@ -38,7 +38,7 @@ public class FamSystemUpdateNotifier {
 	
 	private final static String UPDATE_URI = "http://facility-access-manager.com/update/";
 
-	public static Properties actualVersion() {
+	public static Properties currentVersion() {
 		Properties result = new Properties();
 		Boolean checkUpdate = FamConnector.getGlobalPropertyAsBoolean("system.check_update");
 		if(checkUpdate == null || checkUpdate) {
@@ -47,8 +47,8 @@ public class FamSystemUpdateNotifier {
 				String jsonstr = SimpleURLContent.getInstance().getContent(UPDATE_URI);
 				try {
 					JSONObject json = new JSONObject(jsonstr);
-					result.put("actual_version", json.get("actual_version"));
-					result.put("is_actual", json.get("actual_version").equals(FamSystemMeta.ACTUAL_VERSION));
+					result.put("current_version", json.get("current_version"));
+					result.put("is_current", json.get("current_version").equals(FamSystemMeta.CURRENT_VERSION));
 					result.put("download_page", json.get("download_page"));
 					result.put("error", false);
 				} catch (JSONException e) {

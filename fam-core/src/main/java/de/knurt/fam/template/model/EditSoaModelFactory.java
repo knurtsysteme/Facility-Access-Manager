@@ -42,7 +42,7 @@ public class EditSoaModelFactory {
 			result.put("overview", this.getOverviewTable());
 			result.put("role_selection", this.getRoleSelection()); // INTLANG
 			result.put("jhistory", this.getJHistoryTable());
-			result.put("jactual", this.getJActual());
+			result.put("jcurrent", this.getJCurrent());
 
 			// ↓ forward jsonvar
 			if (templateResource.getRequest().getParameter("jsonvar") != null) {
@@ -81,8 +81,8 @@ public class EditSoaModelFactory {
 		return result;
 	}
 
-	private String getJActual() {
-		return CouchDBDao4Soa.getInstance().getListOfActualSoaActionvationsAsHtml();
+	private String getJCurrent() {
+		return CouchDBDao4Soa.getInstance().getListOfCurrentSoaActionvationsAsHtml();
 	}
 
 	private String getJHistoryTable() {

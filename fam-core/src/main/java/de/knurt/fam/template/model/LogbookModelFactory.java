@@ -59,7 +59,7 @@ public class LogbookModelFactory {
 		return result;
 	}
 
-	private int getActualPageNumber(HttpServletRequest rq, String logbookKey) {
+	private int getCurrentPageNumber(HttpServletRequest rq, String logbookKey) {
 		String result = rq.getParameter(QueryKeys.QUERY_KEY_PAGENO);
 		if (result == null || Integer.parseInt(result) > this.getTotalPageNumber(rq, logbookKey)) {
 			result = QueryStringBuilder.QUERY_LOGBOOK_DEFAULT_VALUE_PAGENO;
@@ -76,7 +76,7 @@ public class LogbookModelFactory {
 	 * @return
 	 */
 	private String getPageFromToNavi(HttpServletRequest rq, String logbookKey) {
-		int actpno = this.getActualPageNumber(rq, logbookKey);
+		int actpno = this.getCurrentPageNumber(rq, logbookKey);
 		int totpno = this.getTotalPageNumber(rq, logbookKey);
 		String result = "";
 		if (LogbookConfigDao.getInstance().getEntryCount(logbookKey) > 0) {
@@ -148,7 +148,7 @@ public class LogbookModelFactory {
 	 * @return the number of the first entry of the overview.
 	 */
 	private int getShowFromEntry(HttpServletRequest rq, String logbookKey) {
-		int pageno = this.getActualPageNumber(rq, logbookKey);
+		int pageno = this.getCurrentPageNumber(rq, logbookKey);
 		int entrysize = this.getCountOfEntriesPerPage(rq, logbookKey);
 		int result = (pageno - 1) * entrysize;
 		if (result < 0) { // someone manipulated url

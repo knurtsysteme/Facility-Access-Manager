@@ -21,7 +21,7 @@ import java.util.List;
 import de.knurt.fam.core.content.text.FamText;
 import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
-import de.knurt.fam.core.util.booking.ActualFacilityStatus;
+import de.knurt.fam.core.util.booking.CurrentFacilityStatus;
 import de.knurt.heinzelmann.util.adapter.ViewableObject;
 import de.knurt.heinzelmann.util.time.SimpleTimeFrame;
 
@@ -106,12 +106,12 @@ public class Facility implements ViewableObject {
 	}
 
 	/**
-	 * return the actual status.
+	 * return the current status.
 	 * 
-	 * @return the actual status.
+	 * @return the current status.
 	 */
-	public ActualFacilityStatus getFacilityStatus() {
-		return new ActualFacilityStatus(this);
+	public CurrentFacilityStatus getFacilityStatus() {
+		return new CurrentFacilityStatus(this);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class Facility implements ViewableObject {
 	/**
 	 * return true, if now there is no failure on the facility.
 	 * 
-	 * @see ActualFacilityStatus
+	 * @see CurrentFacilityStatus
 	 * @return true, if now there is no failure on the facility.
 	 */
 	public boolean isInWorkingOrderNow() {
@@ -191,7 +191,7 @@ public class Facility implements ViewableObject {
 	}
 
 	/**
-	 * return true, if this facility is unknown and not part of the actual
+	 * return true, if this facility is unknown and not part of the current
 	 * configuration. an unknown facility is created, if a facility is deleted
 	 * from configuration. then, there may exist still some bookings for the
 	 * facility - and then, this is the unknown facility.

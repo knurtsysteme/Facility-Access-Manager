@@ -53,7 +53,7 @@ public class QueueBookingTest extends FamIBatisTezt {
 	@After
 	public void setLengthTo0() {
 		UsersUnitsQueueBasedBookingRule br = this.getBookingRule();
-		while (br.getActualQueueLength() > 0) {
+		while (br.getCurrentQueueLength() > 0) {
 			br.reduceQueue();
 		}
 	}
@@ -84,7 +84,7 @@ public class QueueBookingTest extends FamIBatisTezt {
 	public void queueLength_noInteraction() {
 		this.clearDatabase();
 		UsersUnitsQueueBasedBookingRule br = this.getBookingRule();
-		assertEquals(0, br.getActualQueueLength());
+		assertEquals(0, br.getCurrentQueueLength());
 	}
 
 	/**
@@ -94,10 +94,10 @@ public class QueueBookingTest extends FamIBatisTezt {
 	public void queueLength_addABooking1() {
 		this.clearDatabase();
 		UsersUnitsQueueBasedBookingRule br = this.getBookingRule();
-		assertEquals(0, br.getActualQueueLength());
+		assertEquals(0, br.getCurrentQueueLength());
 		QueueBooking b = TeztBeanSimpleFactory.getNewValidAndBookedQueueBooking();
 		b.insert();
-		assertEquals(1, br.getActualQueueLength());
+		assertEquals(1, br.getCurrentQueueLength());
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class QueueBookingTest extends FamIBatisTezt {
 		b.insert();
 
 		UsersUnitsQueueBasedBookingRule br = this.getBookingRule();
-		assertEquals(1, br.getActualQueueLength());
+		assertEquals(1, br.getCurrentQueueLength());
 	}
 
 	private void insertQueueBooking() {
@@ -166,9 +166,9 @@ public class QueueBookingTest extends FamIBatisTezt {
 
 		// get time frame back
 		TimeFrame backtf_1 = backbook_1.getExpectedSessionTimeFrame();
-		Integer actualQueuPosition_1 = backbook_1.getActualQueuePosition();
-		assertNotNull(actualQueuPosition_1);
-		assertEquals(1, actualQueuPosition_1.intValue());
+		Integer currentQueuPosition_1 = backbook_1.getCurrentQueuePosition();
+		assertNotNull(currentQueuPosition_1);
+		assertEquals(1, currentQueuPosition_1.intValue());
 
 		// compute assert
 		Integer uphp = this.getBookingRule().getUnitsPerHourProcessed();
@@ -192,9 +192,9 @@ public class QueueBookingTest extends FamIBatisTezt {
 
 		// get time frame back
 		TimeFrame backtf_2 = backbook_2.getExpectedSessionTimeFrame();
-		Integer actualQueuePosiotion_2 = backbook_2.getActualQueuePosition();
-		assertNotNull(actualQueuePosiotion_2);
-		assertEquals(2, actualQueuePosiotion_2.intValue());
+		Integer currentQueuePosiotion_2 = backbook_2.getCurrentQueuePosition();
+		assertNotNull(currentQueuePosiotion_2);
+		assertEquals(2, currentQueuePosiotion_2.intValue());
 
 		// compute assert
 		assertNotNull(uphp);
@@ -206,8 +206,8 @@ public class QueueBookingTest extends FamIBatisTezt {
 		assertEquals(assertEnd_2.getTimeInMillis() / 1000, backtf_2.getEnd() / 1000);
 
 		// check 1st one again
-		actualQueuPosition_1 = backbook_1.getActualQueuePosition();
-		assertEquals(1, actualQueuPosition_1.intValue());
+		currentQueuPosition_1 = backbook_1.getCurrentQueuePosition();
+		assertEquals(1, currentQueuPosition_1.intValue());
 		assertEquals(assertStart_1.getTimeInMillis() / 1000, backtf_1.getStart() / 1000);
 		assertEquals(assertEnd_1.getTimeInMillis() / 1000, backtf_1.getEnd() / 1000);
 
@@ -225,9 +225,9 @@ public class QueueBookingTest extends FamIBatisTezt {
 
 		// get time frame back
 		TimeFrame backtf_3 = backbook_3.getExpectedSessionTimeFrame();
-		Integer actualQueuePosiotion_3 = backbook_3.getActualQueuePosition();
-		assertNotNull(actualQueuePosiotion_3);
-		assertEquals(3, actualQueuePosiotion_3.intValue());
+		Integer currentQueuePosiotion_3 = backbook_3.getCurrentQueuePosition();
+		assertNotNull(currentQueuePosiotion_3);
+		assertEquals(3, currentQueuePosiotion_3.intValue());
 
 		// compute assert
 		assertNotNull(uphp);
@@ -239,15 +239,15 @@ public class QueueBookingTest extends FamIBatisTezt {
 		assertEquals(assertEnd_3.getTimeInMillis() / 5000, backtf_3.getEnd() / 5000);
 
 		// check 1st one again
-		actualQueuPosition_1 = backbook_1.getActualQueuePosition();
-		assertEquals(1, actualQueuPosition_1.intValue());
+		currentQueuPosition_1 = backbook_1.getCurrentQueuePosition();
+		assertEquals(1, currentQueuPosition_1.intValue());
 		assertEquals(assertStart_1.getTimeInMillis() / 1000, backtf_1.getStart() / 1000);
 		assertEquals(assertEnd_1.getTimeInMillis() / 1000, backtf_1.getEnd() / 1000);
 
 		// check 2nd one again
-		actualQueuePosiotion_2 = backbook_2.getActualQueuePosition();
+		currentQueuePosiotion_2 = backbook_2.getCurrentQueuePosition();
 		backtf_2 = backbook_2.getExpectedSessionTimeFrame();
-		assertEquals(2, actualQueuePosiotion_2.intValue());
+		assertEquals(2, currentQueuePosiotion_2.intValue());
 		// ↘ use 10 seconds here because of waitASecond funtions
 		assertEquals(assertStart_2.getTimeInMillis() / 1000000, backtf_2.getStart() / 1000000); 
 		assertEquals(assertEnd_2.getTimeInMillis() / 1000000, backtf_2.getEnd() / 1000000);
@@ -271,18 +271,18 @@ public class QueueBookingTest extends FamIBatisTezt {
 		QueueBooking qb_1 = (QueueBooking) FamDaoProxy.bookingDao().getAll().get(1);
 		QueueBooking qb_2 = (QueueBooking) FamDaoProxy.bookingDao().getAll().get(2);
 
-		assertEquals(1, qb_0.getActualQueuePosition().intValue());
-		assertEquals(2, qb_1.getActualQueuePosition().intValue());
-		assertEquals(3, qb_2.getActualQueuePosition().intValue());
+		assertEquals(1, qb_0.getCurrentQueuePosition().intValue());
+		assertEquals(2, qb_1.getCurrentQueuePosition().intValue());
+		assertEquals(3, qb_2.getCurrentQueuePosition().intValue());
 		assertEquals(3, this.getQueueLength());
 
 		// now cancel the middle
 		qb_1.cancel(new Cancelation(qb_1.getUser(), "foo"));
 
 		// assert last one 1 stop forward
-		assertEquals(1, qb_0.getActualQueuePosition().intValue());
-		assertNull(qb_1.getActualQueuePosition());
-		assertEquals(2, qb_2.getActualQueuePosition().intValue());
+		assertEquals(1, qb_0.getCurrentQueuePosition().intValue());
+		assertNull(qb_1.getCurrentQueuePosition());
+		assertEquals(2, qb_2.getCurrentQueuePosition().intValue());
 
 		// assert queue length
 		assertEquals(2, this.getQueueLength());
@@ -312,7 +312,7 @@ public class QueueBookingTest extends FamIBatisTezt {
 	}
 
 	private int getQueueLength() {
-		return this.getBookingRule().getActualQueueLength();
+		return this.getBookingRule().getCurrentQueueLength();
 	}
 
 	private void waitASecond() {

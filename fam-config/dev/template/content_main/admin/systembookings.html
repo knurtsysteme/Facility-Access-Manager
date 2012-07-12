@@ -1,4 +1,4 @@
-<h1>Overview of actual jobs</h1>
+<h1>Overview of current jobs</h1>
 <table class="standard">
     <thead>
         <tr>
@@ -24,7 +24,7 @@
             	#if($booking.isTimeBased())
 					$util.sort.span($booking.dateStart)$FamDateFormat.getDateAndTimeShort($booking.dateStart)<br />$FamDateFormat.getDateAndTimeShort($booking.dateEnd)
 				#else
-					<span style="display:none;">0000$booking.actualQueuePosition</span>$FamText.getOrdinal($booking.actualQueuePosition) person in queue
+					<span style="display:none;">0000$booking.currentQueuePosition</span>$FamText.getOrdinal($booking.currentQueuePosition) person in queue
 				#end
 				</td>
 				<td>

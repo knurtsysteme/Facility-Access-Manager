@@ -166,15 +166,15 @@ public abstract class FacilityDao extends AbstractFamDao<FacilityAvailability> {
 	}
 
 	/**
-	 * return the actual sudden failure on given facility or null, if nothing
+	 * return the current sudden failure on given facility or null, if nothing
 	 * exists.
 	 * 
 	 * @param d
 	 *            facility the sudden failure is for
-	 * @return the actual sudden failure on given facility or null, if nothing
+	 * @return the current sudden failure on given facility or null, if nothing
 	 *         exists.
 	 */
-	public FacilityAvailability getActualSuddenFailure(Facility d) {
+	public FacilityAvailability getCurrentSuddenFailure(Facility d) {
 		FacilityAvailability result = null;
 		List<FacilityAvailability> das = FamDaoProxy.facilityDao().getFacilityAvailabilities(d);
 		for (FacilityAvailability da : das) {
@@ -187,19 +187,19 @@ public abstract class FacilityDao extends AbstractFamDao<FacilityAvailability> {
 	}
 
 	/**
-	 * stop the actual sudden failure on the given facility. if the facility has
+	 * stop the current sudden failure on the given facility. if the facility has
 	 * no sudden failure or does not exist, do nothing here. on updating the
 	 * sudden failure, the user is set to the given user. timestamp set is set
-	 * to actual time stamp. the end of the base time for the facility
+	 * to current time stamp. the end of the base time for the facility
 	 * availability is set to now.
 	 * 
 	 * @param d
-	 *            the actual sudden failure is stop of
+	 *            the current sudden failure is stop of
 	 * @param userSetThis
-	 *            set as the user that stops the actual sudden failure
+	 *            set as the user that stops the current sudden failure
 	 */
-	public void stopActualSuddenFailure(Facility d, User userSetThis) {
-		FacilityAvailability da = FamDaoProxy.facilityDao().getActualSuddenFailure(d);
+	public void stopCurrentSuddenFailure(Facility d, User userSetThis) {
+		FacilityAvailability da = FamDaoProxy.facilityDao().getCurrentSuddenFailure(d);
 		if (da != null) { // bad request
 			TimeFrame base = da.getBasePeriodOfTime();
 			base.setEnd(Calendar.getInstance());

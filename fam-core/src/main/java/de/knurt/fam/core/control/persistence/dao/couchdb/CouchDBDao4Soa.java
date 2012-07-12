@@ -70,7 +70,7 @@ public class CouchDBDao4Soa implements FamSoaDao {
 		return FamCouchDBDao.getInstance().getOne(docId, SoaActivationDocument.class);
 	}
 
-	public String getListOfActualSoaActionvationsAsHtml() {
+	public String getListOfCurrentSoaActionvationsAsHtml() {
 		QueryString queryString = QueryStringFactory.get("descending", "true");
 		queryString.put("format", "html");
 		return FamCouchDBDao.getInstance().getContentAsString("_design/as/_list/terms_of_use_pages/terms_of_use_pages_active", queryString);

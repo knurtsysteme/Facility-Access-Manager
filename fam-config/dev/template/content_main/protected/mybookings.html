@@ -17,7 +17,7 @@
 					#if($booking.isTimeBased())
 						Time:&nbsp;$FamDateFormat.getDateAndTimeShort($booking.dateStart)&nbsp;-&nbsp;$FamDateFormat.getDateAndTimeShort($booking.dateEnd)
 					#else
-						Position in queue:&nbsp;$booking.actualQueuePosition
+						Position in queue:&nbsp;$booking.currentQueuePosition
 					#end<br />
 				#end
 				#if($booking.notice)

@@ -48,7 +48,7 @@ public class JobSurveyGetterController extends JSONController {
 			boolean parseVelocity = rq.has("parseVelocity") ? rq.getBoolean("parseVelocity") : true;
 			String facilityKey = rq.getString("facilityKey");
 			if (rq != null && facilityKey != null && FacilityConfigDao.facility(facilityKey) != null) {
-				result = CouchDBDao4Jobs.me().getActualJobDataProcessingAsJSONObject(FacilityConfigDao.facility(facilityKey), null, useParent, parseVelocity);
+				result = CouchDBDao4Jobs.me().getCurrentJobDataProcessingAsJSONObject(FacilityConfigDao.facility(facilityKey), null, useParent, parseVelocity);
 				if (result == null) {
 					FamLog.error("did not find " + facilityKey, 201201191632l);
 					result = new JSONObject();

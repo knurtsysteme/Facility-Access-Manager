@@ -171,7 +171,7 @@ public abstract class FamMonthHtml extends CalendarOneMonthHtml implements Calen
         String titleLastMonth = this.getContentAnchor(c, TEXT_LONG);
         String valLastMonth = this.getContentAnchor(c, MONTH_MIN_1);
 
-        // anchor to actual and next of this month
+        // anchor to current and next of this month
         c.add(Calendar.MONTH, 1);
         String hrefThisMonth = this.getQueryString(Calendar.getInstance()).getAsHtmlLinkHref();
         String titleThisMonth = "show totday's month"; // INTLANG

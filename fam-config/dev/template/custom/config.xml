@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
   <!--
     configuration of the system mainly page definitions. after changes in this file go to "Admin" -> "System configuration" and click "Reload Config" page dependent config. keys in this properties files are available over $config.xml.getChild([resource_name]).getChildText([element]). e.g.
-    $config.xml.getChild($resource_name).getChildText("headline") to get the headline of the actual page pages have a shortcut, so that $config.page.getChildText("headline") on the home-page is the same as $config.xml.getChild("home").getChildText("headline")
+    $config.xml.getChild($resource_name).getChildText("headline") to get the headline of the current page pages have a shortcut, so that $config.page.getChildText("headline") on the home-page is the same as $config.xml.getChild("home").getChildText("headline")
   -->
 <fam>
   <global>

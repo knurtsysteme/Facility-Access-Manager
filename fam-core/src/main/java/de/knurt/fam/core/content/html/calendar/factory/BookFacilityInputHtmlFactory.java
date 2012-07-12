@@ -62,11 +62,11 @@ public class BookFacilityInputHtmlFactory extends AvailabilityInputHtmlFactory {
 	 * 
 	 * @param c
 	 *            of choosen day
-	 * @param actualCalVName
+	 * @param currentCalVName
 	 *            name of the calendar view (week, month etc.)
 	 * @return the input for a direct booking request
 	 */
-	public HtmlElement getJavascriptBookingNavi_input(Calendar c, String actualCalVName) {
+	public HtmlElement getJavascriptBookingNavi_input(Calendar c, String currentCalVName) {
 		HtmlElement result = new HtmlElement("div");
 		HtmlElement form = HtmlFactory.get("form");
 
@@ -129,7 +129,7 @@ public class BookFacilityInputHtmlFactory extends AvailabilityInputHtmlFactory {
 		return result;
 	}
 
-	private HtmlElement getJavascriptBookingNavi(Calendar c, String actualCalVName, boolean timeWrapNavigationOnOverview) {
+	private HtmlElement getJavascriptBookingNavi(Calendar c, String currentCalVName, boolean timeWrapNavigationOnOverview) {
 		HtmlElement result = HtmlFactory.get("div");
 		result.setAttribute("style", "display: none;");
 		String id = "js_booking_request";
@@ -142,11 +142,11 @@ public class BookFacilityInputHtmlFactory extends AvailabilityInputHtmlFactory {
 		HtmlElement a = StrictHtmlFactory.get().get_a("#", content, p);
 		a.addTitleAttribute(content);
 		result.add(a);
-		result.add(this.getJavascriptBookingNavi_input(c, actualCalVName));
+		result.add(this.getJavascriptBookingNavi_input(c, currentCalVName));
 		return result;
 	}
 
-	private HtmlElement getNoscriptBookingNavi(Calendar c, String actualCalVName, boolean timeWrapNavigationOnOverview) {
+	private HtmlElement getNoscriptBookingNavi(Calendar c, String currentCalVName, boolean timeWrapNavigationOnOverview) {
 		HtmlElement result = HtmlFactory.get("noscript");
 
 		HtmlElement noscript;
@@ -163,7 +163,7 @@ public class BookFacilityInputHtmlFactory extends AvailabilityInputHtmlFactory {
 			noscript.setAttribute("action", TemplateHtml.href("book2"));
 			noscript.setAttribute("method", "get");
 			QueryString ajax = QueryStringBuilder.getAjaxFlag(true);
-			noscript.add("<p>" + this.getHiddenInput(c, actualCalVName) + ajax.getAsHtmlInputsTypeHidden() + "</p>");
+			noscript.add("<p>" + this.getHiddenInput(c, currentCalVName) + ajax.getAsHtmlInputsTypeHidden() + "</p>");
 
 			HtmlElement changeButton = FamSubmitButtonFactory.getNextButton("change"); // INTLANG
 			changeButton.addClassName("js_hide");
@@ -180,11 +180,11 @@ public class BookFacilityInputHtmlFactory extends AvailabilityInputHtmlFactory {
 	}
 
 	@Override
-	public HtmlElement getCalendarPrefixHtmlNavi(Calendar c, String actualCalVName, boolean timeWrapNavigationOnOverview, boolean noScriptOnOverview) {
+	public HtmlElement getCalendarPrefixHtmlNavi(Calendar c, String currentCalVName, boolean timeWrapNavigationOnOverview, boolean noScriptOnOverview) {
 		HtmlElement result = HtmlFactory.get("div");
-		result.add(super.getCalendarPrefixHtmlNavi(c, actualCalVName, timeWrapNavigationOnOverview, true));
-		result.add(this.getNoscriptBookingNavi(c, actualCalVName, timeWrapNavigationOnOverview));
-		result.add(this.getJavascriptBookingNavi(c, actualCalVName, timeWrapNavigationOnOverview));
+		result.add(super.getCalendarPrefixHtmlNavi(c, currentCalVName, timeWrapNavigationOnOverview, true));
+		result.add(this.getNoscriptBookingNavi(c, currentCalVName, timeWrapNavigationOnOverview));
+		result.add(this.getJavascriptBookingNavi(c, currentCalVName, timeWrapNavigationOnOverview));
 		return result;
 	}
 

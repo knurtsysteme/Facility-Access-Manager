@@ -57,7 +57,7 @@ public interface QueueBasedBookingRule {
 	 * 
 	 * @return number of units in queue now.
 	 */
-	public int getActualQueueLength();
+	public int getCurrentQueueLength();
 
 	/**
 	 * return the position, a user shall get an reminder mail if the unit is not

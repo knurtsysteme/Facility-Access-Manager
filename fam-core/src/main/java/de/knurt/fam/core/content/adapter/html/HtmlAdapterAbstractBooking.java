@@ -52,20 +52,20 @@ import de.knurt.heinzelmann.util.query.QueryString;
 @Deprecated
 public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamHtmlAdapter<Booking> implements HtmlAdapterBooking {
 
-	private User actualUser;
+	private User currentUser;
 	private Booking booking;
 
 	/**
 	 * constructer for all adapters of bookings
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user logged in
 	 * @param booking
 	 *            being adapted
 	 */
-	protected HtmlAdapterAbstractBooking(User actual, Booking booking) {
+	protected HtmlAdapterAbstractBooking(User current, Booking booking) {
 		super(booking);
-		this.actualUser = actual;
+		this.currentUser = current;
 		this.booking = booking;
 	}
 
@@ -209,13 +209,13 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	}
 
 	/**
-	 * return the actual user
+	 * return the current user
 	 * 
 	 * @see SessionAuth#user(javax.servlet.http.HttpServletRequest)
-	 * @return the actual user
+	 * @return the current user
 	 */
-	public User getActualUser() {
-		return actualUser;
+	public User getCurrentUser() {
+		return currentUser;
 	}
 
 	/**

@@ -76,7 +76,7 @@ public class NewsSourceForYourBookings implements NewsSource {
 			} else { // uncanceled booking
 				if (booking.isQueueBased() && !booking.sessionAlreadyMade()) {
 					// ↖ booking in queue and not made
-					desc = String.format("Expected start of your session on %s. Your position in queue: %s.", facilityLabel, ((QueueBooking) booking).getActualQueuePosition()); // INTLANG
+					desc = String.format("Expected start of your session on %s. Your position in queue: %s.", facilityLabel, ((QueueBooking) booking).getCurrentQueuePosition()); // INTLANG
 					result.setEventStarts(((QueueBooking) booking).getExpectedSessionStart().getTime());
 					if (booking.sessionAlreadyBegun()) {
 						result.setLinkToFurtherInformation(TemplateHtml.href("viewrequest") + QueryStringBuilder.getQueryString(booking));

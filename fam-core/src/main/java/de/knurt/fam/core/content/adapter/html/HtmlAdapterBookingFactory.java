@@ -39,19 +39,19 @@ public class HtmlAdapterBookingFactory extends DasHtmlAdapterAbstractFactory<Boo
 	/**
 	 * return a html adapter for the booking.
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user being authenticated
 	 * @param mappedObject
 	 *            booking being adapted
 	 * @return a html adapter for the booking.
 	 */
 	@Override
-	public FamHtmlAdapter<Booking> getInstance(User actual, Booking mappedObject) {
+	public FamHtmlAdapter<Booking> getInstance(User current, Booking mappedObject) {
 		// XXX extract more interfaces!
 		if (mappedObject.getClass().equals(TimeBooking.class)) {
-			return new HtmlAdapterTimeBooking(actual, (TimeBooking) mappedObject);
+			return new HtmlAdapterTimeBooking(current, (TimeBooking) mappedObject);
 		} else if (mappedObject.getClass().equals(QueueBooking.class)) {
-			return new HtmlAdapterQueueBooking(actual, (QueueBooking) mappedObject);
+			return new HtmlAdapterQueueBooking(current, (QueueBooking) mappedObject);
 		} else {
 			try {
 				throw new Exception("unsupported booking class");

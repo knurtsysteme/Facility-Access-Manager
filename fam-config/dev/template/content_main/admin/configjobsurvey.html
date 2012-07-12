@@ -1,4 +1,4 @@
-<h2>View and change the actual configuration for<br />$config.model.facility_choosen.label</h2>
+<h2>View and change the current configuration for<br />$config.model.facility_choosen.label</h2>
 #if($config.model.facilities.size() > 1)
 <form method="get" action="$util.html.getHref('configjobsurvey', $lang.page, $config.xml)" id="facility_selection">
 	<fieldset>
@@ -53,25 +53,25 @@
 		#set($step=0)
 		<div class="tab_step" id="show_tab_step_${step}">
 			<div class="jui_tabs">
-				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+				<iframe id="current_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
 			</div>
 		</div>
 		#set($step=1)
 		<div class="tab_step" id="show_tab_step_${step}">
 			<div class="jui_tabs">
-				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+				<iframe id="current_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
 			</div>
 		</div>
 		#set($step=2)
 		<div class="tab_step" id="show_tab_step_${step}">
 			<div class="jui_tabs">
-				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+				<iframe id="current_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
 			</div>
 		</div>
 		#set($step=3)
 		<div class="tab_step" id="show_tab_step_${step}">
 			<div class="jui_tabs">
-				<iframe id="actual_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
+				<iframe id="current_jobsurvey_$step" scrolling="no" frameborder="no" style="width: 100%;" src="$util.html.hrefWithAQuery('jobsurvey', "?step=$step&amp;facility=$config.model.facility_choosen.key")">Your browser do not support iframes</iframe>
 			</div>
 		</div>
 	</div>

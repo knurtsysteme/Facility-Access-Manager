@@ -55,7 +55,7 @@
 	FROM booking
 	ORDER BY seton
     </statement>
-    <statement id="Booking.select.actualQueue" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.currentQueue" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
         WHERE cancelation_seton IS NULL

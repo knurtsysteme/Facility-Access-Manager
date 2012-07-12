@@ -41,13 +41,13 @@ public class HtmlAdapterQueueBooking extends HtmlAdapterAbstractBooking<QueueBoo
 	/**
 	 * construct me
 	 * 
-	 * @param actual
+	 * @param current
 	 *            user being authenticated
 	 * @param booking
 	 *            object being adapted
 	 */
-	public HtmlAdapterQueueBooking(User actual, QueueBooking booking) {
-		super(actual, booking);
+	public HtmlAdapterQueueBooking(User current, QueueBooking booking) {
+		super(current, booking);
 		this.booking = booking;
 	}
 
@@ -57,7 +57,7 @@ public class HtmlAdapterQueueBooking extends HtmlAdapterAbstractBooking<QueueBoo
 	 * @return the position in a queue
 	 */
 	public HtmlElement getPositionInQueue() {
-		return HtmlFactory.get("div").add(this.booking.getActualQueuePosition() + 1);
+		return HtmlFactory.get("div").add(this.booking.getCurrentQueuePosition() + 1);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class HtmlAdapterQueueBooking extends HtmlAdapterAbstractBooking<QueueBoo
 		String resultformat = "<span style=\"display:none;\">%s</span>%s";
 		if (this.booking.isCanceled()) {
 			result = String.format(resultformat, 99999999999999l, "Session has been canceled"); // INTLANG
-		} else if (this.booking.getActualQueuePosition() != null && this.booking.getActualQueuePosition() == 0) {
+		} else if (this.booking.getCurrentQueuePosition() != null && this.booking.getCurrentQueuePosition() == 0) {
 			result = String.format(resultformat, 00000000000001l, "<strong>comes next</strong>"); // INTLANG
 		} else if (this.booking.sessionAlreadyBegun() && !this.booking.sessionAlreadyMade()) {
 			result = String.format(resultformat, 00000000000000l, "Session is now"); // INTLANG
@@ -98,9 +98,9 @@ public class HtmlAdapterQueueBooking extends HtmlAdapterAbstractBooking<QueueBoo
 	 */
 
 	public String getBookingStatus() {
-		String result = FamText.statusOfBookingAsText(this.getActualUser(), booking);
+		String result = FamText.statusOfBookingAsText(this.getCurrentUser(), booking);
 		if (!this.booking.isCanceled() && !this.booking.sessionAlreadyMade()) {
-			Integer pos = this.booking.getActualQueuePosition();
+			Integer pos = this.booking.getCurrentQueuePosition();
 			if (pos == 0 || pos == 1) {
 				result = String.format("<p>%s</p><p><strong>comes next</strong></p>", result); // INTLANG
 			} else {

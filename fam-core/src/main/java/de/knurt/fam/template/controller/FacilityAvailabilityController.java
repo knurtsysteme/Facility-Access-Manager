@@ -48,7 +48,7 @@ class FacilityAvailabilityController {
 			if (this.suddenFailureIsActive(facility.getKey())) { // ask for stop
 				// sudden
 				// failure
-				FamDaoProxy.facilityDao().stopActualSuddenFailure(facility, templateResource.getAuthUser());
+				FamDaoProxy.facilityDao().stopCurrentSuddenFailure(facility, templateResource.getAuthUser());
 			} else if (this.isRequest4Delete(templateResource.getRequest())) {
 				FacilityAvailability da = new FacilityAvailability();
 				try {

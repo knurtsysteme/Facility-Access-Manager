@@ -169,7 +169,7 @@ public class HtmlAdapterUser extends FamHtmlAdapter<User> {
 
 	/**
 	 * return a summary of contact details for the user being adapted. this does
-	 * not look at the rights of the actual logged in user. contact details are
+	 * not look at the rights of the current logged in user. contact details are
 	 * name of user, phone numbers and email addresses.
 	 * 
 	 * @return a summary of contact details for the user being adapted.

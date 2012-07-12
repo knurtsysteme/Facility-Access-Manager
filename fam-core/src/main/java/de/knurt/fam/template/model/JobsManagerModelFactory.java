@@ -85,7 +85,7 @@ public class JobsManagerModelFactory {
 				boolean queueBased = facility.getBookingRule().getBookingStrategy() == BookingStrategy.QUEUE_BASED;
 				result.put("is_queue_based", queueBased);
 				// set jobs
-				result.put("bookings", queueBased ? this.getQueueBookingsActualJobs(templateResource, facility) : this.getTimeBookingsActualJobs(templateResource, facility));
+				result.put("bookings", queueBased ? this.getQueueBookingsCurrentJobs(templateResource, facility) : this.getTimeBookingsCurrentJobs(templateResource, facility));
 				// set facilitly
 				result.put("facility", facility);
 				// set if past is requested
@@ -98,7 +98,7 @@ public class JobsManagerModelFactory {
 		return result;
 	}
 
-	private List<TimeBooking> getTimeBookingsActualJobs(TemplateResource templateResource, FacilityBookable bd) {
+	private List<TimeBooking> getTimeBookingsCurrentJobs(TemplateResource templateResource, FacilityBookable bd) {
 		TimeBooking example = TimeBooking.getEmptyExampleBooking();
 		example.setFacilityKey(bd.getKey());
 		List<TimeBooking> timeBookings = new ArrayList<TimeBooking>();
@@ -117,7 +117,7 @@ public class JobsManagerModelFactory {
 		return timeBookings;
 	}
 
-	private List<QueueBooking> getQueueBookingsActualJobs(TemplateResource templateResource, FacilityBookable facility) {
+	private List<QueueBooking> getQueueBookingsCurrentJobs(TemplateResource templateResource, FacilityBookable facility) {
 		List<QueueBooking> queueBookings = null;
 		boolean isRequest4Past = this.isRequest4Past(templateResource);
 		if (isRequest4Past) {
@@ -131,7 +131,7 @@ public class JobsManagerModelFactory {
 				}
 			}
 		} else {
-			queueBookings = FamDaoProxy.bookingDao().getActualQueue(facility);
+			queueBookings = FamDaoProxy.bookingDao().getCurrentQueue(facility);
 		}
 		Collections.sort(queueBookings);
 		if (isRequest4Past) {
