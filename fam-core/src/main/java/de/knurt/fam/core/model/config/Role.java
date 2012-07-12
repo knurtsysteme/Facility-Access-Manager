@@ -23,6 +23,7 @@ import de.knurt.fam.core.content.text.FamText;
 import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.heinzelmann.util.adapter.ViewableObject;
 
 /**
@@ -100,7 +101,7 @@ public class Role implements ViewableObject {
 	 * @return a list of all users having that role
 	 */
 	public List<User> getUsers() {
-		User example = new User();
+		User example = UserFactory.me().blank();
 		example.setRoleId(this.getKey());
 		return FamDaoProxy.userDao().getObjectsLike(example);
 	}

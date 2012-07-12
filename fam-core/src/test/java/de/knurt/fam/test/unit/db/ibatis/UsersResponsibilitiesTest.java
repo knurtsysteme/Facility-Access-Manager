@@ -31,6 +31,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 
@@ -48,8 +49,8 @@ public class UsersResponsibilitiesTest extends FamIBatisTezt {
 	@Test
 	public void getFacilitiesNo() {
 		this.clearDatabase();
-		assertEquals(0, FamDaoProxy.facilityDao().getFacilitiesUserIsResponsibleFor(new User()).size());
-		assertFalse(FamDaoProxy.facilityDao().hasResponsibilityForAFacility(new User()));
+		assertEquals(0, FamDaoProxy.facilityDao().getFacilitiesUserIsResponsibleFor(UserFactory.me().blank()).size());
+		assertFalse(FamDaoProxy.facilityDao().hasResponsibilityForAFacility(UserFactory.me().blank()));
 	}
 
 	@Test

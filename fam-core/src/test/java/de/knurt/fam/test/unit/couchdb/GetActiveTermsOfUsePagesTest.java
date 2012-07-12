@@ -17,6 +17,7 @@ import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.document.SoaActivationDocument;
 import de.knurt.fam.core.model.persist.document.SoaActivationPageDocument;
 import de.knurt.fam.core.model.persist.document.SoaDocument;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.termsofuse.TermsOfUsePage;
 import de.knurt.fam.template.util.TermsOfUseResolver;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
@@ -43,7 +44,7 @@ public class GetActiveTermsOfUsePagesTest {
 		assertTrue(sad.insertOrUpdate());
 		new TermsOfUseResolver(TeztBeanSimpleFactory.getAdmin()).deactivateAgreementsFor(sad);
 
-		User user = new User();
+		User user = UserFactory.me().blank();
 		user.setRoleId("extern");
 		List<TermsOfUsePage> touPages = CouchDBDao4Soa.getInstance().getActiveTermsOfUsePages(user);
 		assertNotNull(touPages);

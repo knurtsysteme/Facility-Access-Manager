@@ -34,6 +34,7 @@ import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.UserMail;
 import de.knurt.fam.core.model.persist.booking.Cancelation;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
@@ -83,7 +84,7 @@ public class EMailTest extends FamIBatisTezt {
 	@Test
 	public void sendMail_adminInitPasswordTest() {
 		this.clearDatabase();
-		User testuser = new User();
+		User testuser = UserFactory.me().blank();
 		testuser.setMail("foo@bar.foo");
 
 		UserMail mail = OutgoingUserMailBox.sendMail_adminInitPassword(testuser, "very_unique_string *yeah*");
@@ -161,7 +162,7 @@ public class EMailTest extends FamIBatisTezt {
 	@Test
 	public void conformity() {
 		this.clearDatabase();
-		User testuser = new User();
+		User testuser = UserFactory.me().blank();
 		testuser.setMail("foo@bar.foo");
 
 		OutgoingUserMailBox.insert_Registration(testuser);
@@ -177,7 +178,7 @@ public class EMailTest extends FamIBatisTezt {
 	@Test
 	public void sendMailNow() {
 		this.clearDatabase();
-		User testuser = new User();
+		User testuser = UserFactory.me().blank();
 		testuser.setMail("foo@bar.foo");
 
 		OutgoingUserMailBox.insert_Registration(testuser);

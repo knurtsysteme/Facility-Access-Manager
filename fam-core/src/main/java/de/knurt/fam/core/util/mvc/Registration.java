@@ -184,7 +184,7 @@ public class Registration {
 	 */
 	public Boolean mailExists() {
 		// XXX use UserFactory here
-		User testuser = new User();
+		User testuser = UserFactory.me().blank();
 		testuser.setMail(this.getMail());
 		Boolean result = false;
 		if (FamDaoProxy.getInstance().getUserDao().userLikeExists(testuser)) {

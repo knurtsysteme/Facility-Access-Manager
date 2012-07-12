@@ -37,6 +37,7 @@ import de.knurt.fam.core.content.text.FamDateFormat;
 import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.Address;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.test.utils.AssertSomehowEquals;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
@@ -62,7 +63,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 
 		assertTrue(u.hasVarifiedActiveAccount());
 
-		User example = new User();
+		User example = UserFactory.me().blank();
 		example.setUsername(u.getUsername());
 		example.setMail(u.getMail());
 
@@ -218,11 +219,11 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 	@Test
 	public void getUser() throws Exception {
 		this.clearDatabase();
-		User exampleuser = new User();
+		User exampleuser = UserFactory.me().blank();
 		exampleuser.setFname("peter");
 		exampleuser.setSname("mueller");
 
-		User testuser1 = new User();
+		User testuser1 = UserFactory.me().blank();
 		testuser1.setFname("peter");
 		testuser1.setSname("mueller");
 		testuser1.setMail("mail_2@la.le");
@@ -240,7 +241,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		assertTrue(users.size() == 1);
 
 		// store 2nd object with same name
-		User testuser2 = new User();
+		User testuser2 = UserFactory.me().blank();
 		testuser2.setFname("peter");
 		testuser2.setSname("mueller");
 		testuser2.setMail("mail_1@la.le");
@@ -279,7 +280,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 	@Test
 	public void insertUser() {
 		this.clearDatabase();
-		User testuser = new User();
+		User testuser = UserFactory.me().blank();
 		List<User> users = FamDaoProxy.userDao().getObjectsLike(testuser);
 		assertTrue(users.size() == 0);
 
@@ -372,7 +373,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 	@Test
 	public void usernameSpecialChars() {
 		this.clearDatabase();
-		User user1 = new User();
+		User user1 = UserFactory.me().blank();
 		user1.setStandardUser();
 		user1.setMail("foo@bar.foos");
 		user1.setFname("Ähr");
@@ -381,7 +382,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		user1.encodePassword();
 		assertEquals("aemuelle", FamDaoProxy.userDao().getUniqueUsername(user1));
 
-		User user2 = new User();
+		User user2 = UserFactory.me().blank();
 		user2.setStandardUser();
 		user2.setMail("foo@bar.foos");
 		user2.setFname("Aχhl");
@@ -390,7 +391,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		user2.encodePassword();
 		assertEquals("ahmueler", FamDaoProxy.userDao().getUniqueUsername(user2));
 
-		User user3 = new User();
+		User user3 = UserFactory.me().blank();
 		user3.setStandardUser();
 		user3.setMail("foo@bar.foos");
 		user3.setFname("ÄÄ");
@@ -400,7 +401,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		assertEquals("aeueueue", FamDaoProxy.userDao().getUniqueUsername(user3));
 
 		// on users without any ascii name, use user's email as username
-		User user4 = new User();
+		User user4 = UserFactory.me().blank();
 		user4.setStandardUser();
 		user4.setMail("foo@bar.foos");
 		user4.setFname("τωχ");
@@ -416,7 +417,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 	@Test
 	public void usernameOnManyUsers() {
 		this.clearDatabase();
-		User daoltman = new User();
+		User daoltman = UserFactory.me().blank();
 		daoltman.setStandardUser();
 		daoltman.setMail("foo@bar.foos");
 		daoltman.setFname("Daniel");
@@ -434,7 +435,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		assertEquals("daoltma1", username);
 
 		// another user has same username
-		User another = new User();
+		User another = UserFactory.me().blank();
 		another.setUsername("daoltman");
 		username = FamDaoProxy.userDao().getUniqueUsername(another);
 		assertEquals("daoltma1", username);
@@ -445,7 +446,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		assertEquals("foo", username);
 
 		// create another user with same name ...
-		User testuser1 = new User();
+		User testuser1 = UserFactory.me().blank();
 		testuser1.setStandardUser();
 		testuser1.setMail("bar@bar.foo");
 		testuser1.setFname("Daniel");
@@ -462,7 +463,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		// create some nother users with equal name
 		int i = 0;
 		while (i < 20) {
-			User kimlee = new User();
+			User kimlee = UserFactory.me().blank();
 			kimlee.setStandardUser();
 			kimlee.setMail(i + "foobar@bar.foo");
 			kimlee.setFname("Kim");
@@ -482,7 +483,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 		}
 
 		// names not set
-		User mrx = new User();
+		User mrx = UserFactory.me().blank();
 		username = FamDaoProxy.userDao().getUniqueUsername(mrx);
 		assertEquals("user", username);
 		this.clearDatabase();
@@ -494,7 +495,7 @@ public class ReadWriteUserTest extends FamIBatisTezt {
 	@Test
 	public void userRole() {
 		this.clearDatabase();
-		User testuser = new User();
+		User testuser = UserFactory.me().blank();
 		assertNull(testuser.getRoleId());
 		assertNull(testuser.getUsedPlattformLang());
 		assertNull(testuser.getRegistration());

@@ -23,6 +23,7 @@ import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.control.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.model.persist.LogbookEntry;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 
 /**
@@ -100,8 +101,7 @@ public abstract class LogbookEntryDao extends AbstractFamDao<LogbookEntry> {
 		if (this.isEmpty(this.message) == false) {
 			result = true;
 		} else { // special validations
-			// XXX use UserFactory here
-			User example = new User();
+			User example = UserFactory.me().blank();
 			example.setUsername(entry.getOfUserName());
 			if (FamDaoProxy.getInstance().getUserDao().userLikeExists(example) == false) {
 				this.message = "username of entry must exist";

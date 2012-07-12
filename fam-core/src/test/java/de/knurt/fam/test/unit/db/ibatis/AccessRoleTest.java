@@ -28,6 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 
@@ -59,7 +60,7 @@ public class AccessRoleTest extends FamIBatisTezt {
      */
 	@Test
 	public void getEncoder() {
-		User user = new User();
+		User user = UserFactory.me().blank();
 		user.setUsername("daoltman");
 		assertEquals("admin", RoleConfigDao.getInstance().getRoleId(user));
 		user.setUsername("not_daoltman");

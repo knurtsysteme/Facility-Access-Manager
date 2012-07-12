@@ -32,6 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mvc.Login;
 import de.knurt.fam.core.util.mvc.Registration;
 import de.knurt.fam.test.utils.FamIBatisTezt;
@@ -147,7 +148,7 @@ public class UserAuthTest extends FamIBatisTezt {
 		peter.setCleanPassword(petersRawPass);
 		assertEquals(true, peter.isAuth());
 
-		User pwthief = new User();
+		User pwthief = UserFactory.me().blank();
 		assertEquals(false, pwthief.isAuth());
 		pwthief.setPassword(petersRawPass);
 		pwthief.setUsername(peter.getUsername());
@@ -165,7 +166,7 @@ public class UserAuthTest extends FamIBatisTezt {
 		FamDaoProxy.getInstance().getUserDao().insert(peter);
 		peter.setCleanPassword(petersRawPass);
 		assertTrue(peter.isAuth());
-		
+
 		Calendar expiring = Calendar.getInstance();
 		expiring.add(Calendar.YEAR, 1);
 		peter.setAccountExpires(expiring.getTime());
@@ -181,7 +182,7 @@ public class UserAuthTest extends FamIBatisTezt {
 		peter.setCleanPassword(petersRawPass);
 		assertFalse(peter.isAuth());
 	}
-	
+
 	/**
      *
      */

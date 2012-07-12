@@ -25,6 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 /**
  *
  * @author Daniel Oltmanns <info@knurt.de>
@@ -42,7 +43,7 @@ public class UserTest {
 
     @Test
     public void getBirthdateFormValue() {
-        User user = new User();
+        User user = UserFactory.me().blank();
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 11);
         c.set(Calendar.MONTH, 3);

@@ -79,7 +79,7 @@ public class UserTest {
      */
 	@Test
 	public void fullname() {
-		User test = new User();
+		User test = UserFactory.me().blank();
 		test.setFname("Peter");
 		test.setSname("Schneider");
 		assertEquals("Peter Schneider", test.getFullName());

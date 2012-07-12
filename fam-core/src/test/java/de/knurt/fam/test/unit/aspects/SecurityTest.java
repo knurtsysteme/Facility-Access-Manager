@@ -33,6 +33,7 @@ import de.knurt.fam.core.aspects.security.encoder.FamUserPassEncoderControl;
 import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.test.utils.AssertSomehowEquals;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
@@ -50,7 +51,7 @@ public class SecurityTest extends FamIBatisTezt {
      */
 	@Test
 	public void getEncoder() {
-		User user = new User();
+		User user = UserFactory.me().blank();
 		String teststring = "abc";
 		user.setPassword(teststring);
 		user.setMail("da@da.da");
@@ -120,7 +121,7 @@ public class SecurityTest extends FamIBatisTezt {
       */
 	@Test
 	public void encoded() {
-		User user = new User();
+		User user = UserFactory.me().blank();
 		user.setPassword("a");
 		user.encodePassword();
 		assertTrue(user.isPasswordEncoded());
@@ -131,7 +132,7 @@ public class SecurityTest extends FamIBatisTezt {
       */
 	@Test
 	public void getTmpEncrypter() {
-		User user = new User();
+		User user = UserFactory.me().blank();
 		String teststring = "abc";
 		user.setUsername(teststring);
 		String enc = FamTmpAccessEncoderControl.getInstance().encodePassword(user);
@@ -147,7 +148,7 @@ public class SecurityTest extends FamIBatisTezt {
       */
 	@Test
 	public void isSecure() {
-		User user = new User();
+		User user = UserFactory.me().blank();
 		String teststring = "abc";
 		user.setUsername(teststring);
 		String enc = FamTmpAccessEncoderControl.getInstance().encodePassword(user);
@@ -213,7 +214,7 @@ public class SecurityTest extends FamIBatisTezt {
       */
 	@Test
 	public void setUsersRights() {
-		User u = new User();
+		User u = UserFactory.me().blank();
 		u.setRoleId("not a valid right");
 		assertNull(u.getRoleId());
 	}

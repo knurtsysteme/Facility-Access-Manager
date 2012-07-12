@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.control.persistence.dao.UserDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 
 /**
  * controller for ajax request to get username. print json with the key
@@ -45,8 +46,7 @@ public class RegisterGetUsernameController extends JSONController {
 
 	private String getUsernameFromRequest(HttpServletRequest rq) {
 		String supposedUsername = rq.getParameter("supposedUsername");
-		// XXX use UserFactory here
-		User example = new User();
+		User example = UserFactory.me().blank();
 		example.setUsername(supposedUsername);
 		example.setUniqueUsernameForInsertion();
 		return example.getUsername();

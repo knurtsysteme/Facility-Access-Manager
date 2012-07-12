@@ -30,6 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.knurt.fam.core.model.persist.Address;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mvc.validator.InvalidRoleIdException;
 import de.knurt.fam.core.util.mvc.validator.MandatoryUserFieldValidator;
 
@@ -62,9 +63,9 @@ public class MandatoryUserFieldValidatorTest {
 	 */
 	@Test
 	public void testConfiguration() {
-		User extern = new User();
+		User extern = UserFactory.me().blank();
 		extern.setRoleId("extern");
-		User intern = new User();
+		User intern = UserFactory.me().blank();
 		intern.setRoleId("intern");
 
 		MandatoryUserFieldValidator mufv = MandatoryUserFieldValidator.getInstance();
@@ -129,7 +130,7 @@ public class MandatoryUserFieldValidatorTest {
 
 	@Test
 	public void testSufficient() {
-		User user = new User();
+		User user = UserFactory.me().blank();
 		assertNull(user.getFname());
 		user.setRoleId("extern");
 		assertEquals("extern", user.getRoleId());

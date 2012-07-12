@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import de.knurt.fam.core.aspects.security.encoder.FamCookiePassEncoderControl;
 import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.template.model.TemplateResource;
 import de.knurt.heinzelmann.util.CookieUtils;
 import de.knurt.heinzelmann.util.query.QueryStringFactory;
@@ -133,8 +134,7 @@ public class CookieResolver {
 				// set
 				// in
 				// cookie
-				// XXX use UserFactory here
-				User candidate = new User();
+				User candidate = UserFactory.me().blank();
 				candidate.setUsername(username);
 				found = FamDaoProxy.getInstance().getUserDao().getOneLike(candidate);
 				// check, if found cookie-user is auth

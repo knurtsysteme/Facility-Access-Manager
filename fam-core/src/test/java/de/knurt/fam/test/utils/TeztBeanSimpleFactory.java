@@ -105,7 +105,7 @@ public class TeztBeanSimpleFactory {
 	 * @return
 	 */
 	public static User getNewUniqueValidUser(String salt) {
-		User user = new User();
+		User user = UserFactory.me().blank();
 		user.setMail(getRandomString());
 		user.setFname(getRandomString());
 		user.setSname(getRandomString());

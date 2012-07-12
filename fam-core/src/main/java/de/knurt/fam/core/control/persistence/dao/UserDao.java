@@ -226,7 +226,7 @@ public abstract class UserDao extends AbstractFamDao<User> {
 			FamLog.debug("users password is null " + user.getUsername(), 201011120953l);
 		}
 		if (result == false && onInsert) {
-			User testuser = new User();
+			User testuser = UserFactory.me().blank();
 			testuser.setMail(user.getMail());
 			if (this.userLikeExists(testuser, user)) {
 				result = true;
