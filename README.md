@@ -377,6 +377,10 @@ Update Instructions
 
 <a name="z-a"/>
 ### 1.8.1 → 1.8.2
+- backup couchdb and template files first
+- download full version
+- replace template-folders (but custom)
+- diff your custom files with new template files. there are changes caused by #24
+- push new design document by executing ```migrate_couchdb.sh```
 - reinstall fam-core.war
-- push as.json
 -->
