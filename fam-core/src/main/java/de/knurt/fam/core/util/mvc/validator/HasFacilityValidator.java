@@ -17,7 +17,7 @@ package de.knurt.fam.core.util.mvc.validator;
 
 import org.springframework.validation.Errors;
 
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.mvc.QueryKeys;
 
 /**

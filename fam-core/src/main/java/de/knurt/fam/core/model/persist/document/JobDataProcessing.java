@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.booking.JobDataProcessingVelocityParser;
 import de.knurt.heinzelmann.util.shopping.Purchasable;
 

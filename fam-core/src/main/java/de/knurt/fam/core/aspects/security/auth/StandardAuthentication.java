@@ -17,9 +17,9 @@ package de.knurt.fam.core.aspects.security.auth;
 
 import java.util.List;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.UserDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.UserDao;
 import de.knurt.heinzelmann.util.auth.Authenticatable;
 import de.knurt.heinzelmann.util.auth.UserAuthentication;
 

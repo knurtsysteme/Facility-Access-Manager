@@ -18,10 +18,10 @@ package de.knurt.fam.core.model.config;
 import java.util.Calendar;
 import java.util.List;
 
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.booking.CurrentFacilityStatus;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.heinzelmann.util.adapter.ViewableObject;
 import de.knurt.heinzelmann.util.time.SimpleTimeFrame;
 

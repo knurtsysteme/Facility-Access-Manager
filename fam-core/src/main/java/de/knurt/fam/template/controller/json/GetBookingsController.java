@@ -26,13 +26,13 @@ import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.content.adapter.json.JSONAdapterBooking;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.UserDao;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.UserDao;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
+import de.knurt.fam.core.view.adapter.json.JSONAdapterBooking;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 
 /**

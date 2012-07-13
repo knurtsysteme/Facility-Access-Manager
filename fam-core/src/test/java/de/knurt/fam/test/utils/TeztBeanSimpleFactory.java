@@ -12,8 +12,6 @@ import java.util.Random;
 
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
-import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.FacilityBookable;
@@ -26,6 +24,8 @@ import de.knurt.fam.core.model.persist.booking.Cancelation;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
 import de.knurt.fam.core.model.persist.document.JobDataProcessing;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.booking.TimeBookingRequest;
 

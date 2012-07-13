@@ -22,11 +22,11 @@ import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
-import de.knurt.fam.core.control.persistence.dao.FacilityDao;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.booking.Cancelation;
+import de.knurt.fam.core.persistence.dao.FacilityDao;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.heinzelmann.util.adapter.ComparableInDifferentWays;
 import de.knurt.heinzelmann.util.adapter.ViewableObject;
 import de.knurt.heinzelmann.util.query.Identificable;

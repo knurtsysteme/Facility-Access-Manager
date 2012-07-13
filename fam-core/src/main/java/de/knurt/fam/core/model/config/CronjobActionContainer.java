@@ -25,7 +25,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Required;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 
 /**
  * delegate a {@link CronjobAction} to its {@link CronjobActionResolver}.

@@ -18,10 +18,10 @@ package de.knurt.fam.core.util.booking;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 
 /**
  * booking requests may have one or more conflicts. (like two people booked the

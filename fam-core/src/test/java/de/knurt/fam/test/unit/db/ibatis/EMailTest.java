@@ -28,14 +28,14 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.UserMail;
 import de.knurt.fam.core.model.persist.booking.Cancelation;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 

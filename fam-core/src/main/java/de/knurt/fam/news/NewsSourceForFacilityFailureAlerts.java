@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.mvc.QueryStringBuilder;
 import de.knurt.fam.template.util.TemplateHtml;
 import de.knurt.heinzelmann.util.time.TimeFrame;

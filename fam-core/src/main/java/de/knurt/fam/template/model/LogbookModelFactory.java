@@ -20,14 +20,14 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
-import de.knurt.fam.core.content.html.LogbookEntriesTrHtml;
-import de.knurt.fam.core.content.html.LogbookOverviewTrHtml;
-import de.knurt.fam.core.control.persistence.dao.LogbookEntryDao;
-import de.knurt.fam.core.control.persistence.dao.config.LogbookConfigDao;
+import de.knurt.fam.core.persistence.dao.LogbookEntryDao;
+import de.knurt.fam.core.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.util.mvc.QueryKeys;
 import de.knurt.fam.core.util.mvc.QueryStringBuilder;
 import de.knurt.fam.core.util.mvc.RedirectResolver;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
+import de.knurt.fam.core.view.html.LogbookEntriesTrHtml;
+import de.knurt.fam.core.view.html.LogbookOverviewTrHtml;
 import de.knurt.heinzelmann.util.query.QueryString;
 
 /**

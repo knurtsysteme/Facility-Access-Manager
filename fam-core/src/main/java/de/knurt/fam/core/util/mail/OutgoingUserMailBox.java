@@ -24,11 +24,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.encoder.FamTmpAccessEncoderControl;
-import de.knurt.fam.core.content.text.FamDateFormat;
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.UserDao;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.UserMail;
@@ -36,8 +31,13 @@ import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.Cancelation;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.UserDao;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.mvc.QueryStringBuilder;
 import de.knurt.fam.core.util.mvc.RedirectResolver;
+import de.knurt.fam.core.view.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.fam.template.util.TemplateHtml;
 
 /**

@@ -18,9 +18,9 @@ package de.knurt.fam.template.model;
 import java.util.Properties;
 
 import de.knurt.fam.core.control.boardunits.JobSurveyFromJobs;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 import de.knurt.heinzelmann.util.text.DurationAdapter;
 import de.knurt.heinzelmann.util.text.DurationAdapter.SupportedLanguage;

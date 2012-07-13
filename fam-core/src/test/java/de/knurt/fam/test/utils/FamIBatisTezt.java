@@ -26,7 +26,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.ibatis.FamSqlMapClientDaoSupport;
+import de.knurt.fam.core.persistence.dao.ibatis.FamSqlMapClientDaoSupport;
 
 /**
  * test the system as it is configured with a relative database using ibatis.

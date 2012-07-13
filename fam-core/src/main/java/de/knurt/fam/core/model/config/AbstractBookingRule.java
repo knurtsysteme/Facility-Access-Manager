@@ -20,8 +20,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Required;
 
-import de.knurt.fam.core.content.text.FamText;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.view.text.FamText;
 
 /**
  * a rule for booking a facility is defined here. every bookable facility has at

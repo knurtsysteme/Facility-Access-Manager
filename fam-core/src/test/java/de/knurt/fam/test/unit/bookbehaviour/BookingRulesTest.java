@@ -24,12 +24,12 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.config.SetOfRulesForARole;
 import de.knurt.fam.core.model.config.TimeBasedBookingRule;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;

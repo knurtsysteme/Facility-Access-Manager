@@ -15,8 +15,8 @@
  */
 package de.knurt.fam.template.util;
 
-import de.knurt.fam.core.content.adapter.html.FamHtmlAdapter;
 import de.knurt.fam.core.model.persist.Address;
+import de.knurt.fam.core.view.adapter.html.FamHtmlAdapter;
 import de.knurt.heinzelmann.ui.html.HtmlElement;
 import de.knurt.heinzelmann.ui.html.HtmlFactory;
 

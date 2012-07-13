@@ -18,14 +18,14 @@ package de.knurt.fam.core.util.booking;
 import java.util.Calendar;
 import java.util.List;
 
-import de.knurt.fam.core.control.persistence.dao.FacilityDao;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.BookingStrategy;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.FacilityDao;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.time.FacilityAvailabilityMerger;
 import de.knurt.heinzelmann.util.time.SimpleTimeFrame;
 import de.knurt.heinzelmann.util.time.TimeFrame;

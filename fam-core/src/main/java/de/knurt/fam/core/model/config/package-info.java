@@ -21,7 +21,7 @@
  *
  * by now, all of these objects are not storable and must be accessed with
  * a configuration dao.
- * @see "de.knurt.fam.core.control.persistence.dao.config"
+ * @see "de.knurt.fam.core.persistence.dao.config"
  * @since 0.20090410
  */
 package de.knurt.fam.core.model.config;

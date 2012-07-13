@@ -21,7 +21,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.knurt.fam.core.content.text.AccessGlobalTemplate;
+import de.knurt.fam.core.view.text.AccessGlobalTemplate;
 
 public class AccessTemplateTest {
 

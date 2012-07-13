@@ -21,11 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.Cancelation;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mvc.QueryKeys;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 

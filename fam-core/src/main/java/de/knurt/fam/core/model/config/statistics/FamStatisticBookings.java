@@ -20,11 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.template.model.TemplateResource;
 import de.knurt.heinzelmann.util.query.QueryString;
 

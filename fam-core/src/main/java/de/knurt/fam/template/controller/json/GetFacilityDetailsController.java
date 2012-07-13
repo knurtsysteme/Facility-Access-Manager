@@ -26,8 +26,6 @@ import org.json.JSONObject;
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.FamAuth;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.BookingStrategy;
 import de.knurt.fam.core.model.config.Facility;
@@ -35,6 +33,8 @@ import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.config.UsersUnitsQueueBasedBookingRule;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.heinzelmann.util.nebc.bu.JSONObjectFromRequest;
 
 /**

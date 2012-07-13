@@ -20,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.content.text.AccessGlobalTemplate;
+import de.knurt.fam.core.view.text.AccessGlobalTemplate;
 import de.knurt.heinzelmann.util.nebc.BoardUnit;
 
 /**

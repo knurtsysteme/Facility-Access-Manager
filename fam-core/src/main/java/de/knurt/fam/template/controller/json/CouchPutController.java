@@ -28,8 +28,8 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 
 /**
  * get <code>body</code> as parameter from request and post it without any

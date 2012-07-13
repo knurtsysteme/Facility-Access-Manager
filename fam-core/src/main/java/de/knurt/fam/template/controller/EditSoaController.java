@@ -27,11 +27,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import de.knurt.fam.connector.RedirectTarget;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.document.SoaActivationDocument;
 import de.knurt.fam.core.model.persist.document.SoaDocument;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.util.mvc.RedirectResolver;
 import de.knurt.fam.template.util.TermsOfUseResolver;
 import de.knurt.heinzelmann.util.query.QueryString;

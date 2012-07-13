@@ -31,7 +31,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.config.UsersUnitsQueueBasedBookingRule;
@@ -39,6 +38,7 @@ import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.BookingStatus;
 import de.knurt.fam.core.model.persist.booking.Cancelation;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 import de.knurt.heinzelmann.util.time.TimeFrame;

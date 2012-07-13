@@ -17,8 +17,8 @@ package de.knurt.fam.core.model.persist.booking;
 
 import java.util.Date;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 
 /**
  * Container for cancelations.

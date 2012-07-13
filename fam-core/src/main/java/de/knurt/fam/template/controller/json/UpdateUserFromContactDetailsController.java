@@ -27,10 +27,10 @@ import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.Address;
 import de.knurt.fam.core.model.persist.ContactDetail;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 import de.knurt.fam.template.util.ContactDetailsRequestHandler;

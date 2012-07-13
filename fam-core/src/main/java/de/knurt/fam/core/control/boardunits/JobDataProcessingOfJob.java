@@ -14,9 +14,9 @@
  * limitations under the License.
  */package de.knurt.fam.core.control.boardunits;
 
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.persist.document.Job;
 import de.knurt.fam.core.model.persist.document.JobDataProcessing;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.heinzelmann.util.nebc.BoardUnit;
 
 /**

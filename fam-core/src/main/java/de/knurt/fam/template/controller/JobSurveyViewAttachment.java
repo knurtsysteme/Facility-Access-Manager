@@ -20,9 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jcouchdb.document.Attachment;
 
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.document.Job;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 
 /**
  * response with a download of a job survey attachment

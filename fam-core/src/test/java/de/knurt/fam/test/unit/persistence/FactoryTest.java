@@ -27,10 +27,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.UserDao;
-import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
-import de.knurt.fam.core.control.persistence.dao.ibatis.UserDao4ibatis;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.UserDao;
+import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
+import de.knurt.fam.core.persistence.dao.ibatis.UserDao4ibatis;
 
 /**
  * 

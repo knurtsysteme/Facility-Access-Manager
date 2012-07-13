@@ -22,14 +22,14 @@ import java.util.List;
 import java.util.Properties;
 
 import de.knurt.fam.connector.RedirectTarget;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.BookingStrategy;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.mvc.QueryStringBuilder;
 import de.knurt.fam.core.util.mvc.RedirectResolver;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;

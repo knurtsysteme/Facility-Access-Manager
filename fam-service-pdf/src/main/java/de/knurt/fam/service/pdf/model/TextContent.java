@@ -52,7 +52,7 @@ public class TextContent {
 	/**
 	 * set the page number options are for
 	 * 
-	 * @param pagenumber
+	 * @param pageNumber
 	 *            options are for
 	 */
 	public void setPageNumber(int pageNumber) {
@@ -159,8 +159,8 @@ public class TextContent {
 	}
 
 	/**
-	 * return the absolute line-height to use with this text.
-	 * set <code>line-height</code> for this.
+	 * return the absolute line-height to use with this text. set
+	 * <code>line-height</code> for this.
 	 */
 	public float getLeading() {
 		float result = this.getFontSize() * 1.2f;

@@ -4,7 +4,7 @@
 
 <sqlMap namespace="Booking">
 
-    <parameterMap id="Booking.insert.param" class="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterParameter">
+    <parameterMap id="Booking.insert.param" class="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterParameter">
         <parameter property="username"/>
         <parameter property="seton"/>
         <parameter property="status_id"/>
@@ -27,7 +27,7 @@
 	    SELECT @@IDENTITY AS ID
         </selectKey>
     </insert>
-    <parameterMap id="Booking.update.param" class="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterParameter">
+    <parameterMap id="Booking.update.param" class="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterParameter">
         <parameter property="username"/>
         <parameter property="seton"/>
         <parameter property="status_id"/>
@@ -50,12 +50,12 @@
 	SET username = ?, seton = ?, status_id = ?, last_invoiced = ?, status_seton = ?, facilityKey = ?, capacityUnits = ?, time_end = ?, time_start = ?, cancelation_username = ?, cancelation_reason = ?, cancelation_seton = ?, notice = ?, idBookedInBookingStrategy = ?, processed = ?
 	WHERE id = ?
     </update>
-    <statement id="Booking.select.all" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.all" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
 	ORDER BY seton
     </statement>
-    <statement id="Booking.select.currentQueue" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.currentQueue" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
         WHERE cancelation_seton IS NULL
@@ -67,7 +67,7 @@
         DELETE FROM booking
 		WHERE id = #id#
     </delete>
-    <statement id="Booking.select.uncanceledFutureTimeBookingsAndApplicationsOf" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.uncanceledFutureTimeBookingsAndApplicationsOf" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
         WHERE cancelation_seton IS NULL
@@ -75,25 +75,25 @@
         AND time_end IS NOT NULL
 	ORDER BY seton
     </statement>
-    <statement id="Booking.select.sqlwhere" parameterClass="java.lang.String" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.sqlwhere" parameterClass="java.lang.String" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 		SELECT *
 		FROM booking
 		WHERE $value$
     </statement>
     
-    <statement id="Booking.select.allUncanceled" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.allUncanceled" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
         WHERE cancelation_seton IS NULL
 	ORDER BY seton
     </statement>
-    <statement id="Booking.select.allFromUser" parameterClass="de.knurt.fam.core.model.persist.User" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.allFromUser" parameterClass="de.knurt.fam.core.model.persist.User" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
         WHERE username = #username#
 	ORDER BY seton
     </statement>
-    <statement id="Booking.select.uncanceledTimeBookingsAndApplicationsOf" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.uncanceledTimeBookingsAndApplicationsOf" parameterClass="de.knurt.fam.core.model.config.FacilityBookable" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
         WHERE cancelation_seton IS NULL
@@ -101,7 +101,7 @@
 	ORDER BY seton
     </statement>
 
-    <statement id="Booking.select.where" parameterClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterParameter" resultClass="de.knurt.fam.core.control.persistence.dao.ibatis.BookingAdapterResult">
+    <statement id="Booking.select.where" parameterClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterParameter" resultClass="de.knurt.fam.core.persistence.dao.ibatis.BookingAdapterResult">
 	SELECT *
 	FROM booking
         <dynamic prepend="WHERE">

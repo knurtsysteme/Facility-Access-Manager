@@ -19,12 +19,12 @@ import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Required;
 
-import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.model.config.BookingStrategy;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.config.TimeBasedBookingRule;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.util.time.FamCalendar;
 import de.knurt.heinzelmann.util.auth.UserAuthentication;
 

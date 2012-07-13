@@ -15,8 +15,8 @@
  */
 package de.knurt.fam.core.model.config;
 
-import de.knurt.fam.core.control.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.model.persist.LogbookEntry;
+import de.knurt.fam.core.persistence.dao.config.LogbookConfigDao;
 
 /**
  * a logbook. please make sure, this does not contain any language specific

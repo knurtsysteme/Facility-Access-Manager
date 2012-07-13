@@ -17,12 +17,12 @@ package de.knurt.fam.core.util.mvc;
 
 import java.util.Calendar;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
-import de.knurt.fam.core.control.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.model.config.Role;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.util.booking.TimeBookingRequest;
 import de.knurt.heinzelmann.util.time.AbstractTimeFrame;
 

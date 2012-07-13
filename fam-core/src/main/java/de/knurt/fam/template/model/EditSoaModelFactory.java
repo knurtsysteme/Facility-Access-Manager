@@ -17,10 +17,10 @@ package de.knurt.fam.template.model;
 
 import java.util.Properties;
 
-import de.knurt.fam.core.content.html.factory.FamSubmitButtonFactory;
-import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.model.config.Role;
+import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Soa;
+import de.knurt.fam.core.view.html.factory.FamSubmitButtonFactory;
 import de.knurt.heinzelmann.ui.html.HtmlElement;
 import de.knurt.heinzelmann.ui.html.HtmlFactory;
 import de.knurt.heinzelmann.util.query.QueryString;

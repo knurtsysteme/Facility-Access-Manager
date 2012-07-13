@@ -19,12 +19,12 @@ import java.util.Date;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.BookingStrategy;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 

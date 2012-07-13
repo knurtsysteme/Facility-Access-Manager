@@ -21,12 +21,12 @@ import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import de.knurt.fam.core.content.text.FamDateFormat;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.util.mvc.QueryStringBuilder;
 import de.knurt.fam.core.util.time.CalendarUtil;
+import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.fam.template.util.TemplateHtml;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 

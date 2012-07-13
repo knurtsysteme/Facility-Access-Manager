@@ -19,8 +19,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
 
 /**

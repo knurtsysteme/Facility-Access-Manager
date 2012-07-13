@@ -28,10 +28,10 @@ import org.json.JSONObject;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
 import de.knurt.heinzelmann.util.query.HttpServletRequestConverter;

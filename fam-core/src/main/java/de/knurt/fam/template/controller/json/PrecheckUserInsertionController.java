@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.heinzelmann.util.query.HttpServletRequestConverter;
 
 /**

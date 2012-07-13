@@ -27,10 +27,10 @@ import org.json.JSONObject;
 
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.content.text.AccessGlobalTemplate;
-import de.knurt.fam.core.content.text.FamDateFormat;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.view.text.AccessGlobalTemplate;
+import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.heinzelmann.util.nebc.BoardUnit;
 
 /**

@@ -19,11 +19,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Required;
 
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.util.UserFactory;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.heinzelmann.util.adapter.ViewableObject;
 
 /**

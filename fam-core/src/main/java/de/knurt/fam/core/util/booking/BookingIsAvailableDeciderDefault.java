@@ -19,10 +19,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import de.knurt.fam.core.aspects.security.auth.FamAuth;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 
 /**

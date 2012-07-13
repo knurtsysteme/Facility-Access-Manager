@@ -34,7 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.content.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.fam.template.util.TemplateHtml;
 import de.knurt.fam.test.web.MolybdenumAction;
 import de.knurt.fam.test.web.MolybdenumAssert;

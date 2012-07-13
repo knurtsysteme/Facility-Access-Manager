@@ -20,12 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.content.text.FamDateFormat;
-import de.knurt.fam.core.control.persistence.cookie.CookieResolver;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.config.FileUploadController;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.cookie.CookieResolver;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
+import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.fam.template.util.TemplateConfig;
 import de.knurt.heinzelmann.util.CookieUtils;
 

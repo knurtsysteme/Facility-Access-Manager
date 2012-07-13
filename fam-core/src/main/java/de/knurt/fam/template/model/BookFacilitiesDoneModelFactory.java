@@ -18,8 +18,8 @@ package de.knurt.fam.template.model;
 import java.util.Properties;
 
 import de.knurt.fam.connector.RedirectTarget;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mvc.RedirectResolver;
 
 /**

@@ -380,7 +380,9 @@ Update Instructions
 - backup couchdb and template files first
 - download full version
 - replace template-folders (but custom)
-- diff your custom files with new template files. there are changes caused by #24
+- diff your custom files with new template files. 
+  - there are changes caused by #24
+  - package ```de.knurt.fam.core.control.persistence``` moved to ```de.knurt.fam.core.persistence```
 - push new design document by executing ```migrate_couchdb.sh```
 - reinstall fam-core.war
 -->

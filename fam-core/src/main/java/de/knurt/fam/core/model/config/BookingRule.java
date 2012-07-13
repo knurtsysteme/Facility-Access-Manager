@@ -18,8 +18,8 @@ package de.knurt.fam.core.model.config;
 import java.util.List;
 import java.util.Map;
 
-import de.knurt.fam.core.content.html.factory.FamFormFactory;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.view.html.factory.FamFormFactory;
 
 /**
  * rules for booking a facility

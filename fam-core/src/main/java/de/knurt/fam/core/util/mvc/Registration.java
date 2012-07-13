@@ -19,11 +19,11 @@ import java.util.Date;
 
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.KnownDepartmentConfigDao;
 import de.knurt.fam.core.model.config.Department;
 import de.knurt.fam.core.model.persist.Address;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.KnownDepartmentConfigDao;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.template.util.ContactDetailsRequestHandler;
 

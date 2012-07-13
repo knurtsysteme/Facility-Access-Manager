@@ -22,14 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.velocity.VelocityContext;
 
-import de.knurt.fam.core.content.html.factory.FamSubmitButtonFactory;
-import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.VelocityContextFactory;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 import de.knurt.fam.core.util.termsofuse.TermsOfUsePage;
+import de.knurt.fam.core.view.html.factory.FamSubmitButtonFactory;
 import de.knurt.fam.template.util.TermsOfUseResolver;
 import de.knurt.heinzelmann.ui.html.HtmlElement;
 import de.knurt.heinzelmann.util.query.QueryString;

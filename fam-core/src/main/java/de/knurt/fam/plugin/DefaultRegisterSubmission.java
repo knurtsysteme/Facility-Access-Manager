@@ -22,8 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import de.knurt.fam.connector.RedirectTarget;
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
 import de.knurt.fam.core.util.mvc.RedirectResolver;
 import de.knurt.fam.core.util.mvc.Registration;

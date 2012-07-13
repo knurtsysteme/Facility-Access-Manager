@@ -19,13 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import de.knurt.fam.core.content.html.factory.FamFormFactory;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.mvc.QueryKeys;
 import de.knurt.fam.core.util.mvc.QueryStringBuilder;
+import de.knurt.fam.core.view.html.factory.FamFormFactory;
 import de.knurt.heinzelmann.ui.html.HtmlElement;
 import de.knurt.heinzelmann.ui.html.HtmlFactory;
 import de.knurt.heinzelmann.util.query.QueryString;

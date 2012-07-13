@@ -16,7 +16,7 @@ import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Response;
 
 import de.knurt.fam.connector.FamConnector;
-import de.knurt.fam.core.content.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamDateFormat;
 
 public class PrepareDatabase {
 	private String url = null;

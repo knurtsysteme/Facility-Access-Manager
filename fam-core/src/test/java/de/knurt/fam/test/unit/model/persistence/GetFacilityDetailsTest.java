@@ -31,10 +31,10 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.template.controller.json.GetFacilityDetailsController;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 

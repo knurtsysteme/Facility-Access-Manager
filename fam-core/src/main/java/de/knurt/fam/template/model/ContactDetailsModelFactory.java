@@ -18,13 +18,13 @@ package de.knurt.fam.template.model;
 import java.util.List;
 import java.util.Properties;
 
-import de.knurt.fam.core.content.html.factory.FamSubmitButtonFactory;
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.KnownDepartmentConfigDao;
 import de.knurt.fam.core.model.persist.Address;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.KnownDepartmentConfigDao;
 import de.knurt.fam.core.util.UserFactory;
+import de.knurt.fam.core.view.html.factory.FamSubmitButtonFactory;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.fam.template.util.ContactDetailsRequestHandler;
 import de.knurt.fam.template.util.TemplateHtml;
 import de.knurt.heinzelmann.ui.html.HtmlElement;

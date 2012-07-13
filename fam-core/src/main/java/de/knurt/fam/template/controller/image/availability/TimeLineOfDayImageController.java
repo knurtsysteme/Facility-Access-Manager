@@ -24,7 +24,7 @@ import java.awt.Graphics2D;
 
 import de.knurt.fam.core.config.style.FamColors;
 import de.knurt.fam.core.config.style.FamFonts;
-import de.knurt.fam.core.content.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamDateFormat;
 
 /**
  * image for label the vertical col with a time line.

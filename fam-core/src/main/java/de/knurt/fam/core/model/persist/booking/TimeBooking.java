@@ -22,17 +22,17 @@ import java.util.List;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import de.knurt.fam.core.aspects.security.auth.FamAuth;
-import de.knurt.fam.core.content.text.FamDateFormat;
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.booking.ApplicationConflicts;
 import de.knurt.fam.core.util.booking.BookingIsAvailableDeciderProxy;
 import de.knurt.fam.core.util.booking.TimeBookingRequest;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
+import de.knurt.fam.core.view.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.heinzelmann.util.time.SimpleTimeFrame;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 

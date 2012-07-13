@@ -15,7 +15,7 @@
  */
 package de.knurt.fam.core.model.persist.document;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 
 /**
  * soa (or "terms of agreement") pojo

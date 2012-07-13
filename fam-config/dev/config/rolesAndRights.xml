@@ -30,7 +30,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
   </bean>
 
   <!-- set active roles and standards -->
-  <bean id="roleAccess" name="roleAccess" class="de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao" factory-method="getInstance">
+  <bean id="roleAccess" name="roleAccess" class="de.knurt.fam.core.persistence.dao.config.RoleConfigDao" factory-method="getInstance">
     <!--  role of the user if nothing else can be suggested -->
     <property name="standardId" value="extern" />
     <!--  roles of admin -->
@@ -69,7 +69,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
   </bean>
 
   <!--  departments being active -->
-  <bean id="bean201008201229" class="de.knurt.fam.core.control.persistence.dao.config.KnownDepartmentConfigDao" factory-method="getInstance">
+  <bean id="bean201008201229" class="de.knurt.fam.core.persistence.dao.config.KnownDepartmentConfigDao" factory-method="getInstance">
     <constructor-arg>
       <list> <!-- ArrayList<Department> -->
         <ref bean="ps_pr" />

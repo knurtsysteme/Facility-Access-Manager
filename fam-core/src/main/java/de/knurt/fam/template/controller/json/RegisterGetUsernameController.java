@@ -24,8 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.UserDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.UserDao;
 import de.knurt.fam.core.util.UserFactory;
 
 /**

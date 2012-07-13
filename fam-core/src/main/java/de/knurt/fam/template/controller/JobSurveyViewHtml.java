@@ -18,13 +18,13 @@ package de.knurt.fam.template.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.document.Job;
 import de.knurt.fam.core.model.persist.document.JobDataProcessing;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Jobs;
 
 /**
  * a html view for job surveys of a specific step and for a specific facility.

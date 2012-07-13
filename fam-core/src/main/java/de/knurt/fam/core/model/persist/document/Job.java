@@ -21,9 +21,9 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.bu.File2Attachment;
 import de.knurt.heinzelmann.util.nebc.bu.JSONObject2Map;
 import de.knurt.heinzelmann.util.validation.AssertOrException;

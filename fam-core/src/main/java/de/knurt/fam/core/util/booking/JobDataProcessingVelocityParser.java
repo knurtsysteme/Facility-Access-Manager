@@ -26,13 +26,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.content.text.FamDateFormat;
-import de.knurt.fam.core.content.text.FamText;
 import de.knurt.fam.core.control.boardunits.JobSurveyFromJobs;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.document.Job;
 import de.knurt.fam.core.model.persist.document.JobDataProcessing;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Jobs;
+import de.knurt.fam.core.view.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.fam.template.util.TemplateConfig;
 import de.knurt.fam.template.util.TemplateHtml;
 import de.knurt.heinzelmann.util.query.QueryString;

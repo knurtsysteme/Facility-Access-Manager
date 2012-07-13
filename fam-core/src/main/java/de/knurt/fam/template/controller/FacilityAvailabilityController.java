@@ -22,9 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 import de.knurt.fam.template.model.TemplateResource;
 

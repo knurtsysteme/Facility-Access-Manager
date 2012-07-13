@@ -23,7 +23,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<bean id="defaultTemplateProperties" name="defaultTemplateProperties" class="de.knurt.fam.template.model.TemplateContentPropertiesDefault" factory-method="me" />
         
-    <bean id="famMessageSourceControl" class="de.knurt.fam.core.content.text.FamText" factory-method="getInstance" />
+    <bean id="famMessageSourceControl" class="de.knurt.fam.core.view.text.FamText" factory-method="getInstance" />
 
     <!--
 	This defines the encoding of the entire application.
@@ -51,7 +51,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         </property>
     </bean>
 
-    <bean name="bean201007211354" class="de.knurt.fam.core.content.text.AccessGlobalTemplate" factory-method="getInstance">
+    <bean name="bean201007211354" class="de.knurt.fam.core.view.text.AccessGlobalTemplate" factory-method="getInstance">
     </bean>
 
      	<!-- view resolver -->

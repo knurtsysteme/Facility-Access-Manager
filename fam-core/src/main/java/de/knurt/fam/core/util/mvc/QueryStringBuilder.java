@@ -37,12 +37,12 @@ import static de.knurt.fam.core.util.mvc.QueryKeys.WEEK;
 
 import java.util.Calendar;
 
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.Logbook;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.time.CalendarViewResolver;
 import de.knurt.heinzelmann.util.query.QueryString;
 import de.knurt.heinzelmann.util.shopping.Purchasable;

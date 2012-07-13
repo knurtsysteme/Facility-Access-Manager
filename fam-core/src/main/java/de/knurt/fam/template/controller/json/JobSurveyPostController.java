@@ -28,14 +28,14 @@ import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.Cancelation;
 import de.knurt.fam.core.model.persist.booking.FamShoppingCart;
 import de.knurt.fam.core.model.persist.document.Job;
 import de.knurt.fam.core.model.persist.document.JobDataProcessing;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.util.bu.FileOfUser;
 import de.knurt.heinzelmann.util.nebc.bu.JSONObject2Properties;
 import de.knurt.heinzelmann.util.query.HttpServletRequestConverter;

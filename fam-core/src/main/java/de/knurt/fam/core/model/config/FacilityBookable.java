@@ -17,8 +17,8 @@ package de.knurt.fam.core.model.config;
 
 import org.springframework.beans.factory.annotation.Required;
 
-import de.knurt.fam.core.content.text.FamText;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.view.text.FamText;
 
 /**
  * a facility in general.

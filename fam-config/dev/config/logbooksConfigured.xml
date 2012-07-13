@@ -7,7 +7,7 @@ http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
     <!-- access to logbooks -->
-    <bean id="accessLogbook" class="de.knurt.fam.core.control.persistence.dao.config.LogbookConfigDao" factory-method="getInstance">
+    <bean id="accessLogbook" class="de.knurt.fam.core.persistence.dao.config.LogbookConfigDao" factory-method="getInstance">
         <property name="configuredInstances"> <!-- Map<Logbook> -->
             <map>
                 <entry key="famLogbook" value-ref="famLogbook" />

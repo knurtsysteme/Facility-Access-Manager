@@ -24,8 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Jobs;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.heinzelmann.util.nebc.bu.JSONObjectFromRequest;
 
 /**

@@ -17,7 +17,7 @@ package de.knurt.fam.core.model.config;
 
 import org.springframework.beans.factory.annotation.Required;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 
 /**
  * define a booking rule, where user's units queue for a facility.

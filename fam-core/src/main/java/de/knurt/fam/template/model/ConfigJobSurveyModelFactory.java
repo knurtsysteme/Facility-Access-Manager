@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Properties;
 
 import de.knurt.fam.connector.RedirectTarget;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.document.JobDataProcessing;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.fam.core.util.mvc.RedirectResolver;
 
 /**

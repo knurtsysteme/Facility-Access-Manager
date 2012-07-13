@@ -32,13 +32,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.knurt.fam.core.aspects.security.auth.FamAuth;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.persist.LogbookEntry;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
 import de.knurt.fam.core.model.persist.document.Job;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.template.controller.json.DeleteUserFromUsersManagerController;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;

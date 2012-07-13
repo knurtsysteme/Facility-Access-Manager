@@ -17,7 +17,7 @@ package de.knurt.fam.template.util;
 
 import java.util.Date;
 
-import de.knurt.fam.core.content.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.heinzelmann.ui.html.HtmlElement;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 

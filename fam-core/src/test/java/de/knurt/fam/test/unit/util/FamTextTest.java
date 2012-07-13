@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.knurt.fam.core.content.text.FamText;
+import de.knurt.fam.core.view.text.FamText;
 
 public class FamTextTest {
 

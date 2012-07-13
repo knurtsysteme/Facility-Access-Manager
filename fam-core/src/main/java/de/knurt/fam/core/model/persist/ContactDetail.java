@@ -17,7 +17,7 @@ package de.knurt.fam.core.model.persist;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.heinzelmann.util.query.Identificable;
 
 /**

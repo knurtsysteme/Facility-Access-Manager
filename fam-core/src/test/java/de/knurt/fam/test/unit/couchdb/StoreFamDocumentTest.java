@@ -15,13 +15,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.persist.document.FamDocument;
 import de.knurt.fam.core.model.persist.document.FamDocumentType;
 import de.knurt.fam.core.model.persist.document.SoaActivationDocument;
 import de.knurt.fam.core.model.persist.document.SoaActivationPageDocument;
 import de.knurt.fam.core.model.persist.document.SoaDocument;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/test-dependencies.xml" })

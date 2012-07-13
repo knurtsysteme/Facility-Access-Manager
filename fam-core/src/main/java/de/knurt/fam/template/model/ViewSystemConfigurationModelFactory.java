@@ -24,12 +24,12 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.security.auth.FamAuth;
 import de.knurt.fam.core.aspects.security.encoder.FamEncoder;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.RoleConfigDao;
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.config.CronjobAction;
 import de.knurt.fam.core.model.config.CronjobActionContainer;
 import de.knurt.fam.core.model.persist.KeyValue;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.heinzelmann.util.text.DurationAdapter;
 
 /**

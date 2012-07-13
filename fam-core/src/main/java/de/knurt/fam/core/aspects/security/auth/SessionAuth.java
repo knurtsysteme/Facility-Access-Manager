@@ -23,9 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import de.knurt.fam.core.control.persistence.cookie.CookieResolver;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.cookie.CookieResolver;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.news.NewsItem;
 import de.knurt.heinzelmann.util.CookieUtils;
 import de.knurt.heinzelmann.util.shopping.Purchasable;

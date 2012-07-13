@@ -19,7 +19,7 @@ import java.util.Properties;
 
 import org.apache.velocity.VelocityContext;
 
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Soa;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.VelocityContextFactory;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;

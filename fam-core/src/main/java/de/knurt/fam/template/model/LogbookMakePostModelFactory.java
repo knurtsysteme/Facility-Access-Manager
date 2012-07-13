@@ -20,8 +20,8 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 
 import de.knurt.fam.core.config.FamRequestContainer;
-import de.knurt.fam.core.control.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.model.persist.LogbookEntry;
+import de.knurt.fam.core.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.util.mvc.QueryKeys;
 import de.knurt.fam.core.util.mvc.QueryStringBuilder;
 import de.knurt.fam.core.util.mvc.RedirectResolver;

@@ -11,7 +11,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     these are facilities used to develop the system.
     put all known facilities into it.
   -->
-  <bean id="accessFacility" class="de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao" factory-method="getInstance">
+  <bean id="accessFacility" class="de.knurt.fam.core.persistence.dao.config.FacilityConfigDao" factory-method="getInstance">
     <!--
       this is a technical concrete facility, used for facilities in db that are
       not configured anymore. DO NOT REMOVE.

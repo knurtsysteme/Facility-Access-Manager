@@ -27,8 +27,8 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.control.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 
 /**
  * return a document with given id out of couchdb. check, if that is allowed and

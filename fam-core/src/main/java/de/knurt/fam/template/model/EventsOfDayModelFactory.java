@@ -20,16 +20,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import de.knurt.fam.core.content.adapter.html.HtmlAdapterBookingFactory;
-import de.knurt.fam.core.content.adapter.html.HtmlAdapterFacilityAvailabilityFactory;
-import de.knurt.fam.core.content.text.FamDateFormat;
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
+import de.knurt.fam.core.view.adapter.html.HtmlAdapterBookingFactory;
+import de.knurt.fam.core.view.adapter.html.HtmlAdapterFacilityAvailabilityFactory;
+import de.knurt.fam.core.view.text.FamDateFormat;
 
 /**
  * controller for overview of all bookings made

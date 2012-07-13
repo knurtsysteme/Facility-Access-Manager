@@ -12,11 +12,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.control.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.document.SoaActivationDocument;
 import de.knurt.fam.core.model.persist.document.SoaActivationPageDocument;
 import de.knurt.fam.core.model.persist.document.SoaDocument;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.termsofuse.TermsOfUsePage;
 import de.knurt.fam.template.util.TermsOfUseResolver;

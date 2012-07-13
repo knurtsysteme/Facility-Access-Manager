@@ -5,10 +5,10 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 import de.knurt.fam.template.model.TemplateResource;
 import de.knurt.heinzelmann.util.time.TimeFrame;

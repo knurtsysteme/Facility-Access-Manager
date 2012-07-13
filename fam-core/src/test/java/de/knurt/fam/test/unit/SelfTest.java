@@ -29,7 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.knurt.fam.connector.FamConnector;
-import de.knurt.fam.core.control.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 
 @RunWith(SpringJUnit4ClassRunner.class)

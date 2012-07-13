@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
-import de.knurt.fam.core.control.persistence.dao.FamDaoProxy;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.mvc.LogbookEntryForm;
 import de.knurt.heinzelmann.util.query.Identificable;
 
