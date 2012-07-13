@@ -17,6 +17,7 @@ package de.knurt.fam.core.aspects.security.encoder;
 
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
+import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.model.persist.User;
 
 /**
@@ -44,7 +45,11 @@ public abstract class FamEncoderControl {
 	 */
 	public String encodePassword(User user) {
 		if (user != null) {
-			return FamEncoder.getInstance().getEncoder().encodePassword(user.getPassword(), this.getSalt(user));
+			String passwordUsed = user.getPassword().replaceAll("[^(a-zA-Z0-9_\\-\\.\\+,#)]", "");
+			if(!passwordUsed.equals(user.getPassword())) {
+				FamLog.warn(user.getUsername() + " insert password with not allowed char. password changed", 201207130853l);
+			}
+			return FamEncoder.getInstance().getEncoder().encodePassword(passwordUsed, this.getSalt(user));
 		} else {
 			return null;
 		}
