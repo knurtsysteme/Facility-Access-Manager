@@ -5,6 +5,7 @@
 *.classpath
 *.log
 */target
+target
 *.swp
 *.swo
 .DS_Store
@@ -26,8 +27,9 @@ fam-config/dev/plugins/*
 
 # make your own plattform depending scripts:
 */exec_*.sh
+exec_*.sh
 
 # make your own poms:
 */pom_*.xml
-
+pom_*.xml
 
