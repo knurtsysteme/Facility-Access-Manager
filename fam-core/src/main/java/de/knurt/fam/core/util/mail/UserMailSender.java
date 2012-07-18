@@ -26,7 +26,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
+import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.UserMail;
+import de.knurt.fam.core.model.persist.booking.Booking;
 import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 
 /**
@@ -93,17 +95,34 @@ public class UserMailSender {
 	 * @return number of sent mails
 	 */
 	public static int sendUserMails() {
-		// TODO see #17 email booking reminder is sent on canceled booking
 		int result = 0;
 		for (UserMail mail : FamDaoProxy.userDao().getUserMailsThatMustBeSendNow()) {
-			boolean wasSent = send(mail);
-			if (wasSent) {
-				result++;
-				mail.setWasSentDate(new Date());
-				if (mail.getMsgAfterSent() != null) {
-					mail.setMsg(mail.getMsgAfterSent());
-				}
+			if (getInstance().sendingIssueIsOver(mail)) {
+				mail.setNeverSendDate(new Date());
 				FamDaoProxy.userDao().update(mail);
+			} else {
+				boolean wasSent = send(mail);
+				if (wasSent) {
+					result++;
+					mail.setWasSentDate(new Date());
+					if (mail.getMsgAfterSent() != null) {
+						mail.setMsg(mail.getMsgAfterSent());
+					}
+					FamDaoProxy.userDao().update(mail);
+				}
+			}
+		}
+		return result;
+	}
+
+	private boolean sendingIssueIsOver(UserMail mail) {
+		boolean result = false;
+		if (mail.getType() != null) {
+			User user = FamDaoProxy.userDao().getUserFromUsername(mail.getUsername());
+			boolean userIsValidAndActive = user != null && !user.isExcluded() && !user.isAccountExpired() && !user.isAnonym();
+			if (mail.getType() == UserMail.TYPE_BOOKING_REMINDER && mail.getFid() != null) {
+				Booking booking = FamDaoProxy.bookingDao().getBookingWithId(mail.getFid());
+				result = booking == null || booking.isCanceled() || !userIsValidAndActive || !user.isAllowedToAccess(booking.getFacility());
 			}
 		}
 		return result;
@@ -162,7 +181,7 @@ public class UserMailSender {
 					email.setMsg(um.getMsg());
 					creatingSucc = true;
 				} catch (EmailException ex) {
-					FamLog.logException(UserMailSender.class, ex, "creating mail failed-" + um.getTo() + "-" + um.getUsername(), 200904031116l);
+					FamLog.logException(UserMailSender.class, ex, "creating mail failed::" + um.getTo() + "::" + um.getUsername() + "::" + um.getId(), 200904031116l);
 				}
 
 				if (creatingSucc && FamConnector.isDev() == false) {

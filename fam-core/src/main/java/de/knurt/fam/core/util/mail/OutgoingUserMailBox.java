@@ -194,7 +194,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 	private UserMail getMail_BookingReminder(Booking booking) {
 		UserMail result = null;
 		Calendar startOfSession = booking.getSessionTimeFrame().getCalendarStart();
-		if (startOfSession.get(Calendar.DAY_OF_YEAR) != Calendar.getInstance().get(Calendar.DAY_OF_YEAR) && startOfSession.get(Calendar.YEAR) != Calendar.getInstance().get(Calendar.YEAR)) {
+		if (startOfSession.get(Calendar.DAY_OF_YEAR) != Calendar.getInstance().get(Calendar.DAY_OF_YEAR) || startOfSession.get(Calendar.YEAR) != Calendar.getInstance().get(Calendar.YEAR)) {
 			// ↖ session is not today today
 
 			// ↓ set to send date
@@ -213,6 +213,8 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 					args[3] = TemplateHtml.href("myprofile");
 					result = this.getMailFromMessageSource(booking.getUser(), "bookingreminder", args, 0, null);
 					result.setToSendDate(mailToSendDate.getTime());
+					result.setType(UserMail.TYPE_BOOKING_REMINDER);
+					result.setFid(booking.getId());
 				}
 			}
 		}

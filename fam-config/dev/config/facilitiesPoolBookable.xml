@@ -14,9 +14,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
   <bean name="bus1" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
     <property name="parentFacility" ref="vehicles" />
     <property name="bookingRule">
-      <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardDefaultTimeBasedBookingRule">
-    <property name="smallestMinutesBookable" value="60" />
-      </bean>
+      <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardHourTimeBasedBookingRule" />
     </property>
   </bean>
     

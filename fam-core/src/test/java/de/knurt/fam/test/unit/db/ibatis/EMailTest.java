@@ -18,8 +18,10 @@ package de.knurt.fam.test.unit.db.ibatis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,7 @@ import de.knurt.fam.core.model.persist.booking.TimeBooking;
 import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
+import de.knurt.fam.core.util.mail.UserMailSender;
 import de.knurt.fam.core.view.text.FamText;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
@@ -46,9 +49,6 @@ import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/test-dependencies.xml" })
 public class EMailTest extends FamIBatisTezt {
-
-	// @Autowired
-	// private ReloadableResourceBundleMessageSource messageSource;
 
 	/**
      *
@@ -127,6 +127,42 @@ public class EMailTest extends FamIBatisTezt {
 
 		List<UserMail> um = FamDaoProxy.userDao().getUserMailsThatMustBeSendNow();
 		assertEquals(0, um.size()); // must be sent
+	}
+
+	@Test
+	public void doNotSendMailLaterIfBookingIsCanceled() {
+		this.clearDatabase();
+		TimeBooking booking = TeztBeanSimpleFactory.getNewValidBooking4TomorrowSameTimeAsNow();
+		assertTrue("there is no reminder configured for this facility", booking.getBookingRule().getDefaultSetOfRulesForARole().getReminderMailMinutesBeforeStarting() > 0);
+		assertTrue("there is no reminder configured for this facility", booking.getBookingRule().getSetOfRulesForARole(booking.getUser()).getReminderMailMinutesBeforeStarting() > 0);
+		booking.add(Calendar.YEAR, 1);
+		booking.setBooked();
+		booking.insert();
+
+		// a mail has been inserted correctly
+		List<UserMail> all = FamDaoProxy.userDao().getAllUserMails();
+		assertEquals(2, all.size());
+		UserMail reminder = all.get(0);
+		UserMail confirm = all.get(1);
+		assertNull(confirm.getType());
+		assertNull(confirm.getNeverSendDate());
+		assertNull(reminder.getNeverSendDate());
+		assertNotNull(reminder.getType());
+		assertEquals(reminder.getType().intValue(), UserMail.TYPE_BOOKING_REMINDER);
+		
+		// cancel booking
+		booking.cancel(new Cancelation(TeztBeanSimpleFactory.getAdmin(), Cancelation.REASON_NO_REASON));
+		
+		// reminder must not been sent anymore
+		reminder.setToSendDate(new Date());
+		FamDaoProxy.userDao().update(reminder);
+		int sent = UserMailSender.sendUserMails();
+		assertEquals(0, sent);
+		reminder = FamDaoProxy.userDao().getUserMailWithId(reminder.getId());
+		assertNotNull(reminder.getNeverSendDate());
+		assertNotNull(reminder.getToSendDate());
+		assertNull(reminder.getWasSentDate());
+		
 	}
 
 	/**

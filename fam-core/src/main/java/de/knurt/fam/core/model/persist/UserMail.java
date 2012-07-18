@@ -32,9 +32,17 @@ import de.knurt.heinzelmann.util.query.Identificable;
  */
 public class UserMail implements ViewableObject, Identificable {
 
-	private Date toSendDate, wasSentDate;
+	/**
+	 * flag to tag this mail as a booking reminder.
+	 * having a delay, this mail is not send if it has this
+	 * type and the booking has been canceled.
+	 * @see #getType()
+	 */
+	public static final int TYPE_BOOKING_REMINDER = 1;
+	public static final int TYPE_NEEDS_VALID_ACTIVE_USER = 2;
+	private Date toSendDate, wasSentDate, neverSendDate;
 	private String username, subject, msg, to, msgAfterSent;
-	private Integer id;
+	private Integer id, type, fid;
 
 	/**
 	 * if and only if not null, this message is set after a email has been send.
@@ -197,4 +205,40 @@ public class UserMail implements ViewableObject, Identificable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	/**
+	 * return the date of the decision that this email is "never send". if this
+	 * is not null, do not send the email. reasons for not sending are emails
+	 * with a delay that has been settled.
+	 * 
+	 * @return <code>null</code> if the email has to be sent or the date of the
+	 *         decision that this email is "never send"
+	 */
+	public Date getNeverSendDate() {
+		return neverSendDate;
+	}
+
+	public void setNeverSendDate(Date neverSendDate) {
+		this.neverSendDate = neverSendDate;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+	
+	public void setFid(Integer fid) {
+		this.fid = fid;
+	}
+	/**
+	 * return an optional foreign id. the meaning of the id depends on the {@link #type}
+	 * @return an optional foreign id. the meaning of the id depends on the {@link #type}
+	 */
+	public Integer getFid() {
+		return fid;
+	}
+
 }

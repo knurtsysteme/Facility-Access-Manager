@@ -114,6 +114,8 @@ public abstract class UserDao extends AbstractFamDao<User> {
 	 * hashcode of the user object is taken. If the username is not unique, it
 	 * gets a number: pemuelle, pemuell1, pemuell2, [...], pemuelle99.
 	 * 
+	 * #TODO Issue #29
+	 * 
 	 * @param user
 	 *            a unique username is created for
 	 * @return a unique username for user

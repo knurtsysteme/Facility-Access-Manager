@@ -186,6 +186,7 @@ public class TeztBeanSimpleFactory {
 		defaultSet.setMinBookableCapacityUnits(1);
 		defaultSet.setMaxBookableTimeUnits(1);
 		defaultSet.setMinBookableTimeUnits(1);
+		defaultSet.setReminderMailMinutesBeforeStarting(1440);
 		bookingRule.setDefaultSetOfRulesForARole(defaultSet);
 		bookingRule.setSmallestMinutesBookable(15);
 		bookingRule.setMustStartAt(null);

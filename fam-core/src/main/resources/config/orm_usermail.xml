@@ -12,13 +12,16 @@
         <parameter property="toSendDate" />
         <parameter property="wasSentDate" />
         <parameter property="msgAfterSent" />
+        <parameter property="type" />
+        <parameter property="fid" />
+        <parameter property="neverSendDate" />
     </parameterMap>
     <insert id="UserMail.insert" parameterMap="UserMail.insert.param">
-	INSERT INTO usermail (id, username, subject, msg, recipient, toSendDate, wasSentDate, msgAfterSent)
-	VALUES (null, ?, ?, ?, ?, ?, ?, ?)
-        <selectKey resultClass="int" keyProperty="id">
-	    SELECT @@IDENTITY AS ID
-        </selectKey>
+	    INSERT INTO usermail (id, username, subject, msg, recipient, toSendDate, wasSentDate, msgAfterSent, type, fid, neverSendDate)
+	    VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      <selectKey resultClass="int" keyProperty="id">
+	      SELECT @@IDENTITY AS ID
+      </selectKey>
     </insert>
 
     <parameterMap id="UserMail.update.param" class="de.knurt.fam.core.model.persist.UserMail">
@@ -29,12 +32,15 @@
         <parameter property="toSendDate" />
         <parameter property="wasSentDate" />
         <parameter property="msgAfterSent" />
+        <parameter property="type" />
+        <parameter property="fid" />
+        <parameter property="neverSendDate" />
         <parameter property="id" />
     </parameterMap>
     <update id="UserMail.update" parameterMap="UserMail.update.param">
-	UPDATE usermail
-	SET username = ?, subject = ?, msg = ?, recipient = ?, toSendDate = ?, wasSentDate = ?, msgAfterSent = ?
-	WHERE id = ?
+	    UPDATE usermail
+	    SET username = ?, subject = ?, msg = ?, recipient = ?, toSendDate = ?, wasSentDate = ?, msgAfterSent = ?, type = ?, fid = ?, neverSendDate = ?
+	    WHERE id = ?
     </update>
 
     <resultMap id="UserMail.select.all.result" class="de.knurt.fam.core.model.persist.UserMail">
@@ -46,51 +52,64 @@
         <result property="msg" column="msg"/>
         <result property="to" column="recipient"/>
         <result property="msgAfterSent" column="msgAfterSent"/>
+        <result property="type" column="type"/>
+        <result property="fid" column="fid"/>
+        <result property="neverSendDate" column="neverSendDate"/>
     </resultMap>
     <statement id="UserMail.select.all" resultMap="UserMail.select.all.result" resultClass="de.knurt.fam.core.model.persist.UserMail">
-	SELECT *
-	FROM usermail
-	ORDER BY toSendDate DESC
+      SELECT *
+      FROM usermail
+      ORDER BY toSendDate DESC
     </statement>
 
     <statement id="UserMail.select.where" resultMap="UserMail.select.all.result" resultClass="de.knurt.fam.core.model.persist.UserMail">
-	SELECT *
-	FROM usermail
-        <dynamic prepend="WHERE">
-            <isNotNull prepend="AND" property="id">
-	      id = #id#
-            </isNotNull>
-            <isNotNull prepend="AND" property="toSendDate">
-	      toSendDate = #toSendDate#
-            </isNotNull>
-            <isNotNull prepend="AND" property="wasSentDate">
-	      wasSentDate = #wasSentDate#
-            </isNotNull>
-            <isNotNull prepend="AND" property="username">
-	      username = #username#
-            </isNotNull>
-            <isNotNull prepend="AND" property="subject">
-	      subject = #subject#
-            </isNotNull>
-            <isNotNull prepend="AND" property="msg">
-	      msg = #msg#
-            </isNotNull>
-            <isNotNull prepend="AND" property="to">
-	      recipient = #to#
-            </isNotNull>
-            <isNotNull prepend="AND" property="msgAfterSent">
-            	msgAfterSent = #msgAfterSent#
-            </isNotNull>
-        </dynamic>
-	ORDER BY toSendDate DESC
+	    SELECT *
+	    FROM usermail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="id">
+          id = #id#
+        </isNotNull>
+        <isNotNull prepend="AND" property="toSendDate">
+	        toSendDate = #toSendDate#
+        </isNotNull>
+        <isNotNull prepend="AND" property="wasSentDate">
+	        wasSentDate = #wasSentDate#
+        </isNotNull>
+        <isNotNull prepend="AND" property="username">
+	        username = #username#
+        </isNotNull>
+        <isNotNull prepend="AND" property="subject">
+	        subject = #subject#
+        </isNotNull>
+        <isNotNull prepend="AND" property="msg">
+	        msg = #msg#
+        </isNotNull>
+        <isNotNull prepend="AND" property="to">
+	        recipient = #to#
+        </isNotNull>
+        <isNotNull prepend="AND" property="msgAfterSent">
+          msgAfterSent = #msgAfterSent#
+        </isNotNull>
+        <isNotNull prepend="AND" property="type">
+          type = #type#
+        </isNotNull>
+        <isNotNull prepend="AND" property="fid">
+          fid = #fid#
+        </isNotNull>
+        <isNotNull prepend="AND" property="neverSendDate">
+          neverSendDate = #neverSendDate#
+        </isNotNull>
+      </dynamic>
+	    ORDER BY toSendDate DESC
     </statement>
 
     <statement id="UserMail.select.mustBeSendNow" parameterClass="java.util.Date" resultMap="UserMail.select.all.result" resultClass="de.knurt.fam.core.model.persist.UserMail">
-	SELECT *
-	FROM usermail
-        WHERE wasSentDate IS NULL
-        AND toSendDate &lt;= #value#
-	ORDER BY toSendDate DESC
+	    SELECT *
+	    FROM usermail
+      WHERE wasSentDate IS NULL
+      AND neverSendDate IS NULL
+      AND toSendDate &lt;= #value#
+	    ORDER BY toSendDate DESC
     </statement>
 
 </sqlMap>
