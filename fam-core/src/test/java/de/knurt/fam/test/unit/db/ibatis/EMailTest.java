@@ -130,7 +130,7 @@ public class EMailTest extends FamIBatisTezt {
 	}
 
 	@Test
-	public void doNotSendMailLaterIfBookingIsCanceled() {
+	public void doNotSendReminderIfBookingIsCanceled() {
 		this.clearDatabase();
 		TimeBooking booking = TeztBeanSimpleFactory.getNewValidBooking4TomorrowSameTimeAsNow();
 		assertTrue("there is no reminder configured for this facility", booking.getBookingRule().getDefaultSetOfRulesForARole().getReminderMailMinutesBeforeStarting() > 0);
@@ -144,11 +144,11 @@ public class EMailTest extends FamIBatisTezt {
 		assertEquals(2, all.size());
 		UserMail reminder = all.get(0);
 		UserMail confirm = all.get(1);
-		assertNull(confirm.getType());
+		assertNotNull(confirm.getType());
 		assertNull(confirm.getNeverSendDate());
 		assertNull(reminder.getNeverSendDate());
 		assertNotNull(reminder.getType());
-		assertEquals(reminder.getType().intValue(), UserMail.TYPE_BOOKING_REMINDER);
+		assertEquals(reminder.getType().intValue(), UserMail.TYPE_NEEDS_VALID_BOOKING);
 		
 		// cancel booking
 		booking.cancel(new Cancelation(TeztBeanSimpleFactory.getAdmin(), Cancelation.REASON_NO_REASON));
@@ -163,8 +163,36 @@ public class EMailTest extends FamIBatisTezt {
 		assertNotNull(reminder.getToSendDate());
 		assertNull(reminder.getWasSentDate());
 		
+		// confirmation is in demo configured as "send now" - so this is sent
+		confirm = FamDaoProxy.userDao().getUserMailWithId(confirm.getId());
+		assertNull(confirm.getNeverSendDate());
+		assertNotNull(confirm.getToSendDate());
+		assertNotNull(confirm.getWasSentDate());
 	}
-
+	@Test
+	public void doNotSendReminderMailIfUserExcluded() {
+		this.clearDatabase();
+		TimeBooking booking = TeztBeanSimpleFactory.getNewValidBooking4TomorrowSameTimeAsNow();
+		booking.add(Calendar.YEAR, 1);
+		booking.setBooked();
+		booking.insert();
+		List<UserMail> all = FamDaoProxy.userDao().getAllUserMails();
+		UserMail reminder = all.get(0);
+		
+		User user = booking.getUser();
+		user.exclude();
+		user.update();
+		
+		reminder.setToSendDate(new Date());
+		FamDaoProxy.userDao().update(reminder);
+		int sent = UserMailSender.sendUserMails();
+		assertEquals(0, sent);
+		reminder = FamDaoProxy.userDao().getUserMailWithId(reminder.getId());
+		assertNotNull(reminder.getNeverSendDate());
+		assertNotNull(reminder.getToSendDate());
+		assertNull(reminder.getWasSentDate());
+	}
+	
 	/**
      *
      */
@@ -214,8 +242,8 @@ public class EMailTest extends FamIBatisTezt {
 	@Test
 	public void sendMailNow() {
 		this.clearDatabase();
-		User testuser = UserFactory.me().blank();
-		testuser.setMail("foo@bar.foo");
+		User testuser = TeztBeanSimpleFactory.getNewUniqueValidUser("foo");
+		testuser.insert();
 
 		OutgoingUserMailBox.insert_Registration(testuser);
 		List<UserMail> all = FamDaoProxy.userDao().getAllUserMails();

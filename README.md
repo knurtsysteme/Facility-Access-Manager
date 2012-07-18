@@ -87,7 +87,7 @@ You need the [server requirements as described above](#b-a).
 
 Furthermore:
 * [Maven] (http://maven.apache.org)
-* [Java-Heinzelmann] (https://github.com/knurtsysteme/java-heinzelmann) See ```pom.xml``` to find out which version.
+* [Java-Heinzelmann] (https://github.com/knurtsysteme/java-heinzelmann) See `pom.xml` to find out which version.
 * on couch works [CouchApp] (http://couchapp.org/)
 * on css works [less] (http://lesscss.org) running out of the box (without npm).
 
@@ -96,7 +96,7 @@ Furthermore:
 For testing:
 * [Firefox] (http://www.mozilla.org/firefox)
 
-[JMeter](http://jmeter.apache.org) and [Molybdenum](https://www.molyb.org) are shipped with the ```pom.xml```
+[JMeter](http://jmeter.apache.org) and [Molybdenum](https://www.molyb.org) are shipped with the `pom.xml`
 
 <a name="c"/>
 Install
@@ -109,17 +109,17 @@ Unfortunatly the installation is difficult and we do not have an installation sc
 
 1. [Download the latest version](http://facility-access-manager.com/download-the-facility-access-manager.html)
 2. Extract the ZIP-File
-3. Copy folder ```opt/knurt``` into system folder ```/opt```
-4. Ensure tomcat can read all files in ```/opt/knurt/fam``` and can write into folder ```/opt/knurt/fam/files```
-5. Edit file ```/opt/knurt/fam/config/fam_global.conf``` as described there. This is the place where to put in all the database connections.
+3. Copy folder `opt/knurt` into system folder `/opt`
+4. Ensure tomcat can read all files in `/opt/knurt/fam` and can write into folder `/opt/knurt/fam/files`
+5. Edit file `/opt/knurt/fam/config/fam_global.conf` as described there. This is the place where to put in all the database connections.
 6. Make sure database- and email-driver jars are in your tomcat lib folder.
-7. Create CouchDB-Database (as configured in 5.) and push in the design-document ```migration/as.json```
-8. Create SQL-Database (as configured in 5.) and push in the sql-file ```migration/init.sql```
-9. Install ```webapp/fam-core.war``` to your webapps folder of your server (e.g. ```/usr/share/tomcat6/webapps```)
+7. Create CouchDB-Database (as configured in 5.) and push in the design-document `migration/as.json`
+8. Create SQL-Database (as configured in 5.) and push in the sql-file `migration/init.sql`
+9. Install `webapp/fam-core.war` to your webapps folder of your server (e.g. `/usr/share/tomcat6/webapps`)
 10. Start up server and application
 11. Visit your server-uri. You should see this [http://facility-access-manager.com/fam-core](Demo System) now.
 12. Click the Register-Tab and register yourself. You get an email with your username then.
-13. Replace the username ```daoltman``` with your username in ```/opt/knurt/fam/config/rolesAndRights.xml``` to be an admin. Add more admins there by adding the usernames comma seperated.
+13. Replace the username `daoltman` with your username in `/opt/knurt/fam/config/rolesAndRights.xml` to be an admin. Add more admins there by adding the usernames comma seperated.
 14. Log in as admin
 
 Hopefully that's it! You can check all configuration parameters under Admin → System Configuration.
@@ -128,13 +128,13 @@ What you have done is installing the demo system. What you may want to do is con
 
 #### split application
 
-You can install the system on three different servers: One for the public page, one for protected pages and the third one for admin pages. You can also install it on two servers. The only thing to do is to configure the same public, protected and admin url in ```/opt/knurt/fam/config/fam_global.conf```. The protected and admin area do need contact the same databases.
+You can install the system on three different servers: One for the public page, one for protected pages and the third one for admin pages. You can also install it on two servers. The only thing to do is to configure the same public, protected and admin url in `/opt/knurt/fam/config/fam_global.conf`. The protected and admin area do need contact the same databases.
 
 
 <a name="c-b"/>
 ### Plugins
 
-Copy your plugins into ```/opt/knurt/fam/plugins``` and restart application.
+Copy your plugins into `/opt/knurt/fam/plugins` and restart application.
 
 ***WARNING: Plugins can do everything including destroying everything!***
 
@@ -182,25 +182,25 @@ Some configurations like the terms, the job data or user's responsibilities are 
 
 #### The very core configuration ####
 
-Follow the instructions in the file ```/opt/knurt/fam/config/fam_global.conf```. Main settings are for database connections, a hard coded direct access to a full screen booking calendar, the uri to own content (if you like to use own pictures etc), a possibility to use a proxy, the email-server-settings, file-upload settings and so on.
+Follow the instructions in the file `/opt/knurt/fam/config/fam_global.conf`. Main settings are for database connections, a hard coded direct access to a full screen booking calendar, the uri to own content (if you like to use own pictures etc), a possibility to use a proxy, the email-server-settings, file-upload settings and so on.
 
 
 #### Texts concerning the entire application ####
 
-Texts for emails, html header, facilities and logbooks are set in the file ```/opt/knurt/fam/config/lang.properties```.
+Texts for emails, html header, facilities and logbooks are set in the file `/opt/knurt/fam/config/lang.properties`.
 
 
 #### Usually you do not have to care for ####
 
-* ```/opt/knurt/fam/config/loader.xml``` Load the configuration files described here. Configure other files if you want to.
-* ```/opt/knurt/fam/config/calendarDefaultViews.xml``` Is deprecated and will be removed in future releases.
-* ```/opt/knurt/fam/config/mail.xml``` If you want to have a delay on sending emails.
+* `/opt/knurt/fam/config/loader.xml` Load the configuration files described here. Configure other files if you want to.
+* `/opt/knurt/fam/config/calendarDefaultViews.xml` Is deprecated and will be removed in future releases.
+* `/opt/knurt/fam/config/mail.xml` If you want to have a delay on sending emails.
 
 
 <a name="d-b"/>
 ### Facilities
 
-All facilities and booking rules are configured in the files ```/opt/knurt/fam/config/facilities*.xml```.
+All facilities and booking rules are configured in the files `/opt/knurt/fam/config/facilities*.xml`.
 
 Every facility can have its own booking rules even seperated for different roles. 
 
@@ -212,17 +212,17 @@ A booking rule might describe things like a label for the smallest single time u
 
 The demo system provides you with easy and complex definitions described here:
 
-* ```/opt/knurt/fam/config/facilitiesConfigured.xml``` Configured facilities used by the system.
-* ```/opt/knurt/fam/config/facilitiesPoolAbstract.xml``` Facility prototypes. Usually you do not have to care for. (change only with extreme wisdom).
-* ```/opt/knurt/fam/config/facilitiesPoolBookable.xml``` Concrete bookable facilities.
-* ```/opt/knurt/fam/config/facilitiesPoolBookingRulesAbstract.xml``` Booking rules for facilities.
-* ```/opt/knurt/fam/config/facilitiesPoolNoneBookable.xml``` Concrete none-bookable facilities.
+* `/opt/knurt/fam/config/facilitiesConfigured.xml` Configured facilities used by the system.
+* `/opt/knurt/fam/config/facilitiesPoolAbstract.xml` Facility prototypes. Usually you do not have to care for. (change only with extreme wisdom).
+* `/opt/knurt/fam/config/facilitiesPoolBookable.xml` Concrete bookable facilities.
+* `/opt/knurt/fam/config/facilitiesPoolBookingRulesAbstract.xml` Booking rules for facilities.
+* `/opt/knurt/fam/config/facilitiesPoolNoneBookable.xml` Concrete none-bookable facilities.
 
 You have the rules and the attributes for the facilities configured? Now you have to give it a name.
 
-Names are configured in the file ```/opt/knurt/fam/config/lang.properties```. 
-Say you have three people to rent and you named this "facility" ```myfoo``` in ```/opt/knurt/fam/config/facilitiesConfigured.xml```.
-Three labels must be added in ```lang.properties``` then:
+Names are configured in the file `/opt/knurt/fam/config/lang.properties`. 
+Say you have three people to rent and you named this "facility" `myfoo` in `/opt/knurt/fam/config/facilitiesConfigured.xml`.
+Three labels must be added in `lang.properties` then:
 
 ```
 # the label shown when user choose the facility to book ("I'd like to book ...")
@@ -254,60 +254,60 @@ There are several tasks the software does only if a specific url is visited:
 
 To get these features run there must be a crontab contacting the uri every 5 minutes.
 
-The easiest solution is ```curl```:
+The easiest solution is `curl`:
 ```
 [root@localhost ~]# crontab -l
 *\/5 * * * * curl http://www.yourdomain.com/fam-core/exec-cronjob.html
 ```
 
-Alternative ```wget```:
+Alternative `wget`:
 ```
 [root@localhost ~]# crontab -l
 *\/5 * * * * wget -S http://www.yourdomain.com/fam-core/exec-cronjob.html --no-cookies --no-cache -O -
 ```
 
-In both cases replace ```http://www.yourdomain.com/fam-core``` with your address!
+In both cases replace `http://www.yourdomain.com/fam-core` with your address!
 
 
 <a name="d-e"/>
 ### Templates
 
-All template-files can be found in the folder ```/opt/knurt/fam/template```. You can change the behaviour, the style and the structure of the template by adding and changing files in the folder ```/opt/knurt/fam/template/custom```. 
+All template-files can be found in the folder `/opt/knurt/fam/template`. You can change the behaviour, the style and the structure of the template by adding and changing files in the folder `/opt/knurt/fam/template/custom`. 
 *DO NOT CHANGE FILES IN OTHER DIRECTORIES* because those changes might get lost on updates.
 
 #### overriding a template of the main page
-1. copy file from ```content_main/[visibility]/[resource].html``` to ```custom/[resource]_[visibility]_main.html```
-2. edit file in ```custom``` directory. 
+1. copy file from `content_main/[visibility]/[resource].html` to `custom/[resource]_[visibility]_main.html`
+2. edit file in `custom` directory. 
 
-example: ```cp content_main/public/home.html custom/home_public_main.html```
+example: `cp content_main/public/home.html custom/home_public_main.html`
 
 #### overriding sub content
-1. copy file from ```content_sub/[resource].html``` to ```custom/[resource]_sub.html```
-2. edit file in ```custom``` directory. 
+1. copy file from `content_sub/[resource].html` to `custom/[resource]_sub.html`
+2. edit file in `custom` directory. 
 
-example: ```cp content_sub/register.html custom/register_sub.html```
+example: `cp content_sub/register.html custom/register_sub.html`
 
 #### configure web-analytics
-You can configure your web-analytics in the file ```custom/web-analytics.html```.
+You can configure your web-analytics in the file `custom/web-analytics.html`.
 
 If you do not want web-analytics, simply kill that file.
 
 
 #### configure maintenance and page texts
 
-In ```custom/lanuage.xml``` you can configure other things like your company name or a maintenance message. The main part of this file described page specific texts used by the template.
+In `custom/lanuage.xml` you can configure other things like your company name or a maintenance message. The main part of this file described page specific texts used by the template.
 
 #### define a new page
-1. add the page definitions in ```custom/config.xml``` and ```custom/language.xml``` file 
-2. copy an existing page ```<page>...</page>``` in both files - think, that is self-explaining.
-3. create the content file in ```custom``` directory like described above.
-4. create page specific styles in ```styles/[name].css```. 
-4. create page specific scripts in ```scripts/[name].js```.
+1. add the page definitions in `custom/config.xml` and `custom/language.xml` file 
+2. copy an existing page `<page>...</page>` in both files - think, that is self-explaining.
+3. create the content file in `custom` directory like described above.
+4. create page specific styles in `styles/[name].css`. 
+4. create page specific scripts in `scripts/[name].js`.
 
 Attention: Styles and scripts are parsed by velocity. You might get difficulties if you are not including your concrete styles. See existing files for more information.
 
 #### change styles and scripts
-1. copy a file from directory ```styles``` or ```scripts``` into this directory (without renaming)
+1. copy a file from directory `styles` or `scripts` into this directory (without renaming)
 2. edit file here
 3. files not working are files named "all-....css"
 
@@ -315,14 +315,14 @@ Attention: Styles and scripts are parsed by velocity. You might get difficulties
 Override style definition concerning all pages in "all-pages-update.css"
 
 #### defining your letter
-1. define letter style ```letter_style.json```
-2. define letter structure in ```letter_booking.json```
+1. define letter style `letter_style.json`
+2. define letter structure in `letter_booking.json`
 
 As you find in the demo json-files, you can use some velocity templates.
 
 #### define require field inputs of registration
-1. set configuration in ```custom/ValidationConfiguration.js```
-2. do not forget to change the server side definitions in ```rolesAndRights.xml``` (bean with id ```bean2010310903```). there is no need to be equal, but all things missed defined in ```rolesAndRights.xml``` must be filled in by the user later.
+1. set configuration in `custom/ValidationConfiguration.js`
+2. do not forget to change the server side definitions in `rolesAndRights.xml` (bean with id `bean2010310903`). there is no need to be equal, but all things missed defined in `rolesAndRights.xml` must be filled in by the user later.
 
 You may want define simple things like "must have a value" up to complex custom validation functions here. See the file for more information.
 
@@ -333,22 +333,22 @@ Logbooks is a mix of a lightweight forum, a bug tracker and a social status mess
 
 You can define logbooks in these files:
 
-* ```/opt/knurt/fam/config/logbooksConfigured.xml``` Configured logbooks used by the system.
-* ```/opt/knurt/fam/config/logbooksPool.xml``` Logbooks.
+* `/opt/knurt/fam/config/logbooksConfigured.xml` Configured logbooks used by the system.
+* `/opt/knurt/fam/config/logbooksPool.xml` Logbooks.
 
-Like defining facilities, you set the label in ```lang.properties```. Say you named it ```mylog``` in the file ```/opt/knurt/fam/config/logbooksPool.xml```:
+Like defining facilities, you set the label in `lang.properties`. Say you named it `mylog` in the file `/opt/knurt/fam/config/logbooksPool.xml`:
 ```
 mylog.label=My Logbook
 mylog.description=This is a description of the logbook
 mylog.tags=notice,problem,request,bug
 ```
 
-```mylog.tags``` are predefined tags the user can simply click on.
+`mylog.tags` are predefined tags the user can simply click on.
 
 <a name="d-g"/>
 ### Mails
 
-All mails are defined in ```lang.properties```. Search for ```mail.``` to edit it.
+All mails are defined in `lang.properties`. Search for `mail.` to edit it.
 
 
 <a name="d-h"/>
@@ -363,11 +363,11 @@ Every user has exactly one role. Every role has different rights. By default the
 
 *Warning: The system has never been tested without these preconfigured roles*
 
-If you want to edit the rights or add roles you have to edit the file ```/opt/knurt/fam/config/rolesAndRights.xml``` as described there.
+If you want to edit the rights or add roles you have to edit the file `/opt/knurt/fam/config/rolesAndRights.xml` as described there.
 
 This file furthermore defines known departments and roles being linked with that departments. And you can define required fields of a user. If one field is missed for a user, the software ask him on the next visit for it.
 
-To give new roles a name you have to edit ```lang.properties```:
+To give new roles a name you have to edit `lang.properties`:
 
 ```
 role.desc.myrole=This role is my role
@@ -396,7 +396,13 @@ Update Instructions
 - replace template-folders (but custom)
 - diff your custom files with new template files. 
   - there are changes caused by #24
-  - package ```de.knurt.fam.core.control.persistence``` moved to ```de.knurt.fam.core.persistence```
-- push new design document by executing ```migrate_couchdb.sh```
+  - package `de.knurt.fam.core.control.persistence` moved to `de.knurt.fam.core.persistence`
+- push new design document by executing `migrate_couchdb.sh`
+- exec sql
+```sql
+ALTER TABLE usermail ADD COLUMN `type` INTEGER DEFAULT NULL;
+ALTER TABLE usermail ADD COLUMN `fid` INTEGER DEFAULT NULL;
+ALTER TABLE usermail ADD COLUMN `neverSendDate` TIMESTAMP NULL;
+```
 - reinstall fam-core.war
 -->

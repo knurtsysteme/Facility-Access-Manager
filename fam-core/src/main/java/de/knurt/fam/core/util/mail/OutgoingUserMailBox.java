@@ -178,7 +178,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		args[1] = booking.getFacility().getLabel(); // for facility
 		args[2] = FamDateFormat.getDateFormattedWithTime(booking, false);
 		args[3] = TemplateHtml.href("mybookings");
-		return this.getMailFromMessageSource(booking.getUser(), "bookingmade", args, this.timeUnitsSend_BookingMade, null);
+		return this.getMailFromMessageSource(booking.getUser(), "bookingmade", args, this.timeUnitsSend_BookingMade, null, UserMail.TYPE_NEEDS_VALID_BOOKING, booking.getId());
 	}
 
 	private UserMail getMail_BookingMade(QueueBooking booking) {
@@ -188,7 +188,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		args[2] = FamDateFormat.getDateFormattedWithTime(booking.getExpectedSessionTimeFrame(), false); // expected
 		// time
 		args[3] = TemplateHtml.href("mybookings");
-		return this.getMailFromMessageSource(booking.getUser(), "queueBookingmade", args, this.timeUnitsSend_BookingMade, null);
+		return this.getMailFromMessageSource(booking.getUser(), "queueBookingmade", args, this.timeUnitsSend_BookingMade, null, UserMail.TYPE_NEEDS_VALID_BOOKING, booking.getId());
 	}
 
 	private UserMail getMail_BookingReminder(Booking booking) {
@@ -211,10 +211,8 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 					args[1] = booking.getFacility().getLabel(); // for facility
 					args[2] = FamDateFormat.getDateFormattedWithTime(booking.getSessionTimeFrame().getDateStart());
 					args[3] = TemplateHtml.href("myprofile");
-					result = this.getMailFromMessageSource(booking.getUser(), "bookingreminder", args, 0, null);
+					result = this.getMailFromMessageSource(booking.getUser(), "bookingreminder", args, 0, null, UserMail.TYPE_NEEDS_VALID_BOOKING, booking.getId());
 					result.setToSendDate(mailToSendDate.getTime());
-					result.setType(UserMail.TYPE_BOOKING_REMINDER);
-					result.setFid(booking.getId());
 				}
 			}
 		}
@@ -232,7 +230,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		if (booking.isQueueBased()) {
 			args[2] += " (expected to be - real time may vary tremendously)";
 		}
-		return this.getMailFromMessageSource(to, "applicationconfirmation", args, this.timeUnitsSend_ApplicationConfirmation, null);
+		return this.getMailFromMessageSource(to, "applicationconfirmation", args, this.timeUnitsSend_ApplicationConfirmation, null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 	}
 
 	private UserMail getMail_ForgottenPassword(User to) {
@@ -241,7 +239,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		args[1] = TemplateHtml.href("setnewpassword");
 		args[2] = FamTmpAccessEncoderControl.getInstance().encodePassword(to);
 		args[3] = to.getUsername();
-		return this.getMailFromMessageSource(to, "forgottenpassword", args, this.timeUnitsSend_ForgottenPassword, null);
+		return this.getMailFromMessageSource(to, "forgottenpassword", args, this.timeUnitsSend_ForgottenPassword, null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 	}
 
 	/**
@@ -259,7 +257,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		args[0] = count + "";
 		args[1] = facility.getLabel();
 		args[2] = TemplateHtml.href("systemmodifyapplications");
-		UserMail um = getInstance().getMailFromMessageSource(to, "applicationsforafacility", args, 0, null);
+		UserMail um = getInstance().getMailFromMessageSource(to, "applicationsforafacility", args, 0, null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 		insert(um);
 	}
 
@@ -275,16 +273,16 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		String[] args = new String[2];
 		args[0] = count + "";
 		args[1] = TemplateHtml.href("users");
-		UserMail um = getInstance().getMailFromMessageSource(to, "applicationsforsystem", args, 0, null);
+		UserMail um = getInstance().getMailFromMessageSource(to, "applicationsforsystem", args, 0, null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 		insert(um);
 	}
 
-	private UserMail getMailFromMessageSource(User to, String key, String[] args4msg, int timeUnitsToSend, String msgAfterSent) {
+	private UserMail getMailFromMessageSource(User to, String key, String[] args4msg, int timeUnitsToSend, String msgAfterSent, Integer type, Integer fid) {
 		String subject = FamText.message("mail." + key + ".subject");
 		String message = FamText.message("mail." + key + ".msg", args4msg);
 		Calendar toSent = Calendar.getInstance();
 		toSent.add(Calendar.MINUTE, timeUnitsToSend * timeUnitsBaseInMinutes);
-		return this.getMail(subject, message, to, toSent.getTime(), msgAfterSent);
+		return this.getMail(subject, message, to, toSent.getTime(), msgAfterSent, type, fid);
 	}
 
 	/**
@@ -300,7 +298,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		args[1] = TemplateHtml.href("corehome");
 		args[2] = to.getUsername();
 		args[3] = TemplateHtml.href("forgottenpassword");
-		return this.getMailFromMessageSource(to, "registration", args, this.getTimeUnitsSend_Registration(), null);
+		return this.getMailFromMessageSource(to, "registration", args, this.getTimeUnitsSend_Registration(), null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 	}
 
 	/**
@@ -316,9 +314,13 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 	 *            date of when the e-mail shall be sent
 	 * @param msgAfterSent
 	 *            {@link UserMail#getMsgAfterSent()}
+	 * @param type
+	 *            {@link UserMail#getType()}
+	 * @param fid
+	 *            {@link UserMail#getFid()}
 	 * @return the configured mail
 	 */
-	private UserMail getMail(String subject, String message, User to, Date toSendDate, String msgAfterSent) {
+	private UserMail getMail(String subject, String message, User to, Date toSendDate, String msgAfterSent, Integer type, Integer fid) {
 		UserMail result = new UserMail();
 		result.setMsg(message + FamText.message("mail.footer"));
 		result.setSubject(subject);
@@ -326,6 +328,8 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		result.setTo(to.getMail());
 		result.setToSendDate(toSendDate);
 		result.setMsgAfterSent(msgAfterSent);
+		result.setType(type);
+		result.setFid(fid);
 		return result;
 	}
 
@@ -351,7 +355,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 			args[2] = booking.getCancelation().getReason(); // reason
 			args[3] = FamDateFormat.getDateFormattedWithTime(booking, false); // from
 			// to
-			UserMail um = this.getMailFromMessageSource(to, "bookingCancelation", args, this.timeUnitsSend_BookingCancelation, null);
+			UserMail um = this.getMailFromMessageSource(to, "bookingCancelation", args, this.timeUnitsSend_BookingCancelation, null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 			return um;
 		}
 	}
@@ -376,7 +380,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 			args[1] = FacilityConfigDao.label(booking.getFacility()); // facility
 			// name
 			args[2] = booking.getCancelation().getReason(); // reason
-			UserMail um = this.getMailFromMessageSource(to, "queueBookingCancelation", args, this.timeUnitsSend_BookingCancelation, null);
+			UserMail um = this.getMailFromMessageSource(to, "queueBookingCancelation", args, this.timeUnitsSend_BookingCancelation, null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 			return um;
 		}
 	}
@@ -391,7 +395,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 			String[] args = new String[2];
 			args[0] = to.getFullName();
 			args[1] = RedirectResolver.redirectLink("viewrequest", QueryStringBuilder.getQueryString(booking));
-			UserMail um = this.getMailFromMessageSource(to, "bookingProcessed", args, 0, null);
+			UserMail um = this.getMailFromMessageSource(to, "bookingProcessed", args, 0, null, UserMail.TYPE_NEEDS_VALID_ACTIVE_USER, to.getId());
 			return um;
 		}
 	}
@@ -525,7 +529,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		args[2] = TemplateHtml.href("changepassword");
 		String msgAfterSent = FamText.message("mail." + key + ".msg", args);
 		args[1] = newpass;
-		UserMail um = getInstance().getMailFromMessageSource(to, key, args, 0, msgAfterSent);
+		UserMail um = getInstance().getMailFromMessageSource(to, key, args, 0, msgAfterSent, null, null);
 		insert(um);
 		return FamDaoProxy.userDao().getUserMailWithId(um.getId());
 	}
@@ -534,14 +538,14 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		String[] args = new String[2];
 		args[0] = user.getFullName();
 		args[1] = user.getAccountExpiresFormatted();
-		UserMail um = getInstance().getMailFromMessageSource(user, "youraccountexpired", args, 0, null);
+		UserMail um = getInstance().getMailFromMessageSource(user, "youraccountexpired", args, 0, null, null, null);
 		insert(um);
 		// send somebody in bcc if configured
 		String youraccountexpired_bcc = FamConnector.getGlobalProperty("mail_youraccountexpired_bcc");
 		if (youraccountexpired_bcc != null && !youraccountexpired_bcc.trim().isEmpty()) {
 			User bccUser = FamDaoProxy.userDao().getUserFromUsername(youraccountexpired_bcc);
 			if (bccUser != null) {
-				UserMail um_blindcopy = getInstance().getMailFromMessageSource(bccUser, "youraccountexpired", args, 0, null);
+				UserMail um_blindcopy = getInstance().getMailFromMessageSource(bccUser, "youraccountexpired", args, 0, null, null, null);
 				um_blindcopy.setMsg("A blindcopy for your information: " + um.getMsg());
 				insert(um_blindcopy);
 			}
@@ -552,7 +556,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 		String[] args = new String[2];
 		args[0] = user.getFullName();
 		args[1] = user.getAccountExpiresFormatted();
-		UserMail um = getInstance().getMailFromMessageSource(user, "expiredaccountreopened", args, 0, null);
+		UserMail um = getInstance().getMailFromMessageSource(user, "expiredaccountreopened", args, 0, null, null, null);
 		insert(um);
 	}
 

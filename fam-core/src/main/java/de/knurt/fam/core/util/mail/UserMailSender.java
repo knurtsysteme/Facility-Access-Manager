@@ -120,9 +120,11 @@ public class UserMailSender {
 		if (mail.getType() != null) {
 			User user = FamDaoProxy.userDao().getUserFromUsername(mail.getUsername());
 			boolean userIsValidAndActive = user != null && !user.isExcluded() && !user.isAccountExpired() && !user.isAnonym();
-			if (mail.getType() == UserMail.TYPE_BOOKING_REMINDER && mail.getFid() != null) {
+			if (mail.getType() == UserMail.TYPE_NEEDS_VALID_BOOKING && mail.getFid() != null) {
 				Booking booking = FamDaoProxy.bookingDao().getBookingWithId(mail.getFid());
 				result = booking == null || booking.isCanceled() || !userIsValidAndActive || !user.isAllowedToAccess(booking.getFacility());
+			} else if (mail.getType() == UserMail.TYPE_NEEDS_VALID_ACTIVE_USER) {
+				result = !userIsValidAndActive;
 			}
 		}
 		return result;

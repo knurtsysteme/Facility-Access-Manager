@@ -33,12 +33,16 @@ import de.knurt.heinzelmann.util.query.Identificable;
 public class UserMail implements ViewableObject, Identificable {
 
 	/**
-	 * flag to tag this mail as a booking reminder.
-	 * having a delay, this mail is not send if it has this
-	 * type and the booking has been canceled.
+	 * flag to tag this mail with: only send if booking and booker is valid.
+	 * 
 	 * @see #getType()
 	 */
-	public static final int TYPE_BOOKING_REMINDER = 1;
+	public static final int TYPE_NEEDS_VALID_BOOKING = 1;
+	/**
+	 * flag to tag this mail with: only send if user is valid.
+	 * 
+	 * @see #getType()
+	 */
 	public static final int TYPE_NEEDS_VALID_ACTIVE_USER = 2;
 	private Date toSendDate, wasSentDate, neverSendDate;
 	private String username, subject, msg, to, msgAfterSent;
@@ -229,13 +233,17 @@ public class UserMail implements ViewableObject, Identificable {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	
+
 	public void setFid(Integer fid) {
 		this.fid = fid;
 	}
+
 	/**
-	 * return an optional foreign id. the meaning of the id depends on the {@link #type}
-	 * @return an optional foreign id. the meaning of the id depends on the {@link #type}
+	 * return an optional foreign id. the meaning of the id depends on the
+	 * {@link #type}
+	 * 
+	 * @return an optional foreign id. the meaning of the id depends on the
+	 *         {@link #type}
 	 */
 	public Integer getFid() {
 		return fid;
