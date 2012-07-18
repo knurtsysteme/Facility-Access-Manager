@@ -29,6 +29,8 @@ README Contents
 
 A. [Links](#z)
   * [Wiki Pages] (#z-a)
+
+
 <!-- TODO #26 uncomment
 
 B. [Update Instructions](#y)
@@ -374,7 +376,7 @@ role.label.myrole= My Role
 
 
 <a name="z"/>
-Links
+## Links
 
 <a name="z-a"/>
 ### Wiki Pages
