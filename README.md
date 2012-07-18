@@ -27,10 +27,12 @@ README Contents
   * [Mails](#d-g)
   * [Roles and Rights](#d-h)
 
+A. [Links](#z)
+  * [Wiki Pages] (#z-a)
 <!-- TODO #26 uncomment
 
-5. [Update Instructions](#z)
-  * [1.8.1 → 1.8.2](#z-a)
+B. [Update Instructions](#y)
+  * [1.8.1 → 1.9.0](#y-a)
 
 -->
 
@@ -370,13 +372,23 @@ role.desc.myrole=This role is my role
 role.label.myrole= My Role
 ```
 
-<!-- TODO #26 uncomment
+
 <a name="z"/>
+Links
+
+<a name="z-a"/>
+### Wiki Pages
+
+- [[Plugin Development]]
+
+ 
+<!-- TODO #26 uncomment
+<a name="y"/>
 Update Instructions
 -------------------
 
-<a name="z-a"/>
-### 1.8.1 → 1.8.2
+<a name="y-a"/>
+### 1.8.1 → 1.9.0
 - backup couchdb and template files first
 - download full version
 - replace template-folders (but custom)
