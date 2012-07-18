@@ -32,27 +32,40 @@ public abstract class FamEncoderControl {
 	protected FamEncoderControl() {
 	}
 
-
 	/**
 	 * return the password of the given user encoded. it is not checked, if
-	 * user's password is already encoded. the password is encoded with salt.
+	 * user's password is already encoded. 
 	 * 
+	 * do not set it as users password! use
+	 * {@link User#encodePassword()} instead!
+	 * 
+	 * return <code>null</code> if
+	 * <ul>
+	 * <li>user is <code>null</code></li>
+	 * <li>user's password is <code>null</code></li>
+	 * <li>user's password has not allowed keys
+	 * <code>[^(a-zA-Z0-9_\\-\\.\\+,#)]</code></li>
+	 * </ul>
+	 * 
+	 * @see User#encodePassword()
 	 * @see #getSalt(de.knurt.fam.core.model.persist.User)
 	 * @see User#getPassword()
 	 * @param user
-	 *            the passworded is encoded of
+	 *            the passworded is encoded of. user and user's password must
+	 *            not be null. return <code>null</code> otherwise.
 	 * @return the password of the given user encoded.
 	 */
 	public String encodePassword(User user) {
-		if (user != null) {
+		String result = null;
+		if (user != null && user.getPassword() != null) {
 			String passwordUsed = user.getPassword().replaceAll("[^(a-zA-Z0-9_\\-\\.\\+,#)]", "");
-			if(!passwordUsed.equals(user.getPassword())) {
+			if (passwordUsed.equals(user.getPassword())) {
+				result = FamEncoder.getInstance().getEncoder().encodePassword(passwordUsed, this.getSalt(user));
+			} else {
 				FamLog.warn(user.getUsername() + " insert password with not allowed char. password changed", 201207130853l);
 			}
-			return FamEncoder.getInstance().getEncoder().encodePassword(passwordUsed, this.getSalt(user));
-		} else {
-			return null;
 		}
+		return result;
 	}
 
 	/**

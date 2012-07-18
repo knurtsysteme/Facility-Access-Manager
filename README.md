@@ -379,7 +379,7 @@ Links
 <a name="z-a"/>
 ### Wiki Pages
 
-- [[Plugin Development]]
+- [Plugin Development](/knurtsysteme/Facility-Access-Manager/wiki/Plugin-Development)
 
  
 <!-- TODO #26 uncomment

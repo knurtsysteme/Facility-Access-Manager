@@ -17,6 +17,7 @@ package de.knurt.fam.test.unit.aspects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -133,14 +134,18 @@ public class SecurityTest extends FamIBatisTezt {
 	@Test
 	public void getTmpEncrypter() {
 		User user = UserFactory.me().blank();
-		String teststring = "abc";
-		user.setUsername(teststring);
+		String testusername = "abc";
+		String testpass = "def";
+		user.setUsername(testusername);
+		user.setPassword(testpass);
 		String enc = FamTmpAccessEncoderControl.getInstance().encodePassword(user);
 		assertFalse(enc.isEmpty());
-		assertFalse(enc.equals(teststring));
+		assertNotSame(enc, testusername);
+		assertNotSame(enc, testpass);
+		assertNotSame(enc, testpass + "_" + testusername);
 		assertTrue(enc, enc.length() > 8);
-		assertFalse(enc.equals(user.getPassword() + user.getMail()));
-		assertTrue(enc.endsWith("_" + teststring));
+		assertNotSame(user.getPassword() + user.getMail(), enc);
+		assertTrue(enc.endsWith("_" + testusername));
 	}
 
 	/**
@@ -149,8 +154,10 @@ public class SecurityTest extends FamIBatisTezt {
 	@Test
 	public void isSecure() {
 		User user = UserFactory.me().blank();
-		String teststring = "abc";
-		user.setUsername(teststring);
+		String testuser = "abc";
+		String testpass = "def";
+		user.setUsername(testuser);
+		user.setPassword(testpass);
 		String enc = FamTmpAccessEncoderControl.getInstance().encodePassword(user);
 		enc = enc.substring(0, 20);
 		assertTrue(enc, enc.matches(".*[a-zA-Z].*")); // contains chars

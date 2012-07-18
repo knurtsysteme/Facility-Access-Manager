@@ -19,55 +19,63 @@ import de.knurt.fam.core.model.persist.User;
 
 /**
  * encode the main password of a user.
+ * 
  * @author Daniel Oltmanns
  * @since 0.20090409 (04/09/2009)
  */
 public class FamUserPassEncoderControl extends FamEncoderControl {
 
-    /** one and only instance of me */
-    private volatile static FamUserPassEncoderControl me;
+	/** one and only instance of me */
+	private volatile static FamUserPassEncoderControl me;
 
-    /** construct me */
-    private FamUserPassEncoderControl() {
-    }
+	/** construct me */
+	private FamUserPassEncoderControl() {
+	}
 
-    /**
-     * return the one and only instance of FamUserPassEncoderControl
-     * @return the one and only instance of FamUserPassEncoderControl
-     */
-    public static FamUserPassEncoderControl getInstance() {
-        if (me == null) { // no instance so far
-            synchronized (FamUserPassEncoderControl.class) {
-                if (me == null) { // still no instance so far
-                    me = new FamUserPassEncoderControl(); // the one and only
-                }
-            }
-        }
-        return me;
-    }
+	/**
+	 * return the one and only instance of FamUserPassEncoderControl
+	 * 
+	 * @return the one and only instance of FamUserPassEncoderControl
+	 */
+	public static FamUserPassEncoderControl getInstance() {
+		if (me == null) { // no instance so far
+			synchronized (FamUserPassEncoderControl.class) {
+				if (me == null) { // still no instance so far
+					me = new FamUserPassEncoderControl(); // the one and only
+				}
+			}
+		}
+		return me;
+	}
 
-    /**
-     * encode the password.
-     * only encode, if user password is not already encoded!
-     * @param user the password shall be encoded.
-     * @return the encoded password.
-     */
-    @Override
-    public String encodePassword(User user) {
-        String result = user.getPassword();
-        if (user.isPasswordEncoded() == false) {
-            result = super.encodePassword(user);
-        }
-        return result;
-    }
+	/**
+	 * encode the password. only encode, if user password is not already
+	 * encoded! do not set it as users password! use
+	 * {@link User#encodePassword()} instead!
+	 * 
+	 * @see User#encodePassword()
+	 * @param user
+	 *            the password shall be encoded.
+	 * @return the encoded password.
+	 */
+	@Override
+	public String encodePassword(User user) {
+		String result = user.getPassword();
+		if (user.isPasswordEncoded() == false) {
+			result = super.encodePassword(user);
+		}
+		return result;
+	}
 
-    /**
-     * no salt here.
-     * @param user the encoded password is for
-     * @return null for not using a salt here
-     */
-    @Override
-    protected Object getSalt(User user) {
-        return null;
-    }
+	/**
+	 * no salt here.
+	 * 
+	 * @param user
+	 *            the encoded password is for
+	 * @return null for not using a salt here
+	 */
+	@Override
+	protected Object getSalt(User user) {
+		return null;
+	}
 }
