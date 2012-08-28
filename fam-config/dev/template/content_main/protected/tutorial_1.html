@@ -96,7 +96,7 @@
 	<li>Use <code>\$FamText.valueOrAlt("$!job.foo", "no input")</code> to show the value of <code>foo</code> or the message "no input" if nothing filled in there.</li> 
 	<li>Use <code>\$util.html.formatUserInput("$!job.foo")</code> to show the value put into the html-input with the name <code>foo</code> formatted. E.g. URIs are changed to links then.</li> 
 	<li>Check <code>\#if("$uuagh"=="")</code> and you know, the input for foo is empty.</li> 
-	<li>Simply define a JavaScript Object in your HTML-Header to activate a file input. Only files uploaded in the File-Manager before can be choosen. One file upload per Job Survey is allowed. Use this Code:<br />
+	<li>Simply define a JavaScript Object in your HTML-Header to activate a file input. Only files uploaded in the File-Manager before can be choosen. One file-upload-section per Job Survey is allowed. Use this Code:<br />
 <pre>
 /* show fileupload possibility
  * up to 5 files with filetype pdf or xls in element with id a
@@ -111,12 +111,12 @@ var FileUpload = {
 	</li>
 	<li>To read uploaded files of a job use this code (in the HTML area):<br />
 	<pre>
-	#foreach($attachment in $attachments)
-		$attachment.step
-		$attachment.size
-		$attachment.name
-		$attachment.url
-	#end
+\#foreach($attachment in $attachments)
+	$attachment.step
+	$attachment.size
+	$attachment.name
+	$attachment.url
+\#end
 	</pre>
 	</li>
 </ul>
