@@ -29,6 +29,7 @@ import de.knurt.heinzelmann.ui.html.HtmlFactory;
  * @author Daniel Oltmanns
  * @since 0.20090412 (04/12/2009)
  */
+@Deprecated
 public class LogbookEntriesTrHtml extends LogbookHtml {
 
 	private String logbookKey;
@@ -131,6 +132,6 @@ public class LogbookEntriesTrHtml extends LogbookHtml {
 	}
 
 	private String getNoEntryLine() {
-		return "<tr><td colspan=\"2\">no entry by now</td></tr>";
+		return "<tr><td colspan=\"4\">No entry yet</td></tr>"; // INTLANG
 	}
 }
