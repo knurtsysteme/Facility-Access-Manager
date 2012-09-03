@@ -79,3 +79,7 @@ fieldset.invalid legend, select.invalid, input.invalid, textarea.invalid {
 #intendedResearch_id {
 	width: 495px !important;
 }
+button[disabled]#register_submit, button[disabled]#register_submit:hover {
+  color: #9C0F0F;
+  border: 1px solid #9C0F0F;
+}

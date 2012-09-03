@@ -386,10 +386,13 @@ button:hover * {
 	color: #9C0F0F;
 }
 
-button[disabled],button[disabled]:hover {
-	border: 1px solid #DDDDDD !important;
-	color: #DDDDDD !important;
-	cursor: default !important;
+button[disabled],select[disabled],button[disabled]:hover {
+	border: 1px solid #DDDDDD;
+	color: #DDDDDD;
+	cursor: default;
+}
+select[disabled] {
+  background-color: #FFF;
 }
 
 /* special hints */
