@@ -1,0 +1,19 @@
+#if(! $util.value.isNull($config.model.current_sessions) && $config.model.current_sessions.size() > 0)
+  #if($config.model.current_sessions.size() == 1)
+  <h1 class="stopCurrentSession">Current session</h1>
+  #elseif($config.model.current_sessions.size() > 1)
+  <h1 class="stopCurrentSession">$config.model.current_sessions.size() current sessions</h1>
+  #end
+  <div id="stopCurrentSessionHint" class="hint stopCurrentSession">
+    Please click one of the following button if you end a session ahead of schedule.<br />
+    Other users get the chance to book it then.
+  </div>
+  #foreach($current_session in $config.model.current_sessions)
+  <form action="endsession.json" class="stopCurrentSession" method="post" onSubmit="javascript: return false;">
+   <input type="hidden" name="id" value="$current_session.id" />
+   <button type="submit" class="icon send">
+   End the current session on $current_session.facility.label now!
+   </button>
+  </form>
+  #end
+#end

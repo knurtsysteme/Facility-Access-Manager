@@ -8,3 +8,4 @@
 #include("lib/jquery.serializeobject.js")
 /*! KNURT Systeme - part of the Facility Access Manager */
 $(document).ready(function(){JobSurvey.init();});
+Base.setIFrameHeightInterval();

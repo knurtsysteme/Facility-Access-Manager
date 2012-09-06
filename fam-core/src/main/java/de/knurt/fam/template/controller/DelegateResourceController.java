@@ -61,6 +61,7 @@ import de.knurt.fam.core.util.mvc.Registration;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.fam.plugin.DefaultPluginResolver;
+import de.knurt.fam.template.controller.json.EndSessionPostController;
 import de.knurt.fam.template.controller.json.JobSurveyPostController;
 import de.knurt.fam.template.controller.letter.LetterGeneratorEMailLetter;
 import de.knurt.fam.template.controller.letter.LetterGeneratorShowLetter;
@@ -404,6 +405,12 @@ public final class DelegateResourceController {
 		}
 	}
 
+	@RequestMapping(value = "/endsession__{filename}__json__delegate.fam", method = RequestMethod.POST)
+	public final ModelAndView handlePostEndSession(HttpServletResponse response, HttpServletRequest request) {
+		this.generalInit(response, "text/html; charset=UTF-8");
+		return new EndSessionPostController(request).handleRequest(request, response);
+	}
+
 	@RequestMapping(value = "/jobsurvey__{filename}__json__delegate.fam", method = RequestMethod.POST)
 	public final ModelAndView handlePostJobsurvey(HttpServletResponse response, HttpServletRequest request) {
 		this.generalInit(response, "text/html; charset=UTF-8");
@@ -533,6 +540,11 @@ public final class DelegateResourceController {
 	@RequestMapping(value = "/{resource}__{filename}__png__delegate.fam", method = RequestMethod.GET)
 	public final ModelAndView handleImageRequest(@PathVariable("resource") String resource, HttpServletResponse response, HttpServletRequest request) {
 		return TemplateConfig.me().getResourceController().handleImageRequest(resource, response, request);
+	}
+
+	@RequestMapping(value = "/book__{filename}__html__delegate.fam", method = RequestMethod.GET)
+	public final ModelAndView redirectToBook2(HttpServletResponse response, HttpServletRequest request) {
+		return RedirectResolver.redirect(RedirectTarget.BOOK_FACILITY);
 	}
 
 	/**

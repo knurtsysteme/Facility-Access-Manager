@@ -16,6 +16,7 @@
 package de.knurt.fam.core.persistence.dao.ibatis;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.knurt.fam.core.aspects.logging.FamLog;
@@ -58,6 +59,7 @@ public class BookingDao4ibatis extends BookingDao {
 		try {
 			BookingAdapterParameter adapter = new BookingAdapterParameter(dataholder);
 			FamSqlMapClientDaoSupport.sqlMap().update("Booking.update", adapter);
+			result = true;
 		} catch (Exception e) {
 			FamLog.exception(e, 201205071124l);
 		}
@@ -213,10 +215,26 @@ public class BookingDao4ibatis extends BookingDao {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<Booking> getAllUncanceledAndProcessed(User user) {
 		String where = String.format("processed = true AND cancelation_seton IS NULL AND username = '%s'", user.getUsername());
 		return this.getWhere(where);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public List<TimeBooking> getCurrentSessions(User user) {
+		List<TimeBooking> result = new ArrayList<TimeBooking>();
+		String whereToFormat = "time_start <= '%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS' AND time_end > '%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS' AND cancelation_seton IS NULL AND username = '%2$s'";
+		String where = String.format(whereToFormat, new Date(), user.getUsername());
+		List<Booking> cands = this.getWhere(where);
+		for (Booking cand : cands) {
+			if (cand.isTimeBased()) {
+				result.add((TimeBooking) cand);
+			}
+		}
+		return result;
 	}
 
 }

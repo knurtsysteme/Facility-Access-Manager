@@ -112,6 +112,10 @@
                 <exec executable="java" os="Linux">
                   <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/JobSurveyFileUpload.js dev/template/scripts/JobSurveyFileUpload.js" />
                 </exec>
+                <echo>optimize scripts/EndSession.js</echo>
+                <exec executable="java" os="Linux">
+                  <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/EndSession.js dev/template/scripts/EndSession.js" />
+                </exec>
                 <echo>optimize scripts/Base_Calendar.js</echo>
                 <exec executable="java" os="Linux">
                   <arg line="-jar ${file.yui.jar} -o target/pro/template/scripts/Base_Calendar.js dev/template/scripts/Base_Calendar.js" />

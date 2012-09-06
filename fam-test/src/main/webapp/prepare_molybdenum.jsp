@@ -15,3 +15,5 @@
 <form action=""><input type="hidden" name="confirm" value="262"></input><input  id="ticket_262" type="submit" value="Ticket 262 - i know, what i do!!!" /></form>
 <h1>Ticket 340</h1>
 <form action=""><input type="hidden" name="confirm" value="340"></input><input  id="ticket_340" type="submit" value="Ticket 340 - i know, what i do!!!" /></form>
+<h1>setABookingSessionIsNow</h1>
+<form action=""><input type="hidden" name="confirm" value="setABookingSessionIsNow"></input><input  id="setABookingSessionIsNow" type="submit" value="setABookingSessionIsNow - i know, what i do!!!" /></form>

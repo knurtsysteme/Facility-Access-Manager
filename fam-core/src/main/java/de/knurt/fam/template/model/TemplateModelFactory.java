@@ -15,12 +15,7 @@
  */
 package de.knurt.fam.template.model;
 
-import static de.knurt.fam.core.util.mvc.QueryKeys.QUERY_KEY_CALENDAR_VIEW;
-import static de.knurt.fam.core.util.mvc.QueryKeys.QUERY_KEY_SHOW_DETAILS;
-import static de.knurt.fam.core.util.mvc.QueryKeys.WEEK;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -31,37 +26,20 @@ import org.json.JSONObject;
 import de.knurt.fam.connector.FamSystemUpdateNotifier;
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.FamAuth;
-import de.knurt.fam.core.aspects.security.auth.SessionAuth;
-import de.knurt.fam.core.config.FamCalendarConfiguration;
-import de.knurt.fam.core.model.config.BookingStrategy;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.FacilityBookable;
-import de.knurt.fam.core.model.config.UsersUnitsQueueBasedBookingRule;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
-import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.util.JSONFactory;
-import de.knurt.fam.core.util.mvc.QueryStringBuilder;
-import de.knurt.fam.core.util.mvc.RequestInterpreter;
-import de.knurt.fam.core.util.time.CalendarViewResolver;
 import de.knurt.fam.core.view.html.FacilityOverviewHtml;
-import de.knurt.fam.core.view.html.calendar.FamMonthAvailabilityHtml;
-import de.knurt.fam.core.view.html.calendar.FamMonthHtml;
-import de.knurt.fam.core.view.html.calendar.FamWeekAvailabilityBookingsHtml;
-import de.knurt.fam.core.view.html.calendar.FamWeekHtml;
-import de.knurt.fam.core.view.html.calendar.factory.BookFacilityInputHtmlFactory;
-import de.knurt.fam.core.view.html.calendar.factory.FamCalendarHtmlFactory;
-import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.fam.core.view.text.FamText;
 import de.knurt.fam.news.NewsItem;
 import de.knurt.fam.plugin.DefaultPluginResolver;
 import de.knurt.fam.template.util.QuicksandHtml;
 import de.knurt.fam.template.util.TemplateHtml;
-import de.knurt.heinzelmann.ui.html.HtmlElement;
-import de.knurt.heinzelmann.ui.html.HtmlFactory;
 
 /**
  * produce the model for specific pages
@@ -70,7 +48,6 @@ import de.knurt.heinzelmann.ui.html.HtmlFactory;
  * @author Daniel Oltmanns
  * @since 1.3.0 (10/15/2010)
  */
-@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
 public class TemplateModelFactory {
 	private TemplateResource templateResource;
 
@@ -105,8 +82,7 @@ public class TemplateModelFactory {
 		} else if (templateResource.getName().equals("plugins")) {
 			result.put("plugins", DefaultPluginResolver.me().getPlugins());
 		} else if (templateResource.getName().equals("corehome")) {
-			result.put("jui_tabs", QuicksandHtml.getJuiTabs(templateResource));
-			result.put("quicksand_clickitems", QuicksandHtml.getClickItems(templateResource));
+			result.putAll(new CoreHomeModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("adminhome")) {
 			result.put("system", FamSystemUpdateNotifier.currentVersion());
 			result.put("jui_tabs", QuicksandHtml.getJuiTabs(templateResource));
@@ -161,77 +137,9 @@ public class TemplateModelFactory {
 			result.putAll(new RequestedBookingModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("systemlistofconfiguredfacilities")) {
 			result.put("facilities", FacilityConfigDao.getInstance().getAll());
-		} else if (templateResource.getName().equals("book2")) {
+		} else if (templateResource.getName().equals("book2") || templateResource.getName().equals("book")) {
 			result.putAll(new Book2ModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("news")) {
-		} else if (templateResource.getName().equals("book")) {
-			FacilityBookable bd = RequestInterpreter.getBookableFacility(this.templateResource.getRequest());
-			if (bd == null) {
-				// TODO #22 if there is only one facility show it directly
-				// ↓ create overview with first root facility
-				result.put("client_redirect", TemplateHtml.me().getHref("book2"));
-				result.put("currentQueueLength", "");
-				result.put("bookOrApplyFor", "");
-				result.put("hiddenInput", "");
-				result.put("expectedYourTurnAt", "");
-				result.put("jsoncalendarmetrics", "");
-				result.put("rightsSummary", "");
-				result.put("content", "");
-				result.put("facility", FacilityConfigDao.getUnknownBookableFacility());
-			} else {
-				// ↖ found a facility
-				result.put("facility", bd);
-				if (bd.getBookingStrategy() == BookingStrategy.QUEUE_BASED) {
-					result.put("booking_strategy_is_queue_based", true);
-					UsersUnitsQueueBasedBookingRule br = (UsersUnitsQueueBasedBookingRule) bd.getBookingRule();
-					QueueBooking qb = new QueueBooking(this.templateResource.getAuthUser(), bd);
-					SessionAuth.addToUsersShoppingCart(this.templateResource.getRequest(), qb);
-					result.put("currentQueueLength", br.getCurrentQueueLength());
-					result.put("bookOrApplyFor", qb.isBooked() ? "Book" : "Apply for");
-					result.put("hiddenInput", QueryStringBuilder.getArticleNumber(qb).getAsHtmlInputsTypeHidden());
-					result.put("expectedYourTurnAt", FamDateFormat.getDateFormattedWithTime(qb.getExpectedSessionStart()));
-				} else {
-					// ↖ time based facility
-					result.put("booking_strategy_is_queue_based", false);
-					JSONObject calendarMetrics = new JSONObject();
-					try {
-						calendarMetrics.put("startMinutesOfDay", FamCalendarConfiguration.hourStart() * 60);
-						calendarMetrics.put("endMinutesOfDay", FamCalendarConfiguration.hourStop() * 60);
-					} catch (JSONException e) {
-						FamLog.logException(this.getClass(), e, "error creating json", 201010160922l);
-					}
-					result.put("jsoncalendarmetrics", calendarMetrics);
-					result.put("rightsSummary", this.getRightsSummary(this.templateResource.getAuthUser(), bd));
-
-					// calendar html
-					String calendarHtml = "";
-					Calendar cal;
-					if (this.templateResource.getRequest().getParameter(QUERY_KEY_SHOW_DETAILS) != null) {
-						cal = RequestInterpreter.getCalendarStart(this.templateResource.getRequest().getParameter(QUERY_KEY_SHOW_DETAILS));
-					} else {
-						cal = RequestInterpreter.getCalendar(this.templateResource.getRequest());
-					}
-					String calView = this.templateResource.getRequest().getParameter(QUERY_KEY_CALENDAR_VIEW);
-					if (calView == null || QueryStringBuilder.isValidCalendarView(calView) == false) {
-						Facility d = RequestInterpreter.getFacility(this.templateResource.getRequest());
-						if (d == null) {
-							calView = CalendarViewResolver.getInstance().getDefaultCalendarView(FacilityConfigDao.getUnknownBookableFacility());
-						} else {
-							calView = CalendarViewResolver.getInstance().getDefaultCalendarView(d);
-						}
-					}
-					FamCalendarHtmlFactory htmlFactory = new BookFacilityInputHtmlFactory(RequestInterpreter.getBookingWishFromRequest(cal, bd.getKey(), this.templateResource.getRequest(), this.templateResource.getAuthUser()));
-					boolean showRedGreenOnly = RequestInterpreter.hasAjaxFlag(this.templateResource.getRequest());
-					if (calView.equals(WEEK)) {
-						FamWeekHtml calhtml = new FamWeekAvailabilityBookingsHtml(cal, bd.getKey(), htmlFactory, showRedGreenOnly, true);
-						calendarHtml = calhtml.toString();
-					} else { // month view
-						FamMonthHtml calhtml = new FamMonthAvailabilityHtml(cal, htmlFactory, "onemonthdaybookings", FacilityConfigDao.facility(bd.getKey()), showRedGreenOnly, true);
-						calendarHtml = calhtml.toString();
-					}
-					result.put("content", calendarHtml);
-				}
-			}
 		} else if (templateResource.getName().equals("bookfacilitiesdone")) {
 			result.putAll(new BookFacilitiesDoneModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("statistics")) {
@@ -269,6 +177,7 @@ public class TemplateModelFactory {
 			result.putAll(new FacilityAvailabilityModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("mybookings")) {
 			result.put("bookings", templateResource.getAuthUser().getBookings());
+			result.put("current_sessions", FamDaoProxy.bookingDao().getCurrentSessions(templateResource.getAuthUser()));
 		}
 		if (templateResource.getWritingResultProperties() != null) {
 			result.putAll(templateResource.getWritingResultProperties());
@@ -290,29 +199,6 @@ public class TemplateModelFactory {
 		} else {
 			result = new ArrayList<NewsItem>(0);
 		}
-		return result;
-	}
-
-	private HtmlElement getRightsSummary(User user, FacilityBookable bd) {
-		HtmlElement result = HtmlFactory.get("ul").addClassName("asList");
-
-		String tmpMessage = user.hasRight(FamAuth.DIRECT_BOOKING, bd) ? "<strong>You are allowed to book</strong> this facility without an application." : "<strong>You have to apply</strong> for using this facility."; // INTLANG
-		result.add(HtmlFactory.get("li").add(tmpMessage));
-
-		if (bd.getCapacityUnits() > 1) {
-			tmpMessage = String.format("You have to request <strong>at least %s</strong> and <strong>%s at most</strong>.", bd.getBookingRule().getCapacityLabelOfMin(user), bd.getBookingRule().getCapacityLabelOfMax(user));
-			result.add(HtmlFactory.get("li").add(tmpMessage));
-		}
-
-		if (FamAuth.getEarliestPossibilityToBookFromNow(user, bd) > 0) {
-			Calendar earliest = FamAuth.getEarliestCalendarToBookFromNow(user, bd);
-			tmpMessage = String.format("This facility is <strong>not available before %s</strong>", FamDateFormat.getDateFormattedWithTime(earliest));
-			result.add(HtmlFactory.get("li").add(tmpMessage));
-		}
-
-		tmpMessage = String.format("Your request has to be between <strong>%s</strong> and <strong>%s</strong>.", bd.getBookingRule().getTimeLabelOfMin(user), bd.getBookingRule().getTimeLabelOfMax(user));
-		result.add(HtmlFactory.get("li").add(tmpMessage));
-
 		return result;
 	}
 

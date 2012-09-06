@@ -1,5 +1,6 @@
 #include("styles/jquery-ui.custom.css")
 #include("styles/overviewpage.css")
 #include("lib/jquery.bubblepopup.v2.1.5.css")
+#include("lib/jquery.notifications.css")
 /*! KNURT Systeme - part of the Facility Access Manager */
 #quicksand_button_show_all{margin-right:10px;}

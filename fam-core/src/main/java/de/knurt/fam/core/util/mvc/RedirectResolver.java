@@ -120,6 +120,8 @@ public class RedirectResolver {
 			return "register";
 		case EDIT_SOA:
 			return "editsoa";
+		case BOOK_FACILITY:
+			return "book2";
 		default: // go to public home
 			return "home";
 		}

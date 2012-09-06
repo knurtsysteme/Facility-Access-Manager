@@ -68,10 +68,8 @@ public class PrepareDatabase {
 								"INSERT INTO `user` VALUES (null,'daoltma2','2010-08-11 12:48:48',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody02@knurt.de','Oltmanns','operator',3,1,'unknown','Test Department',NULL,'intended research project',false)",
 								"INSERT INTO `user` VALUES (null,'daoltma3','2010-08-11 12:49:37',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody03@knurt.de','Oltmanns','intern',4,1,'unknown','Test Department',NULL,'intended research project',false)",
 
-								"INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"indoor\")",
-								"INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"sportsHall\")",
-								"INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"ballBath\")"
-						};
+								"INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"indoor\")", "INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"sportsHall\")",
+								"INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"ballBath\")" };
 						for (String sql : sqls) {
 							result += "<li>exec: <code>" + sql + "</code></li>";
 							stmt.execute(sql);
@@ -88,6 +86,21 @@ public class PrepareDatabase {
 					String accountExpiresNew = FamDateFormat.getCustomDate(today.getTime(), "yyyy-MM-dd");
 					String sql = String.format("UPDATE `user` SET account_expires = '%s' WHERE username = 'daoltma1'", accountExpiresNew);
 					result = String.format("<li>Set account expiration date of test user extern to %s</li>", accountExpiresNew);
+					try {
+						stmt.execute(sql);
+					} catch (SQLException e) {
+					}
+				} else if (request.getParameter("confirm") != null && request.getParameter("confirm").equals("setABookingSessionIsNow")) {
+					// set a booking for extern where the session is active now
+					Calendar timeStartC = Calendar.getInstance();
+					timeStartC.add(Calendar.DAY_OF_YEAR, -10);
+					Calendar timeEndC = Calendar.getInstance();
+					timeEndC.add(Calendar.DAY_OF_YEAR, 10);
+					String timeStart = this.getTimestamp(timeStartC.getTime());
+					String timeEnd = this.getTimestamp(timeEndC.getTime());
+					String sqlTempl = "INSERT INTO booking (id, username, seton, status_id, status_seton, facilityKey, capacityUnits, time_end, time_start, cancelation_username, cancelation_reason, cancelation_seton, notice, idBookedInBookingStrategy, processed) 	VALUES (null, 'daoltma1', '%1$s', 2, '%1$s', 'bus1', 1, '%2$s', '%1$s', null, null, null, null, 1, 0)";
+					String sql = String.format(sqlTempl, timeStart, timeEnd);
+					result = String.format("<li>Inserted booking: %s</li>", sql);
 					try {
 						stmt.execute(sql);
 					} catch (SQLException e) {
@@ -122,6 +135,10 @@ public class PrepareDatabase {
 			result = "YOU ARE NOT A DEV SYSTEM!";
 		}
 		return result;
+	}
+
+	private String getTimestamp(Date date) {
+		return String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", date);
 	}
 
 	private String prepareCouchDB() {

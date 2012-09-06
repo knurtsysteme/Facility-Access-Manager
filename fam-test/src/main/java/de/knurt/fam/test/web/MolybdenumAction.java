@@ -48,6 +48,12 @@ public class MolybdenumAction {
 		result += String.format(Molybdenum.command2format, "clickAndWait", "id=ticket_340", "", "do it");
 		return result;
 	}
+	public String setABookingSessionIsNow() {
+		String result = "";
+		result += String.format(Molybdenum.command2format, "open", TestPropertiesGetter.me().getTestProperties().getProperty("molybdenum.fam-test-url") + "/prepare_molybdenum.jsp", "", "create test files");
+		result += String.format(Molybdenum.command2format, "clickAndWait", "id=setABookingSessionIsNow", "", "do it");
+		return result;
+	}
 
 	public String logout() {
 		return this.open("logout");

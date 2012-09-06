@@ -1,4 +1,5 @@
-    <h1>Where do you want to go?</h1>
+#parse("content_main/protected/inc_session_finished.html")
+<h1>Where do you want to go?</h1>
 	<div id="quicksand" style="margin-top: 10px">
 		<div id="jui_tabs">
 			<ul style="margin-left:0;">
@@ -17,7 +18,7 @@
 						#set($a_content = "
 						<img height='50' width='50' class='quicksand_clickitem' alt='$page.title' src='$quicksand_clickitem.get(1)' />
 						<span
-						style='display:block'>$page.headline</span>")
+						style='display:block'>$page.headline</span>") ## end #set($a_content =
 						$util.html.a($quicksand_clickitem.get(3), $lang.xml, $config.xml).setContent($a_content)
 					</div>
 				</li>

@@ -188,9 +188,9 @@ Base.Register.Validation.changedom = function() {
     Base.Register.Validation.fieldsetvalid.fs_cd = Base.Register.Validation.changedomfieldset("fs_cd");
     Base.Register.Validation.fieldsetvalid.fs_irp = Base.Register.Validation.changedomfieldset("fs_irp");
     if(Base.Register.Validation.completeFormIsValid()) {
-        $('#register_submit').attr('disabled', false).html('<span class="image"></span>' + ValidationConfiguration.label.submit).addClass("icon");
+        $('#register_submit').attr('disabled', false).html('<span class="image"></span>' + ValidationConfiguration.label.submit).removeClass("no").addClass("send");
     } else {
-        $('#register_submit').attr('disabled', true).html('<span class="image"></span>' + ValidationConfiguration.label.nosubmit).removeClass("icon");
+        $('#register_submit').attr('disabled', true).html('<span class="image"></span>' + ValidationConfiguration.label.nosubmit).removeClass("send").addClass("no");
     }
 };
 Base.Register.Validation.changedomfieldset = function(fieldsetid) {

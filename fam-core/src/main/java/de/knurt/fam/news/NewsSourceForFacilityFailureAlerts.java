@@ -49,8 +49,8 @@ public class NewsSourceForFacilityFailureAlerts implements NewsSource {
 					String description = "";
 					if (da.isNotAvailableBecauseOfBooking()) {
 						description = String.format("In use: %s", facility.getLabel()); // INTLANG
-						if (to.hasRight2ViewPage("book")) {
-							ni.setLinkToFurtherInformation(TemplateHtml.href("book") + QueryStringBuilder.getQueryString(facility));
+						if (to.hasRight2ViewPage("book2")) {
+							ni.setLinkToFurtherInformation(TemplateHtml.href("book2") + QueryStringBuilder.getQueryString(facility));
 						}
 					} else if (da.isNotAvailableBecauseOfSuddenFailure()) {
 						description = String.format("Not usable: %s", facility.getLabel()); // INTLANG

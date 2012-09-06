@@ -400,7 +400,7 @@
 		$action.login('extern')
 		<command command="verifyText" target="css=#content_sub legend.warning" value="regexp:.*expired.*" desc="" />
 	</test>a
-	<test name="ticket_340_A" desc="show add file in job survey pdf xls">
+	<test name="use_file_uploads_as_part_of_a_job_survey__a" desc="show add file in job survey pdf xls">
 		$action.reset()
 		$action.logout()
 		$action.login('admin')
@@ -416,7 +416,7 @@
 		<command command="verifyText" target="id=a" value="regexp:.*xls.*" desc="xls files shown" />
 		<command command="verifyNotText" target="id=a" value="regexp:.*doc.*" desc="doc files NOT shown" />
 	</test>
-	<test name="ticket_340_B" desc="show add file in job survey doc">
+	<test name="use_file_uploads_as_part_of_a_job_survey__b" desc="show add file in job survey doc">
 		$action.reset()
 		$action.logout()
 		$action.login('admin')
@@ -436,7 +436,7 @@
 		<command command="click" target="css=#b input[value=c.doc]" value="" desc="" />
 		<command command="assertElementPresent" target="css=.ui-dialog" value="" desc="" />
 	</test>
-	<test name="ticket_340_C" desc="show add file in job survey no files">
+	<test name="use_file_uploads_as_part_of_a_job_survey__c" desc="show add file in job survey no files">
 		$action.reset()
 		$action.logout()
 		$action.login('admin')
@@ -450,7 +450,7 @@
 		<command command="waitForVisible" target="css=#b .warning" value="" desc="" />
 		<command command="verifyText" target="css=#b .warning" value="regexp:.*lease upload.*" desc="no files there" />
 	</test>
-	<test name="ticket_340_D" desc="show add file in job survey default">
+	<test name="use_file_uploads_as_part_of_a_job_survey__d" desc="show add file in job survey default">
 		$action.reset()
 		$action.logout()
 		$action.login('admin')
@@ -480,7 +480,7 @@
 		<command command="assertElementNotPresent" target="css=div" value="" desc="There is no div on the page as signal for job survey" />
 		<command command="assertTextNotPresent" target="regexp:.*201203281229.*" value="" desc="it is not the error code" />
 	</test>
-	<test name="ticket_340_E" desc="set it, book it, view booking and files are there">
+	<test name="use_file_uploads_as_part_of_a_job_survey__e" desc="set it, book it, view booking and files are there">
 		$action.reset()
 		$action.logout()
 		$action.login('admin')
@@ -512,4 +512,14 @@
 <!--		<command command="click" target="css=#a a" value="" desc="download file" />-->
 <!--		<command command="waitForAlert" target="" value="" desc="" />-->
 	</test>
+  <test name="user_button_session_finished" desc="">
+    $action.reset()
+    $action.setABookingSessionIsNow()
+    $action.logout()
+    $action.login('extern')
+    $assert.page('corehome')
+    <command command="verifyElementPresent" target="id=stopCurrentSessionHint" value="" desc="asser a form is present where user can stop the current session" />
+    <command command="click" target="css=form.stopCurrentSession button[type=submit]" value="" desc="" />
+    <command command="waitForVisible" target="css=#jquery-notifications .success" value="" desc="" />
+  </test>
 </selenium-testsuite>

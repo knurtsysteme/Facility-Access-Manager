@@ -330,8 +330,8 @@ public abstract class BookingDao extends AbstractFamDao<Booking> {
 	/**
 	 * return all bookings for the given facility as it is booked queue based.
 	 * the result list must be sorted by date set on and DOES NOT CONTAIN
-	 * canceled bookings. it contains the current session, that has already begun
-	 * but not ended by now.
+	 * canceled bookings. it contains the current session, that has already
+	 * begun but not ended by now.
 	 * 
 	 * @param facility
 	 *            bookings are for
@@ -520,4 +520,14 @@ public abstract class BookingDao extends AbstractFamDao<Booking> {
 	 *         processed.
 	 */
 	public abstract List<Booking> getAllUncanceledAndProcessed(User user);
+
+	/**
+	 * return all current sessions of the given user. these are all time
+	 * bookings hit the date "now".
+	 * 
+	 * @param user
+	 *            owner of the sessions requested
+	 * @return all current sessions of the given user
+	 */
+	public abstract List<TimeBooking> getCurrentSessions(User user);
 }
