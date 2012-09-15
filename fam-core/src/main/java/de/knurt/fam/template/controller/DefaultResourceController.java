@@ -116,7 +116,7 @@ public class DefaultResourceController implements ResourceController {
 		} else {
 			JSONController controller = null;
 			if (resourceName.equals("getbookings") && hasAuthUser) {
-				controller = new GetBookingsController();
+				controller = new GetBookingsController(user);
 			} else if (resourceName.equals("insertuser") && hasAuthUser) {
 				controller = new InsertUserController();
 			} else if (resourceName.equals("precheckuserinsertion") && hasAuthUser) {
