@@ -16,11 +16,14 @@
 package de.knurt.fam.test.unit.model.persistence;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.json.JSONArray;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -29,12 +32,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
-import de.knurt.fam.core.model.persist.booking.Cancelation;
-import de.knurt.fam.core.model.persist.booking.TimeBooking;
-import de.knurt.fam.core.persistence.dao.FamDaoProxy;
-import de.knurt.fam.template.controller.json.GetBookingsController;
+import de.knurt.fam.core.model.persist.document.Job;
+import de.knurt.fam.template.controller.json.GetJobController;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 
@@ -44,55 +44,72 @@ import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/test-dependencies.xml" })
-public class GetBookingsAsJSONTest extends FamIBatisTezt {
+public class GetJobAsJSONTest extends FamIBatisTezt {
 	@Test
 	public void noInfoOnNoAuthUser() {
-		GetBookingsController gbc = new GetBookingsController(null);
+		GetJobController gjc = new GetJobController(null);
 		MockHttpServletRequest rq = new MockHttpServletRequest();
-		JSONObject got = gbc.getJSONObject(rq, null);
+		JSONObject got = gjc.getJSONObject(rq, null);
 		assertNotNull(got);
 		assertEquals(got.toString(), "{}");
 	}
 
-	/**
-	 * get own bookings as json
-	 */
 	@Test
-	public void ownBookings() {
+	public void noInfoOnNotExistingId() {
 		this.clearDatabase();
 
-		// ↘ get this booking as json - even if canceled ...
+		// no job inserted here
+		GetJobController gjc = new GetJobController(TeztBeanSimpleFactory.getAdmin());
+		MockHttpServletRequest rq = new MockHttpServletRequest();
+		rq.setParameter("id", "321");
+		JSONObject got = gjc.getJSONObject(rq, null);
+		assertNotNull(got);
+		assertEquals(got.toString(), "{}");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void getJobWithId() {
+		this.clearDatabase();
+
+		// ↘ this is the job
+		JSONObject jobSurvey = new JSONObject();
+		try {
+			jobSurvey.put("foo", "bar");
+			List<String> animals = new ArrayList<String>();
+			animals.add("dog");
+			animals.add("cat");
+			animals.add("mouse");
+			jobSurvey.put("zoo", animals);
+		} catch (JSONException e) {
+			fail("should not throw " + e);
+		}
+
+		// ↘ get job of this booking as json
 		Booking booking = TeztBeanSimpleFactory.getNewValidBooking();
 		booking.setBooked();
 		booking.insert();
-		booking.cancel(new Cancelation(booking.getUser(), Cancelation.REASON_NO_REASON));
-
-		// ↘ ... and ignore the booking of other users.
-		User otherUsers = TeztBeanSimpleFactory.getNewUniqueValidUser("other salt");
-		otherUsers.insert();
-		TimeBooking otherUsersBooking = TeztBeanSimpleFactory.getNewValidBooking();
-		otherUsersBooking.setUsername(otherUsers.getUsername());
-		otherUsersBooking.setBooked();
-		otherUsersBooking.insert();
-
-		// ↘ check what is prepared
-		assertEquals(2, FamDaoProxy.bookingDao().getAll().size());
+		Job document = new Job();
+		document.setJobId(booking.getId());
+		document.setUsername(booking.getUsername());
+		document.setStep(0);
+		document.setIdJobDataProcessing("foo");
+		document.setJobSurvey(jobSurvey);
+		assertTrue(document.insertOrUpdate());
 
 		// ↘ get json stuff being tested
-		GetBookingsController gbc = new GetBookingsController(booking.getUser());
+		GetJobController gjc = new GetJobController(booking.getUser());
 		MockHttpServletRequest rq = new MockHttpServletRequest();
-		rq.setParameter("flag", "all-own");
-		JSONObject got = gbc.getJSONObject(rq, null);
+		rq.setParameter("id", booking.getId() + "");
+		JSONObject got = gjc.getJSONObject(rq, null);
 
 		// ↘ test results
-		assertNotNull(got);
-		assertFalse(got.isNull("bookings"));
 		try {
-			JSONArray gotBookings = got.getJSONArray("bookings");
-			assertEquals(1, gotBookings.length());
-			JSONObject gotBooking = gotBookings.getJSONObject(0);
-			assertFalse(gotBooking.isNull("id"));
-			assertEquals(gotBooking.getInt("id"), booking.getId().intValue());
+			assertEquals("bar", got.getString("foo"));
+			Map zoo = (Map) got.get("zoo");
+			assertEquals("dog", zoo.get("0"));
+			assertEquals("cat", zoo.get("1"));
+			assertEquals("mouse", zoo.get("2"));
 		} catch (JSONException e) {
 			fail("should not throw " + e);
 		}

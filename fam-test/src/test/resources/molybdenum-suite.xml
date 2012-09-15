@@ -364,8 +364,8 @@
 		<command command="waitForElementPresent" target="css=.ui-dialog-buttonset .ui-button" value="" desc="" />
 		<command command="click" target="css=.ui-dialog-buttonset .ui-button" value="" desc="" />
 		<command command="click" target="css=.request_facility" value="" desc="" />
-		<command command="waitForElementPresent" target="xpath=/html/body/div[918]/div[11]/div/button" value="" desc="" />
-		<command command="click" target="xpath=/html/body/div[918]/div[11]/div/button" value="" desc="" />
+		<command command="waitForElementPresent" target="xpath=/html/body/div[894]/div[11]/div/button" value="" desc="" />
+		<command command="click" target="xpath=/html/body/div[894]/div[11]/div/button" value="" desc="" />
 		<command command="waitForElementPresent" target="id=molybdenum_st" value="" desc="" />
 		<command command="assertText" target="molybdenum_st" value="st_${test_id} bus1" desc="" />
 	</test>

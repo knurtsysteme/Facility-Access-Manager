@@ -56,11 +56,12 @@ public class GetBookingsController extends JSONController {
 	 * return bookings as json depending on flags (
 	 * <code>rq.getParameter("flag")</code>).
 	 * 
-	 * if it is not set, return uncanceled bookings and applications of the user
+	 * if flag is not set, return uncanceled bookings and applications of the user
 	 * auth and of the given timeframe. if timeframe is not given, return
 	 * <code>{}</code>.
 	 * 
 	 * @see RequestInterpreter#getTimeFrame(HttpServletRequest)
+	 * @see JSONAdapterBooking#getAsJSONArray(List)
 	 */
 	@Override
 	public JSONObject getJSONObject(HttpServletRequest rq, HttpServletResponse rs) {
@@ -69,10 +70,10 @@ public class GetBookingsController extends JSONController {
 		if (authUser != null) {
 			switch (this.getFlag(rq)) {
 			case ALL_OWN:
-				bookings = this.getBookingsAllOwn(authUser, rq);
+				bookings = this.getBookingsAllOwn(rq);
 				break;
 			default:
-				bookings = this.getBookingsOfTimeFrame(authUser, rq);
+				bookings = this.getBookingsOfTimeFrame(rq);
 				break;
 			}
 			try {
@@ -84,11 +85,11 @@ public class GetBookingsController extends JSONController {
 		return result;
 	}
 
-	private List<Booking> getBookingsAllOwn(User user, HttpServletRequest rq) {
-		return FamDaoProxy.bookingDao().getAllBookingsOfUser(user);
+	private List<Booking> getBookingsAllOwn(HttpServletRequest rq) {
+		return FamDaoProxy.bookingDao().getAllBookingsOfUser(authUser);
 	}
 
-	private List<Booking> getBookingsOfTimeFrame(User authUser, HttpServletRequest rq) {
+	private List<Booking> getBookingsOfTimeFrame(HttpServletRequest rq) {
 		List<Booking> bookings = new ArrayList<Booking>();
 		FacilityBookable bd = RequestInterpreter.getBookableFacility(rq);
 		if (bd != null) {

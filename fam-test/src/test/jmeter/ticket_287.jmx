@@ -254,7 +254,7 @@
         </hashTree>
       </hashTree>
       <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
-        <stringProp name="FileSaver.filename">/tmp/error_response_ticket_287</stringProp>
+        <stringProp name="FileSaver.filename">/tmp/error_response_terms_of_use</stringProp>
         <boolProp name="FileSaver.errorsonly">true</boolProp>
         <boolProp name="FileSaver.skipautonumber">false</boolProp>
         <boolProp name="FileSaver.skipsuffix">false</boolProp>

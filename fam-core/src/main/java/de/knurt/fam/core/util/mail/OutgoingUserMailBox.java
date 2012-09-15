@@ -210,7 +210,7 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 					args[0] = booking.getUser().getFullName();
 					args[1] = booking.getFacility().getLabel(); // for facility
 					args[2] = FamDateFormat.getDateFormattedWithTime(booking.getSessionTimeFrame().getDateStart());
-					args[3] = TemplateHtml.href("myprofile");
+					args[3] = TemplateHtml.href("mybookings");
 					result = this.getMailFromMessageSource(booking.getUser(), "bookingreminder", args, 0, null, UserMail.TYPE_NEEDS_VALID_BOOKING, booking.getId());
 					result.setToSendDate(mailToSendDate.getTime());
 				}

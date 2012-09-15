@@ -45,6 +45,7 @@ import de.knurt.fam.template.controller.json.GetBookingsController;
 import de.knurt.fam.template.controller.json.GetDetailsOfBookingController;
 import de.knurt.fam.template.controller.json.GetEventsController;
 import de.knurt.fam.template.controller.json.GetFacilityDetailsController;
+import de.knurt.fam.template.controller.json.GetJobController;
 import de.knurt.fam.template.controller.json.GetUserController;
 import de.knurt.fam.template.controller.json.InsertUserController;
 import de.knurt.fam.template.controller.json.JSONController;
@@ -117,6 +118,8 @@ public class DefaultResourceController implements ResourceController {
 			JSONController controller = null;
 			if (resourceName.equals("getbookings") && hasAuthUser) {
 				controller = new GetBookingsController(user);
+			} else if (resourceName.equals("job") && hasAuthUser) {
+				controller = new GetJobController(user);
 			} else if (resourceName.equals("insertuser") && hasAuthUser) {
 				controller = new InsertUserController();
 			} else if (resourceName.equals("precheckuserinsertion") && hasAuthUser) {

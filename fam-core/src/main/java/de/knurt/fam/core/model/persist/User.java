@@ -1265,8 +1265,15 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 		return FamDaoProxy.facilityDao().getFacilitiesUserIsResponsibleFor(this);
 	}
 
+	/**
+	 * return true if this is the user given.
+	 * 
+	 * @param user
+	 *            to check
+	 * @return true if this is the user given.
+	 */
 	public boolean is(User user) {
-		return this.getUsername().equals(user.getUsername());
+		return this.is(user.getUsername());
 	}
 
 	/**
@@ -1288,5 +1295,16 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 
 	public void setAnonym(boolean anonym) {
 		this.anonym = anonym;
+	}
+
+	/**
+	 * return true if this is the user with the given username.
+	 * 
+	 * @param username
+	 *            to check
+	 * @return true if this is the user with the given username.
+	 */
+	public boolean is(String username) {
+		return this.getUsername().equals(username);
 	}
 }
