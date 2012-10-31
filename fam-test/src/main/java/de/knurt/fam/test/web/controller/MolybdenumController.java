@@ -15,6 +15,7 @@
  */
 package de.knurt.fam.test.web.controller;
 
+import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
@@ -54,8 +55,10 @@ public final class MolybdenumController {
 	private void init() {
 		Properties props = TestPropertiesGetter.me().getTestProperties();
 		props.put(Velocity.INPUT_ENCODING, "UTF-8");
-		props.put("file.resource.loader.path", props.getProperty("molybdenum.template.dir"));
+		File templateDir = new File(props.getProperty("molybdenum.template.dir"));
 		try {
+			String pathToResource = templateDir.getCanonicalPath();
+			props.put("file.resource.loader.path", pathToResource);
 			Velocity.init(props);
 		} catch (Exception e) {
 			e.printStackTrace();
