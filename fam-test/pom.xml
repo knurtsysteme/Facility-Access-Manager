@@ -117,6 +117,7 @@
         </configuration>
         <version>1.1</version>
       </plugin>
+      <!-- 
       <plugin>
         <groupId>com.lazerycode.jmeter</groupId>
         <artifactId>jmeter-maven-plugin</artifactId>
@@ -131,6 +132,7 @@
           </execution>
         </executions>
       </plugin>
+       -->
       <plugin>
         <groupId>org.molyb.automation.maven</groupId>
         <artifactId>molybdenum-maven-plugin</artifactId>
@@ -158,6 +160,7 @@
           </execution>
         </executions>
       </plugin>
+      <!-- 
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.6</version>
@@ -180,6 +183,7 @@
           </execution>
         </executions>
       </plugin>
+       -->
     </plugins>
     <resources>
       <resource>
