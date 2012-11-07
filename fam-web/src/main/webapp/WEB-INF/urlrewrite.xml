@@ -90,10 +90,14 @@
 		<from>/(.+)\.img$</from>
 		<to>/$1__default__png__delegate.fam</to>
 	</rule>
-	<rule>
-		<from>/(.+)\.json$</from>
-		<to>/$1__default__json__delegate.fam</to>
-	</rule>
+  <rule>
+    <from>/(.+)\.json\?(.+)$</from>
+    <to>/$1__default__json__delegate.fam</to>
+  </rule>
+  <rule>
+    <from>/(.+)\.json$</from>
+    <to>/$1__default__json__delegate.fam</to>
+  </rule>
 
 	<!-- 
 		go home shorties
