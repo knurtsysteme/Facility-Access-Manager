@@ -16,6 +16,7 @@
 package de.knurt.fam.core.view.text;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -43,9 +44,8 @@ import de.knurt.heinzelmann.util.text.DurationAdapter.SupportedLanguage;
  * @since 0.20090410 (04/10/2009)
  */
 public class FamText {
-	
-	private static DurationAdapter durationAdapter = new DurationAdapter(SupportedLanguage.ENGLISH);
 
+	private static DurationAdapter durationAdapter = new DurationAdapter(SupportedLanguage.ENGLISH);
 
 	/**
 	 * return the given number as ordinal (1st, 2nd, 3rd ...)
@@ -161,7 +161,10 @@ public class FamText {
 	}
 
 	/**
-	 * return the given string or alt if the given string is null or empty
+	 * return the given string or alt if the given string is null or empty. this
+	 * is often used on velocity templates:
+	 * 
+	 * <code>$FamText.valueOrAlt("$var", "no input")</code>
 	 * 
 	 * @param val
 	 *            the given string to check
@@ -172,6 +175,35 @@ public class FamText {
 	 */
 	public static String valueOrAlt(String val, String alt) {
 		return val != null && !val.trim().isEmpty() ? val : alt;
+	}
+
+	/**
+	 * return the given string or alt if the given string is null or empty. this
+	 * is often used on velocity templates:
+	 * 
+	 * <code>$FamText.valueOrAlt("$var", "error", ["-", "0"], "Please drive ", "m")</code>
+	 * 
+	 * @param val
+	 *            the given string to check
+	 * @param alt
+	 *            the alternative for given string
+	 * @param emptyValues
+	 *            values being interpreted as empty values as well like
+	 *            "please select", "0" or "-".
+	 * @param prefix
+	 *            prepend this. DO NOT ADD EXTRA WHITESPACE
+	 * @param suffix
+	 *            add this. DO NOT ADD EXTRA WHITESPACE
+	 * @return the given string or a message "no input" if the given value is
+	 *         null or empty
+	 */
+	public static String valueOrAlt(String val, String alt, List<String> emptyValues, String prefix, String suffix) {
+		String result = alt;
+		if (val != null && !val.trim().isEmpty() && (emptyValues == null || !emptyValues.contains(val))) {
+			// take value
+			result = (prefix != null ? prefix : "") + val + (suffix != null ? suffix : "");
+		}
+		return result;
 	}
 
 	/**

@@ -17,6 +17,9 @@ package de.knurt.fam.test.unit.util;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import de.knurt.fam.core.view.text.FamText;
@@ -30,6 +33,21 @@ public class FamTextTest {
 		assertEquals("1 hour and 58 minutes", FamText.getTimeInput(60 + 58));
 		assertEquals("3 days, 2 hours and 58 minutes", FamText.getTimeInput(3*24*60 + 2*60 + 58));
 		assertEquals("3 days and 2 hours", FamText.getTimeInput(3*24*60 + 2*60));
+	}
+	
+	@Test
+	public void getExtendesValueOrNull() {
+		assertEquals("Please drive 2 m", FamText.valueOrAlt("2", "error", null, "Please drive ", " m"));
+	}
+	@Test
+	public void getExtendesValueOrNull2() {
+		assertEquals("foo", FamText.valueOrAlt("foo", "error", null, null, null));
+	}
+	@Test
+	public void getExtendesValueOrNullWithNoValue() {
+		List<String> noValues = new ArrayList<String>();
+		noValues.add("-");
+		assertEquals("error", FamText.valueOrAlt("-", "error", noValues, "Please drive ", "m"));
 	}
 
 }
