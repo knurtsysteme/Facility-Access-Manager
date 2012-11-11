@@ -165,6 +165,8 @@ public class QueueBooking extends AbstractBooking implements Comparable<QueueBoo
 	 * this is not part of the queue. in other words, return
 	 * <code>new SimpleTimeFrame(this.getExpectedSessionStart(), this.getExpectedSessionEnd())</code>
 	 * 
+	 * if the session already made or the session is canceled, return null.
+	 * 
 	 * @see #getExpectedSessionEnd()
 	 * @see #getExpectedSessionStart()
 	 * @see SimpleTimeFrame
@@ -172,7 +174,12 @@ public class QueueBooking extends AbstractBooking implements Comparable<QueueBoo
 	 *         this is not part of the queue.
 	 */
 	public TimeFrame getExpectedSessionTimeFrame() {
-		return new SimpleTimeFrame(this.getExpectedSessionStart(), this.getExpectedSessionEnd());
+		Calendar start = this.getExpectedSessionStart();
+		if (start != null) {
+			return new SimpleTimeFrame(start, this.getExpectedSessionEnd());
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -196,7 +203,7 @@ public class QueueBooking extends AbstractBooking implements Comparable<QueueBoo
 	 * return the expected start of the session. if the session already made or
 	 * the session is canceled, return null.
 	 * 
-	 * @return the expeted start of the session
+	 * @return the expected start of the session
 	 */
 	public Calendar getExpectedSessionStart() {
 		Calendar result = null;
