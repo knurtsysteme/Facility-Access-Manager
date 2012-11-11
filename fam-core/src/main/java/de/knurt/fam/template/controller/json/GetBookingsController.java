@@ -70,7 +70,7 @@ public class GetBookingsController extends JSONController {
 		if (authUser != null) {
 			switch (this.getFlag(rq)) {
 			case ALL_OWN:
-				bookings = this.getBookingsAllOwn(rq);
+				bookings = FamDaoProxy.bookingDao().getAllBookingsOfUser(authUser);
 				break;
 			default:
 				bookings = this.getBookingsOfTimeFrame(rq);
@@ -83,10 +83,6 @@ public class GetBookingsController extends JSONController {
 			}
 		}
 		return result;
-	}
-
-	private List<Booking> getBookingsAllOwn(HttpServletRequest rq) {
-		return FamDaoProxy.bookingDao().getAllBookingsOfUser(authUser);
 	}
 
 	private List<Booking> getBookingsOfTimeFrame(HttpServletRequest rq) {

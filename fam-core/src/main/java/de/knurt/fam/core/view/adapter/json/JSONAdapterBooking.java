@@ -22,11 +22,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.FamAuth;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
 import de.knurt.fam.core.model.persist.ContactDetail;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.fam.core.view.text.FamText;
 import de.knurt.fam.template.util.HtmlAdapterAddress;
@@ -42,7 +44,8 @@ import de.knurt.heinzelmann.util.time.TimeFrame;
  * @author Daniel Oltmanns
  * @since 0.20090916 (09/16/2009)
  */
-@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
+@SuppressWarnings("deprecation")
+// TODO #11 kill uses of deprecations
 public class JSONAdapterBooking implements StringAdapter<Booking>, JSONAdapter<Booking> {
 
 	private User authUser;
@@ -132,49 +135,56 @@ public class JSONAdapterBooking implements StringAdapter<Booking>, JSONAdapter<B
 		JSONObject json = new JSONObject();
 		try {
 			TimeFrame sessionTimeFrame = booking.getSessionTimeFrame();
-			User booker = booking.getUser();
-			json.put("id", booking.getId());
-			json.put("dayOfYear", this.getDayOfYear(sessionTimeFrame));
-			json.put("username", booking.getUsername());
-			json.put("statustext", FamText.statusOfBookingAsText(this.authUser, booking));
-			json.put("fullname", booker.getFullName());
-			json.put("department", booker.getDepartmentLabel());
-			Calendar tmp = sessionTimeFrame.getCalendarStart();
-			json.put("start_minutes", tmp.get(Calendar.MINUTE) + (tmp.get(Calendar.HOUR_OF_DAY) * 60));
-			tmp = sessionTimeFrame.getCalendarEnd();
-			json.put("end_minutes", tmp.get(Calendar.MINUTE) + (tmp.get(Calendar.HOUR_OF_DAY) * 60));
-			json.put("start_time", FamDateFormat.getTimeFormatted(sessionTimeFrame.getDateStart()));
-			json.put("end_time", FamDateFormat.getTimeFormatted(sessionTimeFrame.getDateEnd()));
-			json.put("start_date_and_time", FamDateFormat.getDateFormattedWithTime(sessionTimeFrame.getDateStart()));
-			json.put("end_date_and_time", FamDateFormat.getDateFormattedWithTime(sessionTimeFrame.getDateEnd()));
-			json.put("start_date_and_time_short", FamDateFormat.getDateAndTimeShort(sessionTimeFrame.getDateStart()));
-			json.put("end_date_and_time_short", FamDateFormat.getDateAndTimeShort(sessionTimeFrame.getDateEnd()));
-			if (this.authUser.hasRight(FamAuth.VIEW_PERSONAL_INFORMATION, null)) {
-				json.put("phone1", booker.getPhone1());
-				json.put("phone2", booker.getPhone2());
-				json.put("mail", booker.getMail());
-				json.put("main_address", new JSONAdapterAddress().getAsJSONObject(booker.getMainAddress()));
-				HtmlElement address = new HtmlAdapterAddress(booker.getMainAddress()).getFullAsHtml();
-				json.put("address", address == null ? "" : address.toString());
-				JSONArray cds = new JSONArray();
-				for (ContactDetail cd : booker.getContactDetails()) {
-					JSONObject cdjson = new JSONObject();
-					cdjson.put("title", cd.getTitle());
-					cdjson.put("detail", cd.getDetail());
-					cds.put(cdjson);
-				}
-				json.put("cds", cds);
-			} else {
-				json.put("phone1", "");
-				json.put("phone2", "");
-				json.put("mail", "");
-				json.put("address", "");
-				json.put("cds", new JSONArray());
+			if (sessionTimeFrame == null && booking.isQueueBased()) {
+				sessionTimeFrame = ((QueueBooking) booking).getExpectedSessionTimeFrame();
 			}
-			String notice = booking.getNotice();
-			json.put("sessionAlreadyBegun", booking.sessionAlreadyBegun());
-			json.put("notice", notice == null ? "" : notice);
-			json.put("capacityUnits", FamText.facilityNameWithCapacityUnits(booking));
+			if(sessionTimeFrame == null) {
+				FamLog.error("could not get a session time frame for booking with id " + booking.getId(), 201211111707l);
+			} else {
+				User booker = booking.getUser();
+				json.put("id", booking.getId());
+				json.put("dayOfYear", this.getDayOfYear(sessionTimeFrame));
+				json.put("username", booking.getUsername());
+				json.put("statustext", FamText.statusOfBookingAsText(this.authUser, booking));
+				json.put("fullname", booker.getFullName());
+				json.put("department", booker.getDepartmentLabel());
+				Calendar tmp = sessionTimeFrame.getCalendarStart();
+				json.put("start_minutes", tmp.get(Calendar.MINUTE) + (tmp.get(Calendar.HOUR_OF_DAY) * 60));
+				tmp = sessionTimeFrame.getCalendarEnd();
+				json.put("end_minutes", tmp.get(Calendar.MINUTE) + (tmp.get(Calendar.HOUR_OF_DAY) * 60));
+				json.put("start_time", FamDateFormat.getTimeFormatted(sessionTimeFrame.getDateStart()));
+				json.put("end_time", FamDateFormat.getTimeFormatted(sessionTimeFrame.getDateEnd()));
+				json.put("start_date_and_time", FamDateFormat.getDateFormattedWithTime(sessionTimeFrame.getDateStart()));
+				json.put("end_date_and_time", FamDateFormat.getDateFormattedWithTime(sessionTimeFrame.getDateEnd()));
+				json.put("start_date_and_time_short", FamDateFormat.getDateAndTimeShort(sessionTimeFrame.getDateStart()));
+				json.put("end_date_and_time_short", FamDateFormat.getDateAndTimeShort(sessionTimeFrame.getDateEnd()));
+				if (this.authUser.hasRight(FamAuth.VIEW_PERSONAL_INFORMATION, null)) {
+					json.put("phone1", booker.getPhone1());
+					json.put("phone2", booker.getPhone2());
+					json.put("mail", booker.getMail());
+					json.put("main_address", new JSONAdapterAddress().getAsJSONObject(booker.getMainAddress()));
+					HtmlElement address = new HtmlAdapterAddress(booker.getMainAddress()).getFullAsHtml();
+					json.put("address", address == null ? "" : address.toString());
+					JSONArray cds = new JSONArray();
+					for (ContactDetail cd : booker.getContactDetails()) {
+						JSONObject cdjson = new JSONObject();
+						cdjson.put("title", cd.getTitle());
+						cdjson.put("detail", cd.getDetail());
+						cds.put(cdjson);
+					}
+					json.put("cds", cds);
+				} else {
+					json.put("phone1", "");
+					json.put("phone2", "");
+					json.put("mail", "");
+					json.put("address", "");
+					json.put("cds", new JSONArray());
+				}
+				String notice = booking.getNotice();
+				json.put("sessionAlreadyBegun", booking.sessionAlreadyBegun());
+				json.put("notice", notice == null ? "" : notice);
+				json.put("capacityUnits", FamText.facilityNameWithCapacityUnits(booking));
+			}
 		} catch (JSONException ex) {
 		}
 		return json;
