@@ -1,6 +1,5 @@
 /*! KNURT Systeme - part of the Facility Access Manager */
-#edituser_control_intendedResearch,
-#intendedResearch_id {
+#edituser_control_intendedResearch, #intendedResearch_id {
   width: 500px;
 }
 table.newuser td {
@@ -17,8 +16,7 @@ table.standard tr.headline {
   background-color: white;
   border: 1px solid black;
 }
-.delete_user_dialog input,
-.delete_user_dialog label {
+.delete_user_dialog input, .delete_user_dialog label {
   cursor: pointer;
 }
 .delete_user_dialog h3 {

@@ -51,16 +51,13 @@ button.icon:hover span.image {
 .icon.newuser span.image {
   background-position: -156px 0px;
 }
-.icon.back span.image,
-.icon.prev span.image {
+.icon.back span.image, .icon.prev span.image {
   background-position: 0px -544px;
 }
-.icon.print span.image,
-.icon span.print span.image {
+.icon.print span.image, .icon span.print span.image {
   background-position: -130px -26px;
 }
-.icon.forw span.image,
-.icon.next span.image {
+.icon.forw span.image, .icon.next span.image {
   background-position: -26px -544px;
 }
 .icon.help span.image {
@@ -93,8 +90,7 @@ button.icon:hover span.image {
 .icon.comment span.image {
   background-position: -130px -622px;
 }
-.icon.trash span.image,
-.icon.bin span.image {
+.icon.trash span.image, .icon.bin span.image {
   background-position: -156px -26px;
 }
 .icon.damage span.image {
@@ -106,13 +102,10 @@ button.icon:hover span.image {
 .jqueryFileTree li.facility {
   background: url('icons/forw.gif') left top no-repeat;
 }
-body.infopage #content_main ul li,
-ul.subbanch,
-ul.asList {
+body.infopage #content_main ul li, ul.subbanch, ul.asList {
   list-style-image: url('icons/subbanch.gif');
 }
-span.none_print,
-span.print {
+span.none_print, span.print {
   width: 19px;
   height: 19px;
   display: inline-block;
