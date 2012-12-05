@@ -85,6 +85,7 @@ public class GetJobController extends JSONController {
 			Job job = CouchDBDao4Jobs.me().getJob(id, 0);
 			if (authUser.is(job.getUsername())) {
 				result = new JSONObject(job.getJobSurvey());
+				result.put("docid", job.getId());
 			}
 		} catch (Exception e) {
 			// ignore npe, nfe or whatever - result stays empty
