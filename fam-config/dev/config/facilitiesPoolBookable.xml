@@ -25,7 +25,21 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
   <bean name="bus3" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1" />
     
   <!--  bus 4 -->
-  <bean name="bus4" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1" />
+  <bean name="bus4" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1">
+    <property name="bookingRule">
+      <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardHourTimeBasedBookingRule">
+		    <property name="defaultSetOfRulesForARole">
+		      <bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" parent="standardSetOfRulesForARoleBean">
+		        <property name="minBookableTimeUnits" value="4" />
+		        <property name="maxBookableTimeUnits" value="4" />
+		        <property name="minBookableCapacityUnits" value="1" />
+		        <property name="maxBookableCapacityUnits" value="1" />
+		        <property name="reminderMailMinutesBeforeStarting" value="1440" />
+		      </bean>
+		    </property>
+      </bean>
+    </property>
+  </bean>
     
   <!--  bus 5 -->
   <bean name="bus5" class="de.knurt.fam.core.model.config.FacilityBookable" parent="bus1" />

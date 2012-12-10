@@ -10,9 +10,12 @@
 	<ul>
 		<li class="must_apply">You have to apply for this facility.</li>
 		<li class="must_not_apply">You are allowed to book this facility without application.</li>
-		<li>
-			Your request has to be between <strong class="min_bookable_time_units"></strong> and <strong class="max_bookable_time_units"></strong>.
-		</li>
+    <li class="js_time_from_to">
+      Your request has to be between <strong class="min_bookable_time_units"></strong> and <strong class="max_bookable_time_units"></strong>.
+    </li>
+    <li class="js_time_fix_length">
+      Your request has a length of <strong class="min_bookable_time_units"></strong>.
+    </li>
 	</ul>
 	<h3 class="must_not_apply">Book something</h3>
 	<h3 class="must_apply">Apply for something something</h3>
@@ -204,10 +207,10 @@
 			</ul>
 		</div>
 		<div class="tab_step" id="js_booking_request_tab_1">
-			<div>
+      #set($value=$FamDateFormat.getDateAndTimeShort())
+			<div class="js_time_from_to">
 				<h3>I'd like to use it between ...</h3>
-				<div id="js_timeframe">
-					#set($value=$FamDateFormat.getDateAndTimeShort())
+				<div>
 					<p>
 						<input type="text" id="j_start_date" value="$value" tabindex="-1" />
 						... and ...
@@ -215,6 +218,14 @@
 					</p>
 				</div>
 			</div>
+      <div class="js_time_fix_length" style="display:none">
+        <h3>I'd like to use it on</h3>
+        <div>
+          <p>
+            <input type="text" id="j_start_date_fix_length" value="$value" tabindex="-3" />
+          </p>
+        </div>
+      </div>
 			<div id="js_booking_request_possibilities_wrapper" style="display:none;">
 				<h3>Available time slots</h3>
 				<div>Please choose one of the following available time slots next to your request to finish your booking.</div>
