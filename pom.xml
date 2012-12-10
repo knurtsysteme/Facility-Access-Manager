@@ -105,6 +105,7 @@
               <goal>run</goal>
             </goals>
           </execution>
+          <!-- TODO fix  Issue #60 
           <execution>
             <id>201206251122</id>
             <phase>package</phase>
@@ -247,6 +248,7 @@ http://knurtsysteme.de
               <goal>run</goal>
             </goals>
           </execution>
+           -->
         </executions>
       </plugin>
     </plugins>
