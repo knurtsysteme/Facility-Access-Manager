@@ -29,8 +29,7 @@ import de.knurt.fam.core.util.mvc.Registration;
  */
 public class MyProfileValidator implements Validator {
 
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(Class<?> clazz) {
 		return clazz.equals(Registration.class);
 	}
 

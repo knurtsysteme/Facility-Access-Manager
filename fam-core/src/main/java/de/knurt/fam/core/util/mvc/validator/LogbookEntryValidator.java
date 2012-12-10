@@ -30,8 +30,7 @@ import de.knurt.fam.core.util.mvc.LogbookEntryForm;
  */
 public class LogbookEntryValidator implements Validator {
 
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(Class<?> clazz) {
 		return clazz.equals(LogbookEntryForm.class);
 	}
 

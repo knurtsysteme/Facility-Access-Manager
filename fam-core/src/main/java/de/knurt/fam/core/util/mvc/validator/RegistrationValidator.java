@@ -36,8 +36,7 @@ public class RegistrationValidator implements Validator {
 
 	private PasswordValidator passwordValidation;
 
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(Class<?> clazz) {
 		return clazz.equals(Registration.class);
 	}
 

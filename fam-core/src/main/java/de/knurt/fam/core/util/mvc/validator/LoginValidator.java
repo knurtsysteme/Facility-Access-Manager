@@ -30,8 +30,7 @@ import de.knurt.fam.core.util.mvc.Login;
  */
 public class LoginValidator implements Validator {
 
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(Class<?> clazz) {
 		return clazz.equals(Login.class);
 	}
 
