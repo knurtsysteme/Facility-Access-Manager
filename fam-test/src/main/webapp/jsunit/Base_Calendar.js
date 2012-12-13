@@ -136,6 +136,15 @@ Base.Calendar.init = function() {
           if(!r.user_is_allowed_to_access) {
             $.n.error("you are not allowed to access this facility"); // INTLANG
           } else {
+            // show hide fix length of booking and variable possibilities
+    	    if(Base.Calendar.Dialog.BookingRequest.isFixDate()) {
+    	    	$('.js_time_fix_length').show();
+    	    	$('.js_time_from_to').hide();
+    	    } else {
+    	    	$('.js_time_fix_length').hide();
+    	    	$('.js_time_from_to').show();
+    	    }
+    	    // booking rule
             BookingRule = r.br;
             $('.'+(BookingRule.must_apply ? 'must_apply' : 'must_not_apply')).show();
             $('.'+(BookingRule.must_apply ? 'must_not_apply' : 'must_apply')).hide();
@@ -752,6 +761,7 @@ Base.Calendar.Dialog.BookingRequest.init = function() {
   // prepare date and time picker
   $('#j_start_date').datetimepicker();
   $('#j_end_date').datetimepicker();
+  $('#j_start_date_fix_length').datetimepicker();
   $('#js_booking_request').hide();
   $('.request_facility').click(function() {
     Base.Calendar.Dialog.BookingRequest.show();
@@ -762,6 +772,9 @@ Base.Calendar.Dialog.BookingRequest.init = function() {
 };
 Base.Calendar.Dialog.BookingRequest.dateStart = null;
 Base.Calendar.Dialog.BookingRequest.dateEnd = null;
+Base.Calendar.Dialog.BookingRequest.isFixDate = function() {
+	return Booking.br.min_bookable_time_units == Booking.br.max_bookable_time_units;
+};
 Base.Calendar.Dialog.BookingRequest.show = function(datetime_start, datetime_end) {
   if(datetime_start == null || datetime_end == null) {
     var date_start = Base.Calendar.Datepicker.object.datepicker("getDate");
@@ -772,8 +785,12 @@ Base.Calendar.Dialog.BookingRequest.show = function(datetime_start, datetime_end
     Base.Calendar.Dialog.BookingRequest.dateEnd = datetime_end;
     $('#js_booking_request').dialog({
       open: function(event, ui) {
-        $('#j_start_date').val(datetime_start);
-        $('#j_end_date').val(datetime_end);
+        if(Base.Calendar.Dialog.BookingRequest.isFixDate()) {
+            $('#j_start_date_fix_length').val(datetime_start);
+        } else {
+            $('#j_start_date').val(datetime_start);
+            $('#j_end_date').val(datetime_end);
+        }
         // select first tab
         Base.Calendar.Tabs.booking_request_needs.tabs("select", 0);
       },
@@ -791,8 +808,20 @@ Base.Calendar.Dialog.BookingRequest.show = function(datetime_start, datetime_end
           var thisDialog = $(this);
           data.facility = Facility;
           data.request = {};
-          data.request.start = $('#j_start_date').val();
-          data.request.end = $('#j_end_date').val();
+          if(Base.Calendar.Dialog.BookingRequest.isFixDate()) {
+            data.request.start = $('#j_start_date_fix_length').val();
+            var dateStart = new Date(
+	    		data.request.start.substr(6,4),
+	    		data.request.start.substr(0,2),
+	    		data.request.start.substr(3,2),
+	    		data.request.start.substr(11,2),
+	    		data.request.start.substr(14,2)
+    		);
+            data.request.end = new Date(dateStart.getTime() + BookingRule.smallest_minutes_bookable * BookingRule.min_bookable_time_units * Base.Calendar.A_MINUTE_IN_MS).format("mm/dd/yyyy HH:MM");
+          } else {
+            data.request.start = $('#j_start_date').val();
+            data.request.end = $('#j_end_date').val();
+          }
           data.request.capacity_units = Booking.capacity_units;
           $.ajax( {
             type : 'GET',
@@ -809,6 +838,9 @@ Base.Calendar.Dialog.BookingRequest.show = function(datetime_start, datetime_end
                   var is_perfect_match = r.possibilities.length == 1 && r.possibilities[0].capacity_units == data.request.capacity_units && r.possibilities[0].start == data.request.start && r.possibilities[0].end == data.request.end;
                   if(r.possibilities.length == 1) {
                       var li_format = '<li id="$article_number" class="clickable_article"><input type="hidden" name="v" value="$article_number" id="$article_number_id"  />$capacity_units between <span class="point_out">$start</span> and <span class="point_out">$end</span></li>';
+                      if(Base.Calendar.Dialog.BookingRequest.isFixDate()) {
+                          li_format = '<li id="$article_number" class="clickable_article"><input type="hidden" name="v" value="$article_number" id="$article_number_id"  />$capacity_units on <span class="point_out">$start</span></li>';
+                      }
                       li_format = li_format.replace(/\$article_number/g, r.possibilities[0].article_number);
                       li_format = li_format.replace(/\$capacity_units/g, Base.Calendar.Util.getUnitsLabelAsText(r.possibilities[0].capacity_units, false, true));
                       li_format = li_format.replace(/\$start/g, r.possibilities[0].start);
@@ -818,6 +850,9 @@ Base.Calendar.Dialog.BookingRequest.show = function(datetime_start, datetime_end
                   } else {
                     $(r.possibilities).each(function(i,possibility){
                       var li_format = '<li id="$article_number" class="clickable_article"><input type="radio" name="v" value="$article_number" id="$article_number_id" $checked/><label for="$article_number_id">$capacity_units between <span class="point_out">$start</span> and <span class="point_out">$end</span></label></li>';
+                      if(Base.Calendar.Dialog.BookingRequest.isFixDate()) {
+                          li_format = '<li id="$article_number" class="clickable_article"><input type="radio" name="v" value="$article_number" id="$article_number_id" $checked/><label for="$article_number_id">$capacity_units on <span class="point_out">$start</span></label></li>';
+                      }
                       li_format = li_format.replace(/\$checked/g, i == 0 ? 'checked="checked"' : '');
                       li_format = li_format.replace(/\$article_number/g, possibility.article_number);
                       li_format = li_format.replace(/\$capacity_units/g, Base.Calendar.Util.getUnitsLabelAsText(possibility.capacity_units, false, true));

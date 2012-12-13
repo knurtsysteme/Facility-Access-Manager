@@ -124,6 +124,7 @@ public class GetFacilityDetailsController extends JSONController {
 						jsonBr.put("max_bookable_time_units", br.getMaxBookableTimeUnits(user));
 						jsonBr.put("min_bookable_time_units", br.getMinBookableTimeUnits(user));
 						jsonBr.put("smallest_minutes_bookable", br.getSmallestMinutesBookable());
+						jsonBr.put("must_start_at", br.getMustStartAt());
 					} else { // queue based
 						UsersUnitsQueueBasedBookingRule qbbr = (UsersUnitsQueueBasedBookingRule) br;
 						QueueBooking qb = new QueueBooking(user, (FacilityBookable) facility);
