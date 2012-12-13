@@ -59,7 +59,8 @@ public class TextAreaAndTextColTest {
         assertEquals(12, ta.getLineHeight());
         assertEquals(12, ta.getHeight());
         ta.addText("we have a width of 100 - so lets test the splitter.");
-        assertEquals(36, ta.getHeight());
+        // 36 or 48 - it depends on the plattform
+        assertTrue(36 == ta.getHeight() || 48 == ta.getHeight());
     }
 
     @Test
@@ -171,6 +172,7 @@ public class TextAreaAndTextColTest {
         ta1.addText("this is a very, very, very, very, very, very, very, very, very, very, very, very, very long string");
         List<String> splitted = ta1.getTextSplitted();
         assertTrue(splitted.size() > 1);
-        assertEquals(5, splitted.size());
+        // 5 or 6 - it depends on the plattform
+        assertTrue(5 == splitted.size() || 6 == splitted.size());
     }
 }
