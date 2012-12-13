@@ -55,6 +55,7 @@ public class JobDataProcessingVelocityParser {
 		context.put("FamDateFormat", FamDateFormat.class);
 		context.put("Math", Math.class);
 		context.put("FamText", FamText.class);
+		context.put("jobs", jobs);
 		context.put("job", new JobSurveyFromJobs().process(jobs));
 		List<Properties> attachments = this.getJobFiles(jobs);
 		context.put("attachments", attachments);
