@@ -350,8 +350,8 @@ Base.JobSurvey.init = function(strat) {
     $('#jchoose_facility_content').show();
   });
   JobDataProcessing.getStructure(function(result) { // callback_succ
+    Base.WaitingIcon.showOnPage();
     if (result.has_job_data_processing) {
-      Base.WaitingIcon.showOnPage();
       $('#idJobDataProcessing').val(result.idJobDataProcessing);
       $(wrapper + ' iframe').attr('src', JobSurveyIO.getIFrameSrc(result.facilityKey));
       $('.has_job_data_processing').show();
@@ -366,12 +366,11 @@ Base.JobSurvey.init = function(strat) {
         }
       }
       Base.setIFrameHeightInterval();
-      Base.WaitingIcon.hideOnPage();
     } else {
       $('.has_job_data_processing').hide();
       $('.has_no_job_data_processing').show();
-      Base.WaitingIcon.hideOnPage();
     }
+    Base.WaitingIcon.hideOnPage();
   }, function(result) { // callback_error
     $('.has_job_data_processing').hide();
     $('.has_no_job_data_processing').show();
