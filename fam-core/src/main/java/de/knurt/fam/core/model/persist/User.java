@@ -461,7 +461,7 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 	 *            the first name
 	 */
 	public void setFname(String fname) {
-		this.fname = fname;
+		this.fname = fname.trim();
 	}
 
 	/**
@@ -499,7 +499,7 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 	 *            the second name to set
 	 */
 	public void setSname(String sname) {
-		this.sname = sname;
+		this.sname = sname.trim();
 	}
 
 	/**
