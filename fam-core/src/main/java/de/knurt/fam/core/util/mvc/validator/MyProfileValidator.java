@@ -29,11 +29,13 @@ import de.knurt.fam.core.util.mvc.Registration;
  */
 public class MyProfileValidator implements Validator {
 
-	public boolean supports(Class<?> clazz) {
+	@Override
+  public boolean supports(Class<?> clazz) {
 		return clazz.equals(Registration.class);
 	}
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		Registration registration = (Registration) target;
 		JmValidationUtils.rejectIfEmptyOrWhitespace(errors, "male", "page.register.input.male.error.required", "Please specify your gender");
 		JmValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "page.register.input.title.error.required", "Please specify your title");

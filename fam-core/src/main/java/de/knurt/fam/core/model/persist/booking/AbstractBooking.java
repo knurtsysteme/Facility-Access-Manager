@@ -23,8 +23,11 @@ import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.BookingStrategy;
 import de.knurt.fam.core.model.config.FacilityBookable;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.model.persist.document.Job;
 import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Jobs;
+import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
 import de.knurt.heinzelmann.util.time.TimeFrame;
 
@@ -40,7 +43,31 @@ import de.knurt.heinzelmann.util.time.TimeFrame;
 public abstract class AbstractBooking implements Booking {
 	private Date lastInvoiced = null;
 
-	/** {@inheritDoc} */
+	@Override
+  public void cancel() {
+	  if(this.isBooked()) this.cancel(new Cancelation(this.getUser(), Cancelation.REASON_NO_REASON));
+  }
+
+  @Override
+  public boolean transferTo(User receiver) {
+    boolean result = false;
+    if(this.isBooked() && !this.isCanceled() && receiver.isAllowedToAccess(this.getFacility())) {
+      String oldUsername = this.getUsername();
+      this.setUsername(receiver.getUsername());
+      if(FamDaoProxy.bookingDao().update(this)) {
+        Job job = CouchDBDao4Jobs.me().getJob (this.getId(), Job.STEP_USER_REQUEST);
+        job.setUsername(receiver.getUsername());
+        result = FamCouchDBDao.getInstance().updateDocument(job, job);
+        if(!result) {
+          // rollback
+          this.setUsername(oldUsername);
+        }
+      }
+    }
+    return result;
+  }
+
+  /** {@inheritDoc} */
 	@Override
 	public Date getLastInvoiced() {
 		return this.lastInvoiced;

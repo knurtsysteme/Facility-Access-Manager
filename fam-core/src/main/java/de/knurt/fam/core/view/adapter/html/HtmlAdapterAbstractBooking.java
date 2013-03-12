@@ -74,7 +74,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * 
 	 * @return return form if the session of booking is startable and stopable
 	 */
-	public HtmlElement getProcessedForm(String formAction) {
+	@Override
+  public HtmlElement getProcessedForm(String formAction) {
 		QueryString hiddenInputs = QueryStringBuilder.getQueryString(this.booking);
 		QueryStringBuilder.add(hiddenInputs, this.booking.getFacility());
 		QueryStringBuilder.addSentFlags(hiddenInputs);
@@ -140,7 +141,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * 
 	 * @return return a delete button.
 	 */
-	public String getDeleteButton() {
+	@Override
+  public String getDeleteButton() {
 		String result = "";
 		if (this.disableDelete()) {
 			if (this.isOldBooking()) {
@@ -174,7 +176,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * @return the capacityUnits as text
 	 */
 
-	public String getCapacityUnitsAsText() {
+	@Override
+  public String getCapacityUnitsAsText() {
 		return FamText.facilityNameWithCapacityUnits(this.booking);
 	}
 
@@ -184,7 +187,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * @return the label of the booked facility.
 	 */
 
-	public String getFacilityLabel() {
+	@Override
+  public String getFacilityLabel() {
 		return FacilityConfigDao.getInstance().getLabel(booking.getFacilityKey());
 	}
 
@@ -194,7 +198,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * @return the date the booking has been set on looking nicely.
 	 */
 
-	public String getSeton() {
+	@Override
+  public String getSeton() {
 		return FamDateFormat.getDateFormattedWithTime(booking.getSeton());
 	}
 
@@ -204,7 +209,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * @return the username of the user made the booking request.
 	 */
 
-	public String getUsername() {
+	@Override
+  public String getUsername() {
 		return booking.getUsername();
 	}
 
@@ -224,7 +230,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * @return the id of the booking.
 	 */
 
-	public String getId() {
+	@Override
+  public String getId() {
 		return this.centerIt(booking.getId() + "");
 	}
 
@@ -244,7 +251,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * @return the full name of the user and the username in brackets.
 	 */
 
-	public HtmlElement getFullUserAsHtmlWithUsername() {
+	@Override
+  public HtmlElement getFullUserAsHtmlWithUsername() {
 		// SMELLS this is the user being adapted, not the booking
 		User user = booking.getUser();
 		if (user != null) {
@@ -262,7 +270,8 @@ public abstract class HtmlAdapterAbstractBooking<E extends Booking> extends FamH
 	 * @return the full name of the user.
 	 */
 
-	public HtmlElement getFullUserAsHtmlWithoutUsername() {
+	@Override
+  public HtmlElement getFullUserAsHtmlWithoutUsername() {
 		// SMELLS because this is the user being adapted, not the booking
 		User user = booking.getUser();
 		if (user != null) {

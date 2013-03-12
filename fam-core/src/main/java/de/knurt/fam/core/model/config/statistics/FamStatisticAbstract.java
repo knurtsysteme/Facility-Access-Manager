@@ -32,11 +32,13 @@ public abstract class FamStatisticAbstract implements FamStatistic {
 	 * @return the label
 	 */
 
-	public String getLabel() {
+	@Override
+  public String getLabel() {
 		return label;
 	}
 
-	public int getId() {
+	@Override
+  public int getId() {
 		return this.id;
 	}
 

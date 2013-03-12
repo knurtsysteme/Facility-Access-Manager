@@ -64,32 +64,38 @@ public class FullSizeColoredFacilityAvailabilityArtist implements FacilityAvaila
 		this.labelIt(da, leftWidth + 2, y, 100, height);
 	}
 
-	public void outNotAvailableBooking(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableBooking(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.FULL);
 		this.out(da);
 	}
 
-	public void outMaybeAvailable(FacilityAvailability da) {
+	@Override
+  public void outMaybeAvailable(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.PARTLY);
 		this.out(da);
 	}
 
-	public void outNotAvailableInGeneral(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableInGeneral(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.CAL_LINE_BG_BRIGHT);
 		this.out(da);
 	}
 
-	public void outNotAvailableMaintenance(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableMaintenance(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.CAL_LINE_BG_DARK);
 		this.out(da);
 	}
 
-	public void outNotAvailableFailure(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableFailure(FacilityAvailability da) {
 		metrics.getG2d().setColor(Color.BLUE);
 		this.out(da);
 	}
 
-	public void outCompletelyAvailable(FacilityAvailability da) {
+	@Override
+  public void outCompletelyAvailable(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.FREE);
 		this.out(da);
 	}
@@ -100,7 +106,8 @@ public class FullSizeColoredFacilityAvailabilityArtist implements FacilityAvaila
 		TextImprinting.getInstance().imprint(FamFonts.getTextSplitterOnWidth(width).split(notice), this.metrics.getG2d(), x, y, height, FamFonts.getLineHeight());
 	}
 
-	public void outMustNotStartHere(FacilityAvailability da) {
+	@Override
+  public void outMustNotStartHere(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.MUST_NOT_START_HERE);
 		this.out(da);
 	}

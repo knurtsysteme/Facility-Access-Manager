@@ -36,11 +36,12 @@ import de.knurt.heinzelmann.util.validation.AssertOrException;
  */
 public class Job extends FamBaseDocument implements FamDocument {
 
-	public FamDocumentType getType() {
+	@Override
+  public FamDocumentType getType() {
 		return FamDocumentType.JOB;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private Map jobSurvey = null;
 	private int jobId = 0;
 	private String username = null;
@@ -78,7 +79,8 @@ public class Job extends FamBaseDocument implements FamDocument {
 		return step;
 	}
 
-	public boolean insertOrUpdate() {
+	@Override
+  public boolean insertOrUpdate() {
 		AssertOrException.assertTrue(jobId != 0);
 		AssertOrException.assertTrue(step >= 0 && step <= 4);
 		AssertOrException.notNull(idJobDataProcessing);
@@ -94,12 +96,12 @@ public class Job extends FamBaseDocument implements FamDocument {
 	/**
 	 * return the user inputs.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Map getJobSurvey() {
 		return jobSurvey;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void setJobSurvey(Map jobSurvey) {
 		this.jobSurvey = jobSurvey;
 	}

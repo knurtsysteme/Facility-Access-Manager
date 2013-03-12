@@ -30,11 +30,13 @@ import de.knurt.fam.core.util.mvc.LogbookEntryForm;
  */
 public class LogbookEntryValidator implements Validator {
 
-	public boolean supports(Class<?> clazz) {
+	@Override
+  public boolean supports(Class<?> clazz) {
 		return clazz.equals(LogbookEntryForm.class);
 	}
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		JmValidationUtils.rejectIfEmptyOrWhitespace(errors, "headline", "page.logbookentry.input.headline.required", "Headline is required");
 		JmValidationUtils.rejectIfEmptyOrWhitespace(errors, "content", "page.logbookentry.input.content.required", "Content is required");
 		JmValidationUtils.rejectIfEmptyOrWhitespace(errors, "musttag", "page.logbookentry.input.musttag.required", "Category is required");

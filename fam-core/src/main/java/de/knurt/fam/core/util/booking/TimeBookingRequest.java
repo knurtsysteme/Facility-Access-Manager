@@ -500,7 +500,8 @@ public class TimeBookingRequest implements Purchasable, Cloneable {
 	 * 
 	 * @return the article number as it were an booking
 	 */
-	public String getArticleNumber() {
+	@Override
+  public String getArticleNumber() {
 		return this.getBooking().getArticleNumber();
 	}
 
@@ -508,7 +509,8 @@ public class TimeBookingRequest implements Purchasable, Cloneable {
 		return TimeBooking.getNewBooking(this);
 	}
 
-	public boolean purchase() {
+	@Override
+  public boolean purchase() {
 		return this.getBooking().purchase();
 	}
 }

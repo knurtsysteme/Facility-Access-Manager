@@ -72,7 +72,7 @@ public class FamIBatisTezt extends IBatisTezt {
 	 * 
 	 * @param with_couchdb
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public synchronized void clearCouchDB() {
 		String host = FamConnector.getGlobalProperty("couchdb_ip");
 		int port = Integer.parseInt(FamConnector.getGlobalProperty("couchdb_port"));

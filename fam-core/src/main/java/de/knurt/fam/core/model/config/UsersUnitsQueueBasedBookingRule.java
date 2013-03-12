@@ -36,7 +36,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public int getSmallestMinutesBookable() {
+	@Override
+  public int getSmallestMinutesBookable() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -44,7 +45,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * throw UnsupportedOperationException until it's supported
 	 */
 
-	public void setSmallestMinutesBookable(int smallestMinutesBookable) {
+	@Override
+  public void setSmallestMinutesBookable(int smallestMinutesBookable) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -54,7 +56,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public String getSmallestTimeLabelEqualsOneXKey() {
+	@Override
+  public String getSmallestTimeLabelEqualsOneXKey() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -65,7 +68,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 *            the smallest time label to set
 	 */
 
-	public void setSmallestTimeLabelEqualsOneXKey(String smallestTimeLabelEqualsOneXKey) {
+	@Override
+  public void setSmallestTimeLabelEqualsOneXKey(String smallestTimeLabelEqualsOneXKey) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -75,7 +79,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public Integer getMustStartAt() {
+	@Override
+  public Integer getMustStartAt() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -83,7 +88,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * throw UnsupportedOperationException until it's supported
 	 */
 
-	public void setMustStartAt(Integer mustStartAt) {
+	@Override
+  public void setMustStartAt(Integer mustStartAt) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -93,7 +99,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public Integer getUnitsPerHourProcessed() {
+	@Override
+  public Integer getUnitsPerHourProcessed() {
 		return this.assertUnitsPerHourProcessed;
 	}
 
@@ -103,7 +110,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public int getMaxPossibleUnitsProcessedAtOnce() {
+	@Override
+  public int getMaxPossibleUnitsProcessedAtOnce() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -113,7 +121,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * 
 	 * @return 0
 	 */
-	public int getMaxQueueLength() {
+	@Override
+  public int getMaxQueueLength() {
 		return 0; // TODO #14 a queue can have a maximum length: di and unit tests
 	}
 
@@ -123,7 +132,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public int getCurrentQueueLength() {
+	@Override
+  public int getCurrentQueueLength() {
 		this.initQueue();
 		return this.currentQueueLength;
 	}
@@ -148,7 +158,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public Integer reminderMailAtPosition() {
+	@Override
+  public Integer reminderMailAtPosition() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -158,22 +169,26 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return -
 	 */
 
-	public Integer cancelBookingAtPosition() {
+	@Override
+  public Integer cancelBookingAtPosition() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public int getBookingStrategy() {
+	@Override
+  public int getBookingStrategy() {
 		return BookingStrategy.QUEUE_BASED;
 	}
 
-	public void incrementQueue() {
+	@Override
+  public void incrementQueue() {
 		if (!this.initQueue()) { // queue has been init and has current value
 			// already
 			this.currentQueueLength++;
 		}
 	}
 
-	public void reduceQueue() {
+	@Override
+  public void reduceQueue() {
 		if (!this.initQueue()) { // queue has been init and has current value
 			// already
 			this.currentQueueLength--;
@@ -184,7 +199,8 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @return the assertUnitsPerHourProcessed
 	 */
 
-	public Integer getAssertUnitsPerHourProcessed() {
+	@Override
+  public Integer getAssertUnitsPerHourProcessed() {
 		return assertUnitsPerHourProcessed;
 	}
 
@@ -192,12 +208,14 @@ public class UsersUnitsQueueBasedBookingRule extends AbstractBookingRule impleme
 	 * @param assertUnitsPerHourProcessed
 	 *            the assertUnitsPerHourProcessed to set
 	 */
-	@Required
+	@Override
+  @Required
 	public void setAssertUnitsPerHourProcessed(Integer assertUnitsPerHourProcessed) {
 		this.assertUnitsPerHourProcessed = assertUnitsPerHourProcessed;
 	}
 
-	public boolean isSessionStartable() {
+	@Override
+  public boolean isSessionStartable() {
 		return true;
 	}
 }

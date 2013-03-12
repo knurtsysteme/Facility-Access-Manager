@@ -40,6 +40,7 @@ public class StandardAuthentication implements UserAuthentication {
      *  this user must have a password and a username or e-mail address.
      * @return true, if given candidate is auth
      */
+    @Override
     public boolean isAuth(Authenticatable candidate, String cleanPass) {
         return this.isAuth((User) candidate, cleanPass);
     }

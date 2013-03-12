@@ -27,11 +27,13 @@ public class SoaDocument extends FamBaseDocument implements FamDocument {
 
 	private String content, title;
 
-	public FamDocumentType getType() {
+	@Override
+  public FamDocumentType getType() {
 		return FamDocumentType.SOA;
 	}
 
-	public boolean insertOrUpdate() {
+	@Override
+  public boolean insertOrUpdate() {
 		return FamDaoProxy.docDao().createDocument(this);
 	}
 

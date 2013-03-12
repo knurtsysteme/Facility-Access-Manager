@@ -128,7 +128,8 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 		return r.getLabel();
 	}
 
-	public void setId(Integer id) {
+	@Override
+  public void setId(Integer id) {
 		this.setUserId(id);
 	}
 
@@ -461,7 +462,7 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 	 *            the first name
 	 */
 	public void setFname(String fname) {
-		this.fname = fname.trim();
+		this.fname = fname == null ? null : fname.trim();
 	}
 
 	/**
@@ -499,7 +500,7 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 	 *            the second name to set
 	 */
 	public void setSname(String sname) {
-		this.sname = sname.trim();
+		this.sname = sname == null ? null : sname.trim();
 	}
 
 	/**
@@ -744,7 +745,8 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 	 * 
 	 * @return true, if this user is auth
 	 */
-	public boolean isAuth() {
+	@Override
+  public boolean isAuth() {
 		if (this.isPasswordEncoded()) {
 			throw new AssertionError("password must be clean");
 		}
@@ -948,7 +950,8 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 		this.directBookingCredits = directBookingCredits;
 	}
 
-	public Integer getId() {
+	@Override
+  public Integer getId() {
 		return this.getUserId();
 	}
 

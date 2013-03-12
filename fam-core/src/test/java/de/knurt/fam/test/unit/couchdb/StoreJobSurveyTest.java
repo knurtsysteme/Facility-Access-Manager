@@ -185,7 +185,7 @@ public class StoreJobSurveyTest extends FamIBatisTezt {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void storeAndGetJob() {
 		this.clearDatabase();

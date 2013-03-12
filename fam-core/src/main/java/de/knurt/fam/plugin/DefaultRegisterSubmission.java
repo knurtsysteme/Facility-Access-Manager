@@ -47,7 +47,8 @@ class DefaultRegisterSubmission implements RegisterSubmission {
 	 * <code>false</code>, so that the user can directly start to use the
 	 * system. the user is forwarded directly into the system.
 	 */
-	public ModelAndView handle(TemplateResource templateResource, Registration registration, HttpServletResponse response, HttpServletRequest request) {
+	@Override
+  public ModelAndView handle(TemplateResource templateResource, Registration registration, HttpServletResponse response, HttpServletRequest request) {
 		ModelAndView result = null;
 		User newUser = registration.getUser();
 		newUser.setStandardUser();

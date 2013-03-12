@@ -41,7 +41,8 @@ public class MandatoryUserFieldValidator implements MandatoryFieldValidator<User
 	 *            to check
 	 * @return true, if the field with the given <code>fieldname</code>
 	 */
-	public boolean isMandatory(User user, String key) throws InvalidRoleIdException {
+	@Override
+  public boolean isMandatory(User user, String key) throws InvalidRoleIdException {
 		boolean result = false;
 		String key2check = key;
 		if (key.equals("departmentLabel")) {
@@ -99,7 +100,8 @@ public class MandatoryUserFieldValidator implements MandatoryFieldValidator<User
 		this.mandatoryRolesAndFields = mandatoryRolesAndFields;
 	}
 
-	public boolean isSufficient(User user, String key) throws InvalidRoleIdException {
+	@Override
+  public boolean isSufficient(User user, String key) throws InvalidRoleIdException {
 		boolean result = false;
 		key = this.getKey2Check(key);
 		if (this.isMandatory(user, key)) {

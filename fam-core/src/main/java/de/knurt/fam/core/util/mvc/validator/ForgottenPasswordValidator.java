@@ -30,11 +30,13 @@ import de.knurt.fam.core.util.mvc.ForgottenPassword;
  */
 public class ForgottenPasswordValidator implements Validator {
 
-	public boolean supports(Class<?> clazz) {
+	@Override
+  public boolean supports(Class<?> clazz) {
 		return clazz.equals(ForgottenPassword.class);
 	}
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		ForgottenPassword fp = (ForgottenPassword) target;
 		if (fp.fail()) {
 			errors.reject("page.forgottenpassword.input.unknown", "This is is unknown");

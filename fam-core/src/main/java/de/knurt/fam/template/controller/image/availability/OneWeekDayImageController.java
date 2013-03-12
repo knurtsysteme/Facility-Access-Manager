@@ -33,6 +33,7 @@ import de.knurt.fam.template.controller.image.availability.printer.PrintableBar;
  */
 public class OneWeekDayImageController extends TimeStripedDayAbstractImageController implements PrintableBar, FacilityAvailabilityImageController {
 
+    @Override
     public boolean isHorizontal() {
         return false;
     }
@@ -50,22 +51,27 @@ public class OneWeekDayImageController extends TimeStripedDayAbstractImageContro
         printer.out();
     }
 
+    @Override
     public int getBarX() {
         return 0;
     }
 
+    @Override
     public int getBarY() {
         return 0;
     }
 
+    @Override
     public int getBarWidth() {
         return 10;
     }
 
+    @Override
     public int getBarHeight() {
         return this.getImageHeight();
     }
 
+    @Override
     public List<FacilityAvailability> getFacilityAvailabilitiesToShow() {
         TimeBookingRequest br = RequestInterpreter.getBookingWishFromRequest(this.getRequest(), SessionAuth.user(this.getRequest()));
         Integer requestedCapacityUnits = br.getFacility().getCapacityUnits(); // requesting all, because want red on only one booking

@@ -36,11 +36,13 @@ public class RegistrationValidator implements Validator {
 
 	private PasswordValidator passwordValidation;
 
-	public boolean supports(Class<?> clazz) {
+	@Override
+  public boolean supports(Class<?> clazz) {
 		return clazz.equals(Registration.class);
 	}
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		Registration registration = (Registration) target;
 		User candidate = registration.getUser();
 		try {

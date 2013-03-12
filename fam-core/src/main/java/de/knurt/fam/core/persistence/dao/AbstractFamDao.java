@@ -137,7 +137,8 @@ public abstract class AbstractFamDao<K extends Storeable> implements FamDao<K> {
 	 *            as example
 	 * @return first found object like example.
 	 */
-	public K getOneLike(K example) {
+	@Override
+  public K getOneLike(K example) {
 		K result = null;
 		List<K> examples = this.getObjectsLike(example);
 		if (examples.size() > 0) {

@@ -121,11 +121,13 @@ public class Address implements ViewableObject, Identificable {
 		return !this.getCountry().equals("-1");
 	}
 
-	public Integer getId() {
+	@Override
+  public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	@Override
+  public void setId(Integer id) {
 		this.id = id;
 	}
 

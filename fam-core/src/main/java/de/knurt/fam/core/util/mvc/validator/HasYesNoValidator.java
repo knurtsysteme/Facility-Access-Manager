@@ -28,7 +28,8 @@ import de.knurt.fam.core.util.mvc.QueryKeys;
  */
 public class HasYesNoValidator extends FamValidator {
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		QueryKeys query = (QueryKeys) target;
 		if (query.isYes() == null) {
 			errors.rejectValue(QueryKeys.QUERY_KEY_YES_NO, "", "");

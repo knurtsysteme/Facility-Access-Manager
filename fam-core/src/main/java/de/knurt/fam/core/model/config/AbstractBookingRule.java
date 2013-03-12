@@ -40,7 +40,8 @@ public abstract class AbstractBookingRule implements BookingRule {
 	private Map<String, SetOfRulesForARole> setsOfRulesForARole;
 	private SetOfRulesForARole defaultSetOfRulesForARole;
 
-	public SpecificRights4RoleOnFacility getSpecificRights4UserOnFacility(User user) {
+	@Override
+  public SpecificRights4RoleOnFacility getSpecificRights4UserOnFacility(User user) {
 		SpecificRights4RoleOnFacility result = null;
 		if (this.bookingRule4Roles != null) {
 			for (SpecificRights4RoleOnFacility candidate : this.bookingRule4Roles) {
@@ -53,15 +54,18 @@ public abstract class AbstractBookingRule implements BookingRule {
 		return result;
 	}
 
-	public void setDefaultSetOfRulesForARole(SetOfRulesForARole defaultSetOfRulesForARole) {
+	@Override
+  public void setDefaultSetOfRulesForARole(SetOfRulesForARole defaultSetOfRulesForARole) {
 		this.defaultSetOfRulesForARole = defaultSetOfRulesForARole;
 	}
 
-	public SetOfRulesForARole getDefaultSetOfRulesForARole() {
+	@Override
+  public SetOfRulesForARole getDefaultSetOfRulesForARole() {
 		return this.defaultSetOfRulesForARole;
 	}
 
-	public SetOfRulesForARole getSetOfRulesForARole(User user) {
+	@Override
+  public SetOfRulesForARole getSetOfRulesForARole(User user) {
 		if (user != null && this.setsOfRulesForARole != null && this.setsOfRulesForARole.containsKey(user.getRoleId())) {
 			return this.setsOfRulesForARole.get(user.getRoleId());
 		} else {
@@ -69,27 +73,33 @@ public abstract class AbstractBookingRule implements BookingRule {
 		}
 	}
 
-	public void setSetsOfRulesForARole(Map<String, SetOfRulesForARole> setsOfRulesForARole) {
+	@Override
+  public void setSetsOfRulesForARole(Map<String, SetOfRulesForARole> setsOfRulesForARole) {
 		this.setsOfRulesForARole = setsOfRulesForARole;
 	}
 
-	public String getCapacityLabelOfMin(User user) {
+	@Override
+  public String getCapacityLabelOfMin(User user) {
 		return this.getSetOfRulesForARole(user).getMinBookableCapacityUnits() + " " + this.getCapacityUnitName(this.getSetOfRulesForARole(user).getMinBookableCapacityUnits());
 	}
 
-	public String getCapacityLabelOfMax(User user) {
+	@Override
+  public String getCapacityLabelOfMax(User user) {
 		return this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits() + " " + this.getCapacityUnitName(this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits());
 	}
 
-	public String getTimeLabelOfMax(User user) {
+	@Override
+  public String getTimeLabelOfMax(User user) {
 		return this.getTimeLabel(this.getSetOfRulesForARole(user).getMaxBookableTimeUnits());
 	}
 
-	public String getTimeLabelOfMin(User user) {
+	@Override
+  public String getTimeLabelOfMin(User user) {
 		return this.getTimeLabel(this.getSetOfRulesForARole(user).getMinBookableTimeUnits());
 	}
 
-	public String getTimeLabel(int units) {
+	@Override
+  public String getTimeLabel(int units) {
 		String result = "";
 		if (this.getSmallestTimeLabelEqualsOneXKey() != null) {
 			result = units + " " + this.getLabel("label.time." + this.getSmallestTimeLabelEqualsOneXKey() + ".%s", units);
@@ -139,7 +149,8 @@ public abstract class AbstractBookingRule implements BookingRule {
 		return FamText.message(keyformated);
 	}
 
-	public String getCapacityUnitName(int units) {
+	@Override
+  public String getCapacityUnitName(int units) {
 		return this.getLabel("label.capacity." + this.getKey() + ".%s", units);
 	}
 
@@ -150,7 +161,8 @@ public abstract class AbstractBookingRule implements BookingRule {
 	 * @return the key
 	 */
 
-	public String getKey() {
+	@Override
+  public String getKey() {
 		if (key == null) {
 			this.key = this.getFacility().getKey();
 		}
@@ -161,7 +173,8 @@ public abstract class AbstractBookingRule implements BookingRule {
 	 * @param key
 	 *            the key to set
 	 */
-	@Required
+	@Override
+  @Required
 	public void setKey(String key) {
 		this.key = key;
 	}
@@ -170,7 +183,8 @@ public abstract class AbstractBookingRule implements BookingRule {
 	 * @return the facility
 	 */
 
-	public FacilityBookable getFacility() {
+	@Override
+  public FacilityBookable getFacility() {
 		return facility;
 	}
 
@@ -180,7 +194,8 @@ public abstract class AbstractBookingRule implements BookingRule {
 	 *            the facility to set
 	 */
 
-	public void setFacility(FacilityBookable facility) {
+	@Override
+  public void setFacility(FacilityBookable facility) {
 		this.facility = facility;
 	}
 
@@ -189,25 +204,30 @@ public abstract class AbstractBookingRule implements BookingRule {
 	 *            the bookingRule4Roles to set
 	 */
 
-	public void setSpecificRights4UserOnFacility(List<SpecificRights4RoleOnFacility> bookingRule4Roles) {
+	@Override
+  public void setSpecificRights4UserOnFacility(List<SpecificRights4RoleOnFacility> bookingRule4Roles) {
 		this.bookingRule4Roles = bookingRule4Roles;
 	}
 
 
 
-	public int getMaxBookableCapacityUnits(User user) {
+	@Override
+  public int getMaxBookableCapacityUnits(User user) {
 		return this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits();
 	}
 
-	public int getMaxBookableTimeUnits(User user) {
+	@Override
+  public int getMaxBookableTimeUnits(User user) {
 		return this.getSetOfRulesForARole(user).getMaxBookableTimeUnits();
 	}
 
-	public int getMinBookableCapacityUnits(User user) {
+	@Override
+  public int getMinBookableCapacityUnits(User user) {
 		return this.getSetOfRulesForARole(user).getMinBookableCapacityUnits();
 	}
 
-	public int getMinBookableTimeUnits(User user) {
+	@Override
+  public int getMinBookableTimeUnits(User user) {
 		return this.getSetOfRulesForARole(user).getMinBookableTimeUnits();
 	}
 

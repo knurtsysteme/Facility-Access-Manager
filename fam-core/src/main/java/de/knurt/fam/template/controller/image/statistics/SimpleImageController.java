@@ -37,7 +37,8 @@ public abstract class SimpleImageController implements Controller {
 
 	private HttpServletRequest request;
 
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	@Override
+  public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		this.setRequest(request);
 		response.setContentType(this.getContentType());
 		BufferedImage messageImage = new BufferedImage(this.getImageWidth(), this.getImageHeight(), BufferedImage.TYPE_INT_RGB);

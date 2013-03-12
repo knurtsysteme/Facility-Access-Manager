@@ -25,8 +25,6 @@ import de.knurt.heinzelmann.util.adapter.ViewableObject;
  */
 public class ViewableProperties implements ViewableObject {
 
-	private static final long serialVersionUID = 1L;
-
 	private String category, key, value;
 
 	public ViewableProperties(String category, String key, String value) {

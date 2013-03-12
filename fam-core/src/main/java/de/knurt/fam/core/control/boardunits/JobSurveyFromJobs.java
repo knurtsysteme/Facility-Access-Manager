@@ -27,7 +27,7 @@ import de.knurt.heinzelmann.util.nebc.BoardUnit;
  * @author Daniel Oltmanns
  * @since 1.6.0 (12/07/2011)
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class JobSurveyFromJobs implements BoardUnit<List<Job>, Map> {
 
 	/** {@inheritDoc} */

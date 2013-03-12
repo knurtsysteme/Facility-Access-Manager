@@ -36,7 +36,8 @@ public class HasFacilityValidator extends FamValidator {
 	 * @param errors
 	 *            reject in
 	 */
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		QueryKeys query = (QueryKeys) target;
 		if (FacilityConfigDao.isKey(query.getFacilityKey()) == false) {
 			errors.rejectValue(QueryKeys.QUERY_KEY_FACILITY, "", "");

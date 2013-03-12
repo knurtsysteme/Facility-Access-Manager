@@ -90,23 +90,28 @@ public class DefaultAnswerFactory implements AnswerFactory {
 		return mav;
 	}
 
-	public ModelAndView answerHTML(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
+	@Override
+  public ModelAndView answerHTML(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
 		return this.answerAll(templateResource, response, request, pw);
 	}
 
-	public ModelAndView answerCSS(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
+	@Override
+  public ModelAndView answerCSS(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
 		return this.answerAll(templateResource, response, request, pw);
 	}
 
-	public ModelAndView answerJS(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
+	@Override
+  public ModelAndView answerJS(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
 		return this.answerAll(templateResource, response, request, pw);
 	}
 
-	public ModelAndView answerUnknown(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
+	@Override
+  public ModelAndView answerUnknown(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
 		return this.answerAll(templateResource, response, request, pw);
 	}
 
-	public ModelAndView answerJSON(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
+	@Override
+  public ModelAndView answerJSON(TemplateResource templateResource, HttpServletResponse response, HttpServletRequest request, PrintWriter pw) {
 		return this.answerAll(templateResource, response, request, pw);
 	}
 }

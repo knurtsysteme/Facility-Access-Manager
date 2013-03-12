@@ -29,47 +29,57 @@ public class SimpleSetOfRulesForARoleBean implements SetOfRulesForARole {
 	private int minBookableTimeUnits, maxBookableTimeUnits, minBookableCapacityUnits, maxBookableCapacityUnits;
 	private int reminderMailMinutesBeforeStarting = -1; // no mail
 
-	public int getMinBookableTimeUnits() {
+	@Override
+  public int getMinBookableTimeUnits() {
 		return minBookableTimeUnits;
 	}
 
-	@Required
+	@Override
+  @Required
 	public void setMinBookableTimeUnits(int minBookableTimeUnits) {
 		this.minBookableTimeUnits = minBookableTimeUnits;
 	}
 
-	public int getMaxBookableTimeUnits() {
+	@Override
+  public int getMaxBookableTimeUnits() {
 		return maxBookableTimeUnits;
 	}
 
-	@Required
+	@Override
+  @Required
 	public void setMaxBookableTimeUnits(int maxBookableTimeUnits) {
 		this.maxBookableTimeUnits = maxBookableTimeUnits;
 	}
 
-	public int getMinBookableCapacityUnits() {
+	@Override
+  public int getMinBookableCapacityUnits() {
 		return minBookableCapacityUnits;
 	}
 
-	@Required
+	@Override
+  @Required
 	public void setMinBookableCapacityUnits(int minBookableCapacityUnits) {
 		this.minBookableCapacityUnits = minBookableCapacityUnits;
 	}
 
-	public int getMaxBookableCapacityUnits() {
+	@Override
+  public int getMaxBookableCapacityUnits() {
 		return maxBookableCapacityUnits;
 	}
 
-	@Required
+	@Override
+  @Required
 	public void setMaxBookableCapacityUnits(int maxBookableCapacityUnits) {
 		this.maxBookableCapacityUnits = maxBookableCapacityUnits;
 	}
 
-	public int getReminderMailMinutesBeforeStarting() {
+	@Override
+  public int getReminderMailMinutesBeforeStarting() {
 		return reminderMailMinutesBeforeStarting;
 	}
 
-	@Required
+	@Override
+  @Required
 	public void setReminderMailMinutesBeforeStarting(int reminderMailMinutesBeforeStarting) {
 		this.reminderMailMinutesBeforeStarting = reminderMailMinutesBeforeStarting;
 	}

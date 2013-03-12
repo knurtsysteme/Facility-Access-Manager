@@ -66,7 +66,8 @@ public class JSONAdapterBooking implements StringAdapter<Booking>, JSONAdapter<B
 	 * @param booking
 	 * @return the json object as a string.
 	 */
-	public String getAsString(Booking booking) {
+	@Override
+  public String getAsString(Booking booking) {
 		return this.getAsJSONObject(booking).toString();
 	}
 
@@ -83,7 +84,8 @@ public class JSONAdapterBooking implements StringAdapter<Booking>, JSONAdapter<B
 	 * @param bookings
 	 * @return an array of given bookings with subentry array of all days.
 	 */
-	public String getAsString(List<Booking> bookings) {
+	@Override
+  public String getAsString(List<Booking> bookings) {
 		return this.getAsJSONArray(bookings).toString();
 	}
 
@@ -104,7 +106,8 @@ public class JSONAdapterBooking implements StringAdapter<Booking>, JSONAdapter<B
 	 * @param bookings
 	 * @return an array of given bookings with subentry array of all days.
 	 */
-	public JSONArray getAsJSONArray(List<Booking> bookings) {
+	@Override
+  public JSONArray getAsJSONArray(List<Booking> bookings) {
 		JSONArray result = new JSONArray();
 		for (Booking booking : bookings) {
 			result.put(this.getAsJSONObject(booking));
@@ -129,7 +132,8 @@ public class JSONAdapterBooking implements StringAdapter<Booking>, JSONAdapter<B
 	 *            being adapted to a json object
 	 * @return the booking adapted to a json object.
 	 */
-	public JSONObject getAsJSONObject(Booking booking) {
+	@Override
+  public JSONObject getAsJSONObject(Booking booking) {
 		JSONObject json = new JSONObject();
 		try {
 			User booker = booking.getUser();

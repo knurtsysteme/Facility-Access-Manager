@@ -32,23 +32,28 @@ public class TemplatePageDefault implements TemplatePage {
 		this.page = page;
 	}
 
-	public String getHeadline() {
+	@Override
+  public String getHeadline() {
 		return this.getValue("headline");
 	}
 
-	public String getTitle() {
+	@Override
+  public String getTitle() {
 		return this.getValue("title");
 	}
 
-	public String getValue(String key) {
+	@Override
+  public String getValue(String key) {
 		return this.page.getChildText(key);
 	}
 
-	public String getHref() {
+	@Override
+  public String getHref() {
 		return TemplateHtml.me().getHref(this);
 	}
 
-	public String getResourceName() {
+	@Override
+  public String getResourceName() {
 		return this.page.getAttributeValue("name");
 	}
 

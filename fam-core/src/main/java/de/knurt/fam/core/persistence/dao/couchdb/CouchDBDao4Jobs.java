@@ -201,8 +201,8 @@ public class CouchDBDao4Jobs implements FamJobsDao {
 		uri += "?" + queryString.getAsQueryParams(false);
 		Response response = FamCouchDBDao.response(uri);
 		try {
-			@SuppressWarnings("unchecked")
-			List<Map> jobs = response.getContentAsList();
+      @SuppressWarnings({"unchecked", "rawtypes"})
+      List<Map> jobs = response.getContentAsList();
 			for (Map<?, ?> job : jobs) {
 				result.add(FamCouchDBDao.getInstance().getContentAsBean(job.get("_id").toString(), Job.class));
 			}

@@ -32,11 +32,13 @@ public class SoaActivationDocument extends FamBaseDocument implements FamDocumen
 	private String roleId;
 	private List<SoaActivationPageDocument> soaActivePages = new ArrayList<SoaActivationPageDocument>();
 
-	public FamDocumentType getType() {
+	@Override
+  public FamDocumentType getType() {
 		return FamDocumentType.SOA_ACTIVATION;
 	}
 
-	public boolean insertOrUpdate() {
+	@Override
+  public boolean insertOrUpdate() {
 		return FamDaoProxy.docDao().createDocument(this);
 	}
 

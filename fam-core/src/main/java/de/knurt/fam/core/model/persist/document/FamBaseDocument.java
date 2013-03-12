@@ -31,7 +31,8 @@ public abstract class FamBaseDocument extends BaseDocument implements FamDocumen
 	 * return date when document has been created as unix timestamp.
 	 * @return date when document has been created as unix timestamp.
 	 */
-	public Long getCreated() {
+	@Override
+  public Long getCreated() {
 		return created;
 	}
 

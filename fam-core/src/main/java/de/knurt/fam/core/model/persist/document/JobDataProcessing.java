@@ -37,11 +37,13 @@ public class JobDataProcessing extends FamBaseDocument implements FamDocument, P
 	private String facilityKey, username;
 	private List<Map<String, Object>> templates;
 
-	public FamDocumentType getType() {
+	@Override
+  public FamDocumentType getType() {
 		return FamDocumentType.JOB_DATA_PROCESSING;
 	}
 
-	public boolean insertOrUpdate() {
+	@Override
+  public boolean insertOrUpdate() {
 		return FamDaoProxy.docDao().createDocument(this);
 	}
 

@@ -27,7 +27,8 @@ import de.knurt.fam.core.util.mvc.QueryKeys;
  */
 public class HasTimeUnitsValidator extends FamValidator {
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		QueryKeys query = (QueryKeys) target;
 		if (query.getTime() == null) {
 			errors.rejectValue(QueryKeys.QUERY_KEY_UNITS_TIME, "", "");

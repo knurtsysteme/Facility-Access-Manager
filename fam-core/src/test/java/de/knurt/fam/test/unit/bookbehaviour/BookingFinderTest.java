@@ -73,7 +73,7 @@ public class BookingFinderTest {
 
 	@Test
 	public void tbr_clone1() {
-		TimeBookingRequest tbr = TeztBeanSimpleFactory.getBookingRequest();
+		TimeBookingRequest tbr = TeztBeanSimpleFactory.getBookingRequest(TeztBeanSimpleFactory.getFacilityBookable(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_2));
 		tbr.getBookingRule().getSetOfRulesForARole(tbr.getUser()).setMaxBookableCapacityUnits(10);
 		TimeBookingRequest clone = (TimeBookingRequest) tbr.clone();
 		assertEquals(tbr.getArticleNumber(), clone.getArticleNumber());

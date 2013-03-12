@@ -45,7 +45,8 @@ public abstract class JSONController implements Controller {
 	 *            response
 	 * @return null
 	 */
-	public ModelAndView handleRequest(HttpServletRequest rq, HttpServletResponse rs) {
+	@Override
+  public ModelAndView handleRequest(HttpServletRequest rq, HttpServletResponse rs) {
 		PrintWriter pw = null;
 		try {
 			rs.setHeader("Content-type", "application/json");

@@ -179,7 +179,8 @@ public class VelocityFileContentFactory implements ContentFactory {
 		return result;
 	}
 
-	public String getContent(TemplateResource templateResource) {
+	@Override
+  public String getContent(TemplateResource templateResource) {
 		String result = null;
 		VelocityContext context = null;
 		Template template = null;

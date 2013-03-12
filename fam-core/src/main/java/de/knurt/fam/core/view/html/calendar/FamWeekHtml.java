@@ -71,6 +71,7 @@ public abstract class FamWeekHtml extends CalendarOneWeekHtml implements Calenda
      * @see QueryKeys#WEEK
      * @return week as view name of the calendar
      */
+    @Override
     public String getCalendarViewName() {
         return QueryKeys.WEEK;
     }
@@ -255,6 +256,7 @@ public abstract class FamWeekHtml extends CalendarOneWeekHtml implements Calenda
      * @param c representing the week
      * @return the query string needed to visit the given week in the week view.
      */
+    @Override
     public QueryString getQueryString(Calendar c) {
         return this.getDasCalendarHtmlGetter().getQueryString(c, this);
     }
@@ -263,6 +265,7 @@ public abstract class FamWeekHtml extends CalendarOneWeekHtml implements Calenda
      * return the factory generating html-elements.
      * @return the factory generating html-elements.
      */
+    @Override
     public FamCalendarHtmlFactory getDasCalendarHtmlGetter() {
         return dasCalendarHtmlGetter;
     }

@@ -30,11 +30,13 @@ import de.knurt.fam.core.util.mvc.Login;
  */
 public class LoginValidator implements Validator {
 
-	public boolean supports(Class<?> clazz) {
+	@Override
+  public boolean supports(Class<?> clazz) {
 		return clazz.equals(Login.class);
 	}
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		Login login = (Login) target;
 		if (login.fail()) {
 			errors.reject("page.login.input.notauth", "<span style=\"font-weight:bold;\">Login failed.</span><br /><span>Either your username or password is wrong or your account is not active yet. If you just have registered, please be patient until we have activated your account.</span>"); // INTLANG

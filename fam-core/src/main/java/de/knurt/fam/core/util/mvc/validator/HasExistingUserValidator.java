@@ -28,7 +28,8 @@ import de.knurt.fam.core.util.mvc.QueryKeys;
  */
 public class HasExistingUserValidator extends FamValidator {
 
-	public void validate(Object target, Errors errors) {
+	@Override
+  public void validate(Object target, Errors errors) {
 		QueryKeys query = (QueryKeys) target;
 		if (query.getUser() == null) {
 			errors.rejectValue(QueryKeys.QUERY_KEY_USER, "", "");

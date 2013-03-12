@@ -39,7 +39,8 @@ import de.knurt.fam.core.persistence.dao.couchdb.FamCouchDBDao;
  */
 public class PublicDocController implements Controller {
 
-	public ModelAndView handleRequest(HttpServletRequest rq, HttpServletResponse rs) {
+	@Override
+  public ModelAndView handleRequest(HttpServletRequest rq, HttpServletResponse rs) {
 		PrintWriter pw = null;
 		try {
 			rs.setContentType("application/json");

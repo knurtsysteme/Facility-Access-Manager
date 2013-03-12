@@ -58,7 +58,8 @@ public class CronjobActionMailsAccountExpired implements CronjobAction {
 	/**
 	 * send emails to every person which account expired yesterday.
 	 */
-	public void resolve() {
+	@Override
+  public void resolve() {
 		Calendar yesterday = Calendar.getInstance();
 		yesterday.add(Calendar.DAY_OF_YEAR, -1);
 		List<User> users = FamDaoProxy.userDao().getUsersAccountExpired(yesterday.getTime());

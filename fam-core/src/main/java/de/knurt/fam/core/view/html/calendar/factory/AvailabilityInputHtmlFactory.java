@@ -31,8 +31,6 @@ import de.knurt.heinzelmann.util.time.AbstractIntervalTimeFrame;
 @Deprecated
 public class AvailabilityInputHtmlFactory extends FamCalendarHtmlFactory {
 	private String facilityKey;
-	private String iterationsSelectOptions;
-	private String yesNoSelectOptions;
 
 	/** {@inheritDoc} */
 	@Override
@@ -131,7 +129,6 @@ public class AvailabilityInputHtmlFactory extends FamCalendarHtmlFactory {
 	 * every year
 	 */
 	private void setIterationsSelectOptions(Calendar c) {
-		this.iterationsSelectOptions = "";
 		ArrayList<Integer> iterations = new ArrayList<Integer>();
 		if (c.getTimeInMillis() >= this.getStartOfToday().getTimeInMillis()) {
 			iterations.add(AbstractIntervalTimeFrame.ONE_TIME);
@@ -141,27 +138,18 @@ public class AvailabilityInputHtmlFactory extends FamCalendarHtmlFactory {
 		iterations.add(AbstractIntervalTimeFrame.EACH_WEEK);
 		iterations.add(AbstractIntervalTimeFrame.EACH_MONTH);
 		iterations.add(AbstractIntervalTimeFrame.EACH_YEAR);
-		for (int iteration : iterations) {
-			HtmlElement option = HtmlFactory.get_option(iteration + "", FamText.message("calendar.iteration." + iteration), false);
-			this.iterationsSelectOptions += option.toString();
-		}
 	}
 
 	private void setYesNotSelectOptions() {
-		this.yesNoSelectOptions = "";
 
 		int daAvailability = FacilityAvailability.COMPLETE_AVAILABLE;
 		HtmlElement option = HtmlFactory.get_option(daAvailability, FamText.facilityAvailabilityShort(daAvailability), false); // INTLANG
-		this.yesNoSelectOptions += option.toString();
 
 		daAvailability = FacilityAvailability.GENERAL_NOT_AVAILABLE;
 		option = HtmlFactory.get_option(daAvailability, FamText.facilityAvailabilityShort(daAvailability), false); // INTLANG
-		this.yesNoSelectOptions += option.toString();
 
 		daAvailability = FacilityAvailability.MAINTENANCE_NOT_AVAILABLE;
 		option = HtmlFactory.get_option(daAvailability, FamText.facilityAvailabilityShort(daAvailability), false); // INTLANG
 		option.setAttribute("selected", "selected");
-		this.yesNoSelectOptions += option.toString();
-
 	}
 }

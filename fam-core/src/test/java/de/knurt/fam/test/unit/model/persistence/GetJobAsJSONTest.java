@@ -67,7 +67,6 @@ public class GetJobAsJSONTest extends FamIBatisTezt {
 		assertEquals(got.toString(), "{}");
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void getJobWithId() {
 		this.clearDatabase();
@@ -106,7 +105,8 @@ public class GetJobAsJSONTest extends FamIBatisTezt {
 		// ↘ test results
 		try {
 			assertEquals("bar", got.getString("foo"));
-			Map zoo = (Map) got.get("zoo");
+			@SuppressWarnings("rawtypes")
+      Map zoo = (Map) got.get("zoo");
 			assertEquals("dog", zoo.get("0"));
 			assertEquals("cat", zoo.get("1"));
 			assertEquals("mouse", zoo.get("2"));

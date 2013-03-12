@@ -35,7 +35,8 @@ abstract class FamValidator implements Validator {
 	 *            being supported
 	 * @return true, if given class is supported
 	 */
-	public boolean supports(Class<?> clazz) {
+	@Override
+  public boolean supports(Class<?> clazz) {
 		return clazz.equals(QueryKeys.class);
 	}
 }

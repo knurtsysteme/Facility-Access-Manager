@@ -63,7 +63,8 @@ public class TimeBasedBookingRule extends AbstractBookingRule {
 	 * @return the smallestMinutesBookable
 	 */
 
-	public int getSmallestMinutesBookable() {
+	@Override
+  public int getSmallestMinutesBookable() {
 		return smallestMinutesBookable;
 	}
 
@@ -71,7 +72,8 @@ public class TimeBasedBookingRule extends AbstractBookingRule {
 	 * @param smallestMinutesBookable
 	 *            the smallestMinutesBookable to set
 	 */
-	@Required
+	@Override
+  @Required
 	public void setSmallestMinutesBookable(int smallestMinutesBookable) {
 		this.smallestMinutesBookable = smallestMinutesBookable;
 	}
@@ -86,7 +88,8 @@ public class TimeBasedBookingRule extends AbstractBookingRule {
 	 * @return the smallestTimeLabelEqualsOneXKey
 	 */
 
-	public String getSmallestTimeLabelEqualsOneXKey() {
+	@Override
+  public String getSmallestTimeLabelEqualsOneXKey() {
 		return smallestTimeLabelEqualsOneXKey;
 	}
 
@@ -94,7 +97,8 @@ public class TimeBasedBookingRule extends AbstractBookingRule {
 	 * @param smallestTimeLabelEqualsOneXKey
 	 *            the smallestTimeLabelEqualsOneXKey to set
 	 */
-	@Required
+	@Override
+  @Required
 	public void setSmallestTimeLabelEqualsOneXKey(String smallestTimeLabelEqualsOneXKey) {
 		this.smallestTimeLabelEqualsOneXKey = smallestTimeLabelEqualsOneXKey;
 	}
@@ -107,7 +111,8 @@ public class TimeBasedBookingRule extends AbstractBookingRule {
 	 * @return the mustStartAt
 	 */
 
-	public Integer getMustStartAt() {
+	@Override
+  public Integer getMustStartAt() {
 		return mustStartAt;
 	}
 
@@ -115,16 +120,19 @@ public class TimeBasedBookingRule extends AbstractBookingRule {
 	 * @param mustStartAt
 	 *            the mustStartAt to set
 	 */
-	@Required
+	@Override
+  @Required
 	public void setMustStartAt(Integer mustStartAt) {
 		this.mustStartAt = mustStartAt;
 	}
 
-	public int getBookingStrategy() {
+	@Override
+  public int getBookingStrategy() {
 		return BookingStrategy.TIME_BASED;
 	}
 
-	public boolean isSessionStartable() {
+	@Override
+  public boolean isSessionStartable() {
 		return false;
 	}
 }

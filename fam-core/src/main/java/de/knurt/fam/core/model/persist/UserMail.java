@@ -202,11 +202,13 @@ public class UserMail implements ViewableObject, Identificable {
 		return this.hasBeenSent() == false && (this.toSendDate.before(now) || this.toSendDate.equals(now));
 	}
 
-	public Integer getId() {
+	@Override
+  public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	@Override
+  public void setId(Integer id) {
 		this.id = id;
 	}
 

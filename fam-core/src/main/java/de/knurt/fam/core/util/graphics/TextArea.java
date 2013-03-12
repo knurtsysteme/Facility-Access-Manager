@@ -63,7 +63,8 @@ public class TextArea implements Comparable<TextArea> {
 		return this.getPosY() + this.getHeight();
 	}
 
-	public int compareTo(TextArea o) {
+	@Override
+  public int compareTo(TextArea o) {
 		int result = 0;
 		if (this.getPosY() > o.getPosY()) {
 			result = 1;

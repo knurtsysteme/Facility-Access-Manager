@@ -63,7 +63,8 @@ public class HtmlAdapterQueueBooking extends HtmlAdapterAbstractBooking<QueueBoo
 	/**
 	 * @return the timeframe
 	 */
-	public String getTimeframe() {
+	@Override
+  public String getTimeframe() {
 		String result = "";
 		String resultformat = "<span style=\"display:none;\">%s</span>%s";
 		if (this.booking.isCanceled()) {
@@ -97,7 +98,8 @@ public class HtmlAdapterQueueBooking extends HtmlAdapterAbstractBooking<QueueBoo
 	 * @return the status of booking.
 	 */
 
-	public String getBookingStatus() {
+	@Override
+  public String getBookingStatus() {
 		String result = FamText.statusOfBookingAsText(this.getCurrentUser(), booking);
 		if (!this.booking.isCanceled() && !this.booking.sessionAlreadyMade()) {
 			Integer pos = this.booking.getCurrentQueuePosition();
@@ -123,7 +125,8 @@ public class HtmlAdapterQueueBooking extends HtmlAdapterAbstractBooking<QueueBoo
 	 * @return the time of the time frame with a info prefix.
 	 */
 
-	public String getTimeframetime() {
+	@Override
+  public String getTimeframetime() {
 		String result = "";
 		if (this.booking.sessionAlreadyBegun() && !this.booking.sessionAlreadyMade()) {
 			result = "Session is now"; // INTLANG

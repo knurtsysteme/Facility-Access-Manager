@@ -254,10 +254,12 @@ public class UpdateUserFromContactDetailsController extends JSONController {
 
 final class WrongInput implements Identificable {
 
-	public Integer getId() {
+	@Override
+  public Integer getId() {
 		return -1;
 	}
 
-	public void setId(Integer id) {
+	@Override
+  public void setId(Integer id) {
 	}
 }

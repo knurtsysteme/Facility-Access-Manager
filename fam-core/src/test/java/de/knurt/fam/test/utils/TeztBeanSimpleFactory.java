@@ -50,7 +50,7 @@ public class TeztBeanSimpleFactory {
 	 * @return
 	 */
 	public static FacilityBookable getFacilityBookable() {
-		return (FacilityBookable) FacilityConfigDao.getInstance().getConfiguredInstance(KEY_FACILITY_BOOKABLE);
+	  return getFacilityBookable(KEY_FACILITY_BOOKABLE);
 	}
 
 	/**
@@ -179,23 +179,26 @@ public class TeztBeanSimpleFactory {
 	 * 
 	 * @return
 	 */
-	public static TimeBookingRequest getBookingRequest() {
-		BookingRule bookingRule = getFacilityBookable().getBookingRule();
-		SetOfRulesForARole defaultSet = new SimpleSetOfRulesForARoleBean();
-		defaultSet.setMaxBookableCapacityUnits(1);
-		defaultSet.setMinBookableCapacityUnits(1);
-		defaultSet.setMaxBookableTimeUnits(1);
-		defaultSet.setMinBookableTimeUnits(1);
-		defaultSet.setReminderMailMinutesBeforeStarting(1440);
-		bookingRule.setDefaultSetOfRulesForARole(defaultSet);
-		bookingRule.setSmallestMinutesBookable(15);
-		bookingRule.setMustStartAt(null);
-		User user = getNewUniqueValidUser(bookingRule.hashCode() + "");
-		user.insert();
-		int capacityUnitsInterestedIn = 1;
-		int timeUnitsInterestedIn = 1;
-		Calendar userInterestedIn = getTomorrow();
-		return new TimeBookingRequest(bookingRule, user, capacityUnitsInterestedIn, timeUnitsInterestedIn, userInterestedIn);
+	public static TimeBookingRequest getBookingRequest(FacilityBookable facility) {
+    BookingRule bookingRule = facility.getBookingRule();
+    SetOfRulesForARole defaultSet = new SimpleSetOfRulesForARoleBean();
+    defaultSet.setMaxBookableCapacityUnits(1);
+    defaultSet.setMinBookableCapacityUnits(1);
+    defaultSet.setMaxBookableTimeUnits(1);
+    defaultSet.setMinBookableTimeUnits(1);
+    defaultSet.setReminderMailMinutesBeforeStarting(1440);
+    bookingRule.setDefaultSetOfRulesForARole(defaultSet);
+    bookingRule.setSmallestMinutesBookable(15);
+    bookingRule.setMustStartAt(null);
+    User user = getNewUniqueValidUser(bookingRule.hashCode() + "");
+    user.insert();
+    int capacityUnitsInterestedIn = 1;
+    int timeUnitsInterestedIn = 1;
+    Calendar userInterestedIn = getTomorrow();
+    return new TimeBookingRequest(bookingRule, user, capacityUnitsInterestedIn, timeUnitsInterestedIn, userInterestedIn);
+	}
+  public static TimeBookingRequest getBookingRequest() {
+    return getBookingRequest(getFacilityBookable());
 	}
 
 	/**
@@ -301,5 +304,9 @@ public class TeztBeanSimpleFactory {
 		result.setCreated(new Date().getTime());
 		return result;
 	}
+
+  public static FacilityBookable getFacilityBookable(String keyFacility) {
+    return (FacilityBookable) FacilityConfigDao.getInstance().getConfiguredInstance(keyFacility);
+  }
 
 }

@@ -56,6 +56,7 @@ public abstract class FamMonthHtml extends CalendarOneMonthHtml implements Calen
      * @see QueryKeys#MONTH
      * @return month as view name of the calendar.
      */
+    @Override
     public String getCalendarViewName() {
         return QueryKeys.MONTH;
     }
@@ -248,6 +249,7 @@ public abstract class FamMonthHtml extends CalendarOneMonthHtml implements Calen
      * @param c representing the month
      * @return the query string needed to visit the given month in the month view.
      */
+    @Override
     public QueryString getQueryString(Calendar c) {
         return this.getDasCalendarHtmlGetter().getQueryString(c, this);
     }
@@ -256,6 +258,7 @@ public abstract class FamMonthHtml extends CalendarOneMonthHtml implements Calen
      * return the factory used to generate html for month view.
      * @return the factory used to generate html for month view.
      */
+    @Override
     public FamCalendarHtmlFactory getDasCalendarHtmlGetter() {
         return dasCalendarHtmlGetter;
     }

@@ -48,369 +48,370 @@ import de.knurt.heinzelmann.util.time.TimeFrame;
  */
 public interface Booking extends Cloneable, Storeable, Availability, Identificable, ViewableObject, Purchasable {
 
-	/**
-	 * cancel the booking with the given cancelation. the cancelation contains
-	 * meta data to get more transparency in cancelations.
-	 * 
-	 * @param cancelation
-	 *            used to cancel the booking.
-	 */
-	public void cancel(Cancelation cancelation);
-	
-	/**
-	 * return the booking conflicting with this.
-	 * conflicts exist on time booking applications and other bookings are classicaly other applications.
-	 * @see ApplicationConflicts
-	 * @return the booking applications that are conflicting with <code>to</code>
-	 */
-	public List<Booking> getConflicts();
+  /**
+   * cancel the booking with the given cancelation. the cancelation contains
+   * meta data to get more transparency in cancelations.
+   * 
+   * @param cancelation used to cancel the booking.
+   */
+  public void cancel(Cancelation cancelation);
 
-	/**
-	 * return the {@link FacilityBookable} the booking is for.
-	 * 
-	 * @return the {@link FacilityBookable} the booking is for.
-	 */
-	public FacilityBookable getFacility();
+  /**
+   * return the booking conflicting with this. conflicts exist on time booking
+   * applications and other bookings are classicaly other applications.
+   * 
+   * @see ApplicationConflicts
+   * @return the booking applications that are conflicting with <code>to</code>
+   */
+  public List<Booking> getConflicts();
 
-	/**
-	 * return the user requested this booking.
-	 * 
-	 * @return the user requested this booking.
-	 */
-	public User getUser();
+  /**
+   * return the {@link FacilityBookable} the booking is for.
+   * 
+   * @return the {@link FacilityBookable} the booking is for.
+   */
+  public FacilityBookable getFacility();
 
-	/**
-	 * return the date of the last invoice. a session is invoiced, if the
-	 * invoice is generated as pdf and send via email. a session must not be
-	 * invoiced. return null in that case.
-	 * 
-	 * @return the date of the last invoice.
-	 */
-	public Date getLastInvoiced();
+  /**
+   * return the user requested this booking.
+   * 
+   * @return the user requested this booking.
+   */
+  public User getUser();
 
-	/**
-	 * do processing operations like put something into the db or just send a
-	 * mail. usualy invoke setProcessed
-	 */
-	public void processSession();
+  /**
+   * return the date of the last invoice. a session is invoiced, if the invoice
+   * is generated as pdf and send via email. a session must not be invoiced.
+   * return null in that case.
+   * 
+   * @return the date of the last invoice.
+   */
+  public Date getLastInvoiced();
 
-	/**
-	 * set true, if the session has been processed (by an operator).
-	 * 
-	 * @param processed
-	 *            true, if the session has been processed (by an operator).
-	 */
-	public void setProcessed(boolean processed);
+  /**
+   * do processing operations like put something into the db or just send a
+   * mail. usualy invoke setProcessed
+   */
+  public void processSession();
 
-	/**
-	 * return true, if the session has been processed (by an operator).
-	 * 
-	 * @return true, if the session has been processed (by an operator).
-	 */
-	public boolean isProcessed();
+  /**
+   * set true, if the session has been processed (by an operator).
+   * 
+   * @param processed true, if the session has been processed (by an operator).
+   */
+  public void setProcessed(boolean processed);
 
-	/**
-	 * return true, if the session is already made.
-	 * 
-	 * @return true, if the session is already made.
-	 */
-	public boolean sessionAlreadyMade();
+  /**
+   * return true, if the session has been processed (by an operator).
+   * 
+   * @return true, if the session has been processed (by an operator).
+   */
+  public boolean isProcessed();
 
-	/**
-	 * return a message after booking has been purchased. a booking is purchased
-	 * when someone request a booking. when purchasing a booking, this ends in a
-	 * failure or in a success.
-	 * 
-	 * @return a message after booking has been purchased.
-	 */
-	public String getMessageAfterTryingToPurchase();
+  /**
+   * return true, if the session is already made.
+   * 
+   * @return true, if the session is already made.
+   */
+  public boolean sessionAlreadyMade();
 
-	/**
-	 * return strategy of booking as booked by the user. mostly the id of the
-	 * used {@link BookingRule}, but might be different from that after changing
-	 * strategy in configuration.
-	 * 
-	 * @see BookingRule#getBookingStrategy()
-	 * @return strategy of booking as booked by the user.
-	 */
-	public int getIdBookedInBookingStrategy();
+  /**
+   * return a message after booking has been purchased. a booking is purchased
+   * when someone request a booking. when purchasing a booking, this ends in a
+   * failure or in a success.
+   * 
+   * @return a message after booking has been purchased.
+   */
+  public String getMessageAfterTryingToPurchase();
 
-	/**
-	 * set the booking strategy this booking has been made. a booking is booked
-	 * with a booking strategy. this strategy might be "queue based" or
-	 * "time based". the default strategy of the booking might be different from
-	 * that, if the application is reconfigured. if a facility is booked with
-	 * strategy a, then the system sets the strategy b for the same facility, set
-	 * a here!
-	 * 
-	 * @see BookingStrategy
-	 * @param idBookedInBookingStrategy
-	 *            the booking strategy this booking has been made
-	 */
-	public void setIdBookedInBookingStrategy(int idBookedInBookingStrategy);
+  /**
+   * return strategy of booking as booked by the user. mostly the id of the used
+   * {@link BookingRule}, but might be different from that after changing
+   * strategy in configuration.
+   * 
+   * @see BookingRule#getBookingStrategy()
+   * @return strategy of booking as booked by the user.
+   */
+  public int getIdBookedInBookingStrategy();
 
-	/**
-	 * return a notice for this booking processable by all.
-	 * 
-	 * @return a notice for this booking processable by all.
-	 */
-	public String getNotice();
+  /**
+   * set the booking strategy this booking has been made. a booking is booked
+   * with a booking strategy. this strategy might be "queue based" or
+   * "time based". the default strategy of the booking might be different from
+   * that, if the application is reconfigured. if a facility is booked with
+   * strategy a, then the system sets the strategy b for the same facility, set
+   * a here!
+   * 
+   * @see BookingStrategy
+   * @param idBookedInBookingStrategy the booking strategy this booking has been
+   *          made
+   */
+  public void setIdBookedInBookingStrategy(int idBookedInBookingStrategy);
 
-	/**
-	 * set a notice for this booking processable by all.
-	 * 
-	 * @param notice
-	 *            for this booking processable by all.
-	 */
-	public void setNotice(String notice);
+  /**
+   * return a notice for this booking processable by all.
+   * 
+   * @return a notice for this booking processable by all.
+   */
+  public String getNotice();
 
-	/**
-	 * return true, if the start of the session is in past.
-	 * 
-	 * @return true, if the start of the session is in past.
-	 */
-	public boolean sessionAlreadyBegun();
+  /**
+   * set a notice for this booking processable by all.
+   * 
+   * @param notice for this booking processable by all.
+   */
+  public void setNotice(String notice);
 
-	/**
-	 * return true, if this overlaps the other booking.
-	 * 
-	 * @see TimeFrame#overlaps(de.knurt.heinzelmann.util.time.TimeFrame)
-	 * @param otherBooking
-	 *            to check
-	 * @return true, if this overlaps the other booking.
-	 */
-	public boolean overlaps(Booking otherBooking);
+  /**
+   * return true, if the start of the session is in past.
+   * 
+   * @return true, if the start of the session is in past.
+   */
+  public boolean sessionAlreadyBegun();
 
-	/**
-	 * get the application the bonus. there is an optional mail message to send.
-	 * 
-	 * @param mailMessage
-	 *            optional mail message to send.
-	 */
-	public void confirmApplication(String mailMessage);
+  /**
+   * return true, if this overlaps the other booking.
+   * 
+   * @see TimeFrame#overlaps(de.knurt.heinzelmann.util.time.TimeFrame)
+   * @param otherBooking to check
+   * @return true, if this overlaps the other booking.
+   */
+  public boolean overlaps(Booking otherBooking);
 
-	/**
-	 * return the time frame when the session has been done or surely comes.
-	 * return <code>null</code> if the time frame is not known yet.
-	 * 
-	 * @return the time frame when the session has been done or surely comes.
-	 */
-	public TimeFrame getSessionTimeFrame();
+  /**
+   * get the application the bonus. there is an optional mail message to send.
+   * 
+   * @param mailMessage optional mail message to send.
+   */
+  public void confirmApplication(String mailMessage);
 
-	/**
-	 * return the capacity units booked.
-	 * 
-	 * @see BookingRule#getMaxBookableCapacityUnits()
-	 * @see FacilityBookable#getCapacityUnits()
-	 * @return the capacity units booked.
-	 */
-	public Integer getCapacityUnits();
+  /**
+   * return the time frame when the session has been done or surely comes.
+   * return <code>null</code> if the time frame is not known yet.
+   * 
+   * @return the time frame when the session has been done or surely comes.
+   */
+  public TimeFrame getSessionTimeFrame();
 
-	/**
-	 * return true, if the booking request is an application that must be
-	 * confirmed. not all users have the right to book a facility directly. some
-	 * users must apply for a session on some facilities.
-	 * 
-	 * @return true, if the booking request is an application that must be
-	 *         confirmed.
-	 */
-	public boolean isApplication();
+  /**
+   * return the capacity units booked.
+   * 
+   * @see BookingRule#getMaxBookableCapacityUnits()
+   * @see FacilityBookable#getCapacityUnits()
+   * @return the capacity units booked.
+   */
+  public Integer getCapacityUnits();
 
-	/**
-	 * return true, if this booking is available and can be insert into db. it
-	 * cannot be used for objects, that are already in the database.
-	 * 
-	 * @return true, if this booking is available and can be insert into db.
-	 */
-	public boolean isAvailableForInsertion();
+  /**
+   * return true, if the booking request is an application that must be
+   * confirmed. not all users have the right to book a facility directly. some
+   * users must apply for a session on some facilities.
+   * 
+   * @return true, if the booking request is an application that must be
+   *         confirmed.
+   */
+  public boolean isApplication();
 
-	/**
-	 * return true, if the booking has been cancelled.
-	 * 
-	 * @return true, if the booking has been cancelled.
-	 */
-	public boolean isCanceled();
+  /**
+   * return true, if this booking is available and can be insert into db. it
+   * cannot be used for objects, that are already in the database.
+   * 
+   * @return true, if this booking is available and can be insert into db.
+   */
+  public boolean isAvailableForInsertion();
 
-	/**
-	 * set status "this is booked". after setting this, it is not a application
-	 * anymore and it can only be canceled for special reasons (like sudden
-	 * failures).
-	 * 
-	 * @see BookingStatus#STATUS_BOOKED
-	 */
-	public void setBooked();
+  /**
+   * return true, if the booking has been cancelled.
+   * 
+   * @return true, if the booking has been cancelled.
+   */
+  public boolean isCanceled();
 
-	/**
-	 * set status unset
-	 * 
-	 * @see BookingStatus#STATUS_UNSET
-	 */
-	public void setUnset();
+  /**
+   * set status "this is booked". after setting this, it is not a application
+   * anymore and it can only be canceled for special reasons (like sudden
+   * failures).
+   * 
+   * @see BookingStatus#STATUS_BOOKED
+   */
+  public void setBooked();
 
-	/**
-	 * set "this is an application"
-	 * 
-	 * @see BookingStatus#STATUS_APPLIED
-	 */
-	public void setApplied();
+  /**
+   * set status unset
+   * 
+   * @see BookingStatus#STATUS_UNSET
+   */
+  public void setUnset();
 
-	/**
-	 * return the username of user requested this booking.
-	 * 
-	 * @return the username of user requested this booking.
-	 */
-	public String getUsername();
+  /**
+   * set "this is an application"
+   * 
+   * @see BookingStatus#STATUS_APPLIED
+   */
+  public void setApplied();
 
-	/**
-	 * set the username of user requested this booking.
-	 * 
-	 * @param username
-	 *            of user requested this booking.
-	 */
-	public void setUsername(String username);
+  /**
+   * return the username of user requested this booking.
+   * 
+   * @return the username of user requested this booking.
+   */
+  public String getUsername();
 
-	/**
-	 * return the key represeting the facility this booking is for.
-	 * 
-	 * @return the key represeting the facility this booking is for.
-	 */
-	public String getFacilityKey();
+  /**
+   * set the username of user requested this booking.
+   * 
+   * @param username of user requested this booking.
+   */
+  public void setUsername(String username);
 
-	/**
-	 * set the key represeting the facility this booking is for.
-	 * 
-	 * @param facilityKey
-	 *            key represeting the facility this booking is for.
-	 */
-	public void setFacilityKey(String facilityKey);
+  /**
+   * return the key represeting the facility this booking is for.
+   * 
+   * @return the key represeting the facility this booking is for.
+   */
+  public String getFacilityKey();
 
-	/**
-	 * return the status of the booking.
-	 * 
-	 * @return the status of the booking.
-	 */
-	public BookingStatus getBookingStatus();
+  /**
+   * set the key represeting the facility this booking is for.
+   * 
+   * @param facilityKey key represeting the facility this booking is for.
+   */
+  public void setFacilityKey(String facilityKey);
 
-	/**
-	 * set the status of the booking.
-	 * 
-	 * @param bookingStatus
-	 *            status of the booking.
-	 */
-	public void setBookingStatus(BookingStatus bookingStatus);
+  /**
+   * return the status of the booking.
+   * 
+   * @return the status of the booking.
+   */
+  public BookingStatus getBookingStatus();
 
-	/**
-	 * return the booking rule used and to use for this booking. when creating a
-	 * booking, a default booking rule is used to book a facility. anyway, there
-	 * might be bookings in the database where another booking rule has been
-	 * used for. in this case, use that booking rule.
-	 * 
-	 * to change the configuration this way is not tested and might result in
-	 * strange behaviour.
-	 * 
-	 * @return the booking rule used and to use for this booking.
-	 */
-	public BookingRule getBookingRule();
+  /**
+   * set the status of the booking.
+   * 
+   * @param bookingStatus status of the booking.
+   */
+  public void setBookingStatus(BookingStatus bookingStatus);
 
-	/**
-	 * set the rules this booking is made with.
-	 * 
-	 * @param bookingRule
-	 *            the booking rule used and to use for this booking.
-	 */
-	public void setBookingRule(BookingRule bookingRule);
+  /**
+   * return the booking rule used and to use for this booking. when creating a
+   * booking, a default booking rule is used to book a facility. anyway, there
+   * might be bookings in the database where another booking rule has been used
+   * for. in this case, use that booking rule.
+   * 
+   * to change the configuration this way is not tested and might result in
+   * strange behaviour.
+   * 
+   * @return the booking rule used and to use for this booking.
+   */
+  public BookingRule getBookingRule();
 
-	/**
-	 * set the capacity units requested with this booking
-	 * 
-	 * @param capacityUnits
-	 *            the capacity units requested with this booking
-	 */
-	public void setCapacityUnits(Integer capacityUnits);
+  /**
+   * set the rules this booking is made with.
+   * 
+   * @param bookingRule the booking rule used and to use for this booking.
+   */
+  public void setBookingRule(BookingRule bookingRule);
 
-	/**
-	 * return the date this booking was requested on.
-	 * 
-	 * @return the date this booking was requested on.
-	 */
-	public Date getSeton();
+  /**
+   * set the capacity units requested with this booking
+   * 
+   * @param capacityUnits the capacity units requested with this booking
+   */
+  public void setCapacityUnits(Integer capacityUnits);
 
-	/**
-	 * set date this booking was requested on.
-	 * 
-	 * @param seton
-	 *            the date this booking was requested on.
-	 */
-	public void setSeton(Date seton);
+  /**
+   * return the date this booking was requested on.
+   * 
+   * @return the date this booking was requested on.
+   */
+  public Date getSeton();
 
-	/**
-	 * return the cancelation for this booking or <code>null</code> if the
-	 * booking is uncancelled.
-	 * 
-	 * @return the cancelation for this booking or <code>null</code> if the
-	 *         booking is uncancelled.
-	 */
-	public Cancelation getCancelation();
+  /**
+   * set date this booking was requested on.
+   * 
+   * @param seton the date this booking was requested on.
+   */
+  public void setSeton(Date seton);
 
-	/**
-	 * set the cancelation for this booking or <code>null</code> if the booking
-	 * is uncancelled.
-	 * 
-	 * @param cancelation
-	 *            for this booking or <code>null</code> if the booking is
-	 *            uncancelled.
-	 */
-	public void setCancelation(Cancelation cancelation);
+  /**
+   * return the cancelation for this booking or <code>null</code> if the booking
+   * is uncancelled.
+   * 
+   * @return the cancelation for this booking or <code>null</code> if the
+   *         booking is uncancelled.
+   */
+  public Cancelation getCancelation();
 
-	/**
-	 * return true, if the booking status is booked.
-	 * 
-	 * @see BookingStatus#STATUS_BOOKED
-	 * @return true, if the booking status is booked.
-	 */
-	public boolean isBooked();
+  /**
+   * set the cancelation for this booking or <code>null</code> if the booking is
+   * uncancelled.
+   * 
+   * @param cancelation for this booking or <code>null</code> if the booking is
+   *          uncancelled.
+   */
+  public void setCancelation(Cancelation cancelation);
 
-	/**
-	 * return true, if the session time frame overlaps the given timeFrame.
-	 * 
-	 * @see #getSessionTimeFrame()
-	 * @param timeFrame
-	 *            to check
-	 * @return true, if the session time frame overlaps the given timeFrame.
-	 */
-	public boolean overlaps(TimeFrame timeFrame);
+  /**
+   * return true, if the booking status is booked.
+   * 
+   * @see BookingStatus#STATUS_BOOKED
+   * @return true, if the booking status is booked.
+   */
+  public boolean isBooked();
 
-	/**
-	 * return true, if {@link #getIdBookedInBookingStrategy()} is queue based.
-	 * 
-	 * @return true, if {@link #getIdBookedInBookingStrategy()} is queue based.
-	 */
-	public boolean isQueueBased();
+  /**
+   * return true, if the session time frame overlaps the given timeFrame.
+   * 
+   * @see #getSessionTimeFrame()
+   * @param timeFrame to check
+   * @return true, if the session time frame overlaps the given timeFrame.
+   */
+  public boolean overlaps(TimeFrame timeFrame);
 
-	/**
-	 * return true, if {@link #getIdBookedInBookingStrategy()} is time based.
-	 * 
-	 * @return true, if {@link #getIdBookedInBookingStrategy()} is time based.
-	 */
-	public boolean isTimeBased();
+  /**
+   * return true, if {@link #getIdBookedInBookingStrategy()} is queue based.
+   * 
+   * @return true, if {@link #getIdBookedInBookingStrategy()} is queue based.
+   */
+  public boolean isQueueBased();
 
-	public void setLastInvoiced(Date lastInvoiced);
+  /**
+   * return true, if {@link #getIdBookedInBookingStrategy()} is time based.
+   * 
+   * @return true, if {@link #getIdBookedInBookingStrategy()} is time based.
+   */
+  public boolean isTimeBased();
 
-	/**
-	 * set the booking invoiced and update. typicaly implementation is:
-	 * 
-	 * <pre>
-	 * this.setLastInvoiced(new Date());
-	 * this.update();
-	 * </pre>
-	 */
-	public void invoice();
+  public void setLastInvoiced(Date lastInvoiced);
 
-	/**
-	 * delete a booking physically from the database.
-	 * please only use for system purposes (e.g. a rollback).
-	 * for all user interaction use {@link #cancel(Cancelation)} instead!
-	 * return true if deleting has been successful
-	 */
-	public boolean delete();
+  /**
+   * set the booking invoiced and update. typicaly implementation is:
+   * 
+   * <pre>
+   * this.setLastInvoiced(new Date());
+   * this.update();
+   * </pre>
+   */
+  public void invoice();
+
+  /**
+   * delete a booking physically from the database. please only use for system
+   * purposes (e.g. a rollback). for all user interaction use
+   * {@link #cancel(Cancelation)} instead! return true if deleting has been
+   * successful
+   */
+  public boolean delete();
+
+  /**
+   * transfer a existing booking to another user. 
+   * booking must be valid (status == booked and not canceled) and saved.
+   * 
+   * @author "Daniel Oltmanns <daniel.oltmanns@it-power.org>"
+   * @since 08.03.2013
+   * @param receiver
+   * @return true on success
+   */
+  public boolean transferTo(User receiver);
+
+  public void cancel();
 }

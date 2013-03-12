@@ -29,7 +29,8 @@ import de.knurt.heinzelmann.util.query.QueryString;
  * @since 11.10.2009
  */
 public abstract class FamStatisticPic extends FamStatisticAbstract {
-	public Properties resolveModelAndView(TemplateResource templateResource, QueryString qs) {
+	@Override
+  public Properties resolveModelAndView(TemplateResource templateResource, QueryString qs) {
 		Properties result = new Properties();
 		templateResource.setTemplateFile("page_full_pic.html");
 		result.put("imgsrc", this.getBaseSrcName() + ".img" + qs.getAsHtmlLinkHref());

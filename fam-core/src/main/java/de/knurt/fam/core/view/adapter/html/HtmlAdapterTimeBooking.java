@@ -50,7 +50,8 @@ public class HtmlAdapterTimeBooking extends HtmlAdapterAbstractBooking<TimeBooki
 	/**
 	 * @return the timeframe
 	 */
-	public String getTimeframe() {
+	@Override
+  public String getTimeframe() {
 		return HtmlTableSortationUtil.me().span(booking.getDateStart()).toString() + FamDateFormat.getDateFormattedWithTime(booking, true);
 	}
 
@@ -61,7 +62,8 @@ public class HtmlAdapterTimeBooking extends HtmlAdapterAbstractBooking<TimeBooki
 	 *      de.knurt.fam.core.model.persist.booking.Booking)
 	 * @return the status of booking.
 	 */
-	public String getBookingStatus() {
+	@Override
+  public String getBookingStatus() {
 		return this.centerIt(FamText.statusOfBookingAsText(this.getCurrentUser(), booking));
 	}
 
@@ -77,7 +79,8 @@ public class HtmlAdapterTimeBooking extends HtmlAdapterAbstractBooking<TimeBooki
 	 * @return only the time of the booking if the booking is on the same day.
 	 *         otherwise return the full date.
 	 */
-	public String getTimeframetime() {
+	@Override
+  public String getTimeframetime() {
 		String suffix = "";
 		if (booking.getCalendarStart().get(Calendar.DAY_OF_YEAR) == booking.getCalendarEnd().get(Calendar.DAY_OF_YEAR)) {
 			suffix = FamDateFormat.getTimeFormatted(booking);

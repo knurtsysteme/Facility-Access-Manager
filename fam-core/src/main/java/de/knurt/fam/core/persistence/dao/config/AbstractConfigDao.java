@@ -57,7 +57,8 @@ abstract class AbstractConfigDao<T> implements Access<T> {
 	 * 
 	 * @return all keys defined in context for the different objects managed.
 	 */
-	public Set<String> getKeys() {
+	@Override
+  public Set<String> getKeys() {
 		return this.getConfiguredInstances().keySet();
 	}
 
@@ -113,7 +114,8 @@ abstract class AbstractConfigDao<T> implements Access<T> {
 	 *            to check
 	 * @return true, if an object with given key is managed by the dao.
 	 */
-	public boolean keyExists(String key) {
+	@Override
+  public boolean keyExists(String key) {
 		return this.getKeys().contains(key);
 	}
 }

@@ -45,7 +45,8 @@ public class SmallBarFacilityAvailabilityArtist implements FacilityAvailabilityA
 		metrics = new FacilityAvailabilityPrintingMetrics(timeFrame, printableBar, g2d);
 	}
 
-	public void outNotAvailableBooking(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableBooking(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.FULL);
 		this.out(da);
 	}
@@ -58,7 +59,8 @@ public class SmallBarFacilityAvailabilityArtist implements FacilityAvailabilityA
 		metrics.getG2d().fillRect(x, y, width, height);
 	}
 
-	public void outMaybeAvailable(FacilityAvailability da) {
+	@Override
+  public void outMaybeAvailable(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.PARTLY);
 		this.out(da);
 
@@ -67,21 +69,24 @@ public class SmallBarFacilityAvailabilityArtist implements FacilityAvailabilityA
 		this.printLineThrough(2, da);
 	}
 
-	public void outNotAvailableInGeneral(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableInGeneral(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.CAL_BG);
 		this.out(da);
 		metrics.getG2d().setColor(FamColors.FULL);
 		this.printLineThrough(2, da);
 	}
 
-	public void outNotAvailableMaintenance(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableMaintenance(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.CAL_LINE_BG_DARK);
 		this.out(da);
 		metrics.getG2d().setColor(FamColors.FULL);
 		this.printLineThrough(2, da);
 	}
 
-	public void outNotAvailableFailure(FacilityAvailability da) {
+	@Override
+  public void outNotAvailableFailure(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.FULL);
 		this.out(da);
 		metrics.getG2d().setColor(FamColors.CAL_LINE_BG_DARK);
@@ -90,7 +95,8 @@ public class SmallBarFacilityAvailabilityArtist implements FacilityAvailabilityA
 		this.printLineThrough(2, da);
 	}
 
-	public void outCompletelyAvailable(FacilityAvailability da) {
+	@Override
+  public void outCompletelyAvailable(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.FREE);
 		this.out(da);
 
@@ -115,7 +121,8 @@ public class SmallBarFacilityAvailabilityArtist implements FacilityAvailabilityA
 		metrics.getG2d().fillRect(x, y, width, height);
 	}
 
-	public void outMustNotStartHere(FacilityAvailability da) {
+	@Override
+  public void outMustNotStartHere(FacilityAvailability da) {
 		metrics.getG2d().setColor(FamColors.MUST_NOT_START_HERE);
 		this.out(da);
 

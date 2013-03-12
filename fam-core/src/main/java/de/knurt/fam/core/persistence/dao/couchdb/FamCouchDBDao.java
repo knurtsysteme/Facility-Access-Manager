@@ -66,7 +66,8 @@ public class FamCouchDBDao implements FamDocumentDao {
 		return me;
 	}
 
-	public synchronized boolean createDocument(FamBaseDocument document) {
+	@Override
+  public synchronized boolean createDocument(FamBaseDocument document) {
 		boolean result = true;
 		document.setCreated(new Date().getTime());
 		try {
