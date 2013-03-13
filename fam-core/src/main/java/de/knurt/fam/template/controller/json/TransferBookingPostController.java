@@ -26,6 +26,7 @@ import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.aspects.security.auth.SessionAuth;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
 import de.knurt.fam.core.util.mvc.RequestInterpreter;
 
 /**
@@ -53,7 +54,8 @@ public class TransferBookingPostController extends JSONController2 {
           errormessage = "Invalid request.";
         } else {
           succ = booking.transferTo(receiver);
-          if(!succ) errormessage = "Unknown error [201303131219]";
+          if (succ) OutgoingUserMailBox.insert_BookingTransfer(user, receiver, booking);
+          else errormessage = "Unknown error [201303131219]";
         }
       } else {
         errormessage = "Your session expired. Please reload page and log in again."; // INTLANG

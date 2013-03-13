@@ -66,11 +66,24 @@ public class OutgoingUserMailBox { // INTLANG (entire class)
 	 * @param to
 	 *            recipient of the mail
 	 */
-	public static void insert_Registration(User to) {
-		insert(getInstance().getMail_Registration(to));
-	}
+  public static void insert_Registration(User to) {
+    insert(getInstance().getMail_Registration(to));
+  }
+  
+  public static void insert_BookingTransfer(User from, User receiver, Booking booking) {
+    insert(getInstance().getMail_BookingTransfer(from, receiver, booking));
+  }
 
-	private static void insert_BookingReminder(Booking booking) {
+	private UserMail getMail_BookingTransfer(User from, User receiver, Booking booking) {
+    String[] args = new String[4];
+    args[0] = receiver.getFullName();
+    args[1] = from.getFullName();
+    args[2] = booking.getFacility().getLabel();
+    args[3] = TemplateHtml.href("mybookings");
+    return this.getMailFromMessageSource(receiver, "transferedbooking", args, 0, null, null, null);
+  }
+
+  private static void insert_BookingReminder(Booking booking) {
 		UserMail mail = getInstance().getMail_BookingReminder(booking);
 		if (mail != null) {
 			insert(mail);
