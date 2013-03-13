@@ -1,0 +1,37 @@
+<h1>Give somebody else this booking</h1>
+#if($config.model.booking.canceled)
+<div class="hint">Booking has been canceled</div>
+#elseif(!$config.model.booking.isTransferable())
+<div class="hint">This booking is not transferable</div>
+#else
+<div class="hint">
+	<p>
+		Transfer the booking for <span class="point_out">$config.model.facility.label</span>
+		with the id <span class="point_out">$config.model.booking.id</span> to
+		somebody else.
+	</p>
+	<p>
+		This cannot be undone. After doing this operation, you do not have
+		access to the booking anymore.<br /> The receiver of the booking gets
+		an e-mail with all information you put in.
+	</p>
+</div>
+<form action="$util.html.getHref('transferbooking')" method="POST" id="transferBookingForm">
+	<fieldset>
+		<legend>Give this booking to</legend>
+		<p>
+			<input type="hidden" name="v" value="$config.model.booking.id" /> <select name="z">
+				#foreach($user in $config.model.users)
+				<option value="$user.username">[$user.username]
+					$user.getFullName()</option> #end
+			</select>
+			<button style="margin:0 0 0 10px;" class="icon save" type="submit">Transfer now</button>
+		</p>
+	</fieldset>
+</form>
+<div>
+	<button class="icon back" onclick="javascript:window.location='$util.html.hrefWithAQuery('mybookings', "?v=$config.model.booking.id")'">
+		My Bookings
+	</button>
+</div>
+#end

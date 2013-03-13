@@ -43,6 +43,9 @@
 			<button class="icon view" onclick="javascript:window.location='$util.html.href('viewrequest')?v=$booking.id'">Details</button>
 			#if(!$booking.canceled && !$booking.endsInPast() && !$booking.sessionAlreadyBegun())
 				<button class="icon edit" onclick="javascript:window.location='$util.html.href('editrequest')?v=$booking.id'">Edit</button>
+				#if($booking.isTransferable())
+				<button class="icon next" onclick="javascript:window.location='$util.html.href('transferbooking')?v=$booking.id'">Give somebody else this booking!</button>
+				#end
 			#end
 			#if($booking.processed)
 				<button class="icon view" onclick="javascript:window.location='$util.html.href('viewfeedback')?v=$booking.id'">View Feedback</button>

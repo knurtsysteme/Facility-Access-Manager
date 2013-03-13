@@ -51,7 +51,7 @@ public abstract class AbstractBooking implements Booking {
   @Override
   public boolean transferTo(User receiver) {
     boolean result = false;
-    if(this.isBooked() && !this.isCanceled() && receiver.isAllowedToAccess(this.getFacility())) {
+    if(this.isTransferable() && receiver.isAllowedToAccess(this.getFacility())) {
       String oldUsername = this.getUsername();
       this.setUsername(receiver.getUsername());
       if(FamDaoProxy.bookingDao().update(this)) {
@@ -424,5 +424,11 @@ public abstract class AbstractBooking implements Booking {
 	@Override
 	public boolean delete() {
 		return FamDaoProxy.bookingDao().delete(this);
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public boolean isTransferable() {
+	  return this.isBooked() && this.isCanceled() == false && this.getUser() != null && (this.getUser().isAdmin() || this.getUser().hasResponsibility4Facility(this.getFacility()));
 	}
 }

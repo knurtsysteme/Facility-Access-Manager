@@ -58,10 +58,10 @@ public class TransferBookingTest extends FamIBatisTezt {
 
     booking = FamDaoProxy.bookingDao().getAll().get(0);
     User receiver = TeztBeanSimpleFactory.getNewUniqueValidUser("1303081351");
-    
+
     // THE TRANSFER TO TEST
     assertTrue(booking.transferTo(receiver));
-    
+
     job = CouchDBDao4Jobs.me().getJob(booking.getId(), 0);
 
     // booking has username of receiver
@@ -77,6 +77,8 @@ public class TransferBookingTest extends FamIBatisTezt {
   public void transferTimeBooking() {
     this.clearDatabase();
     Booking booking = TeztBeanSimpleFactory.getNewValidBooking();
+    TeztBeanSimpleFactory.getAdmin().insert();
+    booking.setUsername(TeztBeanSimpleFactory.getAdmin().getUsername());
     booking.setBooked();
     booking.insert();
     this.transferBooking(booking);
@@ -104,9 +106,8 @@ public class TransferBookingTest extends FamIBatisTezt {
   @Test
   public void transferQueueBooking() {
     this.clearDatabase();
-    User user = TeztBeanSimpleFactory.getNewUniqueValidUser("1303120932");
-    user.insert();
-    Booking booking = TeztBeanSimpleFactory.getNewValidQueueBooking(user, TeztBeanSimpleFactory.getBookableQueueFacility());
+    TeztBeanSimpleFactory.getAdmin().insert();
+    Booking booking = TeztBeanSimpleFactory.getNewValidQueueBooking(TeztBeanSimpleFactory.getAdmin(), TeztBeanSimpleFactory.getBookableQueueFacility());
     booking.setBooked();
     booking.insert();
     this.transferBooking(booking);

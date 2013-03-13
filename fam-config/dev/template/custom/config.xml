@@ -69,6 +69,7 @@
     <page name="book" visibility="protected" />
     <page name="book2" visibility="protected" />
     <page name="editrequest" visibility="protected" />
+    <page name="transferbooking" visibility="protected" />
     <page name="bookfacilitiesdone" visibility="protected" />
     <page name="jobsurvey" visibility="protected" />
     <page name="filemanager" visibility="protected" />

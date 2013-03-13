@@ -148,8 +148,10 @@ public class TemplateModelFactory {
 			result.putAll(new TutorialModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("viewrequest")) {
 			result.putAll(new RequestedBookingModelFactory().getProperties(templateResource));
-		} else if (templateResource.getName().equals("editrequest")) {
-			result.putAll(new RequestedBookingModelFactory().getProperties(templateResource));
+    } else if (templateResource.getName().equals("editrequest")) {
+      result.putAll(new RequestedBookingModelFactory().getProperties(templateResource));
+    } else if (templateResource.getName().equals("transferbooking")) {
+      result.putAll(new TransferBookingModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("viewsystemconfiguration")) {
 			result.putAll(new ViewSystemConfigurationModelFactory().getProperties(templateResource));
 		} else if (templateResource.getName().equals("filemanager")) {

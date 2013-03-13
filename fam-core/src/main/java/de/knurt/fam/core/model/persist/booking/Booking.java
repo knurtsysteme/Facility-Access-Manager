@@ -403,8 +403,8 @@ public interface Booking extends Cloneable, Storeable, Availability, Identificab
   public boolean delete();
 
   /**
-   * transfer a existing booking to another user. 
-   * booking must be valid (status == booked and not canceled) and saved.
+   * transfer a existing booking to another user. booking must be valid (
+   * <code>status == booked</code> and not canceled) and saved.
    * 
    * @author "Daniel Oltmanns <daniel.oltmanns@it-power.org>"
    * @since 08.03.2013
@@ -412,6 +412,17 @@ public interface Booking extends Cloneable, Storeable, Availability, Identificab
    * @return true on success
    */
   public boolean transferTo(User receiver);
+
+  /**
+   * return true, if the owner of the booking is allowed to transfer it to
+   * somebody else.
+   * 
+   * @see #transferTo(User)
+   * @author "Daniel Oltmanns <daniel.oltmanns@it-power.org>"
+   * @since 13.03.2013
+   * @return
+   */
+  public boolean isTransferable();
 
   public void cancel();
 }

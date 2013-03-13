@@ -333,6 +333,10 @@ $lang.page.getChildText("headline") on the home-page is the same as $lang.xml.ge
 			<title>Edit Job Survey</title>
 			<headline>Edit Job Survey</headline>
 		</page>
+		<page name="transferbooking">
+			<title>Give somebody else this booking</title>
+			<headline>Give somebody else this booking</headline>
+		</page>
 		<page name="imprint">
 			<title>Imprint</title>
 			<headline>Imprint</headline>
