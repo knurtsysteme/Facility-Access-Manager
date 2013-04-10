@@ -1,0 +1,55 @@
+<h1>How to edit agreements</h1>
+<div>
+	<p>
+	As an Admin you can define agreements on $util.html.a("editsoa").setContent("this page").
+	</p>
+	<p>Features:</p>
+	<ul class="asList">
+	 <li>Each role can have a different set of agreements</li>
+   <li>Each agreement may have a print flag, so the user must print out that agreement</li>
+   <li>The area provide an overview of the current configuration as well as a history of configurations</li>
+  </ul>
+</div>
+<h2>Usage</h2>
+<div>
+  <p>
+  There are five different panels:
+  </p>
+  <ul class="asList">
+  	<li><span class="hint">View existing agreements</span>: Shows all agreements ever prepared.</li>
+  	<li><span class="hint">Prepare new agreement</span>: Create a new agreement using an existing agreement as template.</li>
+  	<li><span class="hint">Set agreements</span>: Configuration and activation of agreements</li>
+  	<li><span class="hint">Current configuration</span>: View the current configuration</li>
+  	<li><span class="hint">History configurations</span>: View the history configuration</li>
+  </ul>
+</div>
+<h3>View existing agreements</h3>
+<div>
+	<p>This is a pool of all agreements the system knows. An agreement in this view can be activated, deactivated or never has been used.</p>
+	<p>To activate an agreement follow the instructions of “Set agreements”</p>
+</div>
+<h3>Prepare new agreement</h3>
+<div>
+	<p>Because of transparency as related to the question “Who had when which agreement?”, it is not possible to edit agreements. Use an existing agreement as a Draft instead. Of course you can start writing a new agreement without a draft es well. As an editor the system uses tinymce (see <a href="http://www.tinymce.com/wiki.php">Wiki</a> for details)</p>
+</div>
+<div>
+	<p>You may want to use placeholders like <code>$user</code> in your agreement. <a href="http://facility-access-manager.com/docs/${config.version}/fam-core/apidocs/de/knurt/fam/core/model/model/User.html">Please find the complete documentation here</a>. For all your definitions you can use the template engine <a href="http://velocity.apache.org">Velocity</a>.</p>
+</div>
+<div>
+	<p>After clicking button “Insert this Terms of use Agreements”, it is possible to activate it on tab “Set agreements”.</p> 
+</div>
+<div class="warning">Without activating your new agreement your input does not have any effect</div>
+<h3>Set agreements</h3>
+<div>
+  <p>Refer existing agreements to users with a specific role, configure the order, define the necessity of printing for each agreement and activate the configuration here. Just follow the steps as described.</p>
+  <p>After clicking “Set this new configuration” all users with the configured role must accept the new agreements immediately before they are able to continue working with the system.</p>
+  <p>The agreemets used for this role so far gets deactivated (can be find in Tab “History configurations”)</p>
+</div>
+<h3>Current configuration</h3>
+<div>
+  <p>Get an overview of what role must currently accept which agreements.</p>
+</div>
+<h3>History configurations</h3>
+<div>
+  <p>Get an overview of what role must accept which agreements in past.</p>
+</div>

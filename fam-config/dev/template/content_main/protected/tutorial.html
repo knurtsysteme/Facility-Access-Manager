@@ -1,10 +1,15 @@
 #if($config.model.n==1 && $config.user.hasRight2ViewPage("configjobsurvey"))
 #parse("content_main/protected/tutorial_1.html")
+#elseif($config.model.n==2 && $config.user.isAdmin())
+#parse("content_main/protected/tutorial_2.html")
 #else
 <h1>Available Tutorials</h1>
-<ul class="subbanch.swf">
+<ul class="asList">
     #if($config.user.hasRight2ViewPage("configjobsurvey"))
     <li><a href="?n=1" title="Configure Job Data Processing">How to configure the job data processing</a></li>
+    #end
+    #if($config.user.isAdmin())
+    <li><a href="?n=2" title="Edit Agreements">How to edit agreements</a></li>
     #end
 </ul>
 #end
