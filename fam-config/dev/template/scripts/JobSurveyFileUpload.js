@@ -43,7 +43,7 @@ JobSurveyFileUpload.init = function() {
 					});
 					if(selects >= FileUpload.min_files) {
 						$(FileUpload.selector).append('<ul class="attachments">{0}</ul>'.format(select_html));
-						$(FileUpload.selector).append('Not there what you want? <a href="my-filemanager.html" target="_target">Add files here</a> and click {0}!'.format(JobSurveyFileUpload.RELOAD_BUTTON));
+						$(FileUpload.selector).append('Not there what you want? <a href="my-filemanager.html" target="_target">Add files here</a> (opens a new Tab), come back to this page and click {0}!'.format(JobSurveyFileUpload.RELOAD_BUTTON));
 						if(selects == FileUpload.min_files) {
 							$("input:checked", FileUpload.selector).attr("checked", true);
 						}

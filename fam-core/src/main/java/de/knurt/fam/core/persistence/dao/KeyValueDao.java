@@ -26,17 +26,20 @@ import de.knurt.fam.core.model.persist.KeyValue;
  * @since 1.6.1 (01/11/2012)
  */
 public abstract class KeyValueDao extends AbstractFamDao<KeyValue> {
-	public void put(String key, String value) {
+  
+	public boolean put(String key, String value) {
+	  boolean result = false;
 		if (this.exists(key)) {
 			KeyValue kv = this.get(key);
 			kv.setV(value);
-			kv.update();
+			result = kv.update();
 		} else {
 			KeyValue kv = new KeyValue();
 			kv.setK(key);
 			kv.setV(value);
-			kv.insert();
+			result = kv.insert();
 		}
+		return result;
 	}
 
 	private KeyValue get(String key) {

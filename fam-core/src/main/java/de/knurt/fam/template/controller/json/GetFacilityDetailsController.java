@@ -114,6 +114,7 @@ public class GetFacilityDetailsController extends JSONController {
 				jsonD.put("key", facility.getKey());
 				jsonD.put("bookable", facility.isBookable());
 				if (facility.isBookable()) { // => br != null
+          jsonD.put("capacityUnits", facility.getAsBookable().getCapacityUnits());
 					jsonBr.put("strategy", br.getBookingStrategy());
 					jsonBr.put("capacity_label_singular", FamText.message(String.format("label.capacity.%s.singular", facility.getKey())));
 					jsonBr.put("capacity_label_plural", FamText.message(String.format("label.capacity.%s.plural", facility.getKey())));

@@ -16,6 +16,7 @@
 package de.knurt.fam.core.model.config;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import de.knurt.fam.core.model.persist.FacilityAvailability;
@@ -202,4 +203,8 @@ public class Facility implements ViewableObject {
 	public boolean isUnknown() {
 		return FacilityConfigDao.getUnknownBookableFacility().getKey().equals(this.getKey()) || FacilityConfigDao.isKey(this.getKey()) == false;
 	}
+
+  public FacilityBookable getAsBookable() {
+    return FacilityConfigDao.bookableFacility(this.getKey());
+  }
 }

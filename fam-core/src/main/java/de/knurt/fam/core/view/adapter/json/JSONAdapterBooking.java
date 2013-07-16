@@ -169,7 +169,9 @@ public class JSONAdapterBooking implements StringAdapter<Booking>, JSONAdapter<B
 			json.put("processed", booking.isProcessed());
 			json.put("isQueueBased", booking.isQueueBased());
 			json.put("notice", notice == null ? "" : notice);
-			json.put("capacityUnits", FamText.facilityNameWithCapacityUnits(booking));
+      json.put("capacityUnits", FamText.facilityNameWithCapacityUnits(booking));
+      json.put("capacity_units_booked", booking.getCapacityUnits());
+			json.put("capacity_units_facility_total", booking.getFacility().getAsBookable().getCapacityUnits());
 			json.put("facility_key", booking.getFacilityKey());
 
 			// everything else concerning time only on time bookings
