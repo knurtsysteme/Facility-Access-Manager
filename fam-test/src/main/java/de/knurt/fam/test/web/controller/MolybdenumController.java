@@ -76,6 +76,7 @@ public final class MolybdenumController {
 			context.put("action", MolybdenumAction.me());
 			context.put("FamConnector", FamConnector.class);
 			context.put("FamDateFormat", FamDateFormat.class);
+			FamLog.error("hallo!!!", 16l);//FIXME raus
 			Writer writer = new StringWriter();
 			template.merge(context, writer);
 			response.setContentType("text/xml;charset=UTF-8");

@@ -133,6 +133,7 @@
         </executions>
       </plugin>
        -->
+       <!--  TODO molybdenum does not work with current ff?!
       <plugin>
         <groupId>org.molyb.automation.maven</groupId>
         <artifactId>molybdenum-maven-plugin</artifactId>
@@ -160,6 +161,7 @@
           </execution>
         </executions>
       </plugin>
+       -->
       <!-- 
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
