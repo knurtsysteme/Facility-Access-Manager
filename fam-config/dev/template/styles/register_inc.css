@@ -76,8 +76,8 @@ fieldset.invalid legend, select.invalid, input.invalid, textarea.invalid {
     -moz-box-shadow: 0 0 3px #9C0F0F;
     -webkit-box-shadow: 0 0 3px #9C0F0F;
 }
-#intendedResearch_id {
-	width: 495px !important;
+#intendedResearch_id, #trademarkrights_id_unknown, #partner_id_unknown, #taskdesc_id_unknown {
+	width: 515px !important;
 }
 button[disabled]#register_submit, button[disabled]#register_submit:hover {
   color: #9C0F0F;

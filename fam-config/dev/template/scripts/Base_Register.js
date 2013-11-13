@@ -309,8 +309,8 @@ Base.Register.Charslimit.init = function() {
 				Base.Register.Charslimit.exec();
 		        return false;
 		    });
-			if(charslimit_obj.min && $('#js_chars_min').length > 0) {
-				$('#js_chars_min').html(charslimit_obj.min);
+			if(charslimit_obj.min && $('#' + charslimit_obj.view_id_min).length > 0) {
+				$('#' + charslimit_obj.view_id_min).html(charslimit_obj.min);
 			}
 		});
 	}

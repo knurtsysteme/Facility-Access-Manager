@@ -55,7 +55,7 @@ Base.Register.Department.set = function() {
     var value = $('select#js_company_select').val();
     Base.hide($('#js_company_unknown,#js_department_unknown,.js_department_input'), function(){
         if(value == "unknown") {
-            Base.show($('#js_company_unknown,#js_department_unknown'), function(){
+            Base.show($('#js_company_unknown,#js_department_unknown'), function(){ // TODO hier ansetzen, um weitere eingabefelder anzuzeigen
                 Base.Register.Department.setDepartment($('#js_department_unknown'));
                 $('#js_department_'+value).addClass("valid");
             });
