@@ -96,6 +96,7 @@ public class JSONFactory {
 		result.put("company", user.getCompany());
 		result.put("roleid", user.getRoleId());
 		result.put("rolelabel", user.getRoleLabel());
+		result.put("customFields", user.getCustomFields());
 		List<ContactDetail> contactDetails = user.getContactDetails();
 		if (contactDetails != null) {
 			result.put("contactDetails", this.getContactDetails(contactDetails));

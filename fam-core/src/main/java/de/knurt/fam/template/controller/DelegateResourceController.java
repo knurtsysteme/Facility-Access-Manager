@@ -242,6 +242,7 @@ public final class DelegateResourceController {
   @RequestMapping(value = "/registersent__{filename}__html__delegate.fam", method = RequestMethod.POST)
   public final ModelAndView handleRegisterSubmit(@ModelAttribute("registration") Registration registration, @PathVariable("filename") String filename, HttpServletResponse response, HttpServletRequest request) {
     this.generalInit(response, "text/html; charset=UTF-8");
+    registration.setCustomFields(request);
     TemplateResource tr = this.getTemplateResource("registersent", filename, request, response);
     if (this.isValid(request, tr)) {
       return DefaultPluginResolver.me().getRegisterSubmission().handle(tr, registration, response, request);

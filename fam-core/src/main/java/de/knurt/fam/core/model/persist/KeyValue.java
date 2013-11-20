@@ -30,7 +30,27 @@ public class KeyValue implements Storeable, Identificable {
 
 	private String k, v;
 
-	/** {@inheritDoc} */
+	/**
+	 * construct with a key and a value
+	 * @author "Daniel Oltmanns <daniel.oltmanns@it-power.org>"
+	 * @since 19.11.2013
+	 * @param k
+	 * @param v
+	 */
+	public KeyValue(String k, String v) {
+	  this.setK(k);
+	  this.setV(v);
+  }
+
+	/**
+	 * construct with null key and null value
+	 * @author "Daniel Oltmanns <daniel.oltmanns@it-power.org>"
+	 * @since 19.11.2013
+	 */
+  public KeyValue() {
+  }
+
+  /** {@inheritDoc} */
 	@Override
 	public Integer getId() {
 		return this.id;

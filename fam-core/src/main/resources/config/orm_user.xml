@@ -5,8 +5,8 @@
 <sqlMap namespace="User">
 
     <insert id="User.insert" parameterClass="de.knurt.fam.core.model.persist.User">
-		INSERT INTO user (id, account_expires, department_key, department_label, username, registration, lastloging, birthdate, male, excluded, statementOfAgreementAccepted, locale_id, pazzword, phone1, phone2, company, fname, sname, title, mail, roleid, mainaddress_id, passwordEncoded, intendedResearch)
-		VALUES (null, #accountExpires#, #departmentKey#, #departmentLabel#, #username#, #registration#, #lastLogin#, #birthdate#, #male#, #excluded#, #statementOfAgreementAccepted#, #usedPlattformLangAsString#, #password#, #phone1#, #phone2#, #company#, #fname#, #sname#, #title#, #mail#, #roleId#, #mainAddressId#, #passwordEncoded#, #intendedResearch#)
+		INSERT INTO user (id, account_expires, department_key, department_label, username, registration, lastloging, birthdate, male, excluded, statementOfAgreementAccepted, locale_id, pazzword, phone1, phone2, company, fname, sname, title, mail, roleid, mainaddress_id, passwordEncoded, intendedResearch, customFields)
+		VALUES (null, #accountExpires#, #departmentKey#, #departmentLabel#, #username#, #registration#, #lastLogin#, #birthdate#, #male#, #excluded#, #statementOfAgreementAccepted#, #usedPlattformLangAsString#, #password#, #phone1#, #phone2#, #company#, #fname#, #sname#, #title#, #mail#, #roleId#, #mainAddressId#, #passwordEncoded#, #intendedResearch#, #customFieldsStringified#)
         <selectKey resultClass="int" keyProperty="id">
 	    SELECT @@IDENTITY AS ID
         </selectKey>
@@ -14,7 +14,7 @@
 
     <update id="User.update" parameterClass="de.knurt.fam.core.model.persist.User">
 		UPDATE user
-		SET account_expires = #accountExpires#, department_key = #departmentKey#, department_label = #departmentLabel#, username = #username#, registration = #registration#, lastloging = #lastLogin#, birthdate = #birthdate#, male = #male#, excluded = #excluded#, statementOfAgreementAccepted = #statementOfAgreementAccepted#, locale_id = #usedPlattformLangAsString#, pazzword = #password#, phone1 = #phone1#, phone2 = #phone2#, company = #company#, fname = #fname#, sname = #sname#, title = #title#, mail = #mail#, roleid = #roleId#, mainaddress_id = #mainAddressId#, passwordEncoded = #passwordEncoded#, intendedResearch = #intendedResearch#
+		SET account_expires = #accountExpires#, department_key = #departmentKey#, department_label = #departmentLabel#, username = #username#, registration = #registration#, lastloging = #lastLogin#, birthdate = #birthdate#, male = #male#, excluded = #excluded#, statementOfAgreementAccepted = #statementOfAgreementAccepted#, locale_id = #usedPlattformLangAsString#, pazzword = #password#, phone1 = #phone1#, phone2 = #phone2#, company = #company#, fname = #fname#, sname = #sname#, title = #title#, mail = #mail#, roleid = #roleId#, mainaddress_id = #mainAddressId#, passwordEncoded = #passwordEncoded#, intendedResearch = #intendedResearch#, customFields = #customFieldsStringified#
 		WHERE id = #id#
     </update>
 
@@ -98,6 +98,7 @@
         <result property="passwordEncoded" column="passwordEncoded"/>
         <result property="intendedResearch" column="intendedResearch"/>
         <result property="anonym" column="anonym"/>
+        <result property="customFieldsFromString" column="customFields"/>
     </resultMap>
     <statement
         id="User.select.all"

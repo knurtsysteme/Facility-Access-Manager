@@ -55,7 +55,7 @@ Base.Register.Department.set = function() {
     var value = $('select#js_company_select').val();
     Base.hide($('#js_company_unknown,#js_department_unknown,.js_department_input'), function(){
         if(value == "unknown") {
-            Base.show($('#js_company_unknown,#js_department_unknown'), function(){ // TODO hier ansetzen, um weitere eingabefelder anzuzeigen
+            Base.show($('#js_company_unknown,#js_department_unknown'), function(){
                 Base.Register.Department.setDepartment($('#js_department_unknown'));
                 $('#js_department_'+value).addClass("valid");
             });
@@ -309,8 +309,8 @@ Base.Register.Charslimit.init = function() {
 				Base.Register.Charslimit.exec();
 		        return false;
 		    });
-			if(charslimit_obj.min && $('#js_chars_min').length > 0) {
-				$('#js_chars_min').html(charslimit_obj.min);
+			if(charslimit_obj.min && $('#' + charslimit_obj.view_id_min).length > 0) {
+				$('#' + charslimit_obj.view_id_min).html(charslimit_obj.min);
 			}
 		});
 	}

@@ -10,3 +10,6 @@
 #else
 #include("scripts/ValidationConfiguration.js")
 #end
+#if($util.value.fileExists("custom/register_advanced.js"))
+#include("custom/register_advanced.js")
+#end
