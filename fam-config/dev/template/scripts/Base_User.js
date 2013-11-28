@@ -240,27 +240,36 @@ Base.User.Dialog.NewUser.dialog = null;
 Base.User.Dialog.NewUser.show = function(user) {
 	Base.User.Dialog.show(Base.User.Dialog.NewUser.dialog);
 	user = user || {};
-	window.location.hash = "#newuser";
-	$('#male_id').val(user.male || "");
-	$('#title_id').val(user.title || "");
-	$('#fname_id').val(user.fname || "");
-	$('#sname_id').val(user.sname || "");
-	$('#birthdate_id').val(user.birthdate || "");
-	$('#intendedResearch_id').val(user.intendedResearch || "");
-	$('#mail_id').val(user.mail || "");
-	$('#city_id').val(user.city || "");
-	$('#company_id').val(user.company || "");
-	$('#country_id').val(user.country || "");
-	$('#password_id').val(user.pass || "");
-	$('#street_id').val(user.street || "");
-	$('#streetno_id').val(user.streetno || "");
-	$('#zipcode_id').val(user.zipcode || "");
-	$('#phone1_id').val(user.phone1 || "");
-	$('#phone2_id').val(user.phone2 || "");
-	$('#roleid_id').val(user.roleid || "");
-	$('#departmentlabel_id').val(user.departmentlabel || "");
-	$('#account_expires_id').val(user.account_expires || "");
-	$('#departmentkey_id').val(user.departmentkey || "");
+	window.location.hash = '#newuser';
+	$('#male_id').val(user.male || '');
+	$('#title_id').val(user.title || '');
+	$('#fname_id').val(user.fname || '');
+	$('#sname_id').val(user.sname || '');
+	$('#birthdate_id').val(user.birthdate || '');
+	$('#intendedResearch_id').val(user.intendedResearch || '');
+	$('#mail_id').val(user.mail || '');
+	$('#city_id').val(user.city || '');
+	$('#company_id').val(user.company || '');
+	$('#country_id').val(user.country || '');
+	$('#password_id').val(user.pass || '');
+	$('#street_id').val(user.street || '');
+	$('#streetno_id').val(user.streetno || '');
+	$('#zipcode_id').val(user.zipcode || '');
+	$('#phone1_id').val(user.phone1 || '');
+	$('#phone2_id').val(user.phone2 || '');
+	$('#roleid_id').val(user.roleid || '');
+	$('#departmentlabel_id').val(user.departmentlabel || '');
+	$('#account_expires_id').val(user.account_expires || '');
+	$('#departmentkey_id').val(user.departmentkey || '');
+	$.each(user.customFields, function(key, value) {
+	    // XXX only support text inputs and checkboxes by now
+	    if($('#' + key + '_id').attr('type') == 'checkbox') {
+	      var checked = value.length > 0 ? 'checked' : '';
+	      $('#principal_investigator_issecret_id_unknown_id').attr('checked', checked);
+	    } else {
+	        $('#' + key + '_id').val(value || '');
+	    }
+	});
 	Base.User.AccountDefaultExpirationDates.exec();
 };
 
@@ -609,6 +618,7 @@ Base.User.Dialog.InitPass.dialog = null;
 Base.User.Charslimit = {};
 Base.User.Charslimit.exec = function() {
 	$.each(ValidationConfiguration.charslimit, function(i, charslimit_obj) {
+	  if($('#' + charslimit_obj.content_id).length > 0) {
 		var left = charslimit_obj.limit - $('#' + charslimit_obj.content_id).val().length;
 		$('#' + charslimit_obj.view_id).html(left);
 		if (left < 0) {
@@ -616,6 +626,7 @@ Base.User.Charslimit.exec = function() {
 		} else {
 			$('#' + charslimit_obj.view_id).removeClass('warning');
 		}
+	  }
 	});
 };
 Base.User.Charslimit.init = function() {

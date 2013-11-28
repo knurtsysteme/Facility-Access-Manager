@@ -60,16 +60,20 @@ public class JSONFactory {
 		}
 		return me;
 	}
+	
+	private static String emptyOnNull(String input) {
+	  return input == null ? "" : input;
+	}
 
 	public JSONObject getUser(User user) throws JSONException {
 		JSONObject result = new JSONObject();
 		Address address = user.getMainAddress();
 		if (address != null) {
-			result.put("city", address.getCity());
-			result.put("street", address.getStreet());
-			result.put("streetno", address.getStreetno());
-			result.put("zipcode", address.getZipcode());
-			result.put("country", address.getCountry());
+			result.put("city", emptyOnNull(address.getCity()));
+			result.put("street", emptyOnNull(address.getStreet()));
+			result.put("streetno", emptyOnNull(address.getStreetno()));
+			result.put("zipcode", emptyOnNull(address.getZipcode()));
+			result.put("country", emptyOnNull(address.getCountry()));
 		} else {
 			result.put("city", "");
 			result.put("street", "");
@@ -78,24 +82,24 @@ public class JSONFactory {
 			result.put("country", "");
 		}
 
-		result.put("birthdate", user.getBirthdateFormValue());
-		result.put("account_expires", user.getAccountExpiresFormValue());
-		result.put("departmentkey", user.getDepartmentKey());
-		result.put("departmentlabel", user.getDepartmentLabel());
-		result.put("fname", user.getFname());
-		result.put("intendedResearch", user.getIntendedResearch());
-		result.put("username", user.getUsername());
-		result.put("sname", user.getSname());
-		result.put("mail", user.getMail());
+		result.put("birthdate", emptyOnNull(user.getBirthdateFormValue()));
+		result.put("account_expires", emptyOnNull(user.getAccountExpiresFormValue()));
+		result.put("departmentkey", emptyOnNull(user.getDepartmentKey()));
+		result.put("departmentlabel", emptyOnNull(user.getDepartmentLabel()));
+		result.put("fname", emptyOnNull(user.getFname()));
+		result.put("intendedResearch", emptyOnNull(user.getIntendedResearch()));
+		result.put("username", emptyOnNull(user.getUsername()));
+		result.put("sname", emptyOnNull(user.getSname()));
+		result.put("mail", emptyOnNull(user.getMail()));
 		String male = user.getMale() == null ? "" : (user.getMale() ? "1" : "0");
 		result.put("male", male);
-		result.put("pass", user.getPassword());
-		result.put("phone1", user.getPhone1());
-		result.put("phone2", user.getPhone2());
-		result.put("title", user.getTitle());
-		result.put("company", user.getCompany());
-		result.put("roleid", user.getRoleId());
-		result.put("rolelabel", user.getRoleLabel());
+		result.put("pass", emptyOnNull(user.getPassword()));
+		result.put("phone1", emptyOnNull(user.getPhone1()));
+		result.put("phone2", emptyOnNull(user.getPhone2()));
+		result.put("title", emptyOnNull(user.getTitle()));
+		result.put("company", emptyOnNull(user.getCompany()));
+		result.put("roleid", emptyOnNull(user.getRoleId()));
+		result.put("rolelabel", emptyOnNull(user.getRoleLabel()));
 		result.put("customFields", user.getCustomFields());
 		List<ContactDetail> contactDetails = user.getContactDetails();
 		if (contactDetails != null) {

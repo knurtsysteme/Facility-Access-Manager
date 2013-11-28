@@ -507,4 +507,5 @@ public class Registration {
   public void setCustomFields(JSONObject customFields) {
     this.customFields = customFields;
   }
+  
 }
