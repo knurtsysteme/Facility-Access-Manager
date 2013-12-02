@@ -147,7 +147,7 @@ Base.User.Dialog.NewUser.init = function() {
 			},
 			'Insert new user' : function(e) {
 				Base.WaitingIcon.showOnPage();
-				var user = {};
+				var user = $('.newuser').serializeObject();
 				user.male = $('#male_id').val();
 				user.title = $('#title_id').val();
 				user.fname = $('#fname_id').val();
@@ -169,6 +169,7 @@ Base.User.Dialog.NewUser.init = function() {
 				user.account_expires = $('#account_expires_id').val();
 				user.roleid = $('#roleid_id').val();
 				user.departmentkey = $('#departmentkey_id').val();
+				// 
 				var data = JSON.stringify(user);
 				$.ajax( {
 					contentType : "application/json; charset=utf-8",
@@ -262,7 +263,13 @@ Base.User.Dialog.NewUser.show = function(user) {
 	$('#account_expires_id').val(user.account_expires || '');
 	$('#departmentkey_id').val(user.departmentkey || '');
 	$.each(user.customFields, function(key, value) {
-	    $('#' + key + '_id').val(value || '');
+	    // XXX only support text inputs and checkboxes by now
+	    if($('#' + key + '_id').attr('type') == 'checkbox') {
+	      var checked = value.length > 0 ? 'checked' : '';
+	      $('#principal_investigator_issecret_id_unknown_id').attr('checked', checked);
+	    } else {
+	        $('#' + key + '_id').val(value || '');
+	    }
 	});
 	Base.User.AccountDefaultExpirationDates.exec();
 };
@@ -612,6 +619,7 @@ Base.User.Dialog.InitPass.dialog = null;
 Base.User.Charslimit = {};
 Base.User.Charslimit.exec = function() {
 	$.each(ValidationConfiguration.charslimit, function(i, charslimit_obj) {
+	  if($('#' + charslimit_obj.content_id).length > 0) {
 		var left = charslimit_obj.limit - $('#' + charslimit_obj.content_id).val().length;
 		$('#' + charslimit_obj.view_id).html(left);
 		if (left < 0) {
@@ -619,6 +627,7 @@ Base.User.Charslimit.exec = function() {
 		} else {
 			$('#' + charslimit_obj.view_id).removeClass('warning');
 		}
+	  }
 	});
 };
 Base.User.Charslimit.init = function() {

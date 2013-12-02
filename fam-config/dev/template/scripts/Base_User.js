@@ -147,7 +147,7 @@ Base.User.Dialog.NewUser.init = function() {
 			},
 			'Insert new user' : function(e) {
 				Base.WaitingIcon.showOnPage();
-				var user = {};
+				var user = $('.newuser').serializeObject();
 				user.male = $('#male_id').val();
 				user.title = $('#title_id').val();
 				user.fname = $('#fname_id').val();
@@ -169,6 +169,7 @@ Base.User.Dialog.NewUser.init = function() {
 				user.account_expires = $('#account_expires_id').val();
 				user.roleid = $('#roleid_id').val();
 				user.departmentkey = $('#departmentkey_id').val();
+				// 
 				var data = JSON.stringify(user);
 				$.ajax( {
 					contentType : "application/json; charset=utf-8",

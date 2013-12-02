@@ -34,6 +34,7 @@ import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.mail.OutgoingUserMailBox;
+import de.knurt.fam.core.util.mvc.Registration;
 import de.knurt.heinzelmann.util.query.HttpServletRequestConverter;
 
 /**
@@ -51,6 +52,8 @@ public class InsertUserController extends JSONController {
 		boolean succ = false;
 		JSONObject user = null;
 		try {
+      // FIXME hier werden keine custom fields gesetzt?!??!?!?!?!?!
+//      asdf
 			user = HttpServletRequestConverter.me().getJSONObject(request);
 		} catch (JSONException e) {
 			FamLog.exception("error reading json", e, 201011071024l);
@@ -70,7 +73,11 @@ public class InsertUserController extends JSONController {
 		if (user != null) {
 			User newUser = null;
 			try {
-				newUser = UserFactory.me().getRegistration(user).getUser();
+        // FIXME hier werden keine custom fields gesetzt?!??!?!?!?!?!
+			  Registration registration = UserFactory.me().getRegistration(user);
+			  registration.setCustomFields(user);
+				newUser = registration.getUser();
+				System.out.println(newUser.getCustomFields());
 			} catch (JSONException e) {
 				FamLog.exception("error getting user from json", e, 201011071025l);
 			}

@@ -15,8 +15,11 @@
  */
 package de.knurt.fam.core.util.mvc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 
+import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.model.config.Department;
 import de.knurt.fam.core.model.persist.Address;
 import de.knurt.fam.core.model.persist.User;
@@ -491,8 +495,7 @@ public class Registration {
   public void setCustomFields(HttpServletRequest request) {
     Enumeration<?> params = request.getParameterNames();
     try {
-      JSONObject jsontmp = JSONFactory.me().getUser(UserFactory.me().getBlankStandardUser());
-      String[] knownParams = JSONObject.getNames(jsontmp);
+      String[] knownParams = this.getKnownUserParams();
       while (params.hasMoreElements()) {
         String param = params.nextElement().toString();
         String value = request.getParameter(param);
@@ -501,11 +504,31 @@ public class Registration {
         }
       }
     } catch (JSONException e) {
+      FamLog.exception(e, 201311291441l);
     }
   }
 
-  public void setCustomFields(JSONObject customFields) {
-    this.customFields = customFields;
+  private String[] getKnownUserParams() throws JSONException {
+    JSONObject jsontmp = JSONFactory.me().getUser(UserFactory.me().getBlankStandardUser());
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    List<String> result = new ArrayList(Arrays.asList(JSONObject.getNames(jsontmp)));
+    result.add("password");
+    result.add("responsibilities");
+    return (String[]) result.toArray();
   }
-  
+
+  public void setCustomFields(JSONObject customFields) {
+    this.customFields = new JSONObject();
+    try {
+      String[] knownParams = this.getKnownUserParams();
+      for (String param : JSONObject.getNames(customFields)) {
+        if (!ArrayUtils.contains(knownParams, param)) {
+          this.customFields.put(param, customFields.get(param));
+        }
+      }
+    } catch (JSONException e) {
+      FamLog.exception(e, 201311291440l);
+    }
+  }
+
 }
