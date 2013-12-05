@@ -122,7 +122,7 @@ public class ContactDetailsRequestHandler {
 	@Deprecated
 	public static HtmlElement getSummaryTable(User user) {
 
-		HtmlElement table = HtmlFactory.get("table");
+		HtmlElement tbody = HtmlFactory.get("tbody");
 		String tmp = "";
 
 		// fname
@@ -130,14 +130,14 @@ public class ContactDetailsRequestHandler {
 		if (user.getFname() != null && !user.getFname().isEmpty()) {
 			tmp = user.getFname();
 		}
-		buildSummaryRow(user, table, "First name", tmp, "fname"); // INTLANG
+		buildSummaryRow(user, tbody, "First name", tmp, "fname"); // INTLANG
 
 		// sname
 		tmp = "";
 		if (user.getSname() != null && !user.getSname().isEmpty()) {
 			tmp = user.getSname();
 		}
-		buildSummaryRow(user, table, "Last Name", tmp, "sname"); // INTLANG
+		buildSummaryRow(user, tbody, "Last Name", tmp, "sname"); // INTLANG
 
 		// address table
 		Address address = user.getMainAddress();
@@ -147,75 +147,74 @@ public class ContactDetailsRequestHandler {
 				tmp = tmpTmp;
 			}
 		}
-		buildSummaryRow(user, table, "Address", tmp, "address"); // INTLANG
+		buildSummaryRow(user, tbody, "Address", tmp, "address"); // INTLANG
 
 		// email
 		tmp = user.getMail();
-		buildSummaryRow(user, table, "E-Mail", tmp, "mail"); // INTLANG
+		buildSummaryRow(user, tbody, "E-Mail", tmp, "mail"); // INTLANG
 
 		// title
 		tmp = "";
 		if (user.getTitle() != null && !user.getTitle().isEmpty()) {
 			tmp = user.getTitle();
 		}
-		buildSummaryRow(user, table, "Title", tmp, "title"); // INTLANG
+		buildSummaryRow(user, tbody, "Title", tmp, "title"); // INTLANG
 
 		// gender
 		tmp = "";
 		if (user.getMale() != null) {
 			tmp = user.getMale() ? "Male" : "Female"; // INTLANG
 		}
-		buildSummaryRow(user, table, "Gender", tmp, "male"); // INTLANG
+		buildSummaryRow(user, tbody, "Gender", tmp, "male"); // INTLANG
 
 		// birthdate
 		tmp = "";
 		if (user.getBirthdate() != null) {
 			tmp = FamDateFormat.getDateFormatted(user.getBirthdate());
 		}
-		buildSummaryRow(user, table, "Day of birth", tmp, "birthdate"); // INTLANG
+		buildSummaryRow(user, tbody, "Day of birth", tmp, "birthdate"); // INTLANG
 
 		// company
 		tmp = "";
 		if (user.getCompany() != null && !user.getCompany().isEmpty()) {
 			tmp = user.getCompany();
 		}
-		buildSummaryRow(user, table, "Institution", tmp, "company"); // INTLANG
+		buildSummaryRow(user, tbody, "Institution", tmp, "company"); // INTLANG
 
 		// department
 		tmp = "";
 		if (user.getDepartmentLabel() != null && !user.getDepartmentLabel().isEmpty()) {
 			tmp = user.getDepartmentLabel();
 		}
-		buildSummaryRow(user, table, "Department", tmp, "departmentLabel"); // INTLANG
+		buildSummaryRow(user, tbody, "Department", tmp, "departmentLabel"); // INTLANG
 
 		// landline
 		tmp = "";
 		if (user.getPhone1() != null && !user.getPhone1().isEmpty()) {
 			tmp = user.getPhone1();
 		}
-		buildSummaryRow(user, table, "Landline", tmp, "phone1"); // INTLANG
+		buildSummaryRow(user, tbody, "Landline", tmp, "phone1"); // INTLANG
 
 		// mobile
 		tmp = "";
 		if (user.getPhone2() != null && !user.getPhone2().isEmpty()) {
 			tmp = user.getPhone2();
 		}
-		buildSummaryRow(user, table, "Mobile", tmp, "phone2"); // INTLANG
+		buildSummaryRow(user, tbody, "Mobile", tmp, "phone2"); // INTLANG
 
 		// free contact details
 		for (ContactDetail cd : user.getContactDetails()) {
-			buildSummaryRow(user, table, cd.getTitle(), cd.getDetail(), "cd_" + cd.getId());
+			buildSummaryRow(user, tbody, cd.getTitle(), cd.getDetail(), "cd_" + cd.getId());
 		}
-		table.setId("contactDetailsSummary");
 
 		// intendedResearch
 		tmp = "";
 		if (user.getIntendedResearch() != null && !user.getIntendedResearch().isEmpty()) {
 			tmp = user.getIntendedResearch().replaceAll(System.getProperty("line.separator"), "<br />");
 		}
-		buildSummaryRow(user, table, "Intended Research Projekt", tmp, "intendedResearch"); // INTLANG
+		buildSummaryRow(user, tbody, "Intended Research Projekt", tmp, "intendedResearch"); // INTLANG
 
-		return table;
+		return tbody;
 	}
 
 	private static void buildSummaryRow(User user, HtmlElement table, String label, String value, String actionName) {

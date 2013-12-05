@@ -18,6 +18,7 @@ package de.knurt.fam.core.util;
 import org.apache.velocity.VelocityContext;
 
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.view.text.FamDateFormat;
 
 /**
  * produce velocity contexts
@@ -65,6 +66,7 @@ public class VelocityContextFactory {
 	public VelocityContext getUser(User user) {
 		VelocityContext result = new VelocityContext();
 		result.put("user", user);
+    result.put("FamDateFormat", FamDateFormat.class);
 		return result;
 	}
 }

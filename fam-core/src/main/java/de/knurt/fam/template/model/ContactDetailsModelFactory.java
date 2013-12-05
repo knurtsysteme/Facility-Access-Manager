@@ -59,7 +59,7 @@ public class ContactDetailsModelFactory {
 				usersAddress = new Address();
 			}
 			result.put("address", usersAddress);
-			result.put("summary", new HtmlElement("div").setId("contactDetailsSummary_container").add(ContactDetailsRequestHandler.getSummaryTable(user2change)));
+			result.put("summary", ContactDetailsRequestHandler.getSummaryTable(user2change));
 			HtmlElement addButton = FamSubmitButtonFactory.getAddButton("Add something else");
 			addButton.addClassName("js_show").addClassName("js_add").doNotDisplay();
 			result.put("addButton", addButton);

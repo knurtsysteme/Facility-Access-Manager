@@ -1240,11 +1240,11 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
     return this.getUsername().equals(username);
   }
 
-  public Object getCustomField(String key) {
-    Object result = null;
-    if (this.customFields != null && this.customFields.has(key)) {
+  public String getCustomField(String key) {
+    String result = null;
+    if (this.hasCustomField(key)) {
       try {
-        result = this.customFields.get(key);
+        result = this.customFields.get(key).toString();
       } catch (JSONException e) {
         FamLog.exception(e, 201311191551l);
       }
@@ -1265,6 +1265,10 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
     } catch (JSONException e) {
       FamLog.exception(e, 201311191552l);
     }
+  }
+
+  public boolean hasCustomField(String key) {
+    return this.customFields != null && this.customFields.has(key);
   }
 
 }

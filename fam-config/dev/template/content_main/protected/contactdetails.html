@@ -6,7 +6,11 @@
     <div class="likeFieldset" id="js_actionPanel" style="display: none;"></div>
     <div class="likeFieldset" id="js_overview">
         <h3>$config.model.user2change.getFullName()#if($config.model.user2change.show_status) ($config.model.status)#end</h3>
-        $config.model.summary
+        <div id="contactDetailsSummary_container">
+          <table id="contactDetailsSummary">
+            $config.model.summary
+          </table>
+        </div>
         <div style="margin-top: 10px;">
             <button class="icon add js_show js_add" type="submit" style=""><span class="image"></span>Add something else</button>
         </div>

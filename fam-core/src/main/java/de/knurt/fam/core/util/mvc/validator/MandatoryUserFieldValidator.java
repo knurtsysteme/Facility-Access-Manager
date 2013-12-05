@@ -134,6 +134,8 @@ public class MandatoryUserFieldValidator implements MandatoryFieldValidator<User
 					Address add = user.getMainAddress();
 					result = this.isNotNullAndNotEmpty(add.getStreet()) && this.isNotNullAndNotEmpty(add.getCity()) && this.isNotNullAndNotEmpty(add.getZipcode()) && this.isNotNullAndNotEmpty(add.getCountry()) && this.isNotNullAndNotEmpty(add.getStreetno());
 				}
+			} else  { // it may is a custom field
+			  result = user.hasCustomField(key) && this.isNotNullAndNotEmpty(user.getCustomField(key));
 			}
 		} else { // not mandatory
 			result = true;

@@ -16,6 +16,7 @@
 package de.knurt.fam.core.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -74,9 +75,11 @@ public class UserFactory {
   }
 
   /**
-   * produces a "joe bloggs" user.
+   * produces a "joe bloggs" user registered today, 
+   * account expired in 6 months and his favorite color 
+   * is green and he likes tea.
    * 
-   * @return
+   * @return job bloggs
    */
   public User getJoeBloggs() {
     User result = this.blank();
@@ -95,7 +98,13 @@ public class UserFactory {
     result.setUsername("mamuster");
     result.setAcceptedStatementOfAgreement(true);
     result.setMale(true);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(new Date());
+    cal.add(Calendar.MONTH, 6);
+    result.setAccountExpires(cal.getTime());
     result.setRoleId("extern");
+    result.addCustomField("favorite_color", "green");
+    result.addCustomField("favorite_drink", "tea");
     return result;
   }
 
