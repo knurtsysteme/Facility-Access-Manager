@@ -495,11 +495,11 @@ public class Registration {
   public void setCustomFields(HttpServletRequest request) {
     Enumeration<?> params = request.getParameterNames();
     try {
-      String[] knownParams = this.getKnownUserParams();
+      List<String> knownParams = this.getKnownUserParams();
       while (params.hasMoreElements()) {
         String param = params.nextElement().toString();
         String value = request.getParameter(param);
-        if (!ArrayUtils.contains(knownParams, param)) {
+        if (!knownParams.contains(param)) {
           this.customFields.put(param, value);
         }
       }
@@ -508,21 +508,21 @@ public class Registration {
     }
   }
 
-  private String[] getKnownUserParams() throws JSONException {
+  private List<String> getKnownUserParams() throws JSONException {
     JSONObject jsontmp = JSONFactory.me().getUser(UserFactory.me().getBlankStandardUser());
     @SuppressWarnings({ "unchecked", "rawtypes" })
     List<String> result = new ArrayList(Arrays.asList(JSONObject.getNames(jsontmp)));
     result.add("password");
     result.add("responsibilities");
-    return (String[]) result.toArray();
+    return result;
   }
 
   public void setCustomFields(JSONObject customFields) {
     this.customFields = new JSONObject();
     try {
-      String[] knownParams = this.getKnownUserParams();
+      List<String> knownParams = this.getKnownUserParams();
       for (String param : JSONObject.getNames(customFields)) {
-        if (!ArrayUtils.contains(knownParams, param)) {
+        if (!knownParams.contains(param)) {
           this.customFields.put(param, customFields.get(param));
         }
       }

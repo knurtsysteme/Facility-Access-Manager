@@ -109,8 +109,6 @@ public class MandatoryUserFieldValidator implements MandatoryFieldValidator<User
 				result = user.getBirthdate() != null;
 			} else if (key.equals("male")) {
 				result = user.getMale() != null;
-			} else if (key.equals("statementOfAgreementAccepted")) {
-				result = user.isAcceptedStatementOfAgreement() == true;
 			} else if (key.equals("title")) {
 				result = this.isNotNullAndNotEmpty(user.getTitle());
 			} else if (key.equals("sname")) {

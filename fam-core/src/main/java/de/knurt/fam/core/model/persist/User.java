@@ -178,9 +178,14 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
    * 
    * @return true, if needed information missed or user is admin.
    */
+  // CODESMELL "unsufficient" -> better "is sufficient"
   public Boolean hasUnsufficientContactDetails() {
+    return this.hasUnsufficientContactDetails(true);
+  }
+  
+  public Boolean hasUnsufficientContactDetails(boolean withStatementOfAgreement) {
     try {
-      return !MandatoryUserFieldValidator.getInstance().isSufficient(this);
+      return !MandatoryUserFieldValidator.getInstance().isSufficient(this) || (withStatementOfAgreement ? !this.isAcceptedStatementOfAgreement() : false);
     } catch (InvalidRoleIdException e) {
       FamLog.exception(e, 201011151038l);
       return true;

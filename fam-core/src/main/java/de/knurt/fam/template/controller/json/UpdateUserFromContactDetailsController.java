@@ -61,7 +61,7 @@ import de.knurt.heinzelmann.util.query.Identificable;
  * @since 0.20100130 (01/30/2010)
  */
 public class UpdateUserFromContactDetailsController extends JSONController {
-
+ private boolean customFieldUpdated = false;
 	/**
 	 * return an available possible booking.
 	 * 
@@ -86,11 +86,13 @@ public class UpdateUserFromContactDetailsController extends JSONController {
 				int status = objectChanged == null ? BAD_REQUEST : (objectChanged.getClass().equals(WrongInput.class) ? WRONG_INPUTS : OK);
 				result.put("succ", status);
 				if (status == OK) {
+				  // assert objectChanged is a user!!!
 					result.put("summaryTable", this.getSummaryTable(rq));
 					User user = ContactDetailsRequestHandler.getUserOfRequest(rq);
 					result.put("fullName", user.getFullName());
 					result.put("updatedId", objectChanged.getId());
 					result.put("showCompleteMessage", !user.hasUnsufficientContactDetails());
+					result.put("customFieldUpdated", this.customFieldUpdated);
 				}
 			} else {
 				result.put("succ", "0");
@@ -117,6 +119,7 @@ public class UpdateUserFromContactDetailsController extends JSONController {
 
 	private Identificable updateValue(HttpServletRequest rq) {
 		Identificable result = null;
+		this.customFieldUpdated = false;
 		User user = ContactDetailsRequestHandler.getUserOfRequest(rq);
 		String of = RequestInterpreter.getOf(rq);
 		if (of != null) {
@@ -237,6 +240,12 @@ public class UpdateUserFromContactDetailsController extends JSONController {
 					} catch (NumberFormatException e) {
 					}
 				}
+			} else {
+			  // save as custom detail
+			  user.addCustomField(of, rq.getParameter(of));
+			  user.update();
+			  this.customFieldUpdated = true;
+			  result = user;
 			}
 			if (SessionAuth.authUser(rq) && SessionAuth.user(rq).getUsername().equals(user.getUsername())) {
 				SessionAuth.getInstance(rq).setUser(user);
@@ -254,12 +263,12 @@ public class UpdateUserFromContactDetailsController extends JSONController {
 
 final class WrongInput implements Identificable {
 
-	@Override
+  @Override
   public Integer getId() {
-		return -1;
-	}
+    return -1;
+  }
 
-	@Override
+  @Override
   public void setId(Integer id) {
-	}
+  }
 }
