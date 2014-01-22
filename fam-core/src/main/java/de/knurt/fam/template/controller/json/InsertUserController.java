@@ -93,6 +93,7 @@ public class InsertUserController extends JSONController {
 						newUser.setUniqueUsernameForInsertion();
 						newUser.setExcluded(false); // verify account
 						succ = FamDaoProxy.getInstance().getUserDao().insert(newUser);
+						
 						if (succ) {
 							JSONArray responsibilities = user.getJSONArray("responsibilities");
 							List<Facility> facilities = new ArrayList<Facility>(responsibilities.length());

@@ -9,7 +9,7 @@
 //
 // You may *NOT* re-distribute this code in any way except through its
 // use. That means, you can include it in your product, or your web
-// site, or any other form where the code is currently being used. You
+// site, or any other form where the code is actually being used. You
 // may not put the plain javascript up on your site for download or
 // include it in your javascript libraries for download. 
 // If you wish to share this code with others, please just point them
