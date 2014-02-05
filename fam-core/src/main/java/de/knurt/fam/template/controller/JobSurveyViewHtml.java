@@ -15,9 +15,12 @@
  */
 package de.knurt.fam.template.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.document.Job;
@@ -73,6 +76,23 @@ public class JobSurveyViewHtml extends JobSurveyViewHtmlAbstract {
 		if (this.isValidRequest_intern(jdp)) {
 			this.setJdp(jdp);
 		}
+	}
+	
+	/**
+	 * put a javascript at the bottom of the html-head.
+	 * this is to decide in the javascript, if a print-button is shown.
+	 */
+	@Override
+	public byte[] getView() {
+	  byte[] result = super.getView();
+    try {
+      String viewAsString = new String(result, "UTF-8");
+      viewAsString = viewAsString.replaceAll("</head>", "<script type=\"text/javascript\" src=\"addPrintButton.js\"></script></head>");
+      result = viewAsString.getBytes();
+    } catch (UnsupportedEncodingException e) {
+      FamLog.exception("could not append print button", e, 201402061252l);
+    }
+    return result;
 	}
 
 	private boolean isValidRequest_intern(JobDataProcessing jdp) {

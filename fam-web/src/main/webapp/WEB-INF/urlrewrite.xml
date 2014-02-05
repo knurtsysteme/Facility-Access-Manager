@@ -43,10 +43,14 @@
 		<from>/tiny_mce/(.+)$</from>
 		<to>/tiny_mce/$1</to>
 	</rule>
-	<rule>
-		<from>/jquery\.js</from>
-		<to>/jquery.js</to>
-	</rule>
+  <rule>
+    <from>/jquery\.js</from>
+    <to>/jquery.js</to>
+  </rule>
+  <rule>
+    <from>/addPrintButton\.js</from>
+    <to>/addPrintButton.js</to>
+  </rule>
 
 
 	<!--
