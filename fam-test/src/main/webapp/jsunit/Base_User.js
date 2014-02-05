@@ -503,6 +503,9 @@ Base.User.Dialog.ShowUser.show = function(user_id) {
 		success : function(answer) {
 			if (answer && answer.succ) {
 				var user = answer.user;
+				// delete all td-elements first
+				$('#showuser_control_table td[id*=showuser]').html('');
+				// put in given user
 				$('#showuser_control_fname').html(user.fname || valueNotSet);
 				$('#showuser_control_sname').html(user.sname || valueNotSet);
 				$('#showuser_control_title').html(user.title || valueNotSet);
@@ -536,6 +539,19 @@ Base.User.Dialog.ShowUser.show = function(user_id) {
 					tr = tr.replace(/\$detail/g, contactDetail.detail);
 					$('#showuser_control_tbody_contactDetails').append(tr);
 				});
+				
+			    $.each(user.customFields, function(key, value) {
+			        // XXX only support text inputs and checkboxes by now
+			      var selector = '#showuser_control_' + key;
+			        if($(selector).attr('type') == 'checkbox') {
+			          var checked = value.length > 0 ? 'checked' : '';
+			        } else {
+			            $(selector).html(value || valueNotSet);
+			        }
+			    });
+
+				
+				
 				// hide headline if no contact detail there
 		if ($(user.contactDetails).length <= 0) {
 			$('#headline_contactDetails').hide();
