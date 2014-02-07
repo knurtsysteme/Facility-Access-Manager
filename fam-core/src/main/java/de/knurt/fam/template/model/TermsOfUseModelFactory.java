@@ -22,7 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.velocity.VelocityContext;
 
+import de.knurt.fam.core.aspects.logging.FamLog;
+import de.knurt.fam.core.aspects.security.auth.FamPasswordValidation;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Soa;
 import de.knurt.fam.core.util.UserFactory;
@@ -63,14 +66,20 @@ public class TermsOfUseModelFactory {
 		if (pageToShow != null) {
 			// ↖ have a page to show (it is not a redirect)
 			// ↓ prepare model and view
+		  boolean adminRequestedAnotherSpecificUser = this.adminRequestedAnotherSpecificUser(templateResource);
+      result.put("adminRequestedAnotherSpecificUser", adminRequestedAnotherSpecificUser);
+      if(templateResource.getAuthUser().isAdmin()) {
+        result.put("allusers", FamDaoProxy.userDao().getAll());
+      }
 			result.put("page", pageToShow);
-			result.put("pagenumber", pageToShow.getPageno() + 1);
+      result.put("userToShow", userToShow);
+      result.put("pagenumber", pageToShow.getPageno() + 1);
 			result.put("pagecount", this.termsOfUseResolver.getPageCount());
 			result.put("page_content", this.getPageContent(pageToShow, userToShow));
-			result.put("isAdminTermsOfUseSinglePage", this.isAdminTermsOfUseSinglePage(templateResource));
+      result.put("isAdminTermsOfUseSinglePage", this.isAdminTermsOfUseSinglePage(templateResource));
 			result.put("acceptButton", this.getAcceptButton(pageToShow, userToShow, templateResource));
 			result.put("method", this.getFormMethod(pageToShow));
-			result.put("hiddenInputsForNextPage", this.getFormHiddenInputs(pageToShow, userToShow, goToAfterPost));
+			result.put("hiddenInputsForNextPage", this.getFormHiddenInputs(pageToShow, userToShow, goToAfterPost, templateResource));
 			String isReview = "f";
 			if (userToShow.isAcceptedStatementOfAgreement()) {
 				isReview = "t";
@@ -105,6 +114,7 @@ public class TermsOfUseModelFactory {
 		for (TermsOfUsePage candidate : candidates) {
 			if (candidate.getTitle() != null && candidate.getRoleId() != null && candidate.getTitle().toLowerCase().equals(requestedTitle) && candidate.getRoleId().equals(userToShow.getRoleId())) {
 				pageToShow = candidate;
+				break;
 			}
 		}
 		if (pageToShow == null) {
@@ -117,7 +127,7 @@ public class TermsOfUseModelFactory {
 			result.put("page_content", this.getPageContent(pageToShow, userToShow));
 			result.put("acceptButton", this.getAcceptButton(pageToShow, userToShow, templateResource));
 			result.put("method", this.getFormMethod(pageToShow));
-			result.put("hiddenInputsForNextPage", this.getFormHiddenInputs(pageToShow, userToShow, this.getGoToAfterPost(templateResource)));
+			result.put("hiddenInputsForNextPage", this.getFormHiddenInputs(pageToShow, userToShow, this.getGoToAfterPost(templateResource), templateResource));
 			String isReview = "f";
 			if (userToShow.isAcceptedStatementOfAgreement()) {
 				isReview = "t";
@@ -146,8 +156,11 @@ public class TermsOfUseModelFactory {
 		return user.isAcceptedStatementOfAgreement() == true || isAdmin;
 	}
 
-	private Object getFormHiddenInputs(TermsOfUsePage toup, User user, String goToAfterPost) {
+	private String getFormHiddenInputs(TermsOfUsePage toup, User user, String goToAfterPost, TemplateResource templateResource) {
 		QueryString qsForNextPage = new TermsOfUseResolver(user).getQueryString(toup.getPageno() + 1, goToAfterPost);
+		if(templateResource.getRequestParameter(KEY_SHOW_USER) != null) {
+		  qsForNextPage.put(KEY_SHOW_USER, templateResource.getRequestParameter(KEY_SHOW_USER));
+		}
 		return qsForNextPage.getAsHtmlInputsTypeHidden();
 	}
 
@@ -172,6 +185,7 @@ public class TermsOfUseModelFactory {
 		}
 		if (user != null && user.isAdmin() && this.isAdminTermsOfUseSinglePage(templateResource)) {
 			// ↖ an admin can view whatever he want
+		  // this is called from the edit soa page
 			String role = RequestInterpreter.getRole(templateResource.getRequest());
 			if (role == null || !RoleConfigDao.getInstance().keyExists(role) || RoleConfigDao.getInstance().isAdmin(role)) {
 				// ↖ requested role is invalid, because is null, is admin role
@@ -182,11 +196,32 @@ public class TermsOfUseModelFactory {
 			User example = UserFactory.getInstance().getJoeBloggs();
 			example.setRoleId(role);
 			user = example;
+		} else if (this.adminRequestedAnotherSpecificUser(templateResource)) {
+		  String usernameCandidate = templateResource.getRequestParameter(KEY_SHOW_USER);
+		  User candidate = FamDaoProxy.userDao().getUserFromUsername(usernameCandidate);
+		  if(candidate == null) {
+		    FamLog.error("admin requested user for agreements to show that does not exists. username: " + usernameCandidate, 201202061426l);
+		  } else {
+		    user = candidate;
+		  }
 		}
 		return user;
 	}
 
-	private String getFormMethod(TermsOfUsePage current) {
+	/**
+	 * return true, if the given user is an admin and he requested another specific user to show his terms of.
+	 * 
+	 * @param templateResource of current page
+	 * @return true, if an admin requested the terms of another specific user
+	 */
+	private boolean adminRequestedAnotherSpecificUser(TemplateResource templateResource) {
+	  User authuser = templateResource.getAuthUser();
+    return authuser != null && authuser.isAdmin() && templateResource.getRequest().getParameter(KEY_SHOW_USER) != null;
+  }
+	
+	private final static String KEY_SHOW_USER = "show_user";
+
+  private String getFormMethod(TermsOfUsePage current) {
 		return termsOfUseResolver.isLastPage(current.getPageno()) ? "POST" : "GET";
 	}
 

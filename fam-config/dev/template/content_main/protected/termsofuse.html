@@ -1,4 +1,22 @@
 #if($config.model.page_content)
+  #if($config.user.isAdmin())
+  <form action="$util.html.getHref('termsofuse')" method="GET" class="hide_on_print">
+    <fieldset>
+      <legend>Choose another user here</legend>
+      <select name="show_user" required>
+        <option value="">Please choose</option>
+        #foreach($user in $config.model.allusers)
+          #if($config.model.userToShow.id == $user.id)
+          <option value="$user.username" selected>$user.fullName</option>
+          #else
+          <option value="$user.username">$user.fullName</option>
+          #end
+        #end
+      </select><br />
+      <button type="submit" class="icon next">show first page of this user</button>
+    </fieldset>
+  </form>
+  #end
 	#if($config.model.invalid_session)
 		<div class="hint">
 		    Please (re)accept the following Terms of Use Agreements before start working.
@@ -21,10 +39,10 @@
 		    Alternatively Press <code>Strg + P</code> (on Windows and Linux) or <code>&#8984; + P</code> (on Macs).
 		</div>
 	#end
-	#if($util.value.isNull($config.model.isAdminTermsOfUseSinglePage) == false && $config.model.isAdminTermsOfUseSinglePage == false)
-	<form action="$util.html.getHref('termsofuse')" method="$config.model.method">
-	    $config.model.hiddenInputsForNextPage
-	    $config.model.acceptButton
-	</form>
-	#end
+  #if($util.value.isNull($config.model.isAdminTermsOfUseSinglePage) == false && $config.model.isAdminTermsOfUseSinglePage == false)
+  <form action="$util.html.getHref('termsofuse')" method="$config.model.method">
+      $config.model.hiddenInputsForNextPage
+      $config.model.acceptButton
+  </form>
+  #end
 #end

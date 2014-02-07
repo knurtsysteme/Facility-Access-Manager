@@ -46,6 +46,7 @@ public abstract class UserDao extends AbstractFamDao<User> {
 
 	/**
 	 * return the user that have the given unique username.
+	 * return null, if no user with given username exists.
 	 * 
 	 * @param username
 	 *            representing a user

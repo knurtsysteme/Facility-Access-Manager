@@ -336,4 +336,15 @@ public class TemplateResource {
     return result;
   }
 
+  /**
+   * short for {@link #getRequest()}.getParameter
+   * @see HttpServletRequest#getParameter(String)
+   * 
+   * @param key of searched parameter
+   * @return value
+   */
+  public String getRequestParameter(String key) {
+    return this.getRequest().getParameter(key);
+  }
+
 }

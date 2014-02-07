@@ -664,7 +664,7 @@ body.infopage #content_main .rightText p {
 		margin: 0;
 		padding: 0;
 	}
-	#content_logo,header,footer,button,#forcePrinting {
+	#content_logo,header,footer,button,#forcePrinting,.hide_on_print {
 		display: none;
 	}
 	#content_main {
