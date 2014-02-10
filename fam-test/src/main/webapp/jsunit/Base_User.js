@@ -288,7 +288,7 @@ Base.User.Dialog.EditUser.init = function() {
 			},
 			'Duplicate' : function() {
 				Base.User.Dialog.NewUser.show(Base.User.Dialog.EditUser.getUserFromForm());
-				$.n.warning('Please change at least e-mail address and set a password');
+				$.n.warning('Please change at least email address and set a password');
 			},
 			'Save changes' : function() {
 				Base.WaitingIcon.showOnPage();

@@ -434,8 +434,8 @@ $lang.page.getChildText("headline") on the home-page is the same as $lang.xml.ge
 			<headline>View a single Terms of use agreement</headline>
 		</page>
 		<page name="systemlistofusermails">
-			<title>Show e-mails sent from system to users</title>
-			<headline>System E-Mails</headline>
+			<title>Show emails sent from system to users</title>
+			<headline>System Emails</headline>
 		</page>
 		<page name="systemlistofrolesandrights">
 			<title>Get an overview about configured roles and rights</title>

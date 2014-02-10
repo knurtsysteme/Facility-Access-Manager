@@ -126,6 +126,7 @@ ContactDetails.EditDetail.init = function() {
       el2show.insert(sendButton);
       Event.observe(sendButton, 'click', function() {
         var params = editel.up('form').serialize() + '&' + Form.serialize(el2show);
+        // TODO ValidationConfiguration should be used to validate the field, but it's written in jQuery
         new Ajax.Request('savecontactdetail.json', {
           parameters : params,
           method : "post",

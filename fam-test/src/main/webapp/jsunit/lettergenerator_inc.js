@@ -51,10 +51,10 @@ LetterGenerator.submitAction = function() {
 					if (answer && answer.succ) {
 						if(answer.invoiced) {
 							$('#info_last_invoiced').html("Job has been invoiced!");
-							$.n.success("E-Mail sent and job invoiced!");
+							$.n.success("Email sent and job invoiced!");
 						}
 						else {
-							$.n.success("E-Mail sent!");
+							$.n.success("Email sent!");
 						}
 						$("#letterform button[type=submit]").html(label_before);
 					} else if (answer && answer.errormessage) {
