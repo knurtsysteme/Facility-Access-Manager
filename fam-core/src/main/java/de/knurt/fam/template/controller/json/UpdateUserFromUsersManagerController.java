@@ -103,6 +103,11 @@ public class UpdateUserFromUsersManagerController extends JSONController {
 							if (newuser.getPassword() != null && newuser.getPassword().trim().length() >= 8 && newuser.getPassword().trim().length() <= 20) {
 								existingUser.setCleanPassword(newuser.getPassword());
 							}
+							
+							// update custom fields
+							existingUser.setCustomFields(newuser.getCustomFields());
+							
+				      // update existing user
 							if (existingUser.update()) {
 								JSONArray responsibilities = updatejson.getJSONObject("newuser").getJSONArray("responsibilities");
 								List<Facility> facilities = new ArrayList<Facility>(responsibilities.length());

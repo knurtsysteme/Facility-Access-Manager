@@ -283,6 +283,9 @@ public class UserFactory {
       if (hasAddressDetails) {
         result.setMainAddress(address);
       }
+      if (user.has("customFields")) {
+        result.setCustomFields(user.getJSONObject("customFields"));
+      }
     } catch (JSONException e) {
       FamLog.exception(e, 201011141206l);
       result = null;

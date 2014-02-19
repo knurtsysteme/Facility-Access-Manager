@@ -265,8 +265,7 @@ Base.User.Dialog.NewUser.show = function(user) {
 	$.each(user.customFields, function(key, value) {
 	    // XXX only support text inputs and checkboxes by now
 	    if($('#' + key + '_id').attr('type') == 'checkbox') {
-	      var checked = value.length > 0 ? 'checked' : '';
-	      $('#principal_investigator_issecret_id_unknown_id').attr('checked', checked);
+	      $('#' + key + '_id').attr('checked', value.length > 0);
 	    } else {
 	        $('#' + key + '_id').val(value || '');
 	    }
@@ -405,7 +404,15 @@ Base.User.Dialog.EditUser.show = function(user_id) {
 				$(user.contactDetails).each(function(i, contactDetail) {
 					$('#edituser_control_tbody_contactDetails').append(Base.User.Dialog.EditUser.ContactDetail.getTrForm(contactDetail));
 				});
-
+                  $.each(user.customFields, function(key, value) {
+                    // XXX only support text inputs and checkboxes by now
+                  var selector = '#edituser_control_' + key;
+                    if($(selector).attr('type') == 'checkbox') {
+                      $(selector).attr('checked', value.length > 0);
+                    } else {
+                        $(selector).val(value);
+                    }
+                });
 				Base.User.Dialog.tableOddEvenize('edituser_control_table');
 				Base.User.Dialog.show(Base.User.Dialog.EditUser.dialog);
 			} else {
@@ -454,6 +461,18 @@ Base.User.Dialog.EditUser.getUserFromForm = function() {
 		i++;
 	}
 	result.contactDetails = contactDetails;
+	// customFields
+	var customFields = {};
+	$('input, textarea').each(function(i,el) {
+	  var id = $(el).attr('id');
+	  if(id.length > 0 && id.match(/^edituser_control_/) && id.match(/^edituser_control_/).length == 1) {
+	    var attr = id.substr(17);
+	    if(!result[attr]) {
+	      customFields[attr] = $('#' + id).val();
+	    }
+	  }
+	});
+	result.customFields = customFields;
 	return result;
 };
 Base.User.Dialog.EditUser.ContactDetail = {};
@@ -544,7 +563,7 @@ Base.User.Dialog.ShowUser.show = function(user_id) {
 			        // XXX only support text inputs and checkboxes by now
 			      var selector = '#showuser_control_' + key;
 			        if($(selector).attr('type') == 'checkbox') {
-			          var checked = value.length > 0 ? 'checked' : '';
+                      $(selector).attr('checked', value.length > 0);
 			        } else {
 			            $(selector).html(value || valueNotSet);
 			        }
