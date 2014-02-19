@@ -1,6 +1,6 @@
 #if($config.model.page_content)
   #if($config.user.isAdmin())
-  <form action="$util.html.getHref('termsofuse')" method="GET" class="hide_on_print">
+  <form action="$util.html.getHref('termsofuse')" method="GET" class="hidden_on_print">
     <fieldset>
       <legend>Choose another user here</legend>
       <select name="show_user" required>
@@ -18,7 +18,7 @@
   </form>
   #end
 	#if($config.model.invalid_session)
-		<div class="hint">
+		<div class="hint hidden_on_print">
 		    Please (re)accept the following Terms of Use Agreements before start working.
 		</div>
 	#end

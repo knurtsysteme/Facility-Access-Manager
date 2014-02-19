@@ -664,7 +664,7 @@ body.infopage #content_main .rightText p {
 		margin: 0;
 		padding: 0;
 	}
-	#content_logo,header,footer,button,#forcePrinting,.hide_on_print {
+	#content_logo,header,footer,button,#forcePrinting,.hidden_on_print {
 		display: none;
 	}
 	#content_main {
@@ -742,9 +742,6 @@ body.infopage #content_main .rightText p {
 		margin-top: 1mm;
 		width: 170mm;
 		color: #333;
-	}
-	.hide_on_print {
-		display: none !important;
 	}
 	h1, h2, h3, h4, a, a:visited {
 		color: black !important;
