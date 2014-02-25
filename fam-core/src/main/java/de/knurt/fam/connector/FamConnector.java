@@ -50,7 +50,10 @@ public class FamConnector {
 
 	/** construct FamConnector */
 	private FamConnector() {
-		ClassPathResource resource = new ClassPathResource("dependencies.xml");
+	  ClassPathResource resource = new ClassPathResource("test-dependencies.xml");
+	  if(resource.exists() == false) {
+	    resource = new ClassPathResource("dependencies.xml");
+	  }
 		this.config = new XmlBeanFactory(resource).getBean("config", FamConfig.class);
 	}
 

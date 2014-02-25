@@ -8,7 +8,7 @@
 	by default, the configuration folder is /opt/knurt/fam/.
 	if you like to have a different config file, decomment the constructor-arg line in the bean and set your own config dir as value.
 	-->
-	<bean id="config" class="de.knurt.fam.connector.FamConfig">
+	<bean id="config" class="de.knurt.fam.connector.FamConfig" factory-method="getInstance">
 		<!--	    <constructor-arg index="0" type="java.lang.String" value="/path/to/your/configuration/dir"/>-->
 	</bean>
 

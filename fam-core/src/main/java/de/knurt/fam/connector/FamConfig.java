@@ -30,57 +30,77 @@ import de.knurt.fam.core.aspects.logging.FamLog;
  */
 class FamConfig {
 
-	private Properties globalProperties;
-	private String configDirectory = null;
+  private Properties globalProperties;
+  private String configDirectory = null;
+  /** one and only instance of FamConnector */
+  private volatile static FamConfig me;
 
-	protected FamConfig() {
-		this("/opt/knurt/fam/");
-	}
+  public static FamConfig getInstance() {
+    return getInstance("/opt/knurt/fam", false);
+  }
 
-	protected String getConfigDirectory() {
-		return configDirectory;
-	}
+  /**
+   * return the one and only instance of FamConnector
+   * 
+   * @return the one and only instance of FamConnector
+   */
+  public static FamConfig getInstance(String configDirectory, Boolean isTest) {
+    if (me == null) {
+      // ↖ no instance so far
+      synchronized (FamConnector.class) {
+        if (me == null) {
+          // ↖ still no instance so far
+          // ↓ the one and only me
+          me = new FamConfig(configDirectory, isTest.booleanValue());
+        }
+      }
+    }
+    return me;
+  }
 
-	protected FamConfig(String configDirectory) {
-		FamLog.info("use config dir: " + configDirectory, 201111061912l);
-		assert configDirectory != null;
-		assert this.globalProperties == null;
-		this.configDirectory = configDirectory;
-		if (this.globalProperties == null) {
-			this.globalProperties = new Properties();
-			try {
-				PropertyResourceBundle p = new PropertyResourceBundle(new FileInputStream(configDirectory + System.getProperty("file.separator") + "config" + System.getProperty("file.separator") + "fam_global.conf"));
-				for (String key : p.keySet()) {
-					this.globalProperties.put(key, p.getString(key));
-				}
-			} catch (IOException ex) {
-				FamLog.exception(ex, 201111041300l);
-			}
-		}
-	}
+  protected String getConfigDirectory() {
+    return configDirectory;
+  }
 
-	protected String getGlobalProperty(String key) {
-		return this.globalProperties.getProperty(key);
-	}
+  private FamConfig(String configDirectory, boolean isTest) {
+    FamLog.info("use config dir: " + configDirectory, 201111061912l);
+    this.configDirectory = configDirectory;
+    if (this.globalProperties == null) {
+      this.globalProperties = new Properties();
+      try {
+        String configFile = configDirectory + System.getProperty("file.separator") + "config" + System.getProperty("file.separator") + (isTest ? "fam_global_test.conf" : "fam_global.conf");
+        PropertyResourceBundle p = new PropertyResourceBundle(new FileInputStream(configFile));
+        for (String key : p.keySet()) {
+          this.globalProperties.put(key, p.getString(key));
+        }
+      } catch (IOException ex) {
+        FamLog.exception(ex, 201111041300l);
+      }
+    }
+  }
 
-	protected Properties getGlobalProperties() {
-		return globalProperties;
-	}
+  protected String getGlobalProperty(String key) {
+    return this.globalProperties.getProperty(key);
+  }
 
-	/**
-	 * Return true, if this is the development environment.
-	 * 
-	 * @return true, if this is the development environment.
-	 */
-	protected final boolean isDev() {
-		return this.propertyValueEquals("env_dev", "true");
-	}
+  protected Properties getGlobalProperties() {
+    return globalProperties;
+  }
 
-	private boolean propertyValueEquals(String key, String value) {
-		return this.getGlobalProperty(key) != null && this.getGlobalProperty(key).equalsIgnoreCase(value);
-	}
+  /**
+   * Return true, if this is the development environment.
+   * 
+   * @return true, if this is the development environment.
+   */
+  protected final boolean isDev() {
+    return this.propertyValueEquals("env_dev", "true");
+  }
 
-	protected boolean isPreview() {
-		return this.propertyValueEquals("env_preview", "true");
-	}
+  private boolean propertyValueEquals(String key, String value) {
+    return this.getGlobalProperty(key) != null && this.getGlobalProperty(key).equalsIgnoreCase(value);
+  }
+
+  protected boolean isPreview() {
+    return this.propertyValueEquals("env_preview", "true");
+  }
 }

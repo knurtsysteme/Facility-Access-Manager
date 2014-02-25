@@ -17,6 +17,7 @@ nb-configuration.xml
 profiles.xml
 .tomcatplugin
 C:*
+fam-config/dev/config/fam_global_test.conf
 
 # ignore test reports
 *report.html
