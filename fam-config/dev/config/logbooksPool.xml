@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <!-- 
-        pool of logbooks
-    -->
-    <bean name="bus1Logbook" class="de.knurt.fam.core.model.config.Logbook" />
-    <bean name="bus2Logbook" class="de.knurt.fam.core.model.config.Logbook" />
-    <bean name="bus3Logbook" class="de.knurt.fam.core.model.config.Logbook" />
-    <bean name="bus4Logbook" class="de.knurt.fam.core.model.config.Logbook" />
-    <bean name="bus5Logbook" class="de.knurt.fam.core.model.config.Logbook" />
-    <bean name="famLogbook" class="de.knurt.fam.core.model.config.Logbook" />
-    <bean name="playSchoolLogbook" class="de.knurt.fam.core.model.config.Logbook" />
-    <bean name="freeLogbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<!-- pool of logbooks -->
+	<bean name="bus1Logbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="bus2Logbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="bus3Logbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="bus4Logbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="bus5Logbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="famLogbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="playSchoolLogbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="freeLogbook" class="de.knurt.fam.core.model.config.Logbook" />
+	<bean name="adminLogbook" class="de.knurt.fam.core.model.config.Logbook">
+		<property name="visibility" value="admin" />
+	</bean>
 
 </beans>

@@ -184,4 +184,15 @@ public class LogbookEntryDao4ibatis extends LogbookEntryDao {
 		String where = String.format("ofUserName = '%s'", user.getUsername().toLowerCase().replaceAll("[^a-z0-9\\-]", ""));
 		return this.getWhere(where);
 	}
+
+  @Override
+  public int getEntryCount(Logbook logbook) {
+    String where = String.format("logbookId = '%s'", logbook.getKey());
+    return this.getWhere(where).size();
+  }
+
+  @Override
+  public LogbookEntry getNewestEntry(Logbook logbook) {
+    return this.getNewestEntry(logbook.getKey());
+  }
 }

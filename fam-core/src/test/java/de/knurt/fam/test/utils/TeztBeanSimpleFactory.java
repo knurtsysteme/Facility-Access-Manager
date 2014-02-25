@@ -15,6 +15,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import de.knurt.fam.core.model.config.BookingRule;
 import de.knurt.fam.core.model.config.Facility;
 import de.knurt.fam.core.model.config.FacilityBookable;
+import de.knurt.fam.core.model.config.Logbook;
 import de.knurt.fam.core.model.config.SetOfRulesForARole;
 import de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean;
 import de.knurt.fam.core.model.persist.FacilityAvailability;
@@ -25,6 +26,7 @@ import de.knurt.fam.core.model.persist.booking.QueueBooking;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
 import de.knurt.fam.core.model.persist.document.JobDataProcessing;
 import de.knurt.fam.core.persistence.dao.config.FacilityConfigDao;
+import de.knurt.fam.core.persistence.dao.config.LogbookConfigDao;
 import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
 import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.booking.TimeBookingRequest;
@@ -307,6 +309,10 @@ public class TeztBeanSimpleFactory {
 
   public static FacilityBookable getFacilityBookable(String keyFacility) {
     return (FacilityBookable) FacilityConfigDao.getInstance().getConfiguredInstance(keyFacility);
+  }
+
+  public static Logbook getAdminLogbook() {
+    return LogbookConfigDao.getInstance().getConfiguredInstance("adminLogbook");
   }
 
 }

@@ -33,7 +33,32 @@
             </tr>
         </thead>
         <tbody>
-            $config.model.logbook_trhtml
+          #set($i = 0)
+          #foreach($lb in $config.model.logbooks)
+            #set($oddEven="even")
+            #if ($i%2==0) #set($oddEven="odd") #end
+            #set($i=$i + 1)
+            #set($href=$util.html.getHref("logbookmakepost") + "?e=" + $lb.key)
+            <tr class="$oddEven">
+              <td>
+                <h3>$lb.label</h3>
+                <p class="small">$lb.description</p>
+                <p class="small">
+                  <a href="$href">Make Post</a>
+                </p>
+              </td>
+              <td>$lb.entryCount</td>
+              <td class="small">
+                #if($util.value.isNull($lb.newestEntry))
+                <p class="small">-</p>
+                #else
+                <p class="small">$lb.newestEntry.ofUser.fullName</p>
+                <p class="small">Date:&nbsp;$lb.newestEntry.date</p>
+                <p class="small"><strong>$lb.newestEntry.tagsAsCsv</strong></p>
+                #end
+              </td>
+            </tr>
+          #end
         </tbody>
     </table>
     #end

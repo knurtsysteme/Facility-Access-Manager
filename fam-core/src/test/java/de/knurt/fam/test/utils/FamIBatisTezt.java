@@ -51,7 +51,7 @@ public class FamIBatisTezt extends IBatisTezt {
 		testConnection = new Properties();
 		testConnection.setProperty("driverClassName", FamConnector.getGlobalProperty("sql_driver_class_name"));
 		testConnection.setProperty("url", FamConnector.getGlobalProperty("sql_url"));
-		testConnection.setProperty("username", FamConnector.getGlobalProperty("sql_username"));
+    testConnection.setProperty("username", FamConnector.getGlobalProperty("sql_username"));
 		testConnection.setProperty("password", FamConnector.getGlobalProperty("sql_password"));
 		this.clearDatabase();
 	}

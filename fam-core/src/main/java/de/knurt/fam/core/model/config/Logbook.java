@@ -16,11 +16,13 @@
 package de.knurt.fam.core.model.config;
 
 import de.knurt.fam.core.model.persist.LogbookEntry;
+import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.persistence.dao.config.LogbookConfigDao;
+import de.knurt.fam.core.view.text.FamText;
 
 /**
- * a logbook. please make sure, this does not contain any language specific
- * strings being injected, because this is not possible.
+ * a logbook. please make sure, this does not contain any language specific strings being injected, because this is not possible.
  * 
  * use the access class {@link LogbookConfigDao} for this mission.
  * 
@@ -29,62 +31,88 @@ import de.knurt.fam.core.persistence.dao.config.LogbookConfigDao;
  */
 public class Logbook {
 
-	private int entryCount;
+  private String visibility = null;
 
-	private LogbookEntry newestEntry;
+  /**
+   * a logbook. must always be injected!
+   */
+  private Logbook() {
+  }
 
-	/**
-	 * a logbook. must always be injected!
-	 */
-	private Logbook() {
-		this.entryCount = -1;
-	}
+  /**
+   * return the count of all logbook entries
+   * 
+   * @return the count of all logbook entries
+   */
+  public int getEntryCount() {
+    return FamDaoProxy.logbookEntryDao().getEntryCount(this);
+  }
 
-	/**
-	 * return the count of all logbook entries
-	 * 
-	 * @return the count of all logbook entries
-	 */
-	public int getEntryCount() {
-		return entryCount;
-	}
+  /**
+   * return the newest entry made in this logbook.
+   * 
+   * @return the newest entry made in this logbook.
+   */
+  public LogbookEntry getNewestEntry() {
+    return FamDaoProxy.logbookEntryDao().getNewestEntry(this);
+  }
 
-	/**
-	 * set the count of all logbook entries
-	 * 
-	 * @param entryCount
-	 *            the count of all logbook entries
-	 */
-	public void setEntryCount(int entryCount) {
-		this.entryCount = entryCount;
-	}
+  /**
+   * return the key, representing this logbook
+   * 
+   * @return key, representing this logbook
+   */
+  public String getKey() {
+    return LogbookConfigDao.getInstance().getKey(this);
+  }
 
-	/**
-	 * return the newest entry made in this logbook.
-	 * 
-	 * @return the newest entry made in this logbook.
-	 */
-	public LogbookEntry getNewestEntry() {
-		return newestEntry;
-	}
+  /**
+   * return the label of the logbook (defined in config/lang.properties)
+   * 
+   * @return the label of the logbook
+   */
+  public String getLabel() {
+    return FamText.message(this.getKey() + ".label");
+  }
 
-	/**
-	 * set the newest entry made in this logbook.
-	 * 
-	 * @param newestEntry
-	 *            the newest entry made in this logbook.
-	 */
-	public void setNewestEntry(LogbookEntry newestEntry) {
-		this.newestEntry = newestEntry;
-	}
+  /**
+   * return the description of the logbook (defined in config/lang.properties)
+   * 
+   * @return the description of the logbook
+   */
+  public String getDescription() {
+    return FamText.message(this.getKey() + ".description");
+  }
 
-	/**
-	 * return the key, representing this logbook
-	 * 
-	 * @return key, representing this logbook
-	 */
-	public String getKey() {
-		return LogbookConfigDao.getInstance().getKey(this);
-	}
+  /**
+   * return tags of the given logbook
+   * 
+   * @param key representing the logbook
+   * @return tags of the given logbook
+   */
+  public String[] getTags() {
+    return FamText.message(this.getKey() + ".tags").split(",");
+  }
+
+  /**
+   * return true, if not visibility for this logbook is set or the visibility for this logbook equals the role label of the given user.- otherwise
+   * return false.
+   * 
+   * @param user
+   * @return true, if user is allowed to view this logbook
+   */
+  public boolean isVisibleFor(User user) {
+    return this.visibility == null || this.visibility.equals(user.getRoleId());
+  }
+
+  /**
+   * set the visibility for the logbook
+   * 
+   * @param visibility a string representation of the label {@link Role#getLabel()} of the role
+   * @see Role#getLabel()
+   */
+  public void setVisibility(String visibility) {
+    this.visibility = visibility;
+  }
 
 }

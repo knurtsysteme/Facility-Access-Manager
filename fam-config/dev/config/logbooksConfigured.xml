@@ -16,6 +16,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
                 <entry key="bus3Logbook" value-ref="bus3Logbook" />
                 <entry key="bus4Logbook" value-ref="bus4Logbook" />
                 <entry key="bus5Logbook" value-ref="bus5Logbook" />
+                <entry key="adminLogbook" value-ref="adminLogbook" />
             </map>
         </property>
     </bean>

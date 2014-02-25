@@ -15,7 +15,6 @@
  */
 package de.knurt.fam.core.view.text;
 
-import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;

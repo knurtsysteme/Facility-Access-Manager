@@ -60,7 +60,8 @@ public class LogbookEntriesTrHtml extends LogbookHtml {
 	 */
 	@Override
 	public String getHtml() {
-		Formatter result = new Formatter();
+	  String result = null;
+		Formatter resultFormatter = new Formatter();
 		String toFormat = this.getToFormat();
 		for (LogbookEntry le : FamDaoProxy.getInstance().getLogbookEntryDao().get(this.logbookKey, this.from, this.to)) {
 			String oddeven = this.getOddEven();
@@ -68,13 +69,15 @@ public class LogbookEntriesTrHtml extends LogbookHtml {
 			String content = le.getContent().replaceAll("\n", "<br />");
 			String tags = this.getTagsTd(le);
 			String user = this.getUserTd(le);
-			result.format(toFormat, oddeven, this.getDateCol(le), headline, content, tags, user);
+			resultFormatter.format(toFormat, oddeven, this.getDateCol(le), headline, content, tags, user);
 		}
-		if (result.toString().equals("")) {
-			return this.getNoEntryLine();
+		if (resultFormatter.toString().equals("")) {
+		  result = this.getNoEntryLine();
 		} else {
-			return result.toString();
+		  result = resultFormatter.toString();
 		}
+		resultFormatter.close();
+		return result;
 	}
 
 	private String getDateCol(LogbookEntry le) {

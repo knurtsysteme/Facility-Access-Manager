@@ -133,6 +133,14 @@ public class LogbookEntry implements Storeable, Identificable {
 	public String getOfUserName() {
 		return ofUserName;
 	}
+	
+	public User getOfUser() {
+	  User result = null;
+	  if(this.getOfUserName() != null) {
+	    result = FamDaoProxy.userDao().getUserFromUsername(this.getOfUserName());
+	  }
+	  return result;
+	}
 
 	/**
 	 * set the username of the user that made this entry.

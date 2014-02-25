@@ -67,20 +67,26 @@ public class SelfTest {
 			assertTrue("is not a dir: " + f2.getAbsoluteFile(), f2.isDirectory());
 		}
 	}
+	
+	private boolean isBookableAndKnown(String fkey) {
+    return !FacilityConfigDao.facility(fkey).isUnknown() && FacilityConfigDao.bookable(fkey);
+
+	}
 
 	@Test
 	public void needDemoConfig() {
 		String assertionFailHint = "THIS IS NOT THE TEST CONFIGURATION";
 		assertTrue(assertionFailHint, FamConnector.isDev());
-		assertNotNull(assertionFailHint, FacilityConfigDao.facility("indoor"));
-		assertFalse(assertionFailHint, FacilityConfigDao.bookable("playground"));
-		assertTrue(assertionFailHint, FacilityConfigDao.bookable("sportsHall"));
-		assertTrue(assertionFailHint, FacilityConfigDao.bookable("ballBath"));
-		assertTrue(assertionFailHint, FacilityConfigDao.bookable("slide"));
-		assertTrue(assertionFailHint, FacilityConfigDao.bookable("teetertotter"));
-		assertTrue(assertionFailHint, FacilityConfigDao.bookable("schoolbus"));
+    assertNotNull(assertionFailHint, FacilityConfigDao.facility("indoor"));
+    assertFalse(FacilityConfigDao.facility("indoor").isUnknown());
+		assertFalse(assertionFailHint, this.isBookableAndKnown("playground"));
+		assertTrue(assertionFailHint, this.isBookableAndKnown("sportsHall"));
+		assertTrue(assertionFailHint, this.isBookableAndKnown("ballBath"));
+		assertTrue(assertionFailHint, this.isBookableAndKnown("slide"));
+		assertTrue(assertionFailHint, this.isBookableAndKnown("teetertotter"));
+		assertTrue(assertionFailHint, this.isBookableAndKnown("schoolbus"));
 		assertNotNull(assertionFailHint, FacilityConfigDao.facility(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_PARENT));
-		assertTrue(assertionFailHint, FacilityConfigDao.bookable(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE));
-		assertTrue(assertionFailHint, FacilityConfigDao.bookable(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_QUEUE));
+		assertTrue(assertionFailHint, this.isBookableAndKnown(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE));
+		assertTrue(assertionFailHint, this.isBookableAndKnown(TeztBeanSimpleFactory.KEY_FACILITY_BOOKABLE_QUEUE));
 	}
 }

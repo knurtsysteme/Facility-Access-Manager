@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.knurt.fam.core.model.config.Logbook;
 import de.knurt.fam.core.model.persist.LogbookEntry;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.persistence.dao.FamDaoProxy;
@@ -36,55 +37,53 @@ import de.knurt.heinzelmann.util.time.TimeFrame;
  */
 public class NewsSourceForLogbookEntries implements NewsSource {
 
-	private boolean sinceLastLogin = false;
+  private boolean sinceLastLogin = false;
 
-	/**
-	 * construct news source.
-	 * 
-	 * @param sinceLastLogin
-	 *            if true, the requested timeframe is set back to users last
-	 *            login
-	 */
-	public NewsSourceForLogbookEntries(boolean sinceLastLogin) {
-		this.sinceLastLogin = sinceLastLogin;
-	}
+  /**
+   * construct news source.
+   * 
+   * @param sinceLastLogin if true, the requested timeframe is set back to users last login
+   */
+  public NewsSourceForLogbookEntries(boolean sinceLastLogin) {
+    this.sinceLastLogin = sinceLastLogin;
+  }
 
-	/**
-	 * return the logbook entries as news. if {@link #sinceLastLogin} is true,
-	 * the start of the requested timeframe is set back to users last login.
-	 */
-	@Override
-	public List<NewsItem> getNews(TimeFrame from, User to) {
-		if (this.sinceLastLogin) {
-			Date start = to.getLastLogin();
-			if(start == null) {
-				start = to.getRegistration();
-			}
-			if(start != null) {
-				from.setStart(start);
-			}
-		}
-		List<NewsItem> result = new ArrayList<NewsItem>();
-		List<LogbookEntry> entries = this.getLogbookEntries(from, to);
-		for (LogbookEntry entry : entries) {
-			NewsItem ni = new NewsItemDefault();
-			ni.setEventStarts(entry.getDate());
-			ni.setDescription(this.getDescription(entry));
-			String href = TemplateHtml.getInstance().getHref("logbook", QueryStringFactory.get(QueryKeys.QUERY_KEY_LOGBOOK, entry.getLogbookId()));
-			ni.setLinkToFurtherInformation(href);
-			result.add(ni);
-		}
-		return result;
-	}
+  /**
+   * return the logbook entries as news. if {@link #sinceLastLogin} is true, the start of the requested timeframe is set back to users last login.
+   */
+  @Override
+  public List<NewsItem> getNews(TimeFrame from, User to) {
+    if (this.sinceLastLogin) {
+      Date start = to.getLastLogin();
+      if (start == null) {
+        start = to.getRegistration();
+      }
+      if (start != null) {
+        from.setStart(start);
+      }
+    }
+    List<NewsItem> result = new ArrayList<NewsItem>();
+    List<LogbookEntry> entries = this.getLogbookEntries(from, to);
+    for (LogbookEntry entry : entries) {
+      NewsItem ni = new NewsItemDefault();
+      ni.setEventStarts(entry.getDate());
+      ni.setDescription(this.getDescription(entry));
+      String href = TemplateHtml.getInstance().getHref("logbook", QueryStringFactory.get(QueryKeys.QUERY_KEY_LOGBOOK, entry.getLogbookId()));
+      ni.setLinkToFurtherInformation(href);
+      result.add(ni);
+    }
+    return result;
+  }
 
-	private String getDescription(LogbookEntry entry) {
-		String loogbookName = LogbookConfigDao.getInstance().getLabel(entry.getLogbookId());
-		// ↘ INTLANG
-		return String.format("New logbook-entry in „%s“: %s", loogbookName, entry.getHeadline());
-	}
+  private String getDescription(LogbookEntry entry) {
+    Logbook lb = LogbookConfigDao.getInstance().get(entry.getLogbookId());
+    String loogbookName = lb.getLabel();
+    // ↘ INTLANG
+    return String.format("New logbook-entry in „%s“: %s", loogbookName, entry.getHeadline());
+  }
 
-	private List<LogbookEntry> getLogbookEntries(TimeFrame from, User to) {
-		return FamDaoProxy.logbookEntryDao().getEntriesMadeIn(from);
-	}
+  private List<LogbookEntry> getLogbookEntries(TimeFrame from, User to) {
+    return FamDaoProxy.logbookEntryDao().getEntriesMadeIn(from);
+  }
 
 }
