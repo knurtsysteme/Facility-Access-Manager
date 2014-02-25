@@ -16,7 +16,7 @@ public class TestPropertiesGetter {
 	/** construct TestPropertiesGetter */
 	private TestPropertiesGetter() {
 		try {
-			PropertyResourceBundle tmps = new PropertyResourceBundle(new FileInputStream(System.getProperty("catalina.home") + "/webapps/fam-test/WEB-INF/classes/test.properties"));
+			PropertyResourceBundle tmps = new PropertyResourceBundle(new FileInputStream(System.getProperty("catalina.base") + "/webapps/fam-test/WEB-INF/classes/test.properties"));
 			for(String key : tmps.keySet()) {
 				testProperties.put(key, tmps.getString(key));
 			}

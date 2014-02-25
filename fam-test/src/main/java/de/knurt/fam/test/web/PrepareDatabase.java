@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jcouchdb.db.Database;
 import org.jcouchdb.db.Response;
+import org.json.JSONObject;
 
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.view.text.FamDateFormat;
@@ -52,6 +53,7 @@ public class PrepareDatabase {
 				if (request.getParameter("confirm") != null && request.getParameter("confirm").equals("1")) {
 
 					try {
+					  String customFields = "{\"hasRights\":\"0\",\"ceo_sname\":\"Val: a\",\"ceo_fname\":\"Val: b\",\"taskdesc\":\"Val: c \",\"partner\":\"Val: d\",\"ceo_title\":\"Val: e\"}";
 						String[] sqls = {
 								"DELETE FROM user",
 								"DELETE FROM address",
@@ -63,10 +65,10 @@ public class PrepareDatabase {
 								"INSERT INTO `address` VALUES (3,1,'24989','Muehlenstr','3','Dollerup','de')",
 								"INSERT INTO `address` VALUES (4,1,'24989','Muehlenstr','3','Dollerup','de')",
 
-								"INSERT INTO `user` VALUES (null,'daoltman','2010-08-11 12:42:25',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','info@knurt.de','Oltmanns','admin',1,1,'unknown','Test Department',NULL,'intended research project',false,'{}')",
-								"INSERT INTO `user` VALUES (null,'daoltma1','2010-08-11 12:47:43',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody01@knurt.de','Oltmanns','extern',2,1,'unknown','Test Department',NULL,'intended research project',false,'{}')",
-								"INSERT INTO `user` VALUES (null,'daoltma2','2010-08-11 12:48:48',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody02@knurt.de','Oltmanns','operator',3,1,'unknown','Test Department',NULL,'intended research project',false,'{}')",
-								"INSERT INTO `user` VALUES (null,'daoltma3','2010-08-11 12:49:37',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody03@knurt.de','Oltmanns','intern',4,1,'unknown','Test Department',NULL,'intended research project',false,'{}')",
+								"INSERT INTO `user` VALUES (null,'daoltman','2010-08-11 12:42:25',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','info@knurt.de','Oltmanns','admin',1,1,'unknown','Test Department',NULL,'intended research project',false,'"+customFields+"')",
+								"INSERT INTO `user` VALUES (null,'daoltma1','2010-08-11 12:47:43',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody01@knurt.de','Oltmanns','extern',2,1,'unknown','Test Department',NULL,'intended research project',false,'"+customFields+"')",
+								"INSERT INTO `user` VALUES (null,'daoltma2','2010-08-11 12:48:48',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody02@knurt.de','Oltmanns','operator',3,1,'unknown','Test Department',NULL,'intended research project',false,'"+customFields+"')",
+								"INSERT INTO `user` VALUES (null,'daoltma3','2010-08-11 12:49:37',NULL,'1976-06-17',1,0,1,'en','937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244','123','123','KNURT Systeme','Daniel','Mr.','nobody03@knurt.de','Oltmanns','intern',4,1,'unknown','Test Department',NULL,'intended research project',false,'"+customFields+"')",
 
 								"INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"indoor\")", "INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"sportsHall\")",
 								"INSERT INTO facility_responsibility(username, facility_key) VALUES(\"daoltma2\", \"ballBath\")" };
@@ -159,7 +161,7 @@ public class PrepareDatabase {
 	/** construct PrepareDatabase */
 	private PrepareDatabase() {
 		Properties p = TestPropertiesGetter.me().getTestProperties();
-		url = p.getProperty("db.url");
+    url = p.getProperty("db.url");
 		username = p.getProperty("db.username");
 		password = p.getProperty("db.password");
 
