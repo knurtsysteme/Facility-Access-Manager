@@ -102,7 +102,9 @@ public class DefaultPluginResolver implements PluginResolver {
               JarEntry entry = jarEntries.nextElement();
               if (entry.getName().toLowerCase().endsWith("class")) {
                 String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
-                Class<?> cl = new URLClassLoader(new URL[] { file.toURI().toURL() }, currentThreadClassLoader).loadClass(className);
+                URLClassLoader classLoader = new URLClassLoader(new URL[] { file.toURI().toURL() }, currentThreadClassLoader);
+                Class<?> cl = classLoader.loadClass(className);
+                classLoader.close();
                 if (this.isPlugin(cl)) {
                   Plugin plugin = (Plugin) cl.newInstance();
                   this.plugins.add(plugin);

@@ -219,6 +219,8 @@ public class TemplateResource {
             result.invalidSession = true;
           }
           break;
+        default:
+          break;
         }
 
         // more detailed message on invalid auth - ticket #262
@@ -338,6 +340,7 @@ public class TemplateResource {
 
   /**
    * short for {@link #getRequest()}.getParameter
+   * 
    * @see HttpServletRequest#getParameter(String)
    * 
    * @param key of searched parameter
