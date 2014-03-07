@@ -113,16 +113,19 @@ public class NewsTest extends FamIBatisTezt {
 			assertNotNull(nr);
 			List<NewsItem> nis = nr.getNews(SimpleTimeFrame.getToday(), TeztBeanSimpleFactory.getAdmin());
 			int nis_size_before = nis.size();
+	    int assertNewLogbookEntries = 0;
 
 			LogbookEntry logbook = TeztBeanSimpleFactory.getNewValidLogbookEntry();
+			assertNewLogbookEntries++; // because a new user was inserted
 			logbook.setLogbookId(TeztBeanSimpleFactory.LOGBOOK_ID1);
 			logbook.setDate(new Date());
 			logbook.insert();
+      assertNewLogbookEntries++; // because a new logbook was inserted
 
 			assertNotNull(logbook.getDate());
 
 			nis = nr.getNews(SimpleTimeFrame.getToday(), TeztBeanSimpleFactory.getAdmin());
-			assertEquals(nis_size_before + 1, nis.size());
+			assertEquals(nis_size_before + assertNewLogbookEntries, nis.size());
 
 			// assert same date as lobook entry
 			NewsItem back = nis.get(nis.size() - 1);
@@ -135,7 +138,7 @@ public class NewsTest extends FamIBatisTezt {
 			logbook.update();
 
 			nis = nr.getNews(SimpleTimeFrame.getToday(), TeztBeanSimpleFactory.getAdmin());
-			assertEquals(nis_size_before, nis.size());
+			assertEquals(nis_size_before + 1, nis.size()); // + 1 because of adminLogbook still there
 
 			assertTrue("successed", true);
 		} catch (Exception e) {

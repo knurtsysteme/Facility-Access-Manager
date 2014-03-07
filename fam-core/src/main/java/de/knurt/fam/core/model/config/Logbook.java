@@ -36,7 +36,7 @@ public class Logbook {
   /**
    * a logbook. must always be injected!
    */
-  private Logbook() {
+  protected Logbook() {
   }
 
   /**

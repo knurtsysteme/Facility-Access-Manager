@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Observable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,6 +71,26 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
   private JSONObject customFields;
   private Map<String, Integer> directBookingCredits;
   private FamShoppingCart shoppingCart = new FamShoppingCart();
+  private boolean hasBeenCreated = false;
+  
+  /**
+   * return true, if the user has just been written in the database.
+   * 
+   * @since 06.03.2014
+   * @return
+   */
+  public boolean hasBeenCreated() {
+    return this.hasBeenCreated;
+  }
+  
+  /**
+   * mark this user as just been written into the db.
+   * 
+   * @since 06.03.2014
+   */
+  public void setHasBeenCreated() {
+    this.hasBeenCreated = true;
+  }
 
   public String getIntendedResearch() {
     return intendedResearch;
@@ -182,7 +203,7 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
   public Boolean hasUnsufficientContactDetails() {
     return this.hasUnsufficientContactDetails(true);
   }
-  
+
   public Boolean hasUnsufficientContactDetails(boolean withStatementOfAgreement) {
     try {
       return !MandatoryUserFieldValidator.getInstance().isSufficient(this) || (withStatementOfAgreement ? !this.isAcceptedStatementOfAgreement() : false);
@@ -1256,13 +1277,13 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
     }
     return result;
   }
-  
+
   public String getCustomFieldsStringified() {
     return this.customFields == null ? "{}" : this.customFields.toString();
   }
 
   public void addCustomField(String key, String value) {
-    if(this.customFields == null) {
+    if (this.customFields == null) {
       this.customFields = new JSONObject();
     }
     try {

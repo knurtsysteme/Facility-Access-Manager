@@ -14,8 +14,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean name="famLogbook" class="de.knurt.fam.core.model.config.Logbook" />
 	<bean name="playSchoolLogbook" class="de.knurt.fam.core.model.config.Logbook" />
 	<bean name="freeLogbook" class="de.knurt.fam.core.model.config.Logbook" />
-	<bean name="adminLogbook" class="de.knurt.fam.core.model.config.Logbook">
+	<bean name="adminLogbook" class="de.knurt.fam.core.model.config.LogbookUserObserver">
 		<property name="visibility" value="admin" />
+		<property name="observable" ref="userDao" />
 	</bean>
 
 </beans>

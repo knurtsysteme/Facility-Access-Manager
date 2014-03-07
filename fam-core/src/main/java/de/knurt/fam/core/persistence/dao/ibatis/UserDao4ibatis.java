@@ -64,6 +64,8 @@ public class UserDao4ibatis extends UserDao {
   @Override
   public synchronized boolean delete(User user) {
     boolean result = false;
+    setChanged();
+    notifyObservers(user);
     try {
       this.sqlMap().delete("User.delete.usermail", user);
       this.sqlMap().delete("User.delete.logbookentry", user);
@@ -234,6 +236,8 @@ public class UserDao4ibatis extends UserDao {
   @Override
   public synchronized boolean insert(ContactDetail contactDetail) {
     boolean result = false;
+    setChanged();
+    notifyObservers(contactDetail);
     try {
 
       FamSqlMapClientDaoSupport.sqlMap().insert("ContactDetail.insert", contactDetail);
@@ -247,6 +251,8 @@ public class UserDao4ibatis extends UserDao {
   @Override
   public synchronized boolean update(ContactDetail contactDetail) {
     boolean result = false;
+    setChanged();
+    notifyObservers(contactDetail);
     try {
       FamSqlMapClientDaoSupport.sqlMap().update("ContactDetail.update", contactDetail);
     } catch (Exception e) {
@@ -259,8 +265,11 @@ public class UserDao4ibatis extends UserDao {
   @Override
   public synchronized boolean delete(ContactDetail contactDetail) {
     boolean result = false;
+    setChanged();
+    notifyObservers(contactDetail);
     try {
       FamSqlMapClientDaoSupport.sqlMap().delete("ContactDetail.delete", contactDetail);
+      result = true;
     } catch (Exception e) {
       FamLog.exception(e, 201205071202l);
     }
@@ -329,6 +338,8 @@ public class UserDao4ibatis extends UserDao {
   @Override
   public boolean anonymize(User user, User auth) {
     boolean result = false;
+    setChanged();
+    notifyObservers(user);
     if (FamAuth.hasRight(auth, FamAuth.ANONYMIZE_USER, null)) {
       try {
         List<Job> jobs = FamDaoProxy.jobsDao().getJobs(user, false);

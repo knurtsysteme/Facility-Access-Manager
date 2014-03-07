@@ -33,6 +33,7 @@ public class FamConnector {
 
 	/** one and only instance of FamConnector */
 	private volatile static FamConnector me;
+	private static boolean isUnitTest = false;
 
 	public static String templateDirectory() {
 		return getConfigDirectory() + System.getProperty("file.separator") + "template" + System.getProperty("file.separator");
@@ -51,7 +52,8 @@ public class FamConnector {
 	/** construct FamConnector */
 	private FamConnector() {
 	  ClassPathResource resource = new ClassPathResource("test-dependencies.xml");
-	  if(resource.exists() == false) {
+	  isUnitTest = resource.exists();
+	  if(!isUnitTest) {
 	    resource = new ClassPathResource("dependencies.xml");
 	  }
 		this.config = new XmlBeanFactory(resource).getBean("config", FamConfig.class);
@@ -198,5 +200,9 @@ public class FamConnector {
 	public static boolean sqlConfigured() {
 		return getGlobalProperty("sql_url").length() > "sql://a".length();
 	}
+
+  public static boolean isUnitTest() {
+    return isUnitTest;
+  }
 
 }

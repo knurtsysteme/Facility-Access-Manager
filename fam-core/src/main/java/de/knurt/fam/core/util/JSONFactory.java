@@ -65,6 +65,24 @@ public class JSONFactory {
 	  return input == null ? "" : input;
 	}
 
+	/**
+	 * return a json representation of the given user.
+	 * keys are always string.
+	 * 
+	 *  the main address is a flat representation (not an json object as value).
+	 *  if no main address is set, values for (city etc.) are empty strings.
+	 *  
+	 *  value of customFields are always a {@link JSONObject}.
+	 *  
+	 *  value of contactDetails are always a {@link JSONArray}
+	 *  
+	 * 
+	 * @see User#getCustomFields()
+	 * @since 06.03.2014
+	 * @param user to convert
+	 * @return a json representation of the user
+	 * @throws JSONException
+	 */
 	public JSONObject getUser(User user) throws JSONException {
 		JSONObject result = new JSONObject();
 		Address address = user.getMainAddress();

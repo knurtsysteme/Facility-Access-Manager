@@ -24,7 +24,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
   <!-- dao pool -->
   <bean id="famdaoproxy" class="de.knurt.fam.core.persistence.dao.FamDaoProxy" factory-method="getInstance">
-    <property name="userDao" ref="userDao_ibatis" />
+    <property name="userDao" ref="userDao" />
     <property name="logbookEntryDao" ref="logbookEntryDao_ibatis" />
     <property name="facilityDao" ref="facilityDao_ibatis" />
     <property name="bookingDao" ref="bookingDao_ibatis" />
@@ -33,7 +33,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
   <!-- ibatis daos -->
-  <bean id="userDao_ibatis" class="de.knurt.fam.core.persistence.dao.ibatis.UserDao4ibatis">
+  <bean id="userDao" class="de.knurt.fam.core.persistence.dao.ibatis.UserDao4ibatis">
   </bean>
   <bean id="facilityDao_ibatis" class="de.knurt.fam.core.persistence.dao.ibatis.FacilityDao4ibatis">
   </bean>

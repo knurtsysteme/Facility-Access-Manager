@@ -236,4 +236,11 @@ public class LogbookEntry implements Storeable, Identificable {
 	public boolean delete() {
 		return FamDaoProxy.logbookEntryDao().delete(this);
 	}
+
+	/**
+	 * set today as date
+	 */
+  public void setDate() {
+    this.setDate(new Date());
+  }
 }

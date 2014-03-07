@@ -52,10 +52,13 @@ public class AccessLogbookTest extends FamIBatisTezt {
     assertEquals(0, FamDaoProxy.logbookEntryDao().getAll().size());
     Logbook lb1 = LogbookConfigDao.getInstance().get(TeztBeanSimpleFactory.LOGBOOK_ID1);
     Logbook lb2 = LogbookConfigDao.getInstance().get(TeztBeanSimpleFactory.LOGBOOK_ID2);
+    int assertLogbookEntries = 0;
     LogbookEntry le1 = TeztBeanSimpleFactory.getNewValidLogbookEntry();
+    assertLogbookEntries++; // because of user inserted
     le1.setLogbookId(lb1.getKey());
     le1.insert();
-    assertEquals(1, FamDaoProxy.logbookEntryDao().getAll().size());
+    assertLogbookEntries++; // because of logbook inserted
+    assertEquals(assertLogbookEntries, FamDaoProxy.logbookEntryDao().getAll().size());
     assertEquals(lb1.getNewestEntry().getId(), le1.getId());
     assertNull(lb2.getNewestEntry());
   }

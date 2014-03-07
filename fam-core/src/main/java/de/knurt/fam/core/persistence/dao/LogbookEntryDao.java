@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
+import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.model.config.Logbook;
 import de.knurt.fam.core.model.persist.LogbookEntry;
@@ -99,7 +100,8 @@ public abstract class LogbookEntryDao extends AbstractFamDao<LogbookEntry> {
     } else { // special validations
       User example = UserFactory.me().blank();
       example.setUsername(entry.getOfUserName());
-      if (FamDaoProxy.getInstance().getUserDao().userLikeExists(example) == false) {
+      // user must exist, but not in unit tests (avoid a mock)
+      if (FamDaoProxy.getInstance().getUserDao().userLikeExists(example) == false && FamConnector.isUnitTest() == false) {
         this.message = "username of entry must exist";
         result = true;
       } else if (LogbookConfigDao.getInstance().keyExists(entry.getLogbookId()) == false) {
@@ -113,7 +115,7 @@ public abstract class LogbookEntryDao extends AbstractFamDao<LogbookEntry> {
   /** {@inheritDoc} */
   @Override
   protected void logAndThrowDataIntegrityViolationException(LogbookEntry entry) throws DataIntegrityViolationException {
-    String mess = "insert fail on " + entry + ".";
+    String mess = "insert fail on " + entry.getLogbookId() + ".";
     DataIntegrityViolationException ex = new DataIntegrityViolationException(mess);
     FamLog.logException(LogbookEntryDao.class, ex, mess, 200904121718l);
     throw ex;

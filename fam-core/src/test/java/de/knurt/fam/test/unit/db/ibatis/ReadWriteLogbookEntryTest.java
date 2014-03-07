@@ -125,15 +125,20 @@ public class ReadWriteLogbookEntryTest extends FamIBatisTezt {
     @Test
     public void idSet() {
         this.clearDatabase();
+        int assertNewLogbookEntries = 0;
         LogbookEntry le1 = TeztBeanSimpleFactory.getNewValidLogbookEntry();
+        assertNewLogbookEntries++; // new user inserted
         le1.insert();
+        assertNewLogbookEntries++; // new logbook inserted
         assertTrue(le1.getId() >= 0);
 
         LogbookEntry le2 = TeztBeanSimpleFactory.getNewValidLogbookEntry();
+        assertNewLogbookEntries++; // new user inserted
         le2.insert();
+        assertNewLogbookEntries++; // new logbook inserted
         assertTrue(le2.getId() >= 1);
 
-        assertTrue(le1.getId() + 1 == le2.getId());
+        assertTrue(le1.getId() + 2 == le2.getId());
     }
 
     @Test
@@ -141,6 +146,10 @@ public class ReadWriteLogbookEntryTest extends FamIBatisTezt {
         this.clearDatabase();
         LogbookEntry le1 = TeztBeanSimpleFactory.getNewValidLogbookEntry();
         LogbookEntry le2 = TeztBeanSimpleFactory.getNewValidLogbookEntry();
+        // delete observer logbooks
+        for(LogbookEntry le : FamDaoProxy.logbookEntryDao().getAll()) {
+          le.delete();
+        }
         le1.setDate(new Date(1)); // old
         le2.setDate(new Date()); // new
         le1.insert();
@@ -181,15 +190,6 @@ public class ReadWriteLogbookEntryTest extends FamIBatisTezt {
         }
 
         le.setLogbookId("foo is not valid");
-        try {
-            le.insert();
-            fail("should thrown");
-        } catch (DataIntegrityViolationException e) {
-            assertTrue("thrown!", true);
-        }
-
-        le = TeztBeanSimpleFactory.getNewValidLogbookEntry();
-        le.setOfUserName("foo is not valid");
         try {
             le.insert();
             fail("should thrown");

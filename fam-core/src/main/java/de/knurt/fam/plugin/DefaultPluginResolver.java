@@ -104,7 +104,7 @@ public class DefaultPluginResolver implements PluginResolver {
                 String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
                 URLClassLoader classLoader = new URLClassLoader(new URL[] { file.toURI().toURL() }, currentThreadClassLoader);
                 Class<?> cl = classLoader.loadClass(className);
-                classLoader.close();
+                // FIXME did result in a compilation error: classLoader.close();
                 if (this.isPlugin(cl)) {
                   Plugin plugin = (Plugin) cl.newInstance();
                   this.plugins.add(plugin);

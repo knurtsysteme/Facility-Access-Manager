@@ -16,6 +16,7 @@
 package de.knurt.fam.core.persistence.dao;
 
 import java.util.List;
+import java.util.Observable;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -35,7 +36,7 @@ import de.knurt.fam.core.model.persist.Storeable;
  * @author Daniel Oltmanns
  * @since 0.20090412
  */
-public abstract class AbstractFamDao<K extends Storeable> implements FamDao<K> {
+public abstract class AbstractFamDao<K extends Storeable> extends Observable implements FamDao<K> {
 
 	/**
 	 * return true, if the state of dataholder violates the data integrity.
@@ -96,6 +97,10 @@ public abstract class AbstractFamDao<K extends Storeable> implements FamDao<K> {
 		} else {
 			logInsert(dataholder);
 			result = this.internInsert(dataholder);
+			if(result) {
+	      setChanged();
+	      notifyObservers(dataholder);
+			}
 		}
 		return result;
 	}
@@ -108,6 +113,8 @@ public abstract class AbstractFamDao<K extends Storeable> implements FamDao<K> {
 			this.logAndThrowDataIntegrityViolationException(dataholder);
 		} else {
 			logUpdate(dataholder);
+      setChanged();
+      notifyObservers(dataholder);
 			result = this.internUpdate(dataholder);
 		}
 		return result;

@@ -52,8 +52,6 @@ public class InsertUserController extends JSONController {
 		boolean succ = false;
 		JSONObject user = null;
 		try {
-      // FIXME hier werden keine custom fields gesetzt?!??!?!?!?!?!
-//      asdf
 			user = HttpServletRequestConverter.me().getJSONObject(request);
 		} catch (JSONException e) {
 			FamLog.exception("error reading json", e, 201011071024l);
@@ -73,7 +71,6 @@ public class InsertUserController extends JSONController {
 		if (user != null) {
 			User newUser = null;
 			try {
-        // FIXME hier werden keine custom fields gesetzt?!??!?!?!?!?!
 			  Registration registration = UserFactory.me().getRegistration(user);
 			  registration.setCustomFields(user);
 				newUser = registration.getUser();

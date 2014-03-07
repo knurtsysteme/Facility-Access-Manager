@@ -47,6 +47,10 @@ public class SelfTest {
 	public static void tearDownClass() throws Exception {
 	}
 
+  @Test
+  public void envIsTest() {
+    assertTrue(FamConnector.isUnitTest());
+  }
 	@Test
 	public void configTestDirectoryExists() {
 		File f = new File(FamConnector.getConfigDirectory());
