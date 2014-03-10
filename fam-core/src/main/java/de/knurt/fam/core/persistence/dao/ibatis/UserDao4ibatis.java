@@ -64,8 +64,6 @@ public class UserDao4ibatis extends UserDao {
   @Override
   public synchronized boolean delete(User user) {
     boolean result = false;
-    setChanged();
-    notifyObservers(user);
     try {
       this.sqlMap().delete("User.delete.usermail", user);
       this.sqlMap().delete("User.delete.logbookentry", user);
@@ -74,6 +72,11 @@ public class UserDao4ibatis extends UserDao {
       this.sqlMap().delete("User.delete.address", user);
       this.sqlMap().delete("User.delete.user", user);
       result = FamDaoProxy.facilityDao().updateResponsibility(user, new ArrayList<Facility>());
+      if (result) {
+        user.setHasBeenDeleted();
+        setChanged();
+        notifyObservers(user);
+      }
     } catch (Exception e) {
       FamLog.exception(e, 201204231012l);
     }
@@ -338,8 +341,6 @@ public class UserDao4ibatis extends UserDao {
   @Override
   public boolean anonymize(User user, User auth) {
     boolean result = false;
-    setChanged();
-    notifyObservers(user);
     if (FamAuth.hasRight(auth, FamAuth.ANONYMIZE_USER, null)) {
       try {
         List<Job> jobs = FamDaoProxy.jobsDao().getJobs(user, false);
@@ -371,6 +372,9 @@ public class UserDao4ibatis extends UserDao {
           this.sqlMap().delete("User.anonymize.address", user);
           this.sqlMap().delete("User.anonymize.user", user);
           result = true;
+          user.setAnonymizedName(oldUsername);
+          setChanged();
+          notifyObservers(user);
         }
       } catch (Exception e) {
         FamLog.exception(e, 201205071050l);

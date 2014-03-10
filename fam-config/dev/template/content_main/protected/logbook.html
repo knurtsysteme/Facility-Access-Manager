@@ -38,13 +38,16 @@
             #set($oddEven="even")
             #if ($i%2==0) #set($oddEven="odd") #end
             #set($i=$i + 1)
-            #set($href=$util.html.getHref("logbookmakepost") + "?e=" + $lb.key)
+            #set($hrefMP=$util.html.getHref("logbookmakepost") + "?e=" + $lb.key)
             <tr class="$oddEven">
               <td>
                 <h3>$lb.label</h3>
                 <p class="small">$lb.description</p>
                 <p class="small">
-                  <a href="$href">Make Post</a>
+                  <a href="$hrefMP">Make Post</a>
+                  #if($lb.entryCount > 0)
+                    , <a href="?f=1&g=500&e=$lb.key">View</a>
+                  #end
                 </p>
               </td>
               <td>$lb.entryCount</td>

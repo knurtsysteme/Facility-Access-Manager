@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Observable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,7 +71,9 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
   private Map<String, Integer> directBookingCredits;
   private FamShoppingCart shoppingCart = new FamShoppingCart();
   private boolean hasBeenCreated = false;
-  
+  private boolean hasBeenDeleted = false;
+  private String anonymizedName = null;
+
   /**
    * return true, if the user has just been written in the database.
    * 
@@ -82,7 +83,15 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
   public boolean hasBeenCreated() {
     return this.hasBeenCreated;
   }
-  
+
+  public boolean hasBeenDelete() {
+    return this.hasBeenDeleted;
+  }
+
+  public boolean hasBeenAnonymized() {
+    return this.anonymizedName != null;
+  }
+
   /**
    * mark this user as just been written into the db.
    * 
@@ -90,6 +99,13 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
    */
   public void setHasBeenCreated() {
     this.hasBeenCreated = true;
+  }
+
+  /**
+   * mark this user as just been written out of the db.
+   */
+  public void setHasBeenDeleted() {
+    this.hasBeenDeleted = true;
   }
 
   public String getIntendedResearch() {
@@ -1295,6 +1311,20 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
 
   public boolean hasCustomField(String key) {
     return this.customFields != null && this.customFields.has(key);
+  }
+
+  /**
+   * just for a logbook entry. won't be saved.
+   */
+  public void setAnonymizedName(String oldUsername) {
+    this.anonymizedName = oldUsername;
+  }
+
+  /**
+   * return the old username, if the user has just been anonymized. this can only be called right after the anonymized method.
+   */
+  public String getUsernameBeforeAnonym() {
+    return this.anonymizedName;
   }
 
 }

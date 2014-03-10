@@ -56,7 +56,21 @@ public class LogbookUserObserver extends Logbook implements Observer {
   private LogbookEntry getEntryForUserNew(User newUser) {
     LogbookEntry result = this.getNewBaseEntry();
     result.setHeadline("New user: " + newUser.getUsername());
-    result.setContent(String.format("%s was inserted with the role $s", newUser.getFullName(), newUser.getRoleLabel()));
+    result.setContent(String.format("%s was inserted with the role %s", newUser.getFullName(), newUser.getRoleLabel()));
+    return result;
+  }
+
+  private LogbookEntry getEntryForUserAnonymized(String username) {
+    LogbookEntry result = this.getNewBaseEntry();
+    result.setHeadline("Anonymized user" + username);
+    result.setContent(String.format("%s is anonym now", username));
+    return result;
+  }
+
+  private LogbookEntry getEntryForUserDeleted(User user) {
+    LogbookEntry result = this.getNewBaseEntry();
+    result.setHeadline("Deleted user: " + user.getUsername());
+    result.setContent(String.format("%s was deleted", user.getFullName()));
     return result;
   }
 
@@ -66,22 +80,33 @@ public class LogbookUserObserver extends Logbook implements Observer {
     LogbookEntry newEntry = null;
     if (this.is(object, User.class)) {
       User user = (User) object;
-      if (user.hasBeenCreated()) {
+      if (user.hasBeenAnonymized()) {
+        newEntry = this.getEntryForUserAnonymized(user.getUsernameBeforeAnonym());
+      } else if (user.hasBeenCreated()) {
         // a new user was inserted
         newEntry = this.getEntryForUserNew(user);
+      } else if (user.hasBeenDelete()) {
+        newEntry = this.getEntryForUserDeleted(user);
       } else {
         User old = FamDaoProxy.userDao().getUserFromUsername(user.getUsername());
         newEntry = this.getEntryForUserUpdate(old, user);
       }
     } else if (this.is(object, ContactDetail.class)) {
-      // FIXME implement me
-      FamLog.error("observed an unknown event: " + object.getClass(), 201403061006l);
+      ContactDetail cd = (ContactDetail) object;
+      newEntry = this.getEntryForContactDetails(cd);
     }
     if (newEntry != null) {
       newEntry.insert();
     } else {
       FamLog.error("observed an unknown event: " + object.getClass(), 201403061006l);
     }
+  }
+
+  private LogbookEntry getEntryForContactDetails(ContactDetail cd) {
+    LogbookEntry result = this.getNewBaseEntry();
+    result.setHeadline("contact details changed of user " + cd.getUsername());
+    result.setContent(String.format("%s: %s", cd.getTitle(), cd.getDetail()));
+    return result;
   }
 
   private boolean isJSONObject(JSONObject subject, String key) {
@@ -142,12 +167,22 @@ public class LogbookUserObserver extends Logbook implements Observer {
     return result;
   }
 
+  private String getMessage(String oldValue, String newValue, String key) {
+    String result = null;
+    if (oldValue.isEmpty()) {
+      result = String.format("added value for %s: %s", key, newValue);
+    } else {
+      result = String.format("changed value of %s from %s to %s", key, oldValue, newValue);
+    }
+    return result;
+  }
+
   private String getMessage(JSONObject jsonNew, JSONObject jsonOld, String key) throws JSONException {
-    return String.format("value of %s changed from %s to %s", key, jsonNew.getString(key), jsonOld.getString(key));
+    return this.getMessage(jsonOld.getString(key), jsonNew.getString(key), key);
   }
 
   private String getMessage(JSONArray jsonNew, JSONArray jsonOld, int key) throws JSONException {
-    return String.format("value changed from %s to %s", jsonNew.get(key), jsonOld.get(key));
+    return this.getMessage(jsonOld.getString(key), jsonNew.getString(key), key + "");
   }
 
   /**
@@ -170,7 +205,7 @@ public class LogbookUserObserver extends Logbook implements Observer {
         result.addAll(this.getBeforeAfterMessages(newJson.getJSONObject(jsonKey), oldJson.getJSONObject(jsonKey)));
       } else if (this.isJSONArray(newJson, jsonKey)) {
         result.addAll(this.getBeforeAfterMessages(newJson.getJSONArray(jsonKey), oldJson.getJSONArray(jsonKey)));
-      } else if (!newJson.equals(oldJson)) {
+      } else if (!newJson.getString(jsonKey).equals(oldJson.getString(jsonKey))) {
         result.add(this.getMessage(newJson, oldJson, jsonKey));
       }
     }
@@ -191,5 +226,11 @@ public class LogbookUserObserver extends Logbook implements Observer {
     }
     result.setContent(StringUtils.join(messages.toArray(), "\r\n")); // FIXME check delimiter
     return result;
+  }
+
+  public List<LogbookEntry> getAllEntries() {
+    LogbookEntry le = new LogbookEntry();
+    le.setLogbookId(this.getKey());
+    return FamDaoProxy.logbookEntryDao().getObjectsLike(le);
   }
 }

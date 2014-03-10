@@ -10,6 +10,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
 import de.knurt.fam.core.model.config.BookingRule;
@@ -319,6 +321,17 @@ public class TeztBeanSimpleFactory {
 
   public static LogbookUserObserver getUserObserverLogbook() {
     return (LogbookUserObserver) LogbookConfigDao.getInstance().getConfiguredInstance("adminLogbook");
+  }
+
+  public static JSONObject getCustomFields() {
+    JSONObject result = new JSONObject();
+    try {
+      result.append("foo", "foo value");
+      result.append("bar", "bar value");
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+    return result;
   }
 
 }
