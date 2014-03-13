@@ -94,17 +94,17 @@ public class DefaultPluginResolver implements PluginResolver {
       ClassLoader currentThreadClassLoader = Thread.currentThread().getContextClassLoader();
       for (File file : files) {
         if (file.isFile() && file.getName().toLowerCase().endsWith("jar")) {
+          JarFile jar = null;
           try {
-            JarFile jar = new JarFile(file.getAbsoluteFile().toString());
+            jar = new JarFile(file.getAbsoluteFile().toString());
             Enumeration<JarEntry> jarEntries = jar.entries();
-            jar.close();
             while (jarEntries.hasMoreElements()) {
               JarEntry entry = jarEntries.nextElement();
               if (entry.getName().toLowerCase().endsWith("class")) {
                 String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
+//                @SuppressWarnings("resource") // classLoader must not be closed, getting an "IllegalStateException: zip file closed" otherwise
                 URLClassLoader classLoader = new URLClassLoader(new URL[] { file.toURI().toURL() }, currentThreadClassLoader);
                 Class<?> cl = classLoader.loadClass(className);
-                // FIXME did result in a compilation error: classLoader.close();
                 if (this.isPlugin(cl)) {
                   Plugin plugin = (Plugin) cl.newInstance();
                   this.plugins.add(plugin);
@@ -123,6 +123,8 @@ public class DefaultPluginResolver implements PluginResolver {
           } catch (IOException e) {
             e.printStackTrace();
             FamLog.logException(this.getClass(), e, "failed to load plugin", 201010091351l);
+          } finally {
+            try { jar.close(); } catch(Exception e){}
           }
         }
       }
