@@ -2,37 +2,34 @@
 // @author Daniel Oltmanns
 
 @import "all-mixins.less";
+#edituser_control_intendedResearch , #intendedResearch_id {
+  width: 500px;
+}
 
-#edituser_control_intendedResearch, #intendedResearch_id {
-	width:500px;
-}
 table {
-	&.newuser td {
-		vertical-align: bottom;
-		width: 250px;
-	}
-	td {
-		&.intendedResearch {
-			text-align: center;
-		}
-		&.responsibility {
-			text-align: center;
-		}
+  &.newuser td {
+    vertical-align: bottom;
+    width: 250px;
+  }
+
+  &.standard tr.headline {
+    background-color: white;
+    border: 1px solid black;
+  }
 }
-&.standard tr.headline {
-		background-color: white;
-		border: 1px solid black;
-	}
-}
+
 .delete_user_dialog {
-	input, label {
-		cursor: pointer;
-	}
-	 h3 {
-		font-size: 1.5em;
-		color: @mark-color;
-	}
-	label {
-		font-weight: bold;
-	}
+  input , label {
+    cursor: pointer;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    color: @mark-color;
+  }
+
+  label {
+    font-weight: bold;
+  }
 }
+
