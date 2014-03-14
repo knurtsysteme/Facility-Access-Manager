@@ -1,5 +1,6 @@
 /*! HTML5 ✰ Boilerplate */
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section {
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section
+	{
 	display: block;
 }
 
@@ -10,22 +11,32 @@ audio,canvas,video {
 }
 
 audio
+
+
 :not
+
  
+
 (
 [
 controls
 ]
+
  
+
 )
 {
 display
+
+
 :
+
  
+
 none
+
+
 ;
-
-
 }
 [hidden] {
 	display: none;
@@ -43,7 +54,8 @@ none
 	text-shadow: none;
 }
 
-/*! KNURT Systeme - part of the Facility Access Manager */ /* IN GENERAL */
+/*! KNURT Systeme - part of the Facility Access Manager */
+	/* IN GENERAL */
 *,body {
 	font-style: normal;
 	font-variant: normal;
@@ -96,20 +108,19 @@ a:hover {
 	margin-top: 50px;
 	border: 1px solid #9C0F0F;
 	background-color: #AAAAAA;
-	background-image: linear-gradient(left top, rgb(153,153,153) 0%, rgb(221,221,221) 23%, rgb(255,255,255) 85%);
-	background-image: -o-linear-gradient(left top, rgb(153,153,153) 0%, rgb(221,221,221) 23%, rgb(255,255,255) 85%);
-	background-image: -moz-linear-gradient(left top, rgb(153,153,153) 0%, rgb(221,221,221) 23%, rgb(255,255,255) 85%);
-	background-image: -webkit-linear-gradient(left top, rgb(153,153,153) 0%, rgb(221,221,221) 23%, rgb(255,255,255) 85%);
-	background-image: -ms-linear-gradient(left top, rgb(153,153,153) 0%, rgb(221,221,221) 23%, rgb(255,255,255) 85%);
-	
-	background-image: -webkit-gradient(
-		linear,
-		left top,
-		right bottom,
-		color-stop(0, rgb(153,153,153)),
-		color-stop(0.23, rgb(221,221,221)),
-		color-stop(0.85, rgb(255,255,255))
-	);
+	background-image: linear-gradient(left top, rgb(153, 153, 153) 0%,
+		rgb(221, 221, 221) 23%, rgb(255, 255, 255) 85%);
+	background-image: -o-linear-gradient(left top, rgb(153, 153, 153) 0%,
+		rgb(221, 221, 221) 23%, rgb(255, 255, 255) 85%);
+	background-image: -moz-linear-gradient(left top, rgb(153, 153, 153) 0%,
+		rgb(221, 221, 221) 23%, rgb(255, 255, 255) 85%);
+	background-image: -webkit-linear-gradient(left top, rgb(153, 153, 153)
+		0%, rgb(221, 221, 221) 23%, rgb(255, 255, 255) 85%);
+	background-image: -ms-linear-gradient(left top, rgb(153, 153, 153) 0%,
+		rgb(221, 221, 221) 23%, rgb(255, 255, 255) 85%);
+	background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(153,
+		153, 153)), color-stop(0.23, rgb(221, 221, 221)),
+		color-stop(0.85, rgb(255, 255, 255)));
 }
 
 /* rounded corners */
@@ -160,7 +171,8 @@ a:hover {
 	text-shadow: 2px 2px 0.1em black, 0px 0px 0.3em black;
 	font-size: 30px;
 	font-weight: normal;
-	font-family: "Impact", "ImpactRegular", "trebuchet ms", helvetica, sans-serif;
+	font-family: "Impact", "ImpactRegular", "trebuchet ms", helvetica,
+		sans-serif;
 	color: white;
 	margin-left: 30px;
 	margin-top: 15px;
@@ -243,17 +255,17 @@ a:hover {
 }
 
 body.public #content_main img {
-  border: 1px solid black;
+	border: 1px solid black;
 }
 
 body.public #content_main img.left {
-  float: left;
-  margin: 5px 10px 10px 0;
+	float: left;
+	margin: 5px 10px 10px 0;
 }
 
 body.public #content_main img.right {
-  float: right;
-  margin: 5px 0 10px  10px;
+	float: right;
+	margin: 5px 0 10px 10px;
 }
 
 body.public #content_main .clear {
@@ -264,17 +276,19 @@ img {
 	border: 0px solid black;
 }
 
-#content_main > * {
+#content_main>* {
 	margin-bottom: 10px;
 	width: 600px;
 }
 
 /* full width on tables without subcontent on the right */
-#content_logo+#content_main>.fullwidth,#content_logo+#content_main>.dataTables_wrapper {
+#content_logo+#content_main>.fullwidth,#content_logo+#content_main>.dataTables_wrapper
+	{
 	width: 890px;
 }
 
-#content_logo+#content_main>h1+.fullwidth,#content_logo+#content_main>h1+.dataTables_wrapper {
+#content_logo+#content_main>h1+.fullwidth,#content_logo+#content_main>h1+.dataTables_wrapper
+	{
 	margin-top: 25px;
 }
 
@@ -357,7 +371,6 @@ table.standard:hover table.justtext td {
 	background: none;
 }
 
-
 span.none_print,span.print {
 	width: 19px;
 	height: 19px;
@@ -382,6 +395,7 @@ button:hover {
 	border-color: #000;
 	color: #9C0F0F;
 }
+
 button:hover * {
 	color: #9C0F0F;
 }
@@ -391,8 +405,9 @@ button[disabled],select[disabled],button[disabled]:hover {
 	color: #DDDDDD;
 	cursor: default;
 }
+
 select[disabled] {
-  background-color: #FFF;
+	background-color: #FFF;
 }
 
 /* special hints */
@@ -402,6 +417,7 @@ p.warning,span.warning,div.warning {
 	font-weight: bold;
 	border: 1px solid red;
 }
+
 div.warning a {
 	font-weight: bold;
 	color: black;
@@ -505,27 +521,18 @@ legend,.legend {
 	-moz-border-radius: 16px 0 16px 0;
 	-webkit-border-radius: 16px 0 16px 0;
 	border-radius: 16px 0 16px 0;
-	
 	-moz-box-shadow: 0px 0px 5px #9C0F0F;
 	-webkit-box-shadow: 0px 0px 5px #9C0F0F;
-	
 	padding-right: 15px !important;
 	padding-left: 15px !important;
-	
 	background-color: #DDDDDD;
 	background-image: linear-gradient(bottom, #DDDDDD 0%, #FFFFFF 100%);
 	background-image: -o-linear-gradient(bottom, #DDDDDD 0%, #FFFFFF 100%);
 	background-image: -moz-linear-gradient(bottom, #DDDDDD 0%, #FFFFFF 100%);
 	background-image: -webkit-linear-gradient(bottom, #DDDDDD 0%, #FFFFFF 100%);
 	background-image: -ms-linear-gradient(bottom, #DDDDDD 0%, #FFFFFF 100%);
-	
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0, #DDDDDD),
-		color-stop(1, #FFFFFF)
-	);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #DDDDDD),
+		color-stop(1, #FFFFFF));
 }
 
 fieldset,div.likeFieldset {
@@ -540,14 +547,8 @@ fieldset,div.likeFieldset {
 	background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
 	background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
 	background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
-	
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0, #FFFFFF),
-		color-stop(1, #DDDDDD)
-	);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FFFFFF),
+		color-stop(1, #DDDDDD));
 }
 
 form span.hint,form td.hint,form p.hint {
@@ -555,7 +556,8 @@ form span.hint,form td.hint,form p.hint {
 	margin-top: 2px;
 }
 
-#content_main input[type="text"],#content_main input[type="password"],#content_main textarea,#content_main select {
+#content_main input[type="text"],#content_main input[type="password"],#content_main textarea,#content_main select
+	{
 	width: 240px;
 	border-color: #9C0F0F;
 	border-style: solid;
@@ -564,7 +566,8 @@ form span.hint,form td.hint,form p.hint {
 	background-color: white;
 }
 
-#content_main input[type="text"].long,#content_main input[type="password"].long,#content_main textarea.long,#content_main select.long {
+#content_main input[type="text"].long,#content_main input[type="password"].long,#content_main textarea.long,#content_main select.long
+	{
 	width: 500px;
 }
 
@@ -620,7 +623,12 @@ body.infopage #content_main .rightText p {
 @font-face {
 	font-family: 'ImpactRegular';
 	src: url('font-face-kits/impact/impact-webfont.eot');
-	src: url('font-face-kits/impact/impact-webfont.eot?#iefix') format('embedded-opentype'), url('font-face-kits/impact/impact-webfont.woff') format('woff'), url('font-face-kits/impact/impact-webfont.ttf') format('truetype'), url('font-face-kits/impact/impact-webfont.svg#ImpactRegular') format('svg');
+	src: url('font-face-kits/impact/impact-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('font-face-kits/impact/impact-webfont.woff') format('woff'),
+		url('font-face-kits/impact/impact-webfont.ttf') format('truetype'),
+		url('font-face-kits/impact/impact-webfont.svg#ImpactRegular')
+		format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -628,7 +636,11 @@ body.infopage #content_main .rightText p {
 @font-face {
 	font-family: 'fam_regular';
 	src: url('font-face-kits/ubuntu/Ubuntu-R-webfont.eot');
-	src: url('font-face-kits/ubuntu/Ubuntu-R-webfont.eot?#iefix') format('embedded-opentype'), url('font-face-kits/ubuntu/Ubuntu-R-webfont.woff') format('woff'), url('font-face-kits/ubuntu/Ubuntu-R-webfont.ttf') format('truetype'), url('font-face-kits/ubuntu/Ubuntu-R-webfont.svg#UbuntuRegular')
+	src: url('font-face-kits/ubuntu/Ubuntu-R-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('font-face-kits/ubuntu/Ubuntu-R-webfont.woff') format('woff'),
+		url('font-face-kits/ubuntu/Ubuntu-R-webfont.ttf') format('truetype'),
+		url('font-face-kits/ubuntu/Ubuntu-R-webfont.svg#UbuntuRegular')
 		format('svg');
 	font-weight: normal;
 	font-style: normal;
@@ -639,7 +651,8 @@ body.infopage #content_main .rightText p {
 }
 
 #logo a:hover {
-	background: url("images/fam_logo_free_blue.png") no-repeat scroll 0 0 transparent;
+	background: url("images/fam_logo_free_blue.png") no-repeat scroll 0 0
+		transparent;
 }
 
 #content_sub {
@@ -655,7 +668,8 @@ body.infopage #content_main .rightText p {
 	padding: 5px 15px;
 }
 
-#content_logo+#content_main>h1+.fullwidth,#content_logo+#content_main>h1+.dataTables_wrapper {
+#content_logo+#content_main>h1+.fullwidth,#content_logo+#content_main>h1+.dataTables_wrapper
+	{
 	margin-top: 30px;
 }
 
@@ -664,7 +678,15 @@ body.infopage #content_main .rightText p {
 		margin: 0;
 		padding: 0;
 	}
-	#content_logo,header,footer,button,#forcePrinting,.hidden_on_print {
+	@page {
+		margin: 25mm 25mm 40mm 25mm !important;
+	}
+	#content_main>* {
+		width: 130mm !important;
+		text-align: left !important;
+	}
+	#content_logo,header,footer,button,#forcePrinting,.hidden_on_print,.hide_on_print
+		{
 		display: none;
 	}
 	#content_main {
@@ -701,7 +723,7 @@ body.infopage #content_main .rightText p {
 	#content_main h2 {
 		font-family: fam_regular, "trebuchet", "MS Trebuchet", sans-serif;
 		font-weight: bold;
-		font-size: 16pt;
+		font-size: 24pt !important;
 		margin-top: 8mm;
 		margin-bottom: 5mm;
 	}
@@ -740,11 +762,13 @@ body.infopage #content_main .rightText p {
 		border-top: 1px solid black;
 		padding-top: 1mm;
 		margin-top: 1mm;
-		width: 170mm;
+		width: 145mm;
 		color: #333;
 	}
-	h1, h2, h3, h4, a, a:visited {
+	h1,h2,h3,h4,a,a:visited {
 		color: black !important;
 	}
-	div {border:0px solid black !important;}
+	div {
+		border: 0px solid black !important;
+	}
 }
