@@ -151,7 +151,7 @@ JobSurvey.IO.publish = function() {
 		success : function(r) {
 			if(r.succ) {
 				JobSurvey.status.formChanged = false;
-				$.n.success("Your configuration has been publish");
+				$.n.success("Your configuration has been published");
 				$('#action_reload').show().effect('highlight').click(function(){
 					window.location=window.location;
 				});
