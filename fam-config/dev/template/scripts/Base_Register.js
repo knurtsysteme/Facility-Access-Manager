@@ -18,36 +18,38 @@ if(typeof(Base) == "undefined") {
     throw "this neede Base.js";
 }
 $(document).ready(function() {
-    $('form').show();
-    $('form').submit(function(){
-        var company_value = $('#js_company_select').val();
-        if(company_value == "unknown") {
-            company_value = $("#company_id_unknown").val();
-        } else {
-        	company_value = $('#js_company_select :selected').html();
-        }
-        $('#js_real_value_company').val(company_value);
-
-        var department_key = $("select.js_department:visible").val();
-        if(department_key == null || department_key == "unknown") { // an unknown department has been chosen
-        	var department_label = $("#department_id_unknown").val();
-            $('#js_real_value_department').val(department_label);
-            $('#js_departmentLabel').val(department_label);
-            $("#js_departmentKey").val("unknown");
-        } else { // a known department has been chosen
-        	var department_label = $("option[value="+$("select.js_department:visible").val()+"]").html(); // same as $("select.js_department:visible :checked") - but did not work
-            $('#js_real_value_department').val(department_label);
-            $('#js_departmentLabel').val(department_label);
-            $("#js_departmentKey").val(department_key);
-        }
+    $('form').show(0, function() {
+      $('form').submit(function(){
+          var company_value = $('#js_company_select').val();
+          if(company_value == "unknown") {
+              company_value = $("#company_id_unknown").val();
+          } else {
+          	company_value = $('#js_company_select :selected').html();
+          }
+          $('#js_real_value_company').val(company_value);
+  
+          var department_key = $("select.js_department:visible").val();
+          if(department_key == null || department_key == "unknown") { // an unknown department has been chosen
+          	var department_label = $("#department_id_unknown").val();
+              $('#js_real_value_department').val(department_label);
+              $('#js_departmentLabel').val(department_label);
+              $("#js_departmentKey").val("unknown");
+          } else { // a known department has been chosen
+          	var department_label = $("option[value="+$("select.js_department:visible").val()+"]").html(); // same as $("select.js_department:visible :checked") - but did not work
+              $('#js_real_value_department').val(department_label);
+              $('#js_departmentLabel').val(department_label);
+              $("#js_departmentKey").val(department_key);
+          }
+      });
+      Base.Register.Department.init();
+      Base.Register.Password.init();
+      Base.Register.Datepicker.init();
+      Base.Register.Hints.init();
+      Base.Register.GenderTitleConnection.init();
+      Base.Register.Charslimit.init();
+      Base.Register.Validation.init();
+      $('#register_submit').attr('onclick', '');
     });
-    Base.Register.Department.init();
-    Base.Register.Password.init();
-    Base.Register.Datepicker.init();
-    Base.Register.Hints.init();
-	Base.Register.GenderTitleConnection.init();
-    Base.Register.Charslimit.init();
-    Base.Register.Validation.init();
 });
 Base.Register = {};
 Base.Register.Department = {};
