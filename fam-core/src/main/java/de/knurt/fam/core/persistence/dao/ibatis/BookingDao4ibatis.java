@@ -46,6 +46,7 @@ public class BookingDao4ibatis extends BookingDao {
 			BookingAdapterParameter adapter = new BookingAdapterParameter(dataholder);
 			FamSqlMapClientDaoSupport.sqlMap().insert("Booking.insert", adapter);
 			FamLog.info("insert a booking", 201102221431l);
+			result = true;
 		} catch (Exception e) {
 			FamLog.exception(e, 201205071123l);
 		}

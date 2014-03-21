@@ -26,6 +26,7 @@ import org.jcouchdb.document.BaseDocument;
 public abstract class FamBaseDocument extends BaseDocument implements FamDocument {
 
 	private Long created;
+	private boolean justBeenCreated = false;
 
 	/**
 	 * return date when document has been created as unix timestamp.
@@ -42,5 +43,13 @@ public abstract class FamBaseDocument extends BaseDocument implements FamDocumen
 	public void setCreated(Long created) {
 		this.created = created;
 	}
+
+  public void setHasBeenCreated() {
+    this.justBeenCreated = true;
+  }
+  
+  public boolean hasJustBeenCreated() {
+    return this.justBeenCreated;
+  }
 
 }

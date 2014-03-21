@@ -16,6 +16,7 @@
 package de.knurt.fam.core.persistence.dao.couchdb;
 
 import java.util.Date;
+import java.util.Observable;
 
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
@@ -39,7 +40,7 @@ import de.knurt.heinzelmann.util.query.QueryString;
  * @author Daniel Oltmanns <info@knurt.de>
  * @since 1.20 (08/13/2010)
  */
-public class FamCouchDBDao implements FamDocumentDao {
+public class FamCouchDBDao extends Observable implements FamDocumentDao {
 
 	// private Database database;
 
@@ -72,6 +73,9 @@ public class FamCouchDBDao implements FamDocumentDao {
 		document.setCreated(new Date().getTime());
 		try {
 			database().createDocument(document);
+			document.setHasBeenCreated();
+	    setChanged();
+			notifyObservers(document);
 		} catch (Exception e) {
 			FamLog.exception(e, 201203071217l);
 			result = false;
