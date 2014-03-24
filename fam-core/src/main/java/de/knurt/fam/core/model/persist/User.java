@@ -55,7 +55,7 @@ import de.knurt.heinzelmann.util.query.Identificable;
  * @author Daniel Oltmanns
  * @since 0.20090303 (03/03/2009)
  */
-public class User implements Storeable, Authenticatable, ViewableObject, Identificable {
+public class User extends StoreableDeletableAbstract implements Authenticatable, ViewableObject, Identificable {
 
   /* this is for future version, if a user may be language specific */
   private Date registration, lastLogin, birthdate, accountExpires;
@@ -70,42 +70,10 @@ public class User implements Storeable, Authenticatable, ViewableObject, Identif
   private JSONObject customFields;
   private Map<String, Integer> directBookingCredits;
   private FamShoppingCart shoppingCart = new FamShoppingCart();
-  private boolean hasBeenCreated = false;
-  private boolean hasBeenDeleted = false;
   private String anonymizedName = null;
-
-  /**
-   * return true, if the user has just been written in the database.
-   * 
-   * @since 06.03.2014
-   * @return
-   */
-  public boolean hasBeenCreated() {
-    return this.hasBeenCreated;
-  }
-
-  public boolean hasBeenDelete() {
-    return this.hasBeenDeleted;
-  }
 
   public boolean hasBeenAnonymized() {
     return this.anonymizedName != null;
-  }
-
-  /**
-   * mark this user as just been written into the db.
-   * 
-   * @since 06.03.2014
-   */
-  public void setHasBeenCreated() {
-    this.hasBeenCreated = true;
-  }
-
-  /**
-   * mark this user as just been written out of the db.
-   */
-  public void setHasBeenDeleted() {
-    this.hasBeenDeleted = true;
   }
 
   public String getIntendedResearch() {

@@ -26,7 +26,7 @@ import de.knurt.heinzelmann.util.query.Identificable;
  * @author Daniel Oltmanns
  * @since 1.6.1 (01/11/2012)
  */
-public class KeyValue implements Storeable, Identificable {
+public class KeyValue extends StoreableAbstract implements Identificable {
 
 	private String k, v;
 

@@ -72,7 +72,7 @@ public class UserMailSender {
 					try {
 						me.smtpPort = Integer.parseInt(FamConnector.getGlobalProperty("mail_smtp_port"));
 					} catch (NumberFormatException ex) {
-						FamLog.exception("smtp port not set or not a number", ex, 201111091249l);
+						FamLog.exception("smtp port not set or not a number", ex, 201111091249l); // INTLANG
 					}
 					me.authPass = FamConnector.getGlobalProperty("mail_auth_pass");
 					if (me.authPass != null && me.authPass.equals("null")) {
@@ -129,6 +129,11 @@ public class UserMailSender {
 		}
 		return result;
 	}
+	
+	/**
+	 * just a meter for sending mails without userbox
+	 */
+	public static int SEND_WITHOUT_METER = 0;
 
 	/**
 	 * send an email without need to put it into the userbox (without saved in
@@ -153,6 +158,12 @@ public class UserMailSender {
 				result = false;
 				FamLog.exception("sendWithoutUserBox: " + e.getMessage(), e, 201106131753l);
 			}
+		}
+		if(result) {
+		  if(SEND_WITHOUT_METER == Integer.MAX_VALUE) {
+		    SEND_WITHOUT_METER = 0;
+		  }
+		  SEND_WITHOUT_METER++;
 		}
 		return result;
 	}

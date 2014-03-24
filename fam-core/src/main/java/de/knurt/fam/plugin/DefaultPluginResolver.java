@@ -102,7 +102,7 @@ public class DefaultPluginResolver implements PluginResolver {
               JarEntry entry = jarEntries.nextElement();
               if (entry.getName().toLowerCase().endsWith("class")) {
                 String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
-//                @SuppressWarnings("resource") // classLoader must not be closed, getting an "IllegalStateException: zip file closed" otherwise
+                // @SuppressWarnings("resource") // classLoader must not be closed, getting an "IllegalStateException: zip file closed" otherwise
                 URLClassLoader classLoader = new URLClassLoader(new URL[] { file.toURI().toURL() }, currentThreadClassLoader);
                 Class<?> cl = classLoader.loadClass(className);
                 if (this.isPlugin(cl)) {
@@ -124,7 +124,10 @@ public class DefaultPluginResolver implements PluginResolver {
             e.printStackTrace();
             FamLog.logException(this.getClass(), e, "failed to load plugin", 201010091351l);
           } finally {
-            try { jar.close(); } catch(Exception e){}
+            try {
+              jar.close();
+            } catch (Exception e) {
+            }
           }
         }
       }

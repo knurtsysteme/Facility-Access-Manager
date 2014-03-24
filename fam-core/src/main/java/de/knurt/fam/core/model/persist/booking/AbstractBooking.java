@@ -42,6 +42,16 @@ import de.knurt.heinzelmann.util.time.TimeFrame;
  */
 public abstract class AbstractBooking implements Booking {
 	private Date lastInvoiced = null;
+  
+	private boolean justBeenInserted = false;
+  @Override
+  public boolean hasJustBeenInserted() {
+    return this.justBeenInserted;
+  }
+  @Override
+  public void setJustBeenInserted() {
+    this.justBeenInserted = true;
+  }
 
 	@Override
   public void cancel() {

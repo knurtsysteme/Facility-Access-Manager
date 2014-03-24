@@ -14,7 +14,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
   <bean name="bus1" class="de.knurt.fam.core.model.config.FacilityBookable" parent="abstractFacilityBookable">
     <property name="parentFacility" ref="vehicles" />
     <property name="bookingRule">
-      <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardHourTimeBasedBookingRule" />
+       <bean class="de.knurt.fam.core.model.config.TimeBasedBookingRule" parent="standardHourTimeBasedBookingRule">
+        <property name="extraMailsOnBooking" value="backoffice@car-centre.com,busdriver@gmail.com" />
+      </bean>
     </property>
   </bean>
     

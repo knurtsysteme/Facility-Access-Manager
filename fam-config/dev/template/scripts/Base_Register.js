@@ -27,7 +27,7 @@ $(document).ready(function() {
           	company_value = $('#js_company_select :selected').html();
           }
           $('#js_real_value_company').val(company_value);
-  
+          
           var department_key = $("select.js_department:visible").val();
           if(department_key == null || department_key == "unknown") { // an unknown department has been chosen
           	var department_label = $("#department_id_unknown").val();

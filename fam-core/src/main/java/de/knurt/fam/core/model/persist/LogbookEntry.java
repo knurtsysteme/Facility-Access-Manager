@@ -31,7 +31,7 @@ import de.knurt.heinzelmann.util.query.Identificable;
  * @author Daniel Oltmanns
  * @since 0.20090410
  */
-public class LogbookEntry implements Storeable, Identificable {
+public class LogbookEntry extends StoreableAbstract implements Identificable {
 
 	private String logbookId, content, headline, ofUserName;
 	private Locale language;

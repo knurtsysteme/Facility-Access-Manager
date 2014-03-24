@@ -425,4 +425,6 @@ public interface Booking extends Cloneable, Storeable, Availability, Identificab
   public boolean isTransferable();
 
   public void cancel();
+
+
 }

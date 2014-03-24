@@ -73,7 +73,7 @@ public class UserDao4ibatis extends UserDao {
       this.sqlMap().delete("User.delete.user", user);
       result = FamDaoProxy.facilityDao().updateResponsibility(user, new ArrayList<Facility>());
       if (result) {
-        user.setHasBeenDeleted();
+        user.setJustBeenDeleted();
         setChanged();
         notifyObservers(user);
       }

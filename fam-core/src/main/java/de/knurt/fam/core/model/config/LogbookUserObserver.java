@@ -82,10 +82,10 @@ public class LogbookUserObserver extends Logbook implements Observer {
       User user = (User) object;
       if (user.hasBeenAnonymized()) {
         newEntry = this.getEntryForUserAnonymized(user.getUsernameBeforeAnonym());
-      } else if (user.hasBeenCreated()) {
+      } else if (user.hasJustBeenInserted()) {
         // a new user was inserted
         newEntry = this.getEntryForUserNew(user);
-      } else if (user.hasBeenDelete()) {
+      } else if (user.hasJustBeenDeleted()) {
         newEntry = this.getEntryForUserDeleted(user);
       } else {
         User old = FamDaoProxy.userDao().getUserFromUsername(user.getUsername());

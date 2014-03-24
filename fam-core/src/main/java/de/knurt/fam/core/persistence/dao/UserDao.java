@@ -244,7 +244,7 @@ public abstract class UserDao extends AbstractFamDao<User> {
   @Override
   public synchronized boolean insert(User user) throws DataIntegrityViolationException {
     user.encodePassword();
-    user.setHasBeenCreated();
+    user.setJustBeenInserted();
     return super.insert(user);
   }
   

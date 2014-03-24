@@ -1,118 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-  <!-- 
-    define all abstract booking rules here
-  -->
+	<!-- define all abstract booking rules here -->
 
-  <!--
-    this is the default booking rule for time based bookable facilities.
-    it says: bookable in 15 minute steps for 4 times maximum (that's an hour).
-    the bookable unit is the facility itself. there is one facility existing.
-  -->
-  <bean name="standardDefaultTimeBasedBookingRule" class="de.knurt.fam.core.model.config.TimeBasedBookingRule" scope="prototype" abstract="true">
-    <property name="smallestMinutesBookable" value="15" />
-    <property name="defaultSetOfRulesForARole" ref="standardSetOfRulesForARoleBean" />
-    <property name="key">
-      <null />
-    </property>
-    <property name="smallestTimeLabelEqualsOneXKey">
-      <null />
-    </property>
-    <property name="mustStartAt">
-      <null />
-    </property>
-    <property name="specificRights4UserOnFacility">
-      <null />
-    </property>
-    <!-- 
-      those, who have not the right to book facilities without a time barrier have to wait at least 48 h with the session.
-      @see de.knurt.fam.core.aspects.security.auth.FamAuth#BOOK_WITHOUT_TIME_BARRIER
-    -->
-    <property name="earliestPossibilityToBookFromNow" value="2880" />
-  </bean>
-  
-  
-  <bean name="standardDefaultQueueBasedBookingRule" scope="prototype" class="de.knurt.fam.core.model.config.UsersUnitsQueueBasedBookingRule" abstract="true">
-    <property name="assertUnitsPerHourProcessed" value="1" />
-    <property name="key">
-      <null />
-    </property>
-    <property name="specificRights4UserOnFacility">
-      <null />
-    </property>
-    <property name="defaultSetOfRulesForARole">
-      <bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" parent="standardSetOfRulesForARoleBean">
-        <property name="minBookableCapacityUnits" value="1" />
-        <property name="maxBookableCapacityUnits" value="1" />
-      </bean>
-    </property>
-  </bean>
+	<!-- this is the default booking rule for time based bookable facilities. 
+		it says: bookable in 15 minute steps for 4 times maximum (that's an hour). 
+		the bookable unit is the facility itself. there is one facility existing. -->
+	<bean name="standardDefaultTimeBasedBookingRule" class="de.knurt.fam.core.model.config.TimeBasedBookingRule"
+		scope="prototype" abstract="true">
+		<property name="smallestMinutesBookable" value="15" />
+		<property name="defaultSetOfRulesForARole" ref="standardSetOfRulesForARoleBean" />
+		<property name="key">
+			<null />
+		</property>
+		<property name="smallestTimeLabelEqualsOneXKey">
+			<null />
+		</property>
+		<property name="mustStartAt">
+			<null />
+		</property>
+		<property name="specificRights4UserOnFacility">
+			<null />
+		</property>
+		<!-- those, who have not the right to book facilities without a time barrier 
+			have to wait at least 48 h with the session. @see de.knurt.fam.core.aspects.security.auth.FamAuth#BOOK_WITHOUT_TIME_BARRIER -->
+		<property name="earliestPossibilityToBookFromNow" value="2880" />
+	</bean>
 
-  <bean name="standardHourTimeBasedBookingRule" scope="prototype" class="de.knurt.fam.core.model.config.TimeBasedBookingRule" abstract="true">
-    <property name="smallestMinutesBookable" value="60" />
-    <property name="defaultSetOfRulesForARole">
-      <bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" parent="standardSetOfRulesForARoleBean">
-        <property name="minBookableTimeUnits" value="1" />
-        <property name="maxBookableTimeUnits" value="8" />
-        <property name="minBookableCapacityUnits" value="1" />
-        <property name="maxBookableCapacityUnits" value="1" />
-        <property name="reminderMailMinutesBeforeStarting" value="1440" />
-      </bean>
-    </property>
-    <property name="key">
-      <null />
-    </property>
-    <property name="smallestTimeLabelEqualsOneXKey" value="hour" />
-    <property name="mustStartAt">
-      <null />
-    </property>
-    <property name="specificRights4UserOnFacility">
-      <null />
-    </property>
-    <!-- 
-      those, who have not the right to book facilities without a time barrier have to wait at least 48 h with the session.
-      @see de.knurt.fam.core.aspects.security.auth.FamAuth#BOOK_WITHOUT_TIME_BARRIER
-    -->
-    <property name="earliestPossibilityToBookFromNow" value="2880" />
-  </bean>
 
-  <!-- 
-    specific rules for specific roles
-  -->
-  
-  <!--  default -->
-  <bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" name="standardSetOfRulesForARoleBean">
-    <property name="minBookableTimeUnits" value="1" />
-    <property name="maxBookableTimeUnits" value="16" />
-    <property name="minBookableCapacityUnits" value="1" />
-    <property name="maxBookableCapacityUnits" value="1" />
-    <property name="reminderMailMinutesBeforeStarting" value="1440" />
-  </bean>
-      
-  <!--
-    specific rules for a role on a facility.
-  -->
-  <bean name="bean201009011148" id="bean201009011148" class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" parent="standardSetOfRulesForARoleBean">
-    <property name="minBookableTimeUnits" value="1" />
-    <property name="maxBookableTimeUnits" value="10" />
-    <property name="minBookableCapacityUnits" value="1" />
-    <property name="maxBookableCapacityUnits" value="8" />
-  </bean>
-  
-  <!--
-    specific rules for a role on a facility.
-  -->
-  <bean name="bean201009011150" id="bean201009011150" class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean" parent="standardSetOfRulesForARoleBean">
-    <property name="minBookableTimeUnits" value="5" />
-    <property name="maxBookableTimeUnits" value="10" />
-    <property name="minBookableCapacityUnits" value="1" />
-    <property name="maxBookableCapacityUnits" value="3" />
-  </bean>
-    
+	<bean name="standardDefaultQueueBasedBookingRule" scope="prototype"
+		class="de.knurt.fam.core.model.config.UsersUnitsQueueBasedBookingRule"
+		abstract="true">
+		<property name="assertUnitsPerHourProcessed" value="1" />
+		<property name="key">
+			<null />
+		</property>
+		<property name="specificRights4UserOnFacility">
+			<null />
+		</property>
+		<property name="defaultSetOfRulesForARole">
+			<bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean"
+				parent="standardSetOfRulesForARoleBean">
+				<property name="minBookableCapacityUnits" value="1" />
+				<property name="maxBookableCapacityUnits" value="1" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean name="standardHourTimeBasedBookingRule" scope="prototype"
+		class="de.knurt.fam.core.model.config.TimeBasedBookingRule" abstract="true">
+		<property name="smallestMinutesBookable" value="60" />
+		<property name="defaultSetOfRulesForARole">
+			<bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean"
+				parent="standardSetOfRulesForARoleBean">
+				<property name="minBookableTimeUnits" value="1" />
+				<property name="maxBookableTimeUnits" value="8" />
+				<property name="minBookableCapacityUnits" value="1" />
+				<property name="maxBookableCapacityUnits" value="1" />
+				<property name="reminderMailMinutesBeforeStarting" value="1440" />
+			</bean>
+		</property>
+		<property name="key">
+			<null />
+		</property>
+		<property name="smallestTimeLabelEqualsOneXKey" value="hour" />
+		<property name="mustStartAt">
+			<null />
+		</property>
+		<property name="specificRights4UserOnFacility">
+			<null />
+		</property>
+		<!-- those, who have not the right to book facilities without a time barrier 
+			have to wait at least 48 h with the session. @see de.knurt.fam.core.aspects.security.auth.FamAuth#BOOK_WITHOUT_TIME_BARRIER -->
+		<property name="earliestPossibilityToBookFromNow" value="2880" />
+	</bean>
+
+	<!-- specific rules for specific roles -->
+
+	<!-- default -->
+	<bean class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean"
+		name="standardSetOfRulesForARoleBean">
+		<property name="minBookableTimeUnits" value="1" />
+		<property name="maxBookableTimeUnits" value="16" />
+		<property name="minBookableCapacityUnits" value="1" />
+		<property name="maxBookableCapacityUnits" value="1" />
+		<property name="reminderMailMinutesBeforeStarting" value="1440" />
+	</bean>
+
+	<!-- specific rules for a role on a facility. -->
+	<bean name="bean201009011148" id="bean201009011148"
+		class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean"
+		parent="standardSetOfRulesForARoleBean">
+		<property name="minBookableTimeUnits" value="1" />
+		<property name="maxBookableTimeUnits" value="10" />
+		<property name="minBookableCapacityUnits" value="1" />
+		<property name="maxBookableCapacityUnits" value="8" />
+	</bean>
+
+	<!-- specific rules for a role on a facility. -->
+	<bean name="bean201009011150" id="bean201009011150"
+		class="de.knurt.fam.core.model.config.SimpleSetOfRulesForARoleBean"
+		parent="standardSetOfRulesForARoleBean">
+		<property name="minBookableTimeUnits" value="5" />
+		<property name="maxBookableTimeUnits" value="10" />
+		<property name="minBookableCapacityUnits" value="1" />
+		<property name="maxBookableCapacityUnits" value="3" />
+	</bean>
+
+	<!-- utilities -->
+	<bean class="de.knurt.fam.core.util.booking.SendExtraMailObserver">
+		<constructor-arg value="noreply@facility-access-manager.com" />
+    <property name="observable" ref="bookingDao_ibatis" />
+	</bean>
+
 </beans>

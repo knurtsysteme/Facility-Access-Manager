@@ -99,6 +99,7 @@ public abstract class AbstractFamDao<K extends Storeable> extends Observable imp
 			result = this.internInsert(dataholder);
 			if(result) {
 	      setChanged();
+	      dataholder.setJustBeenInserted();
 	      notifyObservers(dataholder);
 			}
 		}

@@ -267,4 +267,8 @@ public interface BookingRule {
 	 * #getMaxBookableTimeUnits(User)}
 	 */
 	public int getMaxBookableTimeUnits(User user);
+
+  public void setExtraMailsOnBooking(String[] emailAddresses);
+  
+  public String[] getExtraMailsOnBooking();
 }

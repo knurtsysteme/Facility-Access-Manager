@@ -24,9 +24,8 @@ import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.view.text.FamText;
 
 /**
- * a rule for booking a facility is defined here. every bookable facility has at
- * least one rule for booking. the rule says, who can book the facility when, for
- * how long and how many units are allowed.
+ * a rule for booking a facility is defined here. every bookable facility has at least one rule for booking. the rule says, who can book the facility
+ * when, for how long and how many units are allowed.
  * 
  * @author Daniel Oltmanns
  * @see FacilityBookable
@@ -34,201 +33,205 @@ import de.knurt.fam.core.view.text.FamText;
  */
 public abstract class AbstractBookingRule implements BookingRule {
 
-	private List<SpecificRights4RoleOnFacility> bookingRule4Roles;
-	private FacilityBookable facility;
-	private String key;
-	private Map<String, SetOfRulesForARole> setsOfRulesForARole;
-	private SetOfRulesForARole defaultSetOfRulesForARole;
+  private List<SpecificRights4RoleOnFacility> bookingRule4Roles;
+  private FacilityBookable facility;
+  private String key;
+  private Map<String, SetOfRulesForARole> setsOfRulesForARole;
+  private SetOfRulesForARole defaultSetOfRulesForARole;
+  private String[] extraMailsOnBooking = new String[] {};
 
-	@Override
+  @Override
+  public void setExtraMailsOnBooking(String[] emailAddresses) {
+    this.extraMailsOnBooking = emailAddresses;
+  };
+
+  @Override
+  public String[] getExtraMailsOnBooking() {
+    return this.extraMailsOnBooking;
+  }
+
+  @Override
   public SpecificRights4RoleOnFacility getSpecificRights4UserOnFacility(User user) {
-		SpecificRights4RoleOnFacility result = null;
-		if (this.bookingRule4Roles != null) {
-			for (SpecificRights4RoleOnFacility candidate : this.bookingRule4Roles) {
-				if (user.getRoleId().equals(candidate.getRole().getKey())) {
-					result = candidate;
-					break;
-				}
-			}
-		}
-		return result;
-	}
+    SpecificRights4RoleOnFacility result = null;
+    if (this.bookingRule4Roles != null) {
+      for (SpecificRights4RoleOnFacility candidate : this.bookingRule4Roles) {
+        if (user.getRoleId().equals(candidate.getRole().getKey())) {
+          result = candidate;
+          break;
+        }
+      }
+    }
+    return result;
+  }
 
-	@Override
+  @Override
   public void setDefaultSetOfRulesForARole(SetOfRulesForARole defaultSetOfRulesForARole) {
-		this.defaultSetOfRulesForARole = defaultSetOfRulesForARole;
-	}
+    this.defaultSetOfRulesForARole = defaultSetOfRulesForARole;
+  }
 
-	@Override
+  @Override
   public SetOfRulesForARole getDefaultSetOfRulesForARole() {
-		return this.defaultSetOfRulesForARole;
-	}
+    return this.defaultSetOfRulesForARole;
+  }
 
-	@Override
+  @Override
   public SetOfRulesForARole getSetOfRulesForARole(User user) {
-		if (user != null && this.setsOfRulesForARole != null && this.setsOfRulesForARole.containsKey(user.getRoleId())) {
-			return this.setsOfRulesForARole.get(user.getRoleId());
-		} else {
-			return this.defaultSetOfRulesForARole;
-		}
-	}
+    if (user != null && this.setsOfRulesForARole != null && this.setsOfRulesForARole.containsKey(user.getRoleId())) {
+      return this.setsOfRulesForARole.get(user.getRoleId());
+    } else {
+      return this.defaultSetOfRulesForARole;
+    }
+  }
 
-	@Override
+  @Override
   public void setSetsOfRulesForARole(Map<String, SetOfRulesForARole> setsOfRulesForARole) {
-		this.setsOfRulesForARole = setsOfRulesForARole;
-	}
+    this.setsOfRulesForARole = setsOfRulesForARole;
+  }
 
-	@Override
+  @Override
   public String getCapacityLabelOfMin(User user) {
-		return this.getSetOfRulesForARole(user).getMinBookableCapacityUnits() + " " + this.getCapacityUnitName(this.getSetOfRulesForARole(user).getMinBookableCapacityUnits());
-	}
+    return this.getSetOfRulesForARole(user).getMinBookableCapacityUnits() + " " + this.getCapacityUnitName(this.getSetOfRulesForARole(user).getMinBookableCapacityUnits());
+  }
 
-	@Override
+  @Override
   public String getCapacityLabelOfMax(User user) {
-		return this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits() + " " + this.getCapacityUnitName(this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits());
-	}
+    return this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits() + " " + this.getCapacityUnitName(this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits());
+  }
 
-	@Override
+  @Override
   public String getTimeLabelOfMax(User user) {
-		return this.getTimeLabel(this.getSetOfRulesForARole(user).getMaxBookableTimeUnits());
-	}
+    return this.getTimeLabel(this.getSetOfRulesForARole(user).getMaxBookableTimeUnits());
+  }
 
-	@Override
+  @Override
   public String getTimeLabelOfMin(User user) {
-		return this.getTimeLabel(this.getSetOfRulesForARole(user).getMinBookableTimeUnits());
-	}
+    return this.getTimeLabel(this.getSetOfRulesForARole(user).getMinBookableTimeUnits());
+  }
 
-	@Override
+  @Override
   public String getTimeLabel(int units) {
-		String result = "";
-		if (this.getSmallestTimeLabelEqualsOneXKey() != null) {
-			result = units + " " + this.getLabel("label.time." + this.getSmallestTimeLabelEqualsOneXKey() + ".%s", units);
-		} else {
-			int unitTmpCount = units * this.getSmallestMinutesBookable();
-			// XXX use de.knurt.util.text.DurationAdapter
-			if (unitTmpCount == 1) {
-				result = unitTmpCount + " minute"; // INTLANG
-			} else if (unitTmpCount < 60) {
-				result = unitTmpCount + " minutes"; // INTLANG
-			} else if (unitTmpCount == 60) {
-				result = "1 hour"; // INTLANG
-			} else { // more then 60 minutes
-				int hours = (int) Math.floor(unitTmpCount / 60);
-				int minutes = unitTmpCount % 60;
-				if (hours >= 24) {
-					int days = (int) Math.floor(hours / 24);
-					if (days == 1) {
-						result = "1 day"; // INTLANG
-					} else {
-						result = days + " days"; // INTLANG
-					}
-					hours = hours % 24;
-				}
-				if (hours == 1) {
-					result += hours + " hour"; // INTLANG
-				} else if (hours > 1) {
-					result += hours + " hours"; // INTLANG
-				}
-				if (minutes == 1) {
-					result += " " + minutes + " minute";
-				} else if (minutes > 1) {
-					result += " " + minutes + " minutes";
-				}
-			}
-		}
-		return result;
-	}
+    String result = "";
+    if (this.getSmallestTimeLabelEqualsOneXKey() != null) {
+      result = units + " " + this.getLabel("label.time." + this.getSmallestTimeLabelEqualsOneXKey() + ".%s", units);
+    } else {
+      int unitTmpCount = units * this.getSmallestMinutesBookable();
+      // XXX use de.knurt.util.text.DurationAdapter
+      if (unitTmpCount == 1) {
+        result = unitTmpCount + " minute"; // INTLANG
+      } else if (unitTmpCount < 60) {
+        result = unitTmpCount + " minutes"; // INTLANG
+      } else if (unitTmpCount == 60) {
+        result = "1 hour"; // INTLANG
+      } else { // more then 60 minutes
+        int hours = (int) Math.floor(unitTmpCount / 60);
+        int minutes = unitTmpCount % 60;
+        if (hours >= 24) {
+          int days = (int) Math.floor(hours / 24);
+          if (days == 1) {
+            result = "1 day"; // INTLANG
+          } else {
+            result = days + " days"; // INTLANG
+          }
+          hours = hours % 24;
+        }
+        if (hours == 1) {
+          result += hours + " hour"; // INTLANG
+        } else if (hours > 1) {
+          result += hours + " hours"; // INTLANG
+        }
+        if (minutes == 1) {
+          result += " " + minutes + " minute";
+        } else if (minutes > 1) {
+          result += " " + minutes + " minutes";
+        }
+      }
+    }
+    return result;
+  }
 
-	private String getLabel(String keyformat, int units) {
-		String keyformated = "";
-		if (units == 1) {
-			keyformated = String.format(keyformat, "singular");
-		} else {
-			keyformated = String.format(keyformat, "plural");
-		}
-		return FamText.message(keyformated);
-	}
+  private String getLabel(String keyformat, int units) {
+    String keyformated = "";
+    if (units == 1) {
+      keyformated = String.format(keyformat, "singular");
+    } else {
+      keyformated = String.format(keyformat, "plural");
+    }
+    return FamText.message(keyformated);
+  }
 
-	@Override
+  @Override
   public String getCapacityUnitName(int units) {
-		return this.getLabel("label.capacity." + this.getKey() + ".%s", units);
-	}
+    return this.getLabel("label.capacity." + this.getKey() + ".%s", units);
+  }
 
-	/**
-	 * the key for getting names and labels. if <code>null</code>, this will be
-	 * the facility itself.
-	 * 
-	 * @return the key
-	 */
+  /**
+   * the key for getting names and labels. if <code>null</code>, this will be the facility itself.
+   * 
+   * @return the key
+   */
 
-	@Override
+  @Override
   public String getKey() {
-		if (key == null) {
-			this.key = this.getFacility().getKey();
-		}
-		return key;
-	}
+    if (key == null) {
+      this.key = this.getFacility().getKey();
+    }
+    return key;
+  }
 
-	/**
-	 * @param key
-	 *            the key to set
-	 */
-	@Override
+  /**
+   * @param key the key to set
+   */
+  @Override
   @Required
-	public void setKey(String key) {
-		this.key = key;
-	}
+  public void setKey(String key) {
+    this.key = key;
+  }
 
-	/**
-	 * @return the facility
-	 */
+  /**
+   * @return the facility
+   */
 
-	@Override
+  @Override
   public FacilityBookable getFacility() {
-		return facility;
-	}
+    return facility;
+  }
 
+  /**
+   * @param facility the facility to set
+   */
 
-	/**
-	 * @param facility
-	 *            the facility to set
-	 */
-
-	@Override
+  @Override
   public void setFacility(FacilityBookable facility) {
-		this.facility = facility;
-	}
+    this.facility = facility;
+  }
 
-	/**
-	 * @param bookingRule4Roles
-	 *            the bookingRule4Roles to set
-	 */
+  /**
+   * @param bookingRule4Roles the bookingRule4Roles to set
+   */
 
-	@Override
+  @Override
   public void setSpecificRights4UserOnFacility(List<SpecificRights4RoleOnFacility> bookingRule4Roles) {
-		this.bookingRule4Roles = bookingRule4Roles;
-	}
+    this.bookingRule4Roles = bookingRule4Roles;
+  }
 
-
-
-	@Override
+  @Override
   public int getMaxBookableCapacityUnits(User user) {
-		return this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits();
-	}
+    return this.getSetOfRulesForARole(user).getMaxBookableCapacityUnits();
+  }
 
-	@Override
+  @Override
   public int getMaxBookableTimeUnits(User user) {
-		return this.getSetOfRulesForARole(user).getMaxBookableTimeUnits();
-	}
+    return this.getSetOfRulesForARole(user).getMaxBookableTimeUnits();
+  }
 
-	@Override
+  @Override
   public int getMinBookableCapacityUnits(User user) {
-		return this.getSetOfRulesForARole(user).getMinBookableCapacityUnits();
-	}
+    return this.getSetOfRulesForARole(user).getMinBookableCapacityUnits();
+  }
 
-	@Override
+  @Override
   public int getMinBookableTimeUnits(User user) {
-		return this.getSetOfRulesForARole(user).getMinBookableTimeUnits();
-	}
+    return this.getSetOfRulesForARole(user).getMinBookableTimeUnits();
+  }
 
 }

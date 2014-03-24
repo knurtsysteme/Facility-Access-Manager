@@ -26,7 +26,7 @@ import de.knurt.heinzelmann.util.query.Identificable;
  * @author Daniel Oltmanns
  * @since 0.20100123
  */
-public class ContactDetail implements Storeable, Identificable, Deletable {
+public class ContactDetail extends StoreableDeletableAbstract implements Identificable {
 
 	private String username, title, detail;
 	private Integer id;
