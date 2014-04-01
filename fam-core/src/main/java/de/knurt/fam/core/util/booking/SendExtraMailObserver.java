@@ -61,14 +61,14 @@ public class SendExtraMailObserver implements Observer {
   public void update(Observable arg0, Object booking) {
     if (this.isBooking(booking)) {
       Booking b = (Booking) booking;
-      if (b.hasJustBeenInserted()) {
-        this.insernUpdate(b);
+      if (b.hasJustBeenInserted() && !b.hasJustBeenUpdated()) {
+        this.internUpdate(b);
       }
     }
 
   }
 
-  private void insernUpdate(Booking b) {
+  private void internUpdate(Booking b) {
     String[] extraEmailsOnBooking = b.getFacility().getBookingRule().getExtraMailsOnBooking();
     for (String extraEmailOnBooking : extraEmailsOnBooking) {
       Email mail = this.getEMail(extraEmailOnBooking, b);

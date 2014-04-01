@@ -62,4 +62,18 @@ public interface Storeable {
    * @throws DataIntegrityViolationException if the state is not storable
    */
   public boolean update() throws DataIntegrityViolationException;
+
+  /**
+   * return true, if this booking has just been inserted by a dao. use this method in classes observing the booking dao.
+   * 
+   * @return true, if this booking has just been inserted by a dao.
+   */
+  public boolean hasJustBeenUpdated();
+
+  /**
+   * set justBeenInserted
+   * 
+   * @see #hasJustBeenInserted()
+   */
+  public void setJustBeenUpdated();
 }

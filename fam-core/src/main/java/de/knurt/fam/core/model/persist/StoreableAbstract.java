@@ -15,15 +15,16 @@
  */
 package de.knurt.fam.core.model.persist;
 
-
 /**
- * a default solution for the justBeenInserted fields
+ * a default solution for the "justBeen"-fields simply using an attribute to store the information in (means "just been" is defined as the lifetime of
+ * the instance).
  * 
  * @author Daniel Oltmanns
  * @since 03/24/2014
  */
 public abstract class StoreableAbstract implements Storeable {
   private boolean justBeenInserted = false;
+  private boolean justBeenUpdated = false;
 
   @Override
   public boolean hasJustBeenInserted() {
@@ -34,5 +35,15 @@ public abstract class StoreableAbstract implements Storeable {
   @Override
   public void setJustBeenInserted() {
     this.justBeenInserted = true;
+  }
+
+  @Override
+  public boolean hasJustBeenUpdated() {
+    return this.justBeenUpdated;
+  }
+
+  @Override
+  public void setJustBeenUpdated() {
+    this.justBeenUpdated = true;
   }
 }
