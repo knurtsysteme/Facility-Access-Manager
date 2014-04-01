@@ -17,8 +17,10 @@ package de.knurt.fam.test.unit.bookbehaviour;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,20 +35,41 @@ import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 @ContextConfiguration(locations = { "classpath:/test-dependencies.xml" })
 public class SendExtraMailOnBookingsTest extends FamIBatisTezt {
 
+  private int assertExtraEmails = 2;
+
   @Test
-  public void sendExtraMailOnBookingSchoolbusses() {
-    this.clearDatabase();
+  public void selftest() {
     // assert booking rules of the default test-facility bookable (bus1) has 2 extra emails configured
-    int assertExtraEmails = 2;
     Booking b = TeztBeanSimpleFactory.getNewValidBooking();
     assertEquals("selftest", "bus1", b.getFacilityKey());
     assertNotNull("selftest", b.getBookingRule().getExtraMailsOnBooking());
     assertEquals("selftest", assertExtraEmails, b.getBookingRule().getExtraMailsOnBooking().length);
+  }
+
+  @Test
+  public void sendExtraMailOnBookingSchoolbusses() {
+    this.clearDatabase();
     // book it and expect, that both got an email
+    Booking b = TeztBeanSimpleFactory.getNewValidBooking();
     b.setBooked();
     int countMailsSendBefore = UserMailSender.SEND_WITHOUT_METER;
     assertTrue(b.insert());
     int countMailsSendAfter = UserMailSender.SEND_WITHOUT_METER;
     assertEquals(countMailsSendBefore + assertExtraEmails, countMailsSendAfter);
+  }
+
+  @Test
+  public void sendExtraMailOnceEvenAfterUpdates() {
+    this.clearDatabase();
+    // book it and expect, that both got an email
+    Booking b = TeztBeanSimpleFactory.getNewValidBooking();
+    b.setBooked();
+    int countMailsSendBefore = UserMailSender.SEND_WITHOUT_METER;
+    assertTrue(b.insert());
+    int countMailsSendAfterInsertion = UserMailSender.SEND_WITHOUT_METER;
+    assertTrue(b.update()); // this may happened over a plugin
+    int countMailsSendAfterUpdate = UserMailSender.SEND_WITHOUT_METER;
+    assertEquals(countMailsSendAfterInsertion, countMailsSendAfterUpdate);
+    assertNotSame(countMailsSendBefore, countMailsSendAfterUpdate);
   }
 }
