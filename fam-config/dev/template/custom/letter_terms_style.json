@@ -1,0 +1,50 @@
+## content
+#set($principalInvestigator=$!user.getCustomField("principal_investigator_title_id_unknown") + " " + $!user.getCustomField("principal_investigator_fname_id_unknown") + " " + $!user.getCustomField("principal_investigator_sname_id_unknown"))
+#set($fullAddress=$user.getFullName() + "\n" + $!user.getCompany() + "\n" + $!user.getStreet() + " " + $!user.getStreetno() + "\n" + $!user.getZipcode() + " " + $!user.getCity() + "\n" + $!user.getCountry())
+## style
+#set($fontsize=10)
+#set($left1=56)
+#set($left2=191)
+#set($widthPage=595)
+#set($widthColumns=375)
+#set($widthColumnLeft=$widthColumns - $left2 + $left1)
+#set($widthColumnRight=$widthColumns - $widthColumnLeft)
+{
+	"customid": "$customid",
+	"templateurl": "$templateurl",
+	"pagenumber":2,
+	"contents": 
+	[
+    {
+      "text": "$fullAddress",
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : 17,
+        "text-align" : "center",
+        "left" : 0,
+        "bottom" : 260,
+        "width" : $widthPage,
+        "height" : 100
+      }
+    },
+    {
+      "text": "$principalInvestigator",
+      "pagenumber": 3,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : 16,
+        "text-align" : "left",
+        #set($tmp=$left2 + 81)
+        "left" : $tmp,
+        "bottom" : 416,
+        #set($tmp=$widthColumnRight + $tmp)
+        "width" : $tmp,
+        "height" : 50
+      }
+    }
+	]
+}

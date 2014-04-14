@@ -294,15 +294,24 @@ public final class DelegateResourceController {
 
   @RequestMapping(value = "/lettergenerator__{filename}__html__delegate.fam", method = RequestMethod.POST)
   public final ModelAndView lettergeneratorShowPDF(@PathVariable("filename") String filename, HttpServletResponse response, HttpServletRequest request) {
+    ModelAndView result = RedirectResolver.redirect(RedirectTarget.PUBLIC_HOME);
+    // general letter
     String event = request.getParameter("event");
     if (event != null && event.equals("show")) {
       TemplateResource tr = this.getTemplateResource("jobsmanager", filename, "html", request, response);
-      return new LetterGeneratorShowLetter().process(response, tr);
+      result = new LetterGeneratorShowLetter().processGeneralLetter(response, tr);
+    } else if (event != null && event.equals("showterms")) {
+      User auth = SessionAuth.user(request);
+      if(auth != null && auth.isAdmin()) {
+        result = new LetterGeneratorShowLetter().processTerms(response, RequestInterpreter.getUser(request));
+      } else {
+        FamLog.info("possible break attempt (urlrewriting)", 201404121030l);
+      }
     } else {
       // ↖ no or unknown event
       FamLog.error("no or unknown event: " + event, 201106131307l);
-      return RedirectResolver.redirect(RedirectTarget.PUBLIC_HOME);
     }
+    return result;
   }
 
   @RequestMapping(value = "/lettergenerator__{filename}__json__delegate.fam", method = RequestMethod.POST)
@@ -556,13 +565,10 @@ public final class DelegateResourceController {
   }
 
   /**
-   * answer a file tree of facilities compatible with jquery file tree plugin.
-   * if a user is given, all facilities that are not bookable by the user or
-   * that has no bookable child is not part of the tree. if no user is given,
-   * show entire tree.
+   * answer a file tree of facilities compatible with jquery file tree plugin. if a user is given, all facilities that are not bookable by the user or
+   * that has no bookable child is not part of the tree. if no user is given, show entire tree.
    * 
-   * XXX must be post because of jquery file tree plugin - but get would be more
-   * restful
+   * XXX must be post because of jquery file tree plugin - but get would be more restful
    * 
    * @param response
    * @param request

@@ -41,6 +41,7 @@ import de.knurt.fam.core.persistence.dao.BookingDao;
 import de.knurt.fam.core.persistence.dao.FamDaoProxy;
 import de.knurt.fam.core.persistence.dao.UserDao;
 import de.knurt.fam.core.persistence.dao.config.RoleConfigDao;
+import de.knurt.fam.core.util.JSONFactory;
 import de.knurt.fam.core.util.mvc.validator.InvalidRoleIdException;
 import de.knurt.fam.core.util.mvc.validator.MandatoryUserFieldValidator;
 import de.knurt.fam.core.util.mvc.validator.RegistrationValidator;
@@ -78,6 +79,10 @@ public class User extends StoreableDeletableAbstract implements Authenticatable,
 
   public String getIntendedResearch() {
     return intendedResearch;
+  }
+  
+  public JSONObject toJSON() throws JSONException {
+    return JSONFactory.getInstance().getUser(this);
   }
 
   public void setCustomFieldsFromString(String customFields) {

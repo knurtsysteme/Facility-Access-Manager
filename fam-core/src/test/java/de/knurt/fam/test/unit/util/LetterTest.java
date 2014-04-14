@@ -15,21 +15,39 @@
  */
 package de.knurt.fam.test.unit.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Date;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.httpclient.URIException;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.TimeBooking;
+import de.knurt.fam.core.util.UserFactory;
 import de.knurt.fam.core.util.booking.TimeBookingRequest;
 import de.knurt.fam.core.util.bu.PdfLetterFromBooking;
+import de.knurt.fam.template.controller.letter.FamServicePDFResolver;
+import de.knurt.fam.template.controller.letter.LetterGeneratorShowLetter;
 import de.knurt.fam.test.utils.FamIBatisTezt;
 import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 
@@ -37,24 +55,63 @@ import de.knurt.fam.test.utils.TeztBeanSimpleFactory;
 @ContextConfiguration(locations = { "classpath:/test-dependencies.xml" })
 public class LetterTest extends FamIBatisTezt {
 
-	public LetterTest() {
-	}
+  public LetterTest() {
+  }
 
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-	}
+  @AfterClass
+  public static void tearDownClass() throws Exception {
+  }
 
-	@Test
-	public void getLetterForFacility() {
-		this.clearDatabase();
-		// create TimeBooking
-		TimeBookingRequest br = TeztBeanSimpleFactory.getBookingRequest();
-		TimeBooking booking = TeztBeanSimpleFactory.getNewValidBooking(br);
-		booking.setSeton(new Date());
-		booking.setBooked();
-		booking.insert();
-		JSONObject letter = new PdfLetterFromBooking(TeztBeanSimpleFactory.getAdmin()).process(booking);
-		assertNotNull(letter);
-		assertTrue(letter.length() > 0);
-	}
+  @Test
+  public void terms() {
+    this.clearDatabase();
+    LetterGeneratorShowLetter genera = new LetterGeneratorShowLetter();
+    HttpServletResponse response = new MockHttpServletResponse();
+    User userTarget = TeztBeanSimpleFactory.getAdmin();
+    try {
+      genera.processTerms(response, userTarget);
+      assertTrue("no exception here", true);
+    } catch (Exception e) {
+      fail("should not throw " + e);
+    }
+  }
+
+  @Test
+  public void writeTermsToFile() throws URIException {
+    LetterGeneratorShowLetter genera = new LetterGeneratorShowLetter();
+    User target = UserFactory.getInstance().getJoeBloggs();
+    // TODO raus - mpi spezifisch
+    target.addCustomField("principal_investigator_title_id_unknown", "Mr.");
+    target.addCustomField("principal_investigator_fname_id_unknown", "Peter");
+    target.addCustomField("principal_investigator_sname_id_unknown", "Investigator");
+    String customid = target.getUsername() + "-terms";
+    PostMethod post = new FamServicePDFResolver().process(genera.getTermsLetterStyle(target, customid));
+    assertEquals(post.getStatusCode() + "@" + post.getURI(), post.getStatusCode(), 200);
+    String checkFileName = System.getProperty("java.io.tmpdir") + "/test-terms.pdf";
+    File checkFile = new File(checkFileName);
+    if (checkFile.exists()) checkFile.delete();
+    try {
+      checkFile.createNewFile();
+      FileUtils.writeByteArrayToFile(checkFile, post.getResponseBody());
+      assertTrue(checkFile.length() > 1042);
+      System.out.println("find the result in " + checkFile);
+    } catch (Exception e) {
+      fail("should not throw " + e + ". file closed on idiot windows?");
+    }
+
+  }
+
+  @Test
+  public void getLetterForFacility() {
+    this.clearDatabase();
+    // create TimeBooking
+    TimeBookingRequest br = TeztBeanSimpleFactory.getBookingRequest();
+    TimeBooking booking = TeztBeanSimpleFactory.getNewValidBooking(br);
+    booking.setSeton(new Date());
+    booking.setBooked();
+    booking.insert();
+    JSONObject letter = new PdfLetterFromBooking(TeztBeanSimpleFactory.getAdmin()).process(booking);
+    assertNotNull(letter);
+    assertTrue(letter.length() > 0);
+  }
 }

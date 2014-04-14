@@ -24,9 +24,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.velocity.VelocityContext;
+import org.json.JSONObject;
 import org.springframework.web.servlet.ModelAndView;
 
+import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
+import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.template.model.TemplateResource;
 
 /**
@@ -38,47 +42,57 @@ import de.knurt.fam.template.model.TemplateResource;
  */
 public class LetterGeneratorShowLetter {
 
-	private DateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
+  private DateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
 
-	/**
-	 * a pdf file styled as defined in configuration and the content of the
-	 * request. the style is defined in custom/letter_style.json (no other possibility
-	 * by now)
-	 * 
-	 * @param response
-	 *            a pdf file
-	 * @param request
-	 *            original
-	 * @return a pdf file styled as defined in configuration and the content of
-	 *         the request
-	 */
-	public ModelAndView process(HttpServletResponse response, TemplateResource tr) {
-		// get template from local filesystem
-		String customid = tr.getAuthUser().getUsername() + "-s";
-		PostMethod post = new LetterFromHttpServletRequestToPostMethod(customid).process(tr.getRequest());
+  /**
+   * a pdf file styled as defined in configuration and the content of the request. the style is defined in custom/letter_style.json (no other
+   * possibility by now)
+   * 
+   * @param response a pdf file
+   * @param request original
+   * @return a pdf file styled as defined in configuration and the content of the request
+   */
+  public ModelAndView processGeneralLetter(HttpServletResponse response, TemplateResource tr) {
+    // get template from local filesystem
+    String customid = tr.getAuthUser().getUsername() + "-s";
+    PostMethod post = new LetterFromHttpServletRequestToPostMethod(customid).process(tr.getRequest());
+    this.processIntern(response, post, customid);
+    // set invoiced
+    InvoiceBookingResolver lgub = new InvoiceBookingResolver(tr);
+    lgub.invoice();
+    return null;
+  }
 
-		// ↓ forward response got
-		// ↘ force "save as" in browser
-		response.setHeader("Content-Disposition", "attachment; filename=" + this.getDownloadFilename(customid));
-		// ↘ it is a pdf
-		response.setContentType("application/pdf");
-		try {
-			ServletOutputStream ouputStream = response.getOutputStream();
-			ouputStream.write(post.getResponseBody());
-			ouputStream.flush();
-			ouputStream.close();
-			
-			// set invoiced
-			InvoiceBookingResolver lgub = new InvoiceBookingResolver(tr);
-			lgub.invoice();
-		} catch (IOException e) {
-			FamLog.exception(e, 201106131408l);
-		}
-		return null;
-	}
+  private void processIntern(HttpServletResponse response, PostMethod post, String customid) {
+    // ↓ forward response got
+    // ↘ force "save as" in browser
+    String downloadFilename = this.df.format(new Date()) + "-" + customid + ".pdf";
+    response.setHeader("Content-Disposition", "attachment; filename=" + downloadFilename);
+    // ↘ it is a pdf
+    response.setContentType("application/pdf");
+    try {
+      ServletOutputStream ouputStream = response.getOutputStream();
+      ouputStream.write(post.getResponseBody());
+      ouputStream.flush();
+      ouputStream.close();
+    } catch (IOException e) {
+      FamLog.exception(e, 201106131408l);
+    }
+  }
 
-	private String getDownloadFilename(String customid) {
-		return this.df.format(new Date()) + "-" + customid + ".pdf";
-	}
+  public JSONObject getTermsLetterStyle(User target, String customid) {
+    VelocityContext context = new VelocityContext();
+    context.put("user", target);
+    context.put("templateurl", FamConnector.getGlobalProperty("service_termspdf__templateurl"));
+    context.put("customid", customid);
+    return new LetterFromVelocityContextToJSONObject("custom/letter_terms_style.json").process(context);
+  }
+
+  public ModelAndView processTerms(HttpServletResponse response, User target) {
+    String customid = target.getUsername() + "-terms";
+    PostMethod post = new FamServicePDFResolver().process(this.getTermsLetterStyle(target, customid));
+    this.processIntern(response, post, customid);
+    return null;
+  }
 
 }

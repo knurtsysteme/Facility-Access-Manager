@@ -32,17 +32,38 @@ import de.knurt.heinzelmann.util.nebc.BoardUnit;
  */
 public class LetterFromVelocityContextToJSONObject implements BoardUnit<VelocityContext, JSONObject> {
 
-	/** {@inheritDoc} */
-    @Override
-	public JSONObject process(VelocityContext datum) {
-		JSONObject result = new JSONObject();
-		String parameters = AccessGlobalTemplate.getInstance().getContent("custom/letter_style.json", datum);
-		try {
-			result = new JSONObject(parameters);
-		} catch (JSONException e) {
-			FamLog.exception(e, 201106131354l);
-		}
-		return result;
-	}
+  private String fileResourceNameOfJSONStyle;
+
+  /**
+   * construct a letter with the style defined in template folder <code>custom/letter_style.json</code>
+   * 
+   * @since 08.04.2014
+   */
+  public LetterFromVelocityContextToJSONObject() {
+    this("custom/letter_style.json");
+  }
+
+  /**
+   * construct a letter with the style defined in the given path
+   * 
+   * @since 08.04.2014
+   * @param fileResourceNameOfJSONStyle path to a json file describing the style to use
+   */
+  public LetterFromVelocityContextToJSONObject(String fileResourceNameOfJSONStyle) {
+    this.fileResourceNameOfJSONStyle = fileResourceNameOfJSONStyle;
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public JSONObject process(VelocityContext datum) {
+    JSONObject result = new JSONObject();
+    String parameters = AccessGlobalTemplate.getInstance().getContent(this.fileResourceNameOfJSONStyle, datum);
+    try {
+      result = new JSONObject(parameters);
+    } catch (JSONException e) {
+      FamLog.exception(e, 201106131354l);
+    }
+    return result;
+  }
 
 }

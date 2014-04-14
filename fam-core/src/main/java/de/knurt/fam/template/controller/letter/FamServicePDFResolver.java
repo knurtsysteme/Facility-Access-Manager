@@ -37,30 +37,50 @@ import de.knurt.heinzelmann.util.query.QueryStringFactory;
  * 
  */
 public class FamServicePDFResolver implements BoardUnit<JSONObject, PostMethod> {
+  private String uri2Service;
 
-	/** {@inheritDoc} */
-    @Override
-	@SuppressWarnings("deprecation") // TODO #11 kill uses of deprecations
-	public PostMethod process(JSONObject datum) {
+  /**
+   * default constructor with default uri to the pdf service as configured.
+   * @since 08.04.2014
+   */
+  public FamServicePDFResolver() {
+    this(FamConnector.uri2service("pdf"));
+  }
 
-		// create connection
-		Protocol easyhttps = new Protocol("https", new EasySSLProtocolSocketFactory(), 443);
-		Protocol.registerProtocol("https", easyhttps);
+  /**
+   * constructor with uri to the pdf service to used.
+   * use this constructor to use different pdf templates.
+   * @since 08.04.2014
+   * @param uri2Service to use for letter generator
+   */
+  public FamServicePDFResolver(String uri2Service) {
+    this.uri2Service = uri2Service;
+  }
 
-		// request configured fam-service-pdf
-		HttpClient client = new HttpClient();
-		PostMethod post = new PostMethod(FamConnector.uri2service("pdf"));
-		post.setQueryString(QueryStringFactory.get("json", datum.toString()).toString());
+  /** {@inheritDoc} */
+  @Override
+  @SuppressWarnings("deprecation")
+  // TODO #11 kill uses of deprecations
+  public PostMethod process(JSONObject datum) {
 
-		// execute
-		try {
-			client.executeMethod(post);
-		} catch (HttpException e) {
-			FamLog.exception(e, 201106131407l);
-		} catch (IOException e) {
-			FamLog.exception(e, 201106131406l);
-		}
-		return post;
-	}
+    // create connection
+    Protocol easyhttps = new Protocol("https", new EasySSLProtocolSocketFactory(), 443);
+    Protocol.registerProtocol("https", easyhttps);
+
+    // request configured fam-service-pdf
+    HttpClient client = new HttpClient();
+    PostMethod post = new PostMethod(this.uri2Service);
+    post.setQueryString(QueryStringFactory.get("json", datum.toString()).toString());
+
+    // execute
+    try {
+      client.executeMethod(post);
+    } catch (HttpException e) {
+      FamLog.exception(e, 201106131407l);
+    } catch (IOException e) {
+      FamLog.exception(e, 201106131406l);
+    }
+    return post;
+  }
 
 }

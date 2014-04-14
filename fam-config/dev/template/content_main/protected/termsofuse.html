@@ -3,7 +3,7 @@
   <form action="$util.html.getHref('termsofuse')" method="GET" class="hidden_on_print">
     <fieldset>
       <legend>Choose another user here</legend>
-      <select name="show_user" required>
+      <select name="show_user" id="select_show_user" required>
         <option value="">Please choose</option>
         #foreach($user in $config.model.allusers)
           #if($config.model.userToShow.id == $user.id)
@@ -13,7 +13,17 @@
           #end
         #end
       </select><br />
-      <button type="submit" class="icon next">show first page of this user</button>
+      <button type="submit" class="icon next">Show Terms of this user</button>
+    </fieldset>
+  </form>
+<form action="$util.html.getHref('lettergenerator')" method="POST" class="hidden_on_print">
+    <fieldset>
+      <legend>Download Terms of $config.model.userToShow.fullName</legend>
+      <input type="hidden" name="z" value="$config.model.userToShow.username" />
+       <input type="hidden" name="event" value="showterms" />
+      <button class="icon send small">
+        Print-View as PDF
+      </button>
     </fieldset>
   </form>
   #end
