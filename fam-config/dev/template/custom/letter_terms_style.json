@@ -1,14 +1,33 @@
-## content
+## model
 #set($principalInvestigator=$!user.getCustomField("principal_investigator_title_id_unknown") + " " + $!user.getCustomField("principal_investigator_fname_id_unknown") + " " + $!user.getCustomField("principal_investigator_sname_id_unknown"))
 #set($fullAddress=$user.getFullName() + "\n" + $!user.getCompany() + "\n" + $!user.getStreet() + " " + $!user.getStreetno() + "\n" + $!user.getZipcode() + " " + $!user.getCity() + "\n" + $!user.getCountry())
+#set($today=$FamDateFormat.getCustomDate("dd.MM.yyyy"))
+#set($dateRegistration=$FamDateFormat.getCustomDate($user.registration, "dd.MM.yyyy"))
+#set($dateAccountExpires=$FamDateFormat.getCustomDate($user.accountExpires, "dd.MM.yyyy"))
+#set($hasPropertyRights=$!user.getCustomField("hasRights")=="1")
+#set($checkboxPropertyRightsYes="")
+#if($hasPropertyRights) #set($checkboxPropertyRightsYes="X") #end
+#set($checkboxPropertyRightsNo="X")
+#if($hasPropertyRights) #set($checkboxPropertyRightsNo="") #end
+#set($checkboxIsSecret="X")
+#if($!user.getCustomField("principal_investigator_issecret_id_unknown")=="") #set($checkboxIsSecret="") #end
+
+## #if($hasPropertyRights)&#x2610;#else&#x2611;#end
+## #if($hasPropertyRights)
+## $!user.getCustomField("trademarkrights_id_unknown")
+## <p>#if($!user.getCustomField("principal_investigator_issecret_id_unknown")=="")&#x2611;#else&#x2610;#end
+
+
 ## style
 #set($fontsize=10)
 #set($left1=56)
-#set($left2=191)
+#set($left2=99)
 #set($widthPage=595)
 #set($widthColumns=375)
-#set($widthColumnLeft=$widthColumns - $left2 + $left1)
+#set($widthColumnLeft=$left2 - $left1)
 #set($widthColumnRight=$widthColumns - $widthColumnLeft)
+#set($minBottom=80)
+#set($lineHeight=16)
 {
 	"customid": "$customid",
 	"templateurl": "$templateurl",
@@ -36,14 +55,236 @@
       {
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
-        "line-height" : 16,
+        "line-height" : $lineHeight,
         "text-align" : "left",
-        #set($tmp=$left2 + 81)
+        #set($tmp=$left2 + 173)
         "left" : $tmp,
         "bottom" : 416,
         #set($tmp=$widthColumnRight + $tmp)
         "width" : $tmp,
         "height" : 50
+      }
+    },
+    {
+      "text": "$dateRegistration",
+      "pagenumber": 6,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "text-align" : "left",
+        #set($tmp=$left2 + 177)
+        "left" : $tmp,
+        "bottom" : 160,
+        #set($tmp=$widthColumnRight + $tmp)
+        "width" : $tmp,
+        "height" : 50
+      }
+    },
+    {
+      "text": "$dateAccountExpires",
+      "pagenumber": 6,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "text-align" : "left",
+        #set($tmp=$left2 + 92)
+        "left" : $tmp,
+        "bottom" : 140,
+        #set($tmp=$widthColumnRight + $tmp)
+        "width" : $tmp,
+        "height" : 50
+      }
+    },
+    {
+      "text": "$fullAddress",
+      "pagenumber": 7,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#FF0000",
+        "text-align" : "left",
+        "left" : $left1,
+        "bottom" : 200,
+        "width" : $widthColumnRight,
+        "height" : 250
+      }
+    },
+    {
+      "text": "$user.fullName",
+      "pagenumber": 7,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#FF0000",
+        "text-align" : "left",
+        "left" : $left1,
+        "bottom" : 50,
+        "width" : $widthColumnRight,
+        "height" : 50
+      }
+    },
+    {
+      "text": "$!user.getCustomField("taskdesc_id_unknown")",
+      "pagenumber": 8,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#FFFF00",
+        "text-align" : "left",
+        "left" : $left2,
+        "bottom" : 550,
+        "width" : $widthColumnRight,
+        "height" : 72
+      }
+    },
+    {
+      "text": "$user.intendedResearch",
+      "pagenumber": 8,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        #set($tmpFontSize=$fontsize)
+        #set($tmpLineHeight=$lineHeight)
+        #if($user.getIntendedResearch().length() > 1300)
+          #set($tmpFontSize=$fontsize*0.8)
+          #set($tmpLineHeight=$lineHeight*0.8)
+        #end
+        "font-size" : $tmpFontSize,
+        "line-height" : $tmpLineHeight,
+        "color" : "#00FFFF",
+        "text-align" : "left",
+        "left" : $left2,
+        #set($tmp=$minBottom + 150)
+        "bottom" : $tmp,
+        "width" : $widthColumnRight,
+        "height" : 300
+      }
+    },
+    {
+      "text": "$!user.getCustomField("partner_id_unknown")",
+      "pagenumber": 8,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#FF0050",
+        "text-align" : "left",
+        "left" : $left2,
+        "bottom" : $minBottom,
+        "width" : $widthColumnRight,
+        "height" : 100
+      }
+    },
+    {
+      "text": "$!user.getCustomField("trademarkrights_id_unknown")",
+      "pagenumber": 9,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#0000FF",
+        "text-align" : "left",
+        "left" : $left2,
+        "bottom" : 575,
+        "width" : $widthColumnRight,
+        "height" : 72
+      }
+    },
+    {
+      "text": "$checkboxPropertyRightsNo",
+      "pagenumber": 9,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#00dd00",
+        "text-align" : "left",
+        #set($tmp=$left2 + 1)
+        "left" : $tmp,
+        "bottom" : 657,
+        "width" : $widthColumnRight,
+        "height" : 72
+      }
+    },
+    {
+      "text": "$checkboxPropertyRightsYes",
+      "pagenumber": 9,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#00dd00",
+        "text-align" : "left",
+        #set($tmp=$left2 + 1)
+        "left" : $tmp,
+        "bottom" : 633,
+        "width" : $widthColumnRight,
+        "height" : 72
+      }
+    },
+    {
+      "text": "$checkboxIsSecret",
+      "pagenumber": 9,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#dd2200",
+        "text-align" : "left",
+        #set($tmp=$left2 + 1)
+        "left" : $tmp,
+        "bottom" : 530,
+        "width" : $widthColumnRight,
+        "height" : 72
+      }
+    },
+    {
+      "text": "$dateRegistration",
+      "pagenumber": 9,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#dd0022",
+        "text-align" : "left",
+        #set($tmp=$left2 + 200)
+        "left" : $tmp,
+        "bottom" : 70,
+        "width" : $widthColumnRight,
+        "height" : 72
+      }
+    },
+    {
+      "text": "$dateAccountExpires",
+      "pagenumber": 9,
+      "style": 
+      {
+        "font-family" : "Helvetica",
+        "font-size" : $fontsize,
+        "line-height" : $lineHeight,
+        "color" : "#ddcc22",
+        "text-align" : "left",
+        #set($tmp=$left2)
+        "left" : $tmp,
+        "bottom" : 50,
+        "width" : $widthColumnRight,
+        "height" : 72
       }
     }
 	]

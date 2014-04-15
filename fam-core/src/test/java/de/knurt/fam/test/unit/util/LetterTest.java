@@ -75,6 +75,12 @@ public class LetterTest extends FamIBatisTezt {
       fail("should not throw " + e);
     }
   }
+  
+  private String getIndendedResearch2000CharsLong() {
+    String result = "";
+    while(result.trim().length() < 2000) result += "Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo. ";
+    return result.trim().substring(0, 1999) + "!";
+  }
 
   @Test
   public void writeTermsToFile() throws URIException {
@@ -84,6 +90,12 @@ public class LetterTest extends FamIBatisTezt {
     target.addCustomField("principal_investigator_title_id_unknown", "Mr.");
     target.addCustomField("principal_investigator_fname_id_unknown", "Peter");
     target.addCustomField("principal_investigator_sname_id_unknown", "Investigator");
+    target.addCustomField("taskdesc_id_unknown", "My task is to foo, but we need nearly 80 characters here, more foo to test and we have more then 80 - future save!");
+    target.setIntendedResearch(this.getIndendedResearch2000CharsLong());
+    target.addCustomField("hasRights", "1");
+    target.addCustomField("trademarkrights_id_unknown", "My trademark is named foo, and we do not expect longer names here");
+    target.addCustomField("principal_investigator_issecret_id_unknown", "1");
+    target.addCustomField("partner_id_unknown", "Der Partner stellt zur Verfügung: Foo und Bar");
     String customid = target.getUsername() + "-terms";
     PostMethod post = new FamServicePDFResolver().process(genera.getTermsLetterStyle(target, customid));
     assertEquals(post.getStatusCode() + "@" + post.getURI(), post.getStatusCode(), 200);

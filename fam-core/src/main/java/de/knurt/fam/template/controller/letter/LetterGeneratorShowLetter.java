@@ -25,12 +25,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.tools.generic.MathTool;
 import org.json.JSONObject;
 import org.springframework.web.servlet.ModelAndView;
 
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
 import de.knurt.fam.core.model.persist.User;
+import de.knurt.fam.core.view.text.FamDateFormat;
 import de.knurt.fam.template.model.TemplateResource;
 
 /**
@@ -83,6 +85,8 @@ public class LetterGeneratorShowLetter {
   public JSONObject getTermsLetterStyle(User target, String customid) {
     VelocityContext context = new VelocityContext();
     context.put("user", target);
+    context.put("FamDateFormat", FamDateFormat.class);
+    context.put("math", new MathTool());
     context.put("templateurl", FamConnector.getGlobalProperty("service_termspdf__templateurl"));
     context.put("customid", customid);
     return new LetterFromVelocityContextToJSONObject("custom/letter_terms_style.json").process(context);
