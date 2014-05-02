@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.tools.generic.MathTool;
@@ -27,10 +28,13 @@ import org.json.JSONObject;
 
 import de.knurt.fam.connector.FamConnector;
 import de.knurt.fam.core.aspects.logging.FamLog;
+import de.knurt.fam.core.control.boardunits.JobSurveyFromJobs;
 import de.knurt.fam.core.model.persist.User;
 import de.knurt.fam.core.model.persist.booking.Booking;
+import de.knurt.fam.core.persistence.dao.couchdb.CouchDBDao4Jobs;
 import de.knurt.fam.core.view.text.AccessGlobalTemplate;
 import de.knurt.fam.core.view.text.FamDateFormat;
+import de.knurt.fam.core.view.text.FamText;
 import de.knurt.heinzelmann.util.nebc.BoardUnit;
 
 /**
@@ -40,35 +44,39 @@ import de.knurt.heinzelmann.util.nebc.BoardUnit;
  * @since 1.4.0 (06/12/2010)
  */
 public class PdfLetterFromBooking implements BoardUnit<Booking, JSONObject> {
-	public PdfLetterFromBooking(User auth) {
-		this.auth = auth;
-	}
+  public PdfLetterFromBooking(User auth) {
+    this.auth = auth;
+  }
 
-	private User auth = null;
+  private User auth = null;
 
-	/** {@inheritDoc} */
-	@Override
-	public JSONObject process(Booking datum) {
-		JSONObject result = new JSONObject();
+  /** {@inheritDoc} */
+  @Override
+  public JSONObject process(Booking datum) {
+    JSONObject result = new JSONObject();
 
-		VelocityContext context = new VelocityContext();
-		context.put("booking", datum);
-		context.put("FamDateFormat", FamDateFormat.class);
-		context.put("math", new MathTool());
-		context.put("config", FamConnector.getGlobalProperties());
-		// TODO @see #16 Whitspace between "EUR" and Price is missed
-		NumberFormat euro = DecimalFormat.getCurrencyInstance(Locale.GERMANY);
-		euro.setCurrency(Currency.getInstance("EUR"));
-		context.put("euro", euro);
-		context.put("authuser", this.auth);
+    VelocityContext context = new VelocityContext();
+    context.put("booking", datum);
+    @SuppressWarnings("rawtypes")
+    Map job = new JobSurveyFromJobs().process(CouchDBDao4Jobs.me().getJobs(datum));
+    context.put("job", job);
+    context.put("FamDateFormat", FamDateFormat.class);
+    context.put("FamText", FamText.class);
+    context.put("math", new MathTool());
+    context.put("config", FamConnector.getGlobalProperties());
+    // TODO @see #16 Whitspace between "EUR" and Price is missed
+    NumberFormat euro = DecimalFormat.getCurrencyInstance(Locale.GERMANY);
+    euro.setCurrency(Currency.getInstance("EUR"));
+    context.put("euro", euro);
+    context.put("authuser", this.auth);
 
-		String letterAsJson = AccessGlobalTemplate.getInstance().getContent("custom/letter_booking.json", context);
-		try {
-			result = new JSONObject(letterAsJson);
-		} catch (JSONException e) {
-			FamLog.exception(e, 201106121711l);
-		}
-		return result;
-	}
+    String letterAsJson = AccessGlobalTemplate.getInstance().getContent("custom/letter_booking.json", context);
+    try {
+      result = new JSONObject(letterAsJson);
+    } catch (JSONException e) {
+      FamLog.exception(e, 201106121711l);
+    }
+    return result;
+  }
 
 }

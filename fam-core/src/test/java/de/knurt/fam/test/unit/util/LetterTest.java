@@ -16,23 +16,18 @@
 package de.knurt.fam.test.unit.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.Date;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -75,11 +70,12 @@ public class LetterTest extends FamIBatisTezt {
       fail("should not throw " + e);
     }
   }
-  
-  private String getIndendedResearch2000CharsLong() {
+
+  private String getIndendedResearchCharsLong(int count) {
     String result = "";
-    while(result.trim().length() < 2000) result += "Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo. ";
-    return result.trim().substring(0, 1999) + "!";
+    while (result.trim().length() < count)
+      result += "Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo. ";
+    return result.trim().substring(0, count-1) + "!";
   }
 
   @Test
@@ -91,8 +87,8 @@ public class LetterTest extends FamIBatisTezt {
     target.addCustomField("principal_investigator_fname_id_unknown", "Peter");
     target.addCustomField("principal_investigator_sname_id_unknown", "Investigator");
     target.addCustomField("taskdesc_id_unknown", "My task is to foo, but we need nearly 80 characters here, more foo to test and we have more then 80 - future save!");
-    target.setIntendedResearch(this.getIndendedResearch2000CharsLong());
-    target.addCustomField("hasRights", "1");
+    target.setIntendedResearch(this.getIndendedResearchCharsLong(500));
+    target.addCustomField("hasRights", "");
     target.addCustomField("trademarkrights_id_unknown", "My trademark is named foo, and we do not expect longer names here");
     target.addCustomField("principal_investigator_issecret_id_unknown", "1");
     target.addCustomField("partner_id_unknown", "Der Partner stellt zur Verfügung: Foo und Bar");

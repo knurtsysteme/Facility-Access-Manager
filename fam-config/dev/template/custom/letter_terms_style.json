@@ -27,7 +27,7 @@
 #set($widthColumnLeft=$left2 - $left1)
 #set($widthColumnRight=$widthColumns - $widthColumnLeft)
 #set($minBottom=80)
-#set($lineHeight=16)
+#set($lineHeight=18)
 {
 	"customid": "$customid",
 	"templateurl": "$templateurl",
@@ -43,7 +43,7 @@
         "line-height" : 17,
         "text-align" : "center",
         "left" : 0,
-        "bottom" : 260,
+        "bottom" : 256,
         "width" : $widthPage,
         "height" : 100
       }
@@ -74,7 +74,7 @@
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
         "text-align" : "left",
-        #set($tmp=$left2 + 177)
+        #set($tmp=$left2 + 173)
         "left" : $tmp,
         "bottom" : 160,
         #set($tmp=$widthColumnRight + $tmp)
@@ -91,9 +91,9 @@
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
         "text-align" : "left",
-        #set($tmp=$left2 + 92)
+        #set($tmp=$left2 + 19)
         "left" : $tmp,
-        "bottom" : 140,
+        "bottom" : 142,
         #set($tmp=$widthColumnRight + $tmp)
         "width" : $tmp,
         "height" : 50
@@ -107,10 +107,9 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#FF0000",
         "text-align" : "left",
         "left" : $left1,
-        "bottom" : 200,
+        "bottom" : 49,
         "width" : $widthColumnRight,
         "height" : 250
       }
@@ -123,10 +122,10 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#FF0000",
         "text-align" : "left",
-        "left" : $left1,
-        "bottom" : 50,
+        #set($tmp=$left1 + 1)
+        "left" : $tmp,
+        "bottom" : 87,
         "width" : $widthColumnRight,
         "height" : 50
       }
@@ -139,7 +138,6 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#FFFF00",
         "text-align" : "left",
         "left" : $left2,
         "bottom" : 550,
@@ -161,7 +159,6 @@
         #end
         "font-size" : $tmpFontSize,
         "line-height" : $tmpLineHeight,
-        "color" : "#00FFFF",
         "text-align" : "left",
         "left" : $left2,
         #set($tmp=$minBottom + 150)
@@ -178,10 +175,10 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#FF0050",
         "text-align" : "left",
         "left" : $left2,
-        "bottom" : $minBottom,
+        #set($tmp=$minBottom + 10)
+        "bottom" : $tmp,
         "width" : $widthColumnRight,
         "height" : 100
       }
@@ -194,10 +191,9 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#0000FF",
         "text-align" : "left",
         "left" : $left2,
-        "bottom" : 575,
+        "bottom" : 578,
         "width" : $widthColumnRight,
         "height" : 72
       }
@@ -210,11 +206,10 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#00dd00",
         "text-align" : "left",
         #set($tmp=$left2 + 1)
         "left" : $tmp,
-        "bottom" : 657,
+        "bottom" : 659,
         "width" : $widthColumnRight,
         "height" : 72
       }
@@ -227,11 +222,10 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#00dd00",
         "text-align" : "left",
         #set($tmp=$left2 + 1)
         "left" : $tmp,
-        "bottom" : 633,
+        "bottom" : 636,
         "width" : $widthColumnRight,
         "height" : 72
       }
@@ -244,11 +238,10 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#dd2200",
         "text-align" : "left",
         #set($tmp=$left2 + 1)
         "left" : $tmp,
-        "bottom" : 530,
+        "bottom" : 538,
         "width" : $widthColumnRight,
         "height" : 72
       }
@@ -261,11 +254,10 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#dd0022",
         "text-align" : "left",
-        #set($tmp=$left2 + 200)
+        #set($tmp=$left2 + 197)
         "left" : $tmp,
-        "bottom" : 70,
+        "bottom" : 59,
         "width" : $widthColumnRight,
         "height" : 72
       }
@@ -278,11 +270,10 @@
         "font-family" : "Helvetica",
         "font-size" : $fontsize,
         "line-height" : $lineHeight,
-        "color" : "#ddcc22",
         "text-align" : "left",
-        #set($tmp=$left2)
+        #set($tmp=$left2 + 266)
         "left" : $tmp,
-        "bottom" : 50,
+        "bottom" : 59,
         "width" : $widthColumnRight,
         "height" : 72
       }

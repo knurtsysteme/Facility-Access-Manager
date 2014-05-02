@@ -132,12 +132,12 @@
 								</p>
 							</form>
 							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
-				        	<p class="bill $even_odd">
+				      <p class="bill $even_odd">
 								<button class="icon send small" onclick="javascript:window.location='$util.html.hrefWithAQuery('lettergenerator', "?v=$booking.id")'">
 									Send Invoice
 								</button>
-				        	</p>
-			        	#end
+				      </p>
+		        	#end
 	   					#if(!$booking.processed)
 							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
 							<form method="post" class="processedButton $even_odd" action="save-jobsmanager.html">
@@ -151,7 +151,12 @@
 									<button class="icon ok small" title="processed!" type="submit">Set processed</button>
 								</p>
 							</form>
-						#end
+              <p class="bill $even_odd">
+                <button class="icon send small" onclick="javascript:window.location='$util.html.hrefWithAQuery('lettergenerator', "?v=$booking.id")'">
+                  Send Letter
+                </button>
+              </p>
+						  #end
 	   					#if(!$config.model.isRequest4Past)
 							#if($even_odd=="even")#set($even_odd="odd")#else#set($even_odd="even")#end
 							<form method="post" class="deleteButton $even_odd" action="">
